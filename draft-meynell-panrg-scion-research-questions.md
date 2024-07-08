@@ -255,7 +255,7 @@ Links may get overloaded because the SCION routing system fails to distribute lo
 
 If links become overloaded, there are several ways to handle that. Non comprehensively:
 
-* Squeeze: send an SCMP message to trigger end-hosts to use an alternative path 
+* Squeeze: send an SCMP message to trigger end-hosts to use an alternative path
 * Steer: send and SCMP to trigger users to ask CS for a better path
 * Reduce: hand over very short lived paths, let the end-hosts wait for the path to expire so that they request new paths and (hopefully) decide on a different path.
 * Recommend: let the end-hosts know which paths are recommended by the AS at this time.
