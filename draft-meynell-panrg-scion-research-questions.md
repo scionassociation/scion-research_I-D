@@ -199,17 +199,6 @@ This draft assumes the reader is familiar with some of the fundamental concepts 
 * How many ISDs? What is the ontology of an ISD? Per geographic area only?
 * One AS belongs to many ISDs?
 
-## Beaconing Scalability
-
-The current beaconing system creates a large amount of beaconing traffic because every node multiplies the beacons by forwarding them to multiple other ASs. This is currently handled by rate-limiting identical beacons (with identical paths) to only be forwarded every few minutes. With larger networks, the beaconing traffic is expected to grow “substantially”.
-
-* Risk: beaconing traffic grows exponentially with network size, especially with multiple links between pairs of ASes.
-  * Large amount of beacon traffic.
-  * Large amount of state on beacon servers.
-  * Considerable amount of state on control services to store segments, and considerable data traffic for serving segments.
-* The beacon interval in the SSFN has been considerably reduced to deal with beacon traffic.
-  * This affects the propagation time of newly available routes. [To be verified]
-  * This can affect convergence time.
 
 ## Segment Dissemination
 
@@ -228,7 +217,7 @@ There are multiple possible and independent solution steps here:
 
 Doing path computation on the control server will initially increase computational cost. However, it would substantially decrease network egress. Caching of paths should reduce CPU cost, maybe even below the current cost for retrieving a large amount of segments from the local database and sending them over the network interface.
 
-## Routing Policies
+## Routing Policies and Traffic Engineering
 
 Reduced adoption due to limited routing policy possibilities, such as a (core-)AS does not want to accept transit traffic unless it starts/ends in ASs with special properties. For example a GEANT AS does not want to allow transit traffic unless it originates or ends in another research AS.
 
@@ -260,24 +249,23 @@ At this moment, the SCION implementation is not compatible out-of-the-box with N
 
 # Dataplane stability
 
-## Link over/under use
+## Link load balancing
 
 Links may get overloaded because the SCION routing system fails to distribute load properly over different links. New/different links might be underutilized.
 
 If links become overloaded, there are several ways to handle that. Non comprehensively:
 
-* Squeeze: send an SCMP message to trigger end-hosts to use an alternative path → is this bad if there are no alternative paths of if these are even worse?
+* Squeeze: send an SCMP message to trigger end-hosts to use an alternative path 
 * Steer: send and SCMP to trigger users to ask CS for a better path
 * Reduce: hand over very short lived paths, let the end-hosts wait for the path to expire so that they request new paths and (hopefully) decide on a different path.
 * Recommend: let the end-hosts know which paths are recommended by the AS at this time.
 
-If a link has good properties, many AS will disseminate segments → paths that go through this link and the link will be overloaded. See Simon Scherrer's work on Braess Paradox.
+If a link has good properties, many AS will disseminate segments, therefore paths that go through this link and the link may become overloaded. See Simon Scherrer's work on Braess Paradox.
 
 Either there needs to be some constant control by all clients to not choose the best theoretical path, but the one that works best. Or we need to find a way that control servers do not disseminate “good” links to all end-hosts.
 
 The current consensus is that end-hosts can use multi-pathing and “automatically” converge on the best path, i.e. creating an equilibrium. Again, see Simon Scherrer's work on Braess Paradox.
 
-TODO Check in SCION book in how much detail this has been solved and whether there is any impact in terms of network probing traffic (i.e.  traffic that doesn’t result in useful data transfers but is effectively used for probing (either directly, or indirectly via data packets that race each other only only the fastest one is “useful”)).
 
 ## Reverse Path Refreshment
 
@@ -298,7 +286,7 @@ There are some nuances: Usually the server's API will store the initial address 
 # Interfaces for Path Awareness
 
 * IPv6 in the Data Plane
-* SCION-IP translation - (OVGU: SCION-IP Translation proposal, SCION Internet discussion @scionlab on 12.03.2024 by robin.wehner@ovgu.de)
+* SCION-IP translation
 
 # Implications of Path Awareness for the Transport and Application Layers
 
