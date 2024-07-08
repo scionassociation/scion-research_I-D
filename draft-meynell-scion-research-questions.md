@@ -129,7 +129,7 @@ The current beaconing system creates an enormous amount of beaconing traffic bec
 * The beacon interval in the SSFN has been reduced considerably to deal with beacon traffic.
   * This affects propagation time of newly available routes. (verify this!)
   * Convergence time? (completeness time)
- 
+
 ## Segment Dissemination
 
 Control servers return large amount of path segments. This can cost considerable bandwidth / network egress while at the same time overloading clients with an unnecessarily large amount of segments (consisting mostly of redundant information in terms of duplicate link and hops).
