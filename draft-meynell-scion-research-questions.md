@@ -24,12 +24,12 @@ author:
      org: SCION Association
      email: kme@scion.org
 
- -   ins: J. Zäschke
+ -   ins: J. García Pardo
      name: Juan A. García Pardo Giménez de los Galanes
      org: ETH Zürich
      email: juan.garcia@inf.ethz.ch
 
- -   ins: T. Pardo
+ -   ins: T. Zäschke
      name: Tilmann Zäschke
      org: ETH Zürich
      email: tilmann.zaeschke@inf.ethz.ch
@@ -40,6 +40,7 @@ author:
      email: nic@scion.org
 
 normative:
+  RFC9217:
   I-D.scion-cp:
     title: SCION Control Plane
     date: 2023
@@ -92,8 +93,82 @@ normative:
         name: Samuel Hitz
         org: Anapaya Systems
 informative:
+  I-D.garciapardo-drkey:
+    title: Dynamically Recreatable Keys
+    date: 2022
+    target: https://datatracker.ietf.org/doc/draft-garciapardo-panrg-drkey/
+    author:
+      -
+        ins: 	J. Pardo
+        name: Juan A. García Pardo Giménez de los Galanes
+        org: ETH Zürich
+      -
+        ins: C. Krähenbühl
+        name: Cyrill Krähenbühl
+        org: ETH Zürich
+      -
+        ins: B. Rothenberger
+        name: Benjamin Rothenberger
+        org: ETH Zürich
+      -
+        ins: A. Perrig
+        name: Adrian Perrig
+        org: ETH Zürich
+  LEGNER2020:
+    title: "EPIC: Every Packet Is Checked in the Data Plane of a Path-Aware Internet"
+    date: 2020
+    target: https://netsec.ethz.ch/publications/papers/Legner_Usenix2020_EPIC.pdf
+    author:
+      -
+        ins: M. Legner
+        name: Markus Legner
+        org: ETH Zürich
+      -
+        ins: T. Klenze
+        name: Tobias Klenze
+        org: ETH Zürich
+      -
+        ins: M. Wyss
+        name: Marc Wyss
+        org: ETH Zürich
+      -
+        ins: C. Sprenger
+        name: Christoph Sprenger
+        org: ETH Zürich
+      -
+        ins: A. Perrig
+        name: Adrian Perrig
+        org: ETH Zürich
 
-
+  KRAHENBUHL2023:
+    title: "FABRID: Flexible Attestation-Based Routing for Inter-Domain Networks"
+    date: 2020
+    target: https://www.usenix.org/conference/usenixsecurity23/presentation/krahenbuhl
+    author:
+      -
+        ins: C. Krähenbühl
+        name: Cyrill Krähenbühl
+        org: ETH Zürich
+      -
+        ins: M. Wyss
+        name: Marc Wyss
+        org: ETH Zürich
+      -
+        ins: D. Basin
+        name: David Basin
+        org: ETH Zürich
+      -
+        ins:  V. Lenders
+        name:  Vincent Lenders
+        org: Armasuisse
+      -
+        ins: A. Perrig
+        name: Adrian Perrig
+        org: ETH Zürich
+      -
+        ins:  M. Strohmeier
+        name:  Martin Strohmeier
+        org: Armasuisse
 --- abstract
 
 TODO Abstract here
@@ -103,8 +178,17 @@ TODO Abstract here
 
 # Introduction
 
-*How SCION and its early deployments try to address open question in RFC9217*
-*There are still many open areas*
+SCION is an inter-domain network architecture. Its core components specification, as deployed by some of its early adopters, is outlined in {{I-D.scion-dataplane}}, {{I-D.scion-cppki}}, {{I-D.scion-cp}}, currently under ISE review.
+
+The goal if this draft is to explore how SCION and its early deployments try to address open research questions in {{RFC9217}}. Specifically, there are still many open areas of research around path-aware networking, where SCION, with its early deployment experiences and  research efforts can provide a contribution. This can also be a starting point for discussions around long-term protocol evolution.
+
+
+This draft assumes the reader is familiar with some of the fundamental concepts defined in the components specification.
+
+
+**Note:** This is the very first version of the SCION research questions draft, and it merely contains a skeleton of potential topics to be further discussed in this draft. Any feedback is welcome and much appreciated. Thanks!
+
+
 
 # Conventions and Definitions
 
@@ -120,7 +204,7 @@ TODO Abstract here
 
 ## Beaconing Scalability
 
-The current beaconing system creates an enormous amount of beaconing traffic because every node multiplies the beacons by forwarding them to multiple other ASs. This is currently handled by rate-limiting identical beacons (with identical paths) to only be forwarded every few minutes. With larger networks, the beaconing traffic is expected to grow “substantially”.
+The current beaconing system creates a large amount of beaconing traffic because every node multiplies the beacons by forwarding them to multiple other ASs. This is currently handled by rate-limiting identical beacons (with identical paths) to only be forwarded every few minutes. With larger networks, the beaconing traffic is expected to grow “substantially”.
 
 * Risk: beaconing traffic grows exponentially with network size, especially with multiple links between pairs of ASes.
   * Large amount of beacon traffic.
@@ -162,9 +246,13 @@ Collateral: this probably needs a data plane change. Conceptually, we have only 
   * Would we obsolete firewalls?
   * What do we mean when we say "authorize transit"?
 
+For more info: {{I-D.garciapardo-drkey}}.
+
 ## SCMP Authentication
 
-## FABRID/EPIC
+## Proof of transit
+
+FABRID {{KRAHENBUHL2023}} and EPIC {{LEGNER2020}}.
 
 ## NAT
 
