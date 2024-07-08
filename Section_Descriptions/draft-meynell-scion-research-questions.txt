@@ -4,8 +4,8 @@
 
 Network Working Group                                         K. Meynell
 Internet-Draft                                         SCION Association
-Intended status: Informational                                J. Zäschke
-Expires: 9 January 2025                                         T. Pardo
+Intended status: Informational                           J. García Pardo
+Expires: 9 January 2025                                       T. Zäschke
                                                               ETH Zürich
                                                            N. Rustignoli
                                                        SCION Association
@@ -71,7 +71,7 @@ Table of Contents
      3.4.  Routing Policies
      3.5.  DRKey
      3.6.  SCMP Authentication
-     3.7.  FABRID/EPIC
+     3.7.  Proof of transit
      3.8.  NAT
    4.  Dataplane stability
      4.1.  Link over/under use
@@ -83,14 +83,34 @@ Table of Contents
    8.  Naming
    9.  Security Considerations
    10. IANA Considerations
-   11. Normative References
+   11. References
+     11.1.  Normative References
+     11.2.  Informative References
    Acknowledgments
    Authors' Addresses
 
 1.  Introduction
 
-   _How SCION and its early deployments try to address open question in
-   RFC9217_ _There are still many open areas_
+   SCION is an inter-domain network architecture.  Its core components
+   specification, as deployed by some of its early adopters, is outlined
+   in [I-D.scion-dataplane], [I-D.scion-cppki], [I-D.scion-cp],
+   currently under ISE review.
+
+   The goal if this draft is to explore how SCION and its early
+   deployments try to address open research questions in [RFC9217].
+   Specifically, there are still many open areas of research around
+   path-aware networking, where SCION, with its early deployment
+   experiences and research efforts can provide a contribution.  This
+   can also be a starting point for discussions around long-term
+   protocol evolution.
+
+   This draft assumes the reader is familiar with some of the
+   fundamental concepts defined in the components specification.
+
+   *Note:* This is the very first version of the SCION research
+   questions draft, and it merely contains a skeleton of potential
+   topics to be further discussed in this draft.  Any feedback is
+   welcome and much appreciated.  Thanks!
 
 2.  Conventions and Definitions
 
@@ -113,7 +133,7 @@ Table of Contents
 
 3.2.  Beaconing Scalability
 
-   The current beaconing system creates an enormous amount of beaconing
+   The current beaconing system creates a large amount of beaconing
    traffic because every node multiplies the beacons by forwarding them
    to multiple other ASs.  This is currently handled by rate-limiting
    identical beacons (with identical paths) to only be forwarded every
@@ -214,9 +234,13 @@ Table of Contents
 
       -  What do we mean when we say "authorize transit"?
 
+   For more info: [I-D.garciapardo-drkey].
+
 3.6.  SCMP Authentication
 
-3.7.  FABRID/EPIC
+3.7.  Proof of transit
+
+   FABRID [KRAHENBUHL2023] and EPIC [LEGNER2020].
 
 3.8.  NAT
 
@@ -329,7 +353,9 @@ Table of Contents
 
    This document has no IANA actions.
 
-11.  Normative References
+11.  References
+
+11.1.  Normative References
 
    [I-D.scion-cp]
               de Kater, C., Rustignoli, N., and S. Hitz, "SCION Control
@@ -354,6 +380,32 @@ Table of Contents
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+
+   [RFC9217]  Trammell, B., "Current Open Questions in Path-Aware
+              Networking", RFC 9217, DOI 10.17487/RFC9217, March 2022,
+              <https://www.rfc-editor.org/rfc/rfc9217>.
+
+11.2.  Informative References
+
+   [I-D.garciapardo-drkey]
+              Pardo, J., Krähenbühl, C., Rothenberger, B., and A.
+              Perrig, "Dynamically Recreatable Keys", 2022,
+              <https://datatracker.ietf.org/doc/draft-garciapardo-panrg-
+              drkey/>.
+
+   [KRAHENBUHL2023]
+              Krähenbühl, C., Wyss, M., Basin, D., Lenders, V., Perrig,
+              A., and M. Strohmeier, "FABRID: Flexible Attestation-Based
+              Routing for Inter-Domain Networks", 2020,
+              <https://www.usenix.org/conference/usenixsecurity23/
+              presentation/krahenbuhl>.
+
+   [LEGNER2020]
+              Legner, M., Klenze, T., Wyss, M., Sprenger, C., and A.
+              Perrig, "EPIC: Every Packet Is Checked in the Data Plane
+              of a Path-Aware Internet", 2020,
+              <https://netsec.ethz.ch/publications/papers/
+              Legner_Usenix2020_EPIC.pdf>.
 
 Acknowledgments
 

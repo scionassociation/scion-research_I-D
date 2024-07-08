@@ -1057,11 +1057,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <div class="org">SCION Association</div>
 </div>
 <div class="author">
-      <div class="author-name">J. Zäschke</div>
+      <div class="author-name">J. García Pardo</div>
 <div class="org">ETH Zürich</div>
 </div>
 <div class="author">
-      <div class="author-name">T. Pardo</div>
+      <div class="author-name">T. Zäschke</div>
 <div class="org">ETH Zürich</div>
 </div>
 <div class="author">
@@ -1160,7 +1160,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
                 <p id="section-toc.1-1.3.2.6.1"><a href="#section-3.6" class="auto internal xref">3.6</a>.  <a href="#name-scmp-authentication" class="internal xref">SCMP Authentication</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.7">
-                <p id="section-toc.1-1.3.2.7.1"><a href="#section-3.7" class="auto internal xref">3.7</a>.  <a href="#name-fabrid-epic" class="internal xref">FABRID/EPIC</a></p>
+                <p id="section-toc.1-1.3.2.7.1"><a href="#section-3.7" class="auto internal xref">3.7</a>.  <a href="#name-proof-of-transit" class="internal xref">Proof of transit</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.8">
                 <p id="section-toc.1-1.3.2.8.1"><a href="#section-3.8" class="auto internal xref">3.8</a>.  <a href="#name-nat" class="internal xref">NAT</a></p>
@@ -1197,7 +1197,15 @@ svg :is([fill="white"], [fill^="#fff"]) {
             <p id="section-toc.1-1.10.1"><a href="#section-10" class="auto internal xref">10</a>. <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
-            <p id="section-toc.1-1.11.1"><a href="#section-11" class="auto internal xref">11</a>. <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+            <p id="section-toc.1-1.11.1"><a href="#section-11" class="auto internal xref">11</a>. <a href="#name-references" class="internal xref">References</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.1">
+                <p id="section-toc.1-1.11.2.1.1"><a href="#section-11.1" class="auto internal xref">11.1</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.2">
+                <p id="section-toc.1-1.11.2.2.1"><a href="#section-11.2" class="auto internal xref">11.2</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
             <p id="section-toc.1-1.12.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
@@ -1214,8 +1222,10 @@ svg :is([fill="white"], [fill^="#fff"]) {
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1"><em>How SCION and its early deployments try to address open question in RFC9217</em>
-        <em>There are still many open areas</em><a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-1">SCION is an inter-domain network architecture. Its core components specification, as deployed by some of its early adopters, is outlined in <span>[<a href="#I-D.scion-dataplane" class="cite xref">I-D.scion-dataplane</a>]</span>, <span>[<a href="#I-D.scion-cppki" class="cite xref">I-D.scion-cppki</a>]</span>, <span>[<a href="#I-D.scion-cp" class="cite xref">I-D.scion-cp</a>]</span>, currently under ISE review.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-2">The goal if this draft is to explore how SCION and its early deployments try to address open research questions in <span>[<a href="#RFC9217" class="cite xref">RFC9217</a>]</span>. Specifically, there are still many open areas of research around path-aware networking, where SCION, with its early deployment experiences and  research efforts can provide a contribution. This can also be a starting point for discussions around long-term protocol evolution.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-3">This draft assumes the reader is familiar with some of the fundamental concepts defined in the components specification.<a href="#section-1-3" class="pilcrow">¶</a></p>
+<p id="section-1-4"><strong>Note:</strong> This is the very first version of the SCION research questions draft, and it merely contains a skeleton of potential topics to be further discussed in this draft. Any feedback is welcome and much appreciated. Thanks!<a href="#section-1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="conventions-and-definitions">
@@ -1257,7 +1267,7 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
         <h3 id="name-beaconing-scalability">
 <a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-beaconing-scalability" class="section-name selfRef">Beaconing Scalability</a>
         </h3>
-<p id="section-3.2-1">The current beaconing system creates an enormous amount of beaconing traffic because every node multiplies the beacons by forwarding them to multiple other ASs. This is currently handled by rate-limiting identical beacons (with identical paths) to only be forwarded every few minutes. With larger networks, the beaconing traffic is expected to grow “substantially”.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
+<p id="section-3.2-1">The current beaconing system creates a large amount of beaconing traffic because every node multiplies the beacons by forwarding them to multiple other ASs. This is currently handled by rate-limiting identical beacons (with identical paths) to only be forwarded every few minutes. With larger networks, the beaconing traffic is expected to grow “substantially”.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.2-2.1">
             <p id="section-3.2-2.1.1">Risk: beaconing traffic grows exponentially with network size, especially with multiple links between pairs of ASes.<a href="#section-3.2-2.1.1" class="pilcrow">¶</a></p>
@@ -1358,6 +1368,7 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
             </ul>
 </li>
         </ul>
+<p id="section-3.5-2">For more info: <span>[<a href="#I-D.garciapardo-drkey" class="cite xref">I-D.garciapardo-drkey</a>]</span>.<a href="#section-3.5-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="scmp-authentication">
@@ -1367,11 +1378,12 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
       </h3>
 </section>
 </div>
-<div id="fabridepic">
+<div id="proof-of-transit">
 <section id="section-3.7">
-        <h3 id="name-fabrid-epic">
-<a href="#section-3.7" class="section-number selfRef">3.7. </a><a href="#name-fabrid-epic" class="section-name selfRef">FABRID/EPIC</a>
-      </h3>
+        <h3 id="name-proof-of-transit">
+<a href="#section-3.7" class="section-number selfRef">3.7. </a><a href="#name-proof-of-transit" class="section-name selfRef">Proof of transit</a>
+        </h3>
+<p id="section-3.7-1">FABRID <span>[<a href="#KRAHENBUHL2023" class="cite xref">KRAHENBUHL2023</a>]</span> and EPIC <span>[<a href="#LEGNER2020" class="cite xref">LEGNER2020</a>]</span>.<a href="#section-3.7-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="nat">
@@ -1511,35 +1523,65 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <p id="section-10-1">This document has no IANA actions.<a href="#section-10-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="sec-normative-references">
 <section id="section-11">
-      <h2 id="name-normative-references">
-<a href="#section-11" class="section-number selfRef">11. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+      <h2 id="name-references">
+<a href="#section-11" class="section-number selfRef">11. </a><a href="#name-references" class="section-name selfRef">References</a>
       </h2>
+<div id="sec-normative-references">
+<section id="section-11.1">
+        <h3 id="name-normative-references">
+<a href="#section-11.1" class="section-number selfRef">11.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+        </h3>
 <dl class="references">
 <dt id="I-D.scion-cp">[I-D.scion-cp]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">de Kater, C.</span>, <span class="refAuthor">Rustignoli, N.</span>, and <span class="refAuthor">S. Hitz</span>, <span class="refTitle">"SCION Control Plane"</span>, <time datetime="2023" class="refDate">2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/draft-dekater-scion-controlplane/">https://datatracker.ietf.org/doc/draft-dekater-scion-controlplane/</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.scion-cppki">[I-D.scion-cppki]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">de Kater, C.</span>, <span class="refAuthor">Rustignoli, N.</span>, and <span class="refAuthor">S. Hitz</span>, <span class="refTitle">"SCION Control-Plane PKI"</span>, <time datetime="2023" class="refDate">2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/draft-dekater-scion-pki/">https://datatracker.ietf.org/doc/draft-dekater-scion-pki/</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.scion-dataplane">[I-D.scion-dataplane]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">de Kater, C.</span>, <span class="refAuthor">Rustignoli, N.</span>, and <span class="refAuthor">S. Hitz</span>, <span class="refTitle">"SCION Data Plane"</span>, <time datetime="2023" class="refDate">2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/draft-dekater-scion-dataplane/">https://datatracker.ietf.org/doc/draft-dekater-scion-dataplane/</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8174">[RFC8174]</dt>
-    <dd>
+        <dd>
 <span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9217">[RFC9217]</dt>
+      <dd>
+<span class="refAuthor">Trammell, B.</span>, <span class="refTitle">"Current Open Questions in Path-Aware Networking"</span>, <span class="seriesInfo">RFC 9217</span>, <span class="seriesInfo">DOI 10.17487/RFC9217</span>, <time datetime="2022-03" class="refDate">March 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9217">https://www.rfc-editor.org/rfc/rfc9217</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
 </div>
+<div id="sec-informative-references">
+<section id="section-11.2">
+        <h3 id="name-informative-references">
+<a href="#section-11.2" class="section-number selfRef">11.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
+        </h3>
+<dl class="references">
+<dt id="I-D.garciapardo-drkey">[I-D.garciapardo-drkey]</dt>
+        <dd>
+<span class="refAuthor">Pardo, J.</span>, <span class="refAuthor">Krähenbühl, C.</span>, <span class="refAuthor">Rothenberger, B.</span>, and <span class="refAuthor">A. Perrig</span>, <span class="refTitle">"Dynamically Recreatable Keys"</span>, <time datetime="2022" class="refDate">2022</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/draft-garciapardo-panrg-drkey/">https://datatracker.ietf.org/doc/draft-garciapardo-panrg-drkey/</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="KRAHENBUHL2023">[KRAHENBUHL2023]</dt>
+        <dd>
+<span class="refAuthor">Krähenbühl, C.</span>, <span class="refAuthor">Wyss, M.</span>, <span class="refAuthor">Basin, D.</span>, <span class="refAuthor">Lenders, V.</span>, <span class="refAuthor">Perrig, A.</span>, and <span class="refAuthor">M. Strohmeier</span>, <span class="refTitle">"FABRID: Flexible Attestation-Based Routing for Inter-Domain Networks"</span>, <time datetime="2020" class="refDate">2020</time>, <span>&lt;<a href="https://www.usenix.org/conference/usenixsecurity23/presentation/krahenbuhl">https://www.usenix.org/conference/usenixsecurity23/presentation/krahenbuhl</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="LEGNER2020">[LEGNER2020]</dt>
+      <dd>
+<span class="refAuthor">Legner, M.</span>, <span class="refAuthor">Klenze, T.</span>, <span class="refAuthor">Wyss, M.</span>, <span class="refAuthor">Sprenger, C.</span>, and <span class="refAuthor">A. Perrig</span>, <span class="refTitle">"EPIC: Every Packet Is Checked in the Data Plane of a Path-Aware Internet"</span>, <time datetime="2020" class="refDate">2020</time>, <span>&lt;<a href="https://netsec.ethz.ch/publications/papers/Legner_Usenix2020_EPIC.pdf">https://netsec.ethz.ch/publications/papers/Legner_Usenix2020_EPIC.pdf</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+</dl>
+</section>
+</div>
+</section>
 <div id="acknowledgments">
 <section id="appendix-A">
       <h2 id="name-acknowledgments">
