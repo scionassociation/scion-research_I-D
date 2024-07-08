@@ -4,19 +4,19 @@ abbrev: "scion-research_I-D"
 category: info
 submissiontype: IRTF
 
-docname: draft-meynell-scion-research-questions-latest
+docname: draft-meynell-panrg-scion-research-questions-latest
 
 v: 3
-# area: "IRTF"
-# workgroup: "Path Aware Networking RG"
+area: IRTF
+workgroup: PANRG
 keyword: Internet-Draft
 venue:
-#  group: "Path Aware Networking RG"
-#  type: "Research Group"
-#  mail: "panrg@irtf.org"
-#  arch: "https://www.ietf.org/mail-archive/web/panrg/"
+  group: WG
+  type: Working Group
+  mail: panrg@irtf.org
+  arch: https://datatracker.ietf.org/rg/panrg
   github: "scionassociation/scion-research_I-D"
-  latest: "https://scionassociation.github.io/scion-research_I-D/draft-meynell-scion-research-questions.html"
+  latest: "https://scionassociation.github.io/scion-research_I-D/draft-meynell-panrg-scion-research-questions.html"
 
 author:
  -   ins: K. Meynell
