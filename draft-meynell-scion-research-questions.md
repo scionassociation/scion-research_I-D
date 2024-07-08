@@ -4,7 +4,7 @@ abbrev: "scion-research_I-D"
 category: info
 submissiontype: IRTF
 
-docname: draft-meynell-scion-research-questions
+docname: draft-meynell-scion-research-questions-latest
 
 v: 3
 area: "IRTF"
