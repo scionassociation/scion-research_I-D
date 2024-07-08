@@ -14,7 +14,7 @@
     " name="description">
 <meta content="xml2rfc 3.22.0" name="generator">
 <meta content="Internet-Draft" name="keyword">
-<meta content="draft-meynell-scion-research-questions-latest" name="ietf.draft">
+<meta content="draft-meynell-panrg-scion-research-questions-latest" name="ietf.draft">
 <!-- Generator version information:
   xml2rfc 3.22.0
     Python 3.12.3
@@ -30,7 +30,7 @@
     setuptools 69.5.1
     wcwidth 0.2.13
 -->
-<link href="draft-meynell-scion-research-questions.xml" rel="alternate" type="application/rfc+xml">
+<link href="draft-meynell-panrg-scion-research-questions.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
 <style type="text/css">@font-face {
   font-family: 'Lora';
@@ -1039,9 +1039,9 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <div id="internal-metadata" class="document-information">
 <dl id="identifiers">
 <dt class="label-workgroup">Workgroup:</dt>
-<dd class="workgroup">Network Working Group</dd>
+<dd class="workgroup">PANRG</dd>
 <dt class="label-internet-draft">Internet-Draft:</dt>
-<dd class="internet-draft">draft-meynell-scion-research-questions-latest</dd>
+<dd class="internet-draft">draft-meynell-panrg-scion-research-questions-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
 <time datetime="2024-07-08" class="published">8 July 2024</time>
@@ -1082,10 +1082,15 @@ svg :is([fill="white"], [fill^="#fff"]) {
       </h2>
 <p id="section-note.1-1">This note is to be removed before publishing as an RFC.<a href="#section-note.1-1" class="pilcrow">¶</a></p>
 <p id="section-note.1-2">
-        The latest revision of this draft can be found at <span><a href="https://scionassociation.github.io/scion-research_I-D/draft-meynell-scion-research-questions.html">https://scionassociation.github.io/scion-research_I-D/draft-meynell-scion-research-questions.html</a></span>.
-        Status information for this document may be found at <span><a href="https://datatracker.ietf.org/doc/draft-meynell-scion-research-questions/">https://datatracker.ietf.org/doc/draft-meynell-scion-research-questions/</a></span>.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
-<p id="section-note.1-3">Source for this draft and an issue tracker can be found at
-        <span><a href="https://github.com/scionassociation/scion-research_I-D">https://github.com/scionassociation/scion-research_I-D</a></span>.<a href="#section-note.1-3" class="pilcrow">¶</a></p>
+        The latest revision of this draft can be found at <span><a href="https://scionassociation.github.io/scion-research_I-D/draft-meynell-panrg-scion-research-questions.html">https://scionassociation.github.io/scion-research_I-D/draft-meynell-panrg-scion-research-questions.html</a></span>.
+        Status information for this document may be found at <span><a href="https://datatracker.ietf.org/doc/draft-meynell-panrg-scion-research-questions/">https://datatracker.ietf.org/doc/draft-meynell-panrg-scion-research-questions/</a></span>.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
+<p id="section-note.1-3">
+        Discussion of this document takes place on the
+        WG Working Group mailing list (<span><a href="mailto:panrg@irtf.org">mailto:panrg@irtf.org</a></span>),
+        which is archived at <span><a href="https://datatracker.ietf.org/rg/panrg">https://datatracker.ietf.org/rg/panrg</a></span>.
+        Subscribe at <span><a href="https://www.ietf.org/mailman/listinfo/panrg/">https://www.ietf.org/mailman/listinfo/panrg/</a></span>.<a href="#section-note.1-3" class="pilcrow">¶</a></p>
+<p id="section-note.1-4">Source for this draft and an issue tracker can be found at
+        <span><a href="https://github.com/scionassociation/scion-research_I-D">https://github.com/scionassociation/scion-research_I-D</a></span>.<a href="#section-note.1-4" class="pilcrow">¶</a></p>
 </section>
 <div id="status-of-memo">
 <section id="section-boilerplate.1">
@@ -1145,25 +1150,22 @@ svg :is([fill="white"], [fill^="#fff"]) {
                 <p id="section-toc.1-1.3.2.1.1" class="keepWithNext"><a href="#section-3.1" class="auto internal xref">3.1</a>.  <a href="#name-isd-as-identity" class="internal xref">ISD, AS identity</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2">
-                <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="auto internal xref">3.2</a>.  <a href="#name-beaconing-scalability" class="internal xref">Beaconing Scalability</a></p>
+                <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="auto internal xref">3.2</a>.  <a href="#name-segment-dissemination" class="internal xref">Segment Dissemination</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3">
-                <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="auto internal xref">3.3</a>.  <a href="#name-segment-dissemination" class="internal xref">Segment Dissemination</a></p>
+                <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="auto internal xref">3.3</a>.  <a href="#name-routing-policies-and-traffi" class="internal xref">Routing Policies and Traffic Engineering</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4">
-                <p id="section-toc.1-1.3.2.4.1"><a href="#section-3.4" class="auto internal xref">3.4</a>.  <a href="#name-routing-policies" class="internal xref">Routing Policies</a></p>
+                <p id="section-toc.1-1.3.2.4.1"><a href="#section-3.4" class="auto internal xref">3.4</a>.  <a href="#name-drkey" class="internal xref">DRKey</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.5">
-                <p id="section-toc.1-1.3.2.5.1"><a href="#section-3.5" class="auto internal xref">3.5</a>.  <a href="#name-drkey" class="internal xref">DRKey</a></p>
+                <p id="section-toc.1-1.3.2.5.1"><a href="#section-3.5" class="auto internal xref">3.5</a>.  <a href="#name-scmp-authentication" class="internal xref">SCMP Authentication</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.6">
-                <p id="section-toc.1-1.3.2.6.1"><a href="#section-3.6" class="auto internal xref">3.6</a>.  <a href="#name-scmp-authentication" class="internal xref">SCMP Authentication</a></p>
+                <p id="section-toc.1-1.3.2.6.1"><a href="#section-3.6" class="auto internal xref">3.6</a>.  <a href="#name-proof-of-transit" class="internal xref">Proof of transit</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.7">
-                <p id="section-toc.1-1.3.2.7.1"><a href="#section-3.7" class="auto internal xref">3.7</a>.  <a href="#name-proof-of-transit" class="internal xref">Proof of transit</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.8">
-                <p id="section-toc.1-1.3.2.8.1"><a href="#section-3.8" class="auto internal xref">3.8</a>.  <a href="#name-nat" class="internal xref">NAT</a></p>
+                <p id="section-toc.1-1.3.2.7.1"><a href="#section-3.7" class="auto internal xref">3.7</a>.  <a href="#name-nat" class="internal xref">NAT</a></p>
 </li>
             </ul>
 </li>
@@ -1171,7 +1173,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
             <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-dataplane-stability" class="internal xref">Dataplane stability</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.1">
-                <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="auto internal xref">4.1</a>.  <a href="#name-link-over-under-use" class="internal xref">Link over/under use</a></p>
+                <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="auto internal xref">4.1</a>.  <a href="#name-link-load-balancing" class="internal xref">Link load balancing</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.2">
                 <p id="section-toc.1-1.4.2.2.1"><a href="#section-4.2" class="auto internal xref">4.2</a>.  <a href="#name-reverse-path-refreshment" class="internal xref">Reverse Path Refreshment</a></p>
@@ -1223,7 +1225,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
 <p id="section-1-1">SCION is an inter-domain network architecture. Its core components specification, as deployed by some of its early adopters, is outlined in <span>[<a href="#I-D.scion-dataplane" class="cite xref">I-D.scion-dataplane</a>]</span>, <span>[<a href="#I-D.scion-cppki" class="cite xref">I-D.scion-cppki</a>]</span>, <span>[<a href="#I-D.scion-cp" class="cite xref">I-D.scion-cp</a>]</span>, currently under ISE review.<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2">The goal if this draft is to explore how SCION and its early deployments try to address open research questions in <span>[<a href="#RFC9217" class="cite xref">RFC9217</a>]</span>. Specifically, there are still many open areas of research around path-aware networking, where SCION, with its early deployment experiences and  research efforts can provide a contribution. This can also be a starting point for discussions around long-term protocol evolution.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-2">The goal of this draft is to explore how SCION and its early deployments try to address open research questions in <span>[<a href="#RFC9217" class="cite xref">RFC9217</a>]</span>. Specifically, there are still many open areas of research around path-aware networking, where SCION with its early deployment experiences and research efforts can provide a contribution. This can also be a starting point for discussions around long-term protocol evolution.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">This draft assumes the reader is familiar with some of the fundamental concepts defined in the components specification.<a href="#section-1-3" class="pilcrow">¶</a></p>
 <p id="section-1-4"><strong>Note:</strong> This is the very first version of the SCION research questions draft, and it merely contains a skeleton of potential topics to be further discussed in this draft. Any feedback is welcome and much appreciated. Thanks!<a href="#section-1-4" class="pilcrow">¶</a></p>
 </section>
@@ -1262,142 +1264,107 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
         </ul>
 </section>
 </div>
-<div id="beaconing-scalability">
+<div id="segment-dissemination">
 <section id="section-3.2">
-        <h3 id="name-beaconing-scalability">
-<a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-beaconing-scalability" class="section-name selfRef">Beaconing Scalability</a>
+        <h3 id="name-segment-dissemination">
+<a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-segment-dissemination" class="section-name selfRef">Segment Dissemination</a>
         </h3>
-<p id="section-3.2-1">The current beaconing system creates a large amount of beaconing traffic because every node multiplies the beacons by forwarding them to multiple other ASs. This is currently handled by rate-limiting identical beacons (with identical paths) to only be forwarded every few minutes. With larger networks, the beaconing traffic is expected to grow “substantially”.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
+<p id="section-3.2-1">Control servers return a large number of path segments. This can cost considerable bandwidth / network egress while at the same time overloading clients with an unnecessarily large numbers of segments, mostly consisting of redundant information in terms of duplicate link and hops.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.2-2.1">
-            <p id="section-3.2-2.1.1">Risk: beaconing traffic grows exponentially with network size, especially with multiple links between pairs of ASes.<a href="#section-3.2-2.1.1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-3.2-2.1.2.1">
-                <p id="section-3.2-2.1.2.1.1">Large amount of beacon traffic.<a href="#section-3.2-2.1.2.1.1" class="pilcrow">¶</a></p>
-</li>
-              <li class="normal" id="section-3.2-2.1.2.2">
-                <p id="section-3.2-2.1.2.2.1">Large amount of state on beacon servers.<a href="#section-3.2-2.1.2.2.1" class="pilcrow">¶</a></p>
-</li>
-              <li class="normal" id="section-3.2-2.1.2.3">
-                <p id="section-3.2-2.1.2.3.1">Considerable amount of state on CS for storing segments and considerable data traffic for serving segments.<a href="#section-3.2-2.1.2.3.1" class="pilcrow">¶</a></p>
-</li>
-            </ul>
+            <p id="section-3.2-2.1.1">This problem may be more problematic in ASes with many end hosts (e.g. IoT), or end hosts with little computing power or little spare bandwidth.<a href="#section-3.2-2.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.2-2.2">
-            <p id="section-3.2-2.2.1">The beacon interval in the SSFN has been reduced considerably to deal with beacon traffic.<a href="#section-3.2-2.2.1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-3.2-2.2.2.1">
-                <p id="section-3.2-2.2.2.1.1">This affects propagation time of newly available routes. (verify this!)<a href="#section-3.2-2.2.2.1.1" class="pilcrow">¶</a></p>
+            <p id="section-3.2-2.2.1">Getting a full path to a remote endhost may require three round-trips with the control server.<a href="#section-3.2-2.2.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-3.2-2.2.2.2">
-                <p id="section-3.2-2.2.2.2.1">Convergence time? (completeness time)<a href="#section-3.2-2.2.2.2.1" class="pilcrow">¶</a></p>
+        </ul>
+<p id="section-3.2-3">There are multiple possible and independent solution steps here:<a href="#section-3.2-3" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3.2-4.1">
+            <p id="section-3.2-4.1.1">Compression (idea suggested by Francois Wirz): Segments could be stored in a way that duplicate information (hops &amp; links) is only stored once and the segments contain only references to the hops and links.<a href="#section-3.2-4.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.2-4.2">
+            <p id="section-3.2-4.2.1">Allow queries from start AS to end AS across multiple segments. This should be very easy to implement and would be compatible with the current wire protocol (protobuf).<a href="#section-3.2-4.2.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3.2-4.2.2.1">
+                <p id="section-3.2-4.2.2.1.1">This would reduce the number of round trips to one.<a href="#section-3.2-4.2.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-3.2-4.2.2.2">
+                <p id="section-3.2-4.2.2.2.1">It would reduce the number of returned segments because only segments that actually connect to other segments would need to be returned.<a href="#section-3.2-4.2.2.2.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
+          <li class="normal" id="section-3.2-4.3">
+            <p id="section-3.2-4.3.1">Predefine some policies that can be resolved by the control server, e.g. ANY, BEST_LATENCY, BEST_BANDWIDTH, BEST_PRICE, BEST_CO2. For these, a control server could simply calculate 5-10 good paths and return these. Moreover these could be cached for commonly requested remote ASs. If a user requires a custom policy they can still resort to requesting actual segments.<a href="#section-3.2-4.3.1" class="pilcrow">¶</a></p>
+</li>
         </ul>
+<p id="section-3.2-5">Doing path computation on the control server will initially increase computational cost. However, it would substantially decrease network egress. Caching of paths should reduce CPU cost, maybe even below the current cost for retrieving a large amount of segments from the local database and sending them over the network interface.<a href="#section-3.2-5" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="segment-dissemination">
+<div id="routing-policies-and-traffic-engineering">
 <section id="section-3.3">
-        <h3 id="name-segment-dissemination">
-<a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-segment-dissemination" class="section-name selfRef">Segment Dissemination</a>
+        <h3 id="name-routing-policies-and-traffi">
+<a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-routing-policies-and-traffi" class="section-name selfRef">Routing Policies and Traffic Engineering</a>
         </h3>
-<p id="section-3.3-1">Control servers return large amount of path segments. This can cost considerable bandwidth / network egress while at the same time overloading clients with an unnecessarily large amount of segments (consisting mostly of redundant information in terms of duplicate link and hops).<a href="#section-3.3-1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-3.3-2.1">
-            <p id="section-3.3-2.1.1">This problem may be more problematic in AS with many end hosts (e.g. IoT), or end hosts with little computing power or little spare bandwidth.<a href="#section-3.3-2.1.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-3.3-2.2">
-            <p id="section-3.3-2.2.1">Getting a full path to a remote endhost may require three round-trips with the control server.<a href="#section-3.3-2.2.1" class="pilcrow">¶</a></p>
-</li>
-        </ul>
-<p id="section-3.3-3">There are multiple possible and independent solution steps here:<a href="#section-3.3-3" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-3.3-4.1">
-            <p id="section-3.3-4.1.1">Compression (idea suggested by Francois Wirz): Segments could be stored in a way that duplicate information (Hops &amp; links) are stored only once and the segments contain only references to the hops and links).<a href="#section-3.3-4.1.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-3.3-4.2">
-            <p id="section-3.3-4.2.1">Allow queries from start AS to end AS across multiple segments. This should be very easy to implement and would be compatible with the current wire protocol (protobuf).<a href="#section-3.3-4.2.1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-3.3-4.2.2.1">
-                <p id="section-3.3-4.2.2.1.1">This would reduce the number of round trips to one.<a href="#section-3.3-4.2.2.1.1" class="pilcrow">¶</a></p>
-</li>
-              <li class="normal" id="section-3.3-4.2.2.2">
-                <p id="section-3.3-4.2.2.2.1">It would reduce the number of returned segments because we only need to return segments that actually connect to other segments.<a href="#section-3.3-4.2.2.2.1" class="pilcrow">¶</a></p>
-</li>
-            </ul>
-</li>
-          <li class="normal" id="section-3.3-4.3">
-            <p id="section-3.3-4.3.1">Predefine some policies that can be resolved by the control server, e.g. ANY, BEST_LATENCY, BEST_BANDWIDTH, BEST_PRICE, BEST_CO2. For these, a control server could simply calculate 5-10 good paths and return these. Moreover these could be cached for commonly requested remote ASs. If a user requires a custom policy they can still resort to requesting actual segments.<a href="#section-3.3-4.3.1" class="pilcrow">¶</a></p>
-</li>
-        </ul>
-<p id="section-3.3-5">Doing path computation on the control server will initially increase computational cost. However, it would substantially decrease network egress. Caching of paths should reduce CPU cost, maybe even below the current cost for retrieving a large amount of segments from the local database and sending them over the network interface.<a href="#section-3.3-5" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="routing-policies">
-<section id="section-3.4">
-        <h3 id="name-routing-policies">
-<a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-routing-policies" class="section-name selfRef">Routing Policies</a>
-        </h3>
-<p id="section-3.4-1">Reduced adoption due to limited routing policy possibilities. E.g. an (core-)AS does not want to accept transit traffic unless it starts/ends in ASs with special properties. For example a GEANT AS does not want to allow transit traffic unless it originates or ends in another research AS.<a href="#section-3.4-1" class="pilcrow">¶</a></p>
-<p id="section-3.4-2">One solution could be to add a “confirm full path”-flag to certain segments. If this flag is set, the full path (all segments) needs to authorized by all ASes that insist on authorizing it. This is obviously less scalable but may be viable for ASes that insist on such policies. This also allows for “secret” policies.<a href="#section-3.4-2" class="pilcrow">¶</a></p>
-<p id="section-3.4-3">Collateral: this probably needs a data plane change. Conceptually, we have only a single resulting segment, and that segment needs to be used in full, e.g. no on-path trickery.<a href="#section-3.4-3" class="pilcrow">¶</a></p>
+<p id="section-3.3-1">Reduced adoption due to limited routing policy possibilities, such as a (core-)AS does not want to accept transit traffic unless it starts/ends in ASs with special properties. For example a GEANT AS does not want to allow transit traffic unless it originates or ends in another research AS.<a href="#section-3.3-1" class="pilcrow">¶</a></p>
+<p id="section-3.3-2">One solution could be to add a “confirm full path”-flag to certain segments. If this flag is set, the full path (all segments) needs to authorized by all ASes that insist on authorizing it. This is obviously less scalable but may be viable for ASes that insist on such policies. This also allows for “secret” policies.<a href="#section-3.3-2" class="pilcrow">¶</a></p>
+<p id="section-3.3-3">Collateral: this probably needs a data plane change. Conceptually, we have only a single resulting segment, and that segment needs to be used in full, e.g. no on-path trickery.<a href="#section-3.3-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="drkey">
-<section id="section-3.5">
+<section id="section-3.4">
         <h3 id="name-drkey">
-<a href="#section-3.5" class="section-number selfRef">3.5. </a><a href="#name-drkey" class="section-name selfRef">DRKey</a>
+<a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-drkey" class="section-name selfRef">DRKey</a>
         </h3>
 <ul class="normal">
-<li class="normal" id="section-3.5-1.1">
-            <p id="section-3.5-1.1.1">Is forward-secrecy DRKey interesting? Should we develop it?<a href="#section-3.5-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-3.4-1.1">
+            <p id="section-3.4-1.1.1">Is forward-secrecy DRKey useful and should we develop it?<a href="#section-3.4-1.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.5-1.2">
-            <p id="section-3.5-1.2.1">What are the properties of the control-plane?<a href="#section-3.5-1.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-3.4-1.2">
+            <p id="section-3.4-1.2.1">What are the properties of the control-plane?<a href="#section-3.4-1.2.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.5-1.2.2.1">
-                <p id="section-3.5-1.2.2.1.1">Do we want to have any authorization of the data-plane transit done at this stage?<a href="#section-3.5-1.2.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-3.4-1.2.2.1">
+                <p id="section-3.4-1.2.2.1.1">Do we want to have any authorization of the data-plane transit undertaken at this stage?<a href="#section-3.4-1.2.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-3.5-1.2.2.2">
-                <p id="section-3.5-1.2.2.2.1">Would we obsolete firewalls?<a href="#section-3.5-1.2.2.2.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-3.4-1.2.2.2">
+                <p id="section-3.4-1.2.2.2.1">Would this obsolete firewalls?<a href="#section-3.4-1.2.2.2.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-3.5-1.2.2.3">
-                <p id="section-3.5-1.2.2.3.1">What do we mean when we say "authorize transit"?<a href="#section-3.5-1.2.2.3.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-3.4-1.2.2.3">
+                <p id="section-3.4-1.2.2.3.1">What do we mean when we say "authorize transit"?<a href="#section-3.4-1.2.2.3.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
         </ul>
-<p id="section-3.5-2">For more info: <span>[<a href="#I-D.garciapardo-drkey" class="cite xref">I-D.garciapardo-drkey</a>]</span>.<a href="#section-3.5-2" class="pilcrow">¶</a></p>
+<p id="section-3.4-2">For more info: <span>[<a href="#I-D.garciapardo-drkey" class="cite xref">I-D.garciapardo-drkey</a>]</span>.<a href="#section-3.4-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="scmp-authentication">
-<section id="section-3.6">
+<section id="section-3.5">
         <h3 id="name-scmp-authentication">
-<a href="#section-3.6" class="section-number selfRef">3.6. </a><a href="#name-scmp-authentication" class="section-name selfRef">SCMP Authentication</a>
+<a href="#section-3.5" class="section-number selfRef">3.5. </a><a href="#name-scmp-authentication" class="section-name selfRef">SCMP Authentication</a>
       </h3>
 </section>
 </div>
 <div id="proof-of-transit">
-<section id="section-3.7">
+<section id="section-3.6">
         <h3 id="name-proof-of-transit">
-<a href="#section-3.7" class="section-number selfRef">3.7. </a><a href="#name-proof-of-transit" class="section-name selfRef">Proof of transit</a>
+<a href="#section-3.6" class="section-number selfRef">3.6. </a><a href="#name-proof-of-transit" class="section-name selfRef">Proof of transit</a>
         </h3>
-<p id="section-3.7-1">FABRID <span>[<a href="#KRAHENBUHL2023" class="cite xref">KRAHENBUHL2023</a>]</span> and EPIC <span>[<a href="#LEGNER2020" class="cite xref">LEGNER2020</a>]</span>.<a href="#section-3.7-1" class="pilcrow">¶</a></p>
+<p id="section-3.6-1">FABRID <span>[<a href="#KRAHENBUHL2023" class="cite xref">KRAHENBUHL2023</a>]</span> and EPIC <span>[<a href="#LEGNER2020" class="cite xref">LEGNER2020</a>]</span>.<a href="#section-3.6-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="nat">
-<section id="section-3.8">
+<section id="section-3.7">
         <h3 id="name-nat">
-<a href="#section-3.8" class="section-number selfRef">3.8. </a><a href="#name-nat" class="section-name selfRef">NAT</a>
+<a href="#section-3.7" class="section-number selfRef">3.7. </a><a href="#name-nat" class="section-name selfRef">NAT</a>
         </h3>
-<p id="section-3.8-1">At this moment, the SCION implementation is not compatible out-of-the-box with NAT'ed devices, being these devices end-hosts, or even running SCION services. This is due to the (UDP-IP) underlay being modified by the NAT mechanism, but not the internal destination SCION address. Although this does not concern the SCION protocols themselves, we want to check that this will not be a problem.<a href="#section-3.8-1" class="pilcrow">¶</a></p>
+<p id="section-3.7-1">At this moment, the SCION implementation is not compatible out-of-the-box with NAT'ed devices, whether these devices are end-hosts, or even running SCION services. This is due to the (UDP-IP) underlay being modified by the NAT mechanism, but not the internal destination SCION address. Although this does not concern the SCION protocols themselves, we want to check that this will not be a problem.<a href="#section-3.7-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.8-2.1">
-            <p id="section-3.8-2.1.1">With IPv6 underlay, this problem disappears.<a href="#section-3.8-2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-3.7-2.1">
+            <p id="section-3.7-2.1.1">With IPv6 underlay, this problem disappears.<a href="#section-3.7-2.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.8-2.2">
-            <p id="section-3.8-2.2.1">Modify the SCION border router to also act as a STUN server.<a href="#section-3.8-2.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-3.7-2.2">
+            <p id="section-3.7-2.2.1">Modify the SCION border router to also act as a STUN server.<a href="#section-3.7-2.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -1409,16 +1376,16 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
       <h2 id="name-dataplane-stability">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-dataplane-stability" class="section-name selfRef">Dataplane stability</a>
       </h2>
-<div id="link-overunder-use">
+<div id="link-load-balancing">
 <section id="section-4.1">
-        <h3 id="name-link-over-under-use">
-<a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-link-over-under-use" class="section-name selfRef">Link over/under use</a>
+        <h3 id="name-link-load-balancing">
+<a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-link-load-balancing" class="section-name selfRef">Link load balancing</a>
         </h3>
 <p id="section-4.1-1">Links may get overloaded because the SCION routing system fails to distribute load properly over different links. New/different links might be underutilized.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
 <p id="section-4.1-2">If links become overloaded, there are several ways to handle that. Non comprehensively:<a href="#section-4.1-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-4.1-3.1">
-            <p id="section-4.1-3.1.1">Squeeze: send an SCMP message to trigger end-hosts to use an alternative path → is this bad if there are no alternative paths of if these are even worse?<a href="#section-4.1-3.1.1" class="pilcrow">¶</a></p>
+            <p id="section-4.1-3.1.1">Squeeze: send an SCMP message to trigger end-hosts to use an alternative path<a href="#section-4.1-3.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-4.1-3.2">
             <p id="section-4.1-3.2.1">Steer: send and SCMP to trigger users to ask CS for a better path<a href="#section-4.1-3.2.1" class="pilcrow">¶</a></p>
@@ -1430,10 +1397,9 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
             <p id="section-4.1-3.4.1">Recommend: let the end-hosts know which paths are recommended by the AS at this time.<a href="#section-4.1-3.4.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-4.1-4">If a link has good properties, many AS will disseminate segments → paths that go through this link and the link will be overloaded. See Simon Scherrer's work on Braess Paradox.<a href="#section-4.1-4" class="pilcrow">¶</a></p>
-<p id="section-4.1-5">Either there needs to be some constant control by all clients to not choose the path that is best on paper but the one that works best. Or we need to find a way that control servers do not disseminate “good” links to all end-hosts.<a href="#section-4.1-5" class="pilcrow">¶</a></p>
-<p id="section-4.1-6">The current somewhat consensus is probably that end-hosts can use multi-pathing and “automatically” converge on the best path, i.e. creating an equilibrium. Again, see Simon Scherrer's work on Braess Paradox.<a href="#section-4.1-6" class="pilcrow">¶</a></p>
-<p id="section-4.1-7">TODO Check in book in how much detail this has been solved and whether there is any impact in terms of network probing traffic (i.e.  traffic that doesn’t result in useful data transfers but is effectively used for probing (either directly, or indirectly via data packets that race each other only only the fastest one is “useful”)).<a href="#section-4.1-7" class="pilcrow">¶</a></p>
+<p id="section-4.1-4">If a link has good properties, many AS will disseminate segments, therefore paths that go through this link and the link may become overloaded. See Simon Scherrer's work on Braess Paradox.<a href="#section-4.1-4" class="pilcrow">¶</a></p>
+<p id="section-4.1-5">Either there needs to be some constant control by all clients to not choose the best theoretical path, but the one that works best. Or we need to find a way that control servers do not disseminate “good” links to all end-hosts.<a href="#section-4.1-5" class="pilcrow">¶</a></p>
+<p id="section-4.1-6">The current consensus is that end-hosts can use multi-pathing and “automatically” converge on the best path, i.e. creating an equilibrium. Again, see Simon Scherrer's work on Braess Paradox.<a href="#section-4.1-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="reverse-path-refreshment">
@@ -1486,7 +1452,7 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
           <p id="section-6-1.1.1">IPv6 in the Data Plane<a href="#section-6-1.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-6-1.2">
-          <p id="section-6-1.2.1">SCION-IP translation - (OVGU: SCION-IP Translation proposal, SCION Internet discussion @scionlab on 12.03.2024 by robin.wehner@ovgu.de)<a href="#section-6-1.2.1" class="pilcrow">¶</a></p>
+          <p id="section-6-1.2.1">SCION-IP translation<a href="#section-6-1.2.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 </section>
