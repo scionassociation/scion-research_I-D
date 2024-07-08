@@ -96,10 +96,10 @@ Table of Contents
    in [I-D.scion-dataplane], [I-D.scion-cppki], [I-D.scion-cp],
    currently under ISE review.
 
-   The goal if this draft is to explore how SCION and its early
+   The goal of this draft is to explore how SCION and its early
    deployments try to address open research questions in [RFC9217].
    Specifically, there are still many open areas of research around
-   path-aware networking, where SCION, with its early deployment
+   path-aware networking, where SCION with its early deployment
    experiences and research efforts can provide a contribution.  This
    can also be a starting point for discussions around long-term
    protocol evolution.
@@ -147,26 +147,26 @@ Table of Contents
 
       -  Large amount of state on beacon servers.
 
-      -  Considerable amount of state on CS for storing segments and
-         considerable data traffic for serving segments.
+      -  Considerable amount of state on control services to store
+         segments, and considerable data traffic for serving segments.
 
-   *  The beacon interval in the SSFN has been reduced considerably to
+   *  The beacon interval in the SSFN has been considerably reduced to
       deal with beacon traffic.
 
-      -  This affects propagation time of newly available routes.
-         (verify this!)
+      -  This affects the propagation time of newly available routes.
+         [To be verified]
 
-      -  Convergence time? (completeness time)
+      -  This can affect convergence time.
 
 3.3.  Segment Dissemination
 
-   Control servers return large amount of path segments.  This can cost
-   considerable bandwidth / network egress while at the same time
-   overloading clients with an unnecessarily large amount of segments
-   (consisting mostly of redundant information in terms of duplicate
-   link and hops).
+   Control servers return a large number of path segments.  This can
+   cost considerable bandwidth / network egress while at the same time
+   overloading clients with an unnecessarily large numbers of segments,
+   mostly consisting of redundant information in terms of duplicate link
+   and hops.
 
-   *  This problem may be more problematic in AS with many end hosts
+   *  This problem may be more problematic in ASes with many end hosts
       (e.g.  IoT), or end hosts with little computing power or little
       spare bandwidth.
 
@@ -176,9 +176,9 @@ Table of Contents
    There are multiple possible and independent solution steps here:
 
    *  Compression (idea suggested by Francois Wirz): Segments could be
-      stored in a way that duplicate information (Hops & links) are
-      stored only once and the segments contain only references to the
-      hops and links).
+      stored in a way that duplicate information (hops & links) is only
+      stored once and the segments contain only references to the hops
+      and links.
 
    *  Allow queries from start AS to end AS across multiple segments.
       This should be very easy to implement and would be compatible with
@@ -186,9 +186,9 @@ Table of Contents
 
       -  This would reduce the number of round trips to one.
 
-      -  It would reduce the number of returned segments because we only
-         need to return segments that actually connect to other
-         segments.
+      -  It would reduce the number of returned segments because only
+         segments that actually connect to other segments would need to
+         be returned.
 
    *  Predefine some policies that can be resolved by the control
       server, e.g.  ANY, BEST_LATENCY, BEST_BANDWIDTH, BEST_PRICE,
@@ -205,11 +205,11 @@ Table of Contents
 
 3.4.  Routing Policies
 
-   Reduced adoption due to limited routing policy possibilities.  E.g.
-   an (core-)AS does not want to accept transit traffic unless it
-   starts/ends in ASs with special properties.  For example a GEANT AS
-   does not want to allow transit traffic unless it originates or ends
-   in another research AS.
+   Reduced adoption due to limited routing policy possibilities, such as
+   a (core-)AS does not want to accept transit traffic unless it starts/
+   ends in ASs with special properties.  For example a GEANT AS does not
+   want to allow transit traffic unless it originates or ends in another
+   research AS.
 
    One solution could be to add a “confirm full path”-flag to certain
    segments.  If this flag is set, the full path (all segments) needs to
@@ -223,14 +223,14 @@ Table of Contents
 
 3.5.  DRKey
 
-   *  Is forward-secrecy DRKey interesting?  Should we develop it?
+   *  Is forward-secrecy DRKey useful and should we develop it?
 
    *  What are the properties of the control-plane?
 
       -  Do we want to have any authorization of the data-plane transit
-         done at this stage?
+         undertaken at this stage?
 
-      -  Would we obsolete firewalls?
+      -  Would this obsolete firewalls?
 
       -  What do we mean when we say "authorize transit"?
 
@@ -245,10 +245,10 @@ Table of Contents
 3.8.  NAT
 
    At this moment, the SCION implementation is not compatible out-of-
-   the-box with NAT'ed devices, being these devices end-hosts, or even
-   running SCION services.  This is due to the (UDP-IP) underlay being
-   modified by the NAT mechanism, but not the internal destination SCION
-   address.  Although this does not concern the SCION protocols
+   the-box with NAT'ed devices, whether these devices are end-hosts, or
+   even running SCION services.  This is due to the (UDP-IP) underlay
+   being modified by the NAT mechanism, but not the internal destination
+   SCION address.  Although this does not concern the SCION protocols
    themselves, we want to check that this will not be a problem.
 
    *  With IPv6 underlay, this problem disappears.
@@ -284,16 +284,15 @@ Table of Contents
    Simon Scherrer's work on Braess Paradox.
 
    Either there needs to be some constant control by all clients to not
-   choose the path that is best on paper but the one that works best.
-   Or we need to find a way that control servers do not disseminate
-   “good” links to all end-hosts.
+   choose the best theoretical path, but the one that works best.  Or we
+   need to find a way that control servers do not disseminate “good”
+   links to all end-hosts.
 
-   The current somewhat consensus is probably that end-hosts can use
-   multi-pathing and “automatically” converge on the best path, i.e.
-   creating an equilibrium.  Again, see Simon Scherrer's work on Braess
-   Paradox.
+   The current consensus is that end-hosts can use multi-pathing and
+   “automatically” converge on the best path, i.e. creating an
+   equilibrium.  Again, see Simon Scherrer's work on Braess Paradox.
 
-   TODO Check in book in how much detail this has been solved and
+   TODO Check in SCION book in how much detail this has been solved and
    whether there is any impact in terms of network probing traffic (i.e.
    traffic that doesn’t result in useful data transfers but is
    effectively used for probing (either directly, or indirectly via data
