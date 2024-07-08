@@ -1,0 +1,3 @@
+# Automatically generated CODEOWNERS
+# Regenerate with `make update-codeowners`
+draft-meynell-scion-research-questions.md kme@scion.org juan.garcia@inf.ethz.ch tilmann.zaeschke@inf.ethz.ch nic@scion.org
