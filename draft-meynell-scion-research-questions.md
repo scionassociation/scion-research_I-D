@@ -103,13 +103,111 @@ TODO Abstract here
 
 # Introduction
 
-TODO Introduction
-
+*How SCION and its early deployments try to address open question in RFC9217*
+*There are still many open areas*
 
 # Conventions and Definitions
 
 {::boilerplate bcp14-tagged}
 
+# Discovery, Distribution, and Trustworthiness of Path Properties
+
+## ISD, AS identity
+
+* How many ASes do we expect in the SCION network model?
+* How many ISDs? What is the ontology of an ISD? Per geographic area only?
+* One AS belongs to many ISDs?
+
+## Beaconing Scalability
+
+* Risk: beaconing traffic grows exponentially with network size, especially with multiple links between pairs of ASes.
+- Large amount of beacon traffic.
+- Large amount of state on beacon servers.
+- Considerable amount of state on CS for storing segments and considerable data traffic for serving segments.
+* The beacon interval in the SSFN has been reduced considerably to deal with beacon traffic.
+- This obviously affects propagation time of newly available routes. (verify this!)
+- Convergence time? (completeness time)
+- The current beaconing system creates an enormous amount of beaconing traffic because every node multiplies the beacons by forwarding them to multiple other ASs. This is currently handled by rate-limiting identical beacons (with identical paths) to only be forwarded every few minutes. With larger networks, the beaconing traffic is expected to grow “substantially”.
+
+## Segment Dissemination
+
+Control servers return large amount of path segments. This can cost considerable bandwidth / network egress while at the same time overloading clients with an unnecessarily large amount of segments (consisting mostly of redundant information in terms of duplicate link and hops).
+
+* This problem may be more problematic in AS with many end hosts (e.g. IoT), or end hosts with little computing power or little spare bandwidth.
+* Getting a full path to a remote endhost may require three round-trips with the control server.
+
+There are multiple possible and independent solution steps here:
+
+* Compression (idea suggested by Francois Wirz): Segments could be stored in a way that duplicate information (Hops & links) are stored only once and the segments contain only references to the hops and links).
+* Allow queries from start AS to end AS across multiple segments. This should be very easy to implement and would be compatible with the current wire protocol (protobuf).
+- This would reduce the number of round trips to one.
+- It would reduce the number of returned segments because we only need to return segments that actually connect to other segments.
+* Predefine some policies that can be resolved by the control server, e.g. ANY, BEST_LATENCY, BEST_BANDWIDTH, BEST_PRICE, BEST_CO2. For these, a control server could simply calculate 5-10 good paths and return these. Moreover these could be cached for commonly requested remote ASs. If a user requires a custom policy they can still resort to requesting actual segments.
+
+Doing path computation on the control server will initially increase computational cost. However, it would substantially decrease network egress. Caching of paths should reduce CPU cost, maybe even below the current cost for retrieving a large amount of segments from the local database and sending them over the network interface.
+
+## Routing Policies
+
+* Reduced adoption due to limited routing policy possibilities. E.g. an (core-)AS does not want to accept transit traffic unless it starts/ends in ASs with special properties. For example a GEANT AS does not want to allow transit traffic unless it originates or ends in another research AS.
+
+* One solution could be to add a “confirm full path”-flag to certain segments. If this flag is set, the full path (all segments) needs to authorized by all ASes that insist on authorizing it. This is obviously less scalable but may be viable for ASes that insist on such policies. This also allows for “secret” policies.
+- Collateral: this probably needs a data plane change. Conceptually, we have only a single resulting segment, and that segment needs to be used in full, e.g. no on-path trickery.
+
+## DRKey
+* Is forward-secrecy DRKey interesting? Should we develop it?
+* What are the properties of the control-plane?
+- Do we want to have any authorization of the data-plane transit done at this stage?
+- Would we obsolete firewalls?
+- What do we mean when we say "authorize transit"?
+
+## SCMP Authentication
+
+## FABRID/EPIC
+
+## NAT
+
+At this moment, the SCION implementation is not compatible out-of-the-box with NAT'ed devices, being these devices end-hosts, or even running SCION services. This is due to the (UDP-IP) underlay being modified by the NAT mechanism, but not the internal destination SCION address. Although this does not concern the SCION protocols themselves, we want to check that this will not be a problem.
+With IPv6 underlay, this problem disappears.
+Modify the SCION border router to also act as a STUN server.
+
+# Dataplane stability
+* Link over/under use
+- Links may get overloaded because the SCION routing system fails to distribute load properly over different links. New/different links might be underutilized.
+- If links become overloaded, there are several ways to handle that. Non comprehensively:
+Squeeze: send an SCMP message to trigger end-hosts to use an alternative path → is this bad if there are no alternative paths of if these are even worse?
+Steer: send and SCMP to trigger users to ask CS for a better path
+Reduce: hand over very short lived paths, let the end-hosts wait for the path to expire so that they request new paths and (hopefully) decide on a different path.
+Recommend: let the end-hosts know which paths are recommended by the AS at this time.
+- If a link has good properties, many AS will disseminate segments → paths that go through this link and the link will be overloaded. See Simon Scherrer's work on Braess Paradox.
+- Either there needs to be some constant control by all clients to not choose the path that is best on paper but the one that works best. Or we need to find a way that control servers do not disseminate “good” links to all end-hosts.
+- The current somewhat consensus is probably that end-hosts can use multi-pathing and “automatically” converge on the best path, i.e. creating an equilibrium. Again, see Simon Scherrer's work on Braess Paradox.
+- TODO Check in book in how much detail this has been solved and whether there is any impact in terms of network probing traffic (i.e.  traffic that doesn’t result in useful data transfers but is effectively used for probing (either directly, or indirectly via data packets that race each other only only the fastest one is “useful”)).
+
+* Reverse Path Refreshment
+E.g. when a client contacts a server, it is usually understood that it wants the server to use the reverse path to answer back. It the server uses that path for a long period of time, the path will eventually expire. How to standardize the process of refreshment?
+- The server must ask the CS for a path, regardless of the client's policy.
+- The client (somehow) sends a new packet with a new path, prompting the server to use this path from now on.
+There are some nuances: Usually the server's API will store the initial address of the client to be used through all the session. We might need to take this into account.
+
+# Hummingbird / QoS
+
+* How many QoS flows to support at core routers?
+* How does QoS interact with Net Neutrality?
+* What proof of transit (or forwarding failure detection) is needed or wanted?
+* What time synchronization precision should we expect at the border router level of every AS? How far can we go realistically?
+
+# Interfaces for Path Awareness
+
+* IPv6 in the Data Plane
+* SCION-IP translation - (OVGU: SCION-IP Translation proposal, SCION Internet discussion @scionlab on 12.03.2024 by robin.wehner@ovgu.de)
+
+# Implications of Path Awareness for the Transport and Application Layers
+
+To be discussed
+
+# Naming
+
+To be discussed
 
 # Security Considerations
 
