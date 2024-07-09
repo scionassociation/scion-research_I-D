@@ -1,0 +1,125 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2024-07-09T00:18:49.742936+00:00",
+  "repo": "scionassociation/scion-research_I-D",
+  "labels": [
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "d73a4a"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "0075ca"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request",
+      "color": "a2eeef"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers",
+      "color": "7057ff"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "e4e669"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    }
+  ],
+  "issues": [],
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDOMRYres50tpC_",
+      "title": "Added section descriptions and discussion points",
+      "url": "https://github.com/scionassociation/scion-research_I-D/pull/1",
+      "state": "MERGED",
+      "author": "knmeynell",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-07-08T15:38:14Z",
+      "updatedAt": "2024-07-08T20:43:30Z",
+      "baseRepository": "scionassociation/scion-research_I-D",
+      "baseRefName": "main",
+      "baseRefOid": "737e851cc8b7dfd8ae85e8c4c407978ad732485c",
+      "headRepository": "scionassociation/scion-research_I-D",
+      "headRefName": "Section_Descriptions",
+      "headRefOid": "f9572b3dfc94e42ca301ec93f4209e6c29846d5f",
+      "closedAt": "2024-07-08T20:43:30Z",
+      "mergedAt": "2024-07-08T20:43:30Z",
+      "mergedBy": "nicorusti",
+      "mergeCommit": {
+        "oid": "38ffeedc0412404f31acd732fb23543bc4fc8d2b"
+      },
+      "comments": [
+        {
+          "author": "nicorusti",
+          "authorAssociation": "MEMBER",
+          "body": "I moved the beaconing scalability text to https://github.com/scionassociation/scion-cp_I-D/issues/46 as that draft now has a section about this. ",
+          "createdAt": "2024-07-08T20:16:07Z",
+          "updatedAt": "2024-07-08T20:16:07Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMRYres6BAEBm",
+          "commit": {
+            "abbreviatedOid": "a9c9e24"
+          },
+          "author": "nicorusti",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-08T20:01:30Z",
+          "updatedAt": "2024-07-08T20:01:30Z",
+          "comments": [
+            {
+              "originalPosition": 210,
+              "body": "There are two problems:\r\n* Beacon traffic increases if the interval is reduced\r\n* Dominik today mentioned they use 30s in general",
+              "createdAt": "2024-07-08T20:01:30Z",
+              "updatedAt": "2024-07-08T20:01:30Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6BAaAS",
+          "commit": {
+            "abbreviatedOid": "f9572b3"
+          },
+          "author": "nicorusti",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-07-08T20:42:11Z",
+          "updatedAt": "2024-07-08T20:42:11Z",
+          "comments": []
+        }
+      ]
+    }
+  ]
+}
