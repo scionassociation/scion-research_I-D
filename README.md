@@ -2,10 +2,10 @@
 
 This is the working area for the individual Internet-Draft, "SCION Research Questions".
 
-* [Editor's Copy](https://scionassociation.github.io/scion-research_I-D/#go.draft-meynell-scion-research-questions.html)
-* [Datatracker Page](https://datatracker.ietf.org/doc/draft-meynell-scion-research-questions)
-* [Individual Draft](https://datatracker.ietf.org/doc/html/draft-meynell-scion-research-questions)
-* [Compare Editor's Copy to Individual Draft](https://scionassociation.github.io/scion-research_I-D/#go.draft-meynell-scion-research-questions.diff)
+* [Editor's Copy](https://scionassociation.github.io/scion-research_I-D/#go.draft-meynell-panrg-scion-research-questions.html)
+* [Datatracker Page](https://datatracker.ietf.org/doc/draft-meynell-panrg-scion-research-questions)
+* [Individual Draft](https://datatracker.ietf.org/doc/html/draft-meynell-panrg-scion-research-questions)
+* [Compare Editor's Copy to Individual Draft](https://scionassociation.github.io/scion-research_I-D/#go.draft-meynell-panrg-scion-research-questions.diff)
 
 
 ## Contributing
