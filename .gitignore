@@ -17,7 +17,7 @@
 /versioned/
 Gemfile.lock
 archive.json
-draft-meynell-scion-research-questions.xml
+draft-meynell-panrg-scion-research-questions.xml
 package-lock.json
 report.xml
 !requirements.txt
