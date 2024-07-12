@@ -217,6 +217,20 @@ There are multiple possible and independent solution steps here:
 
 Doing path computation on the control server will initially increase computational cost. However, it would substantially decrease network egress. Caching of paths should reduce CPU cost, maybe even below the current cost for retrieving a large amount of segments from the local database and sending them over the network interface.
 
+Examples for requesting CORE segments between different ISDs or within an ISD (as of 2024-07-12):
++-------------+-------------+-------------------+
+| src         | dst         | segments returned |
++-------------+-------------+-------------------+
+| 64-0:0:0    | 64-0:0:0    | 337               |
++-------------+-------------+-------------------+
+| 64-0:0:0    | 65-0:0:0    | 240               |
++-------------+-------------+-------------------+
+| 64-0:0:0    | 67-0:0:0    | 60                |
++-------------+-------------+-------------------+
+| 64-0:0:0    | 64-2:0:13   | 60                |
++-------------+-------------+-------------------+
+
+
 ## Routing Policies and Traffic Engineering
 
 Reduced adoption due to limited routing policy possibilities, such as a (core-)AS does not want to accept transit traffic unless it starts/ends in ASs with special properties. For example a GEANT AS does not want to allow transit traffic unless it originates or ends in another research AS.
