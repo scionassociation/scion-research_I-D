@@ -201,6 +201,38 @@ This draft assumes the reader is familiar with some of the fundamental concepts 
 * One AS belongs to many ISDs?
 
 
+## CORE Beaconing Scalability
+
+The idea behind beaconing is to discover all possible paths (loop free and with a fixed maximu length) between two CORE AS.
+Every AS forwards any received becons to all neighbor CORE ASes unless this would cause a loop or exceed the fixed maximum length.
+Implemented naively, the number of paths (and beacons) grows superexponentially with the network size.
+This is currently mitigated primarily (and efficiently) by forwarding only the 5 "best PCB" to neighbours.
+
+This "best PCB" practive has several implications:
+
+* It limits the number of available paths for endhosts such that only 5 path may be available to a given destination. This is especially relevant for
+  * Multipathing: you may not be able to use more than five path and no great selection of pats on offer .
+  * Unusual path policies, such as geofencing, may not be fulfillable by the limited number of paths on offer.
+* It causes a small number of path to carry all traffic to a given destination, see section on "link-load-balancing}}.
+* It opens the possibility of a DoS attack where a small number of "wormholes", see {{I-D.scion-cp}}, may be selected as "best" and have all traffic
+  routed through them, allowing them to completely block (or greyhole, etc ...) traffic from, or to, a given AS.
+  For example, it seems feasinble that five cleverly located AS in Europe and 5 in Australia could block any traffic
+  between the two (these ASes would need to be core ASes and would probably need to be in their a malitious ISD to be allowed as CORE).
+  A related question is discussed {{Recovering-from-bad-segments}}.
+
+
+## Recovering from bad segments
+
+An AS may be coaxed to disseminate a bad segment (e.g. via "wormhole" attack, see {{I-D.scion-cp}}). How do we recover from that?
+Currently only endhosts may realize that a segment does not work, this may be via SCMP errors or simply by traffic degradation.
+
+* An endhost needs to tell it's local AS that the segment is bad
+* Local AS needs to tell CORE AS that segment is bad
+* The CORE AS needs to:
+  * change policy to exclude bad segments AND/OR
+  * tell other COREs and ISDs to stop delivering bad segment (they only deliver 5 each, so any bad segment shoud be avoided)
+
+
 ## Segment Dissemination
 
 Control servers return a large number of path segments. This can cost considerable bandwidth / network egress while at the same time overloading clients with an unnecessarily large numbers of segments, mostly consisting of redundant information in terms of duplicate link and hops.
