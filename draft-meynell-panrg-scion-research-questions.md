@@ -243,9 +243,12 @@ FABRID {{KRAHENBUHL2023}} and EPIC {{LEGNER2020}}.
 ## NAT
 
 At this moment, the SCION implementation is not compatible out-of-the-box with NAT'ed devices, whether these devices are end-hosts, or even running SCION services. This is due to the (UDP-IP) underlay being modified by the NAT mechanism, but not the internal destination SCION address. Although this does not concern the SCION protocols themselves, we want to check that this will not be a problem.
+Critically, the SCION header needs to contain the SRC address as seen by the border router so that the border router can forward incoming reponse packeyts to the correct NAT device and port.
 
-* With IPv6 underlay, this problem disappears.
-* Modify the SCION border router to also act as a STUN server.
+Possible solutions:
+
+* With IPv6 underlay, this problem disappears. // TODO Clarify why it disappears? IS the idea that we can remove NATs if everyone would use IPv6?
+* Introduce a mechanism so that the SCION border router can report the NATed address to an endhost (similar to a STUN server).
 
 # Dataplane stability
 
