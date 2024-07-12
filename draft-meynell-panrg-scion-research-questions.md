@@ -221,21 +221,6 @@ This "best PCB" practive has several implications:
   A related question is discussed {{recovering-from-bad-segments}}.
 
 
-## Recovering from bad segments
-
-An AS may be coaxed to disseminate a bad segment (e.g. via "wormhole" attack, see {{I-D.scion-cp}}). How do we recover from that?
-Currently only endhosts may realize that a segment does not work, this may be via SCMP errors or simply by traffic degradation.
-
-* An endhost needs to tell it's local AS that the segment is bad
-* Local AS needs to tell CORE AS that segment is bad
-* The CORE AS needs to:
-  * change policy to exclude bad segments AND/OR
-  * tell other COREs and ISDs to stop delivering bad segment (they only deliver 5 each, so any bad segment shoud be avoided)
-
-Mitigation
-* An AS could monitor traffic for SCMP errors, however this works only if these errors are actually generated and forwarded.
-
-
 ## Segment Dissemination
 
 Control servers return a large number of path segments. This can cost considerable bandwidth / network egress while at the same time overloading clients with an unnecessarily large numbers of segments, mostly consisting of redundant information in terms of duplicate link and hops.
@@ -336,6 +321,21 @@ Do we actually need to solve this reverse path refresh problem?
 * CONTRA: It may be better to solve this in the application layer or in the overlay protocol, where we we know more about
   potential length of the session, or whether this is a singular request/answer type of exchange, or whether more frequent keep-alives
   are anyway required.
+
+
+## Recovering from bad segments
+
+An AS may be coaxed to disseminate a bad segment (e.g. via "wormhole" attack, see {{I-D.scion-cp}}). How do we recover from that?
+Currently only endhosts may realize that a segment does not work, this may be via SCMP errors or simply by traffic degradation.
+
+* An endhost needs to tell it's local AS that the segment is bad
+* Local AS needs to tell CORE AS that segment is bad
+* The CORE AS needs to:
+  * change policy to exclude bad segments AND/OR
+  * tell other COREs and ISDs to stop delivering bad segment (they only deliver 5 each, so any bad segment shoud be avoided)
+
+Mitigation
+* An AS could monitor traffic for SCMP errors, however this works only if these errors are actually generated and forwarded.
 
 
 # Hummingbird / QoS
