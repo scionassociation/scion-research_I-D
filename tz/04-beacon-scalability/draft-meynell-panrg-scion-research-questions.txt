@@ -72,16 +72,16 @@ Table of Contents
    3.  Discovery, Distribution, and Trustworthiness of Path Properties
      3.1.  ISD, AS identity
      3.2.  CORE Beaconing Scalability
-     3.3.  Recovering from bad segments
-     3.4.  Segment Dissemination
-     3.5.  Routing Policies and Traffic Engineering
-     3.6.  DRKey
-     3.7.  SCMP Authentication
-     3.8.  Proof of transit
-     3.9.  NAT
+     3.3.  Segment Dissemination
+     3.4.  Routing Policies and Traffic Engineering
+     3.5.  DRKey
+     3.6.  SCMP Authentication
+     3.7.  Proof of transit
+     3.8.  NAT
    4.  Dataplane stability
      4.1.  Link load balancing
      4.2.  Reverse Path Refreshment
+     4.3.  Recovering from bad segments
    5.  Hummingbird / QoS
    6.  Interfaces for Path Awareness
    7.  Implications of Path Awareness for the Transport and
@@ -170,30 +170,9 @@ Table of Contents
       Europe and 5 in Australia could block any traffic between the two
       (these ASes would need to be core ASes and would probably need to
       be in their a malitious ISD to be allowed as CORE).  A related
-      question is discussed Section 3.3.
+      question is discussed Section 4.3.
 
-3.3.  Recovering from bad segments
-
-   An AS may be coaxed to disseminate a bad segment (e.g. via "wormhole"
-   attack, see [I-D.scion-cp]).  How do we recover from that?  Currently
-   only endhosts may realize that a segment does not work, this may be
-   via SCMP errors or simply by traffic degradation.
-
-   *  An endhost needs to tell it's local AS that the segment is bad
-
-   *  Local AS needs to tell CORE AS that segment is bad
-
-   *  The CORE AS needs to:
-
-      -  change policy to exclude bad segments AND/OR
-
-      -  tell other COREs and ISDs to stop delivering bad segment (they
-         only deliver 5 each, so any bad segment shoud be avoided)
-
-   Mitigation * An AS could monitor traffic for SCMP errors, however
-   this works only if these errors are actually generated and forwarded.
-
-3.4.  Segment Dissemination
+3.3.  Segment Dissemination
 
    Control servers return a large number of path segments.  This can
    cost considerable bandwidth / network egress while at the same time
@@ -238,7 +217,7 @@ Table of Contents
    the current cost for retrieving a large amount of segments from the
    local database and sending them over the network interface.
 
-3.5.  Routing Policies and Traffic Engineering
+3.4.  Routing Policies and Traffic Engineering
 
    Reduced adoption due to limited routing policy possibilities, such as
    a (core-)AS does not want to accept transit traffic unless it starts/
@@ -256,7 +235,7 @@ Table of Contents
    we have only a single resulting segment, and that segment needs to be
    used in full, e.g. no on-path trickery.
 
-3.6.  DRKey
+3.5.  DRKey
 
    *  Is forward-secrecy DRKey useful and should we develop it?
 
@@ -271,13 +250,13 @@ Table of Contents
 
    For more info: [I-D.garciapardo-drkey].
 
-3.7.  SCMP Authentication
+3.6.  SCMP Authentication
 
-3.8.  Proof of transit
+3.7.  Proof of transit
 
    FABRID [KRAHENBUHL2023] and EPIC [LEGNER2020].
 
-3.9.  NAT
+3.8.  NAT
 
    At this moment, the SCION implementation is not compatible out-of-
    the-box with NAT'ed devices, whether these devices are end-hosts, or
@@ -342,6 +321,27 @@ Table of Contents
    There are some nuances: Usually the server's API will store the
    initial address of the client to be used through all the session.  We
    might need to take this into account.
+
+4.3.  Recovering from bad segments
+
+   An AS may be coaxed to disseminate a bad segment (e.g. via "wormhole"
+   attack, see [I-D.scion-cp]).  How do we recover from that?  Currently
+   only endhosts may realize that a segment does not work, this may be
+   via SCMP errors or simply by traffic degradation.
+
+   *  An endhost needs to tell it's local AS that the segment is bad
+
+   *  Local AS needs to tell CORE AS that segment is bad
+
+   *  The CORE AS needs to:
+
+      -  change policy to exclude bad segments AND/OR
+
+      -  tell other COREs and ISDs to stop delivering bad segment (they
+         only deliver 5 each, so any bad segment shoud be avoided)
+
+   Mitigation * An AS could monitor traffic for SCMP errors, however
+   this works only if these errors are actually generated and forwarded.
 
 5.  Hummingbird / QoS
 

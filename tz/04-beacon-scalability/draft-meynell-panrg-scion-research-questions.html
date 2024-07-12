@@ -1153,25 +1153,22 @@ svg :is([fill="white"], [fill^="#fff"]) {
                 <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="auto internal xref">3.2</a>.  <a href="#name-core-beaconing-scalability" class="internal xref">CORE Beaconing Scalability</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3">
-                <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="auto internal xref">3.3</a>.  <a href="#name-recovering-from-bad-segment" class="internal xref">Recovering from bad segments</a></p>
+                <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="auto internal xref">3.3</a>.  <a href="#name-segment-dissemination" class="internal xref">Segment Dissemination</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4">
-                <p id="section-toc.1-1.3.2.4.1"><a href="#section-3.4" class="auto internal xref">3.4</a>.  <a href="#name-segment-dissemination" class="internal xref">Segment Dissemination</a></p>
+                <p id="section-toc.1-1.3.2.4.1"><a href="#section-3.4" class="auto internal xref">3.4</a>.  <a href="#name-routing-policies-and-traffi" class="internal xref">Routing Policies and Traffic Engineering</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.5">
-                <p id="section-toc.1-1.3.2.5.1"><a href="#section-3.5" class="auto internal xref">3.5</a>.  <a href="#name-routing-policies-and-traffi" class="internal xref">Routing Policies and Traffic Engineering</a></p>
+                <p id="section-toc.1-1.3.2.5.1"><a href="#section-3.5" class="auto internal xref">3.5</a>.  <a href="#name-drkey" class="internal xref">DRKey</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.6">
-                <p id="section-toc.1-1.3.2.6.1"><a href="#section-3.6" class="auto internal xref">3.6</a>.  <a href="#name-drkey" class="internal xref">DRKey</a></p>
+                <p id="section-toc.1-1.3.2.6.1"><a href="#section-3.6" class="auto internal xref">3.6</a>.  <a href="#name-scmp-authentication" class="internal xref">SCMP Authentication</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.7">
-                <p id="section-toc.1-1.3.2.7.1"><a href="#section-3.7" class="auto internal xref">3.7</a>.  <a href="#name-scmp-authentication" class="internal xref">SCMP Authentication</a></p>
+                <p id="section-toc.1-1.3.2.7.1"><a href="#section-3.7" class="auto internal xref">3.7</a>.  <a href="#name-proof-of-transit" class="internal xref">Proof of transit</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.8">
-                <p id="section-toc.1-1.3.2.8.1"><a href="#section-3.8" class="auto internal xref">3.8</a>.  <a href="#name-proof-of-transit" class="internal xref">Proof of transit</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.9">
-                <p id="section-toc.1-1.3.2.9.1"><a href="#section-3.9" class="auto internal xref">3.9</a>.  <a href="#name-nat" class="internal xref">NAT</a></p>
+                <p id="section-toc.1-1.3.2.8.1"><a href="#section-3.8" class="auto internal xref">3.8</a>.  <a href="#name-nat" class="internal xref">NAT</a></p>
 </li>
             </ul>
 </li>
@@ -1183,6 +1180,9 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.2">
                 <p id="section-toc.1-1.4.2.2.1"><a href="#section-4.2" class="auto internal xref">4.2</a>.  <a href="#name-reverse-path-refreshment" class="internal xref">Reverse Path Refreshment</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.3">
+                <p id="section-toc.1-1.4.2.3.1"><a href="#section-4.3" class="auto internal xref">4.3</a>.  <a href="#name-recovering-from-bad-segment" class="internal xref">Recovering from bad segments</a></p>
 </li>
             </ul>
 </li>
@@ -1300,142 +1300,112 @@ This is currently mitigated primarily (and efficiently) by forwarding only the 5
 routed through them, allowing them to completely block (or greyhole, etc ...) traffic from, or to, a given AS.
 For example, it seems feasinble that five cleverly located AS in Europe and 5 in Australia could block any traffic
 between the two (these ASes would need to be core ASes and would probably need to be in their a malitious ISD to be allowed as CORE).
-A related question is discussed <a href="#recovering-from-bad-segments" class="auto internal xref">Section 3.3</a>.<a href="#section-3.2-3.3.1" class="pilcrow">¶</a></p>
+A related question is discussed <a href="#recovering-from-bad-segments" class="auto internal xref">Section 4.3</a>.<a href="#section-3.2-3.3.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-</section>
-</div>
-<div id="recovering-from-bad-segments">
-<section id="section-3.3">
-        <h3 id="name-recovering-from-bad-segment">
-<a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-recovering-from-bad-segment" class="section-name selfRef">Recovering from bad segments</a>
-        </h3>
-<p id="section-3.3-1">An AS may be coaxed to disseminate a bad segment (e.g. via "wormhole" attack, see <span>[<a href="#I-D.scion-cp" class="cite xref">I-D.scion-cp</a>]</span>). How do we recover from that?
-Currently only endhosts may realize that a segment does not work, this may be via SCMP errors or simply by traffic degradation.<a href="#section-3.3-1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-3.3-2.1">
-            <p id="section-3.3-2.1.1">An endhost needs to tell it's local AS that the segment is bad<a href="#section-3.3-2.1.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-3.3-2.2">
-            <p id="section-3.3-2.2.1">Local AS needs to tell CORE AS that segment is bad<a href="#section-3.3-2.2.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-3.3-2.3">
-            <p id="section-3.3-2.3.1">The CORE AS needs to:<a href="#section-3.3-2.3.1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-3.3-2.3.2.1">
-                <p id="section-3.3-2.3.2.1.1">change policy to exclude bad segments AND/OR<a href="#section-3.3-2.3.2.1.1" class="pilcrow">¶</a></p>
-</li>
-              <li class="normal" id="section-3.3-2.3.2.2">
-                <p id="section-3.3-2.3.2.2.1">tell other COREs and ISDs to stop delivering bad segment (they only deliver 5 each, so any bad segment shoud be avoided)<a href="#section-3.3-2.3.2.2.1" class="pilcrow">¶</a></p>
-</li>
-            </ul>
-</li>
-        </ul>
-<p id="section-3.3-3">Mitigation
-* An AS could monitor traffic for SCMP errors, however this works only if these errors are actually generated and forwarded.<a href="#section-3.3-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="segment-dissemination">
-<section id="section-3.4">
+<section id="section-3.3">
         <h3 id="name-segment-dissemination">
-<a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-segment-dissemination" class="section-name selfRef">Segment Dissemination</a>
+<a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-segment-dissemination" class="section-name selfRef">Segment Dissemination</a>
         </h3>
-<p id="section-3.4-1">Control servers return a large number of path segments. This can cost considerable bandwidth / network egress while at the same time overloading clients with an unnecessarily large numbers of segments, mostly consisting of redundant information in terms of duplicate link and hops.<a href="#section-3.4-1" class="pilcrow">¶</a></p>
+<p id="section-3.3-1">Control servers return a large number of path segments. This can cost considerable bandwidth / network egress while at the same time overloading clients with an unnecessarily large numbers of segments, mostly consisting of redundant information in terms of duplicate link and hops.<a href="#section-3.3-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.4-2.1">
-            <p id="section-3.4-2.1.1">This problem may be more problematic in ASes with many end hosts (e.g. IoT), or end hosts with little computing power or little spare bandwidth.<a href="#section-3.4-2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-3.3-2.1">
+            <p id="section-3.3-2.1.1">This problem may be more problematic in ASes with many end hosts (e.g. IoT), or end hosts with little computing power or little spare bandwidth.<a href="#section-3.3-2.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.4-2.2">
-            <p id="section-3.4-2.2.1">Getting a full path to a remote endhost may require three round-trips with the control server.<a href="#section-3.4-2.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-3.3-2.2">
+            <p id="section-3.3-2.2.1">Getting a full path to a remote endhost may require three round-trips with the control server.<a href="#section-3.3-2.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-3.4-3">There are multiple possible and independent solution steps here:<a href="#section-3.4-3" class="pilcrow">¶</a></p>
+<p id="section-3.3-3">There are multiple possible and independent solution steps here:<a href="#section-3.3-3" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.4-4.1">
-            <p id="section-3.4-4.1.1">Compression (idea suggested by Francois Wirz): Segments could be stored in a way that duplicate information (hops &amp; links) is only stored once and the segments contain only references to the hops and links.<a href="#section-3.4-4.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-3.3-4.1">
+            <p id="section-3.3-4.1.1">Compression (idea suggested by Francois Wirz): Segments could be stored in a way that duplicate information (hops &amp; links) is only stored once and the segments contain only references to the hops and links.<a href="#section-3.3-4.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.4-4.2">
-            <p id="section-3.4-4.2.1">Allow queries from start AS to end AS across multiple segments. This should be very easy to implement and would be compatible with the current wire protocol (protobuf).<a href="#section-3.4-4.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-3.3-4.2">
+            <p id="section-3.3-4.2.1">Allow queries from start AS to end AS across multiple segments. This should be very easy to implement and would be compatible with the current wire protocol (protobuf).<a href="#section-3.3-4.2.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.4-4.2.2.1">
-                <p id="section-3.4-4.2.2.1.1">This would reduce the number of round trips to one.<a href="#section-3.4-4.2.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-3.3-4.2.2.1">
+                <p id="section-3.3-4.2.2.1.1">This would reduce the number of round trips to one.<a href="#section-3.3-4.2.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-3.4-4.2.2.2">
-                <p id="section-3.4-4.2.2.2.1">It would reduce the number of returned segments because only segments that actually connect to other segments would need to be returned.<a href="#section-3.4-4.2.2.2.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-3.3-4.2.2.2">
+                <p id="section-3.3-4.2.2.2.1">It would reduce the number of returned segments because only segments that actually connect to other segments would need to be returned.<a href="#section-3.3-4.2.2.2.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
-          <li class="normal" id="section-3.4-4.3">
-            <p id="section-3.4-4.3.1">Predefine some policies that can be resolved by the control server, e.g. ANY, BEST_LATENCY, BEST_BANDWIDTH, BEST_PRICE, BEST_CO2. For these, a control server could simply calculate 5-10 good paths and return these. Moreover these could be cached for commonly requested remote ASs. If a user requires a custom policy they can still resort to requesting actual segments.<a href="#section-3.4-4.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-3.3-4.3">
+            <p id="section-3.3-4.3.1">Predefine some policies that can be resolved by the control server, e.g. ANY, BEST_LATENCY, BEST_BANDWIDTH, BEST_PRICE, BEST_CO2. For these, a control server could simply calculate 5-10 good paths and return these. Moreover these could be cached for commonly requested remote ASs. If a user requires a custom policy they can still resort to requesting actual segments.<a href="#section-3.3-4.3.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-3.4-5">Doing path computation on the control server will initially increase computational cost. However, it would substantially decrease network egress. Caching of paths should reduce CPU cost, maybe even below the current cost for retrieving a large amount of segments from the local database and sending them over the network interface.<a href="#section-3.4-5" class="pilcrow">¶</a></p>
+<p id="section-3.3-5">Doing path computation on the control server will initially increase computational cost. However, it would substantially decrease network egress. Caching of paths should reduce CPU cost, maybe even below the current cost for retrieving a large amount of segments from the local database and sending them over the network interface.<a href="#section-3.3-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="routing-policies-and-traffic-engineering">
-<section id="section-3.5">
+<section id="section-3.4">
         <h3 id="name-routing-policies-and-traffi">
-<a href="#section-3.5" class="section-number selfRef">3.5. </a><a href="#name-routing-policies-and-traffi" class="section-name selfRef">Routing Policies and Traffic Engineering</a>
+<a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-routing-policies-and-traffi" class="section-name selfRef">Routing Policies and Traffic Engineering</a>
         </h3>
-<p id="section-3.5-1">Reduced adoption due to limited routing policy possibilities, such as a (core-)AS does not want to accept transit traffic unless it starts/ends in ASs with special properties. For example a GEANT AS does not want to allow transit traffic unless it originates or ends in another research AS.<a href="#section-3.5-1" class="pilcrow">¶</a></p>
-<p id="section-3.5-2">One solution could be to add a “confirm full path”-flag to certain segments. If this flag is set, the full path (all segments) needs to authorized by all ASes that insist on authorizing it. This is obviously less scalable but may be viable for ASes that insist on such policies. This also allows for “secret” policies.<a href="#section-3.5-2" class="pilcrow">¶</a></p>
-<p id="section-3.5-3">Collateral: this probably needs a data plane change. Conceptually, we have only a single resulting segment, and that segment needs to be used in full, e.g. no on-path trickery.<a href="#section-3.5-3" class="pilcrow">¶</a></p>
+<p id="section-3.4-1">Reduced adoption due to limited routing policy possibilities, such as a (core-)AS does not want to accept transit traffic unless it starts/ends in ASs with special properties. For example a GEANT AS does not want to allow transit traffic unless it originates or ends in another research AS.<a href="#section-3.4-1" class="pilcrow">¶</a></p>
+<p id="section-3.4-2">One solution could be to add a “confirm full path”-flag to certain segments. If this flag is set, the full path (all segments) needs to authorized by all ASes that insist on authorizing it. This is obviously less scalable but may be viable for ASes that insist on such policies. This also allows for “secret” policies.<a href="#section-3.4-2" class="pilcrow">¶</a></p>
+<p id="section-3.4-3">Collateral: this probably needs a data plane change. Conceptually, we have only a single resulting segment, and that segment needs to be used in full, e.g. no on-path trickery.<a href="#section-3.4-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="drkey">
-<section id="section-3.6">
+<section id="section-3.5">
         <h3 id="name-drkey">
-<a href="#section-3.6" class="section-number selfRef">3.6. </a><a href="#name-drkey" class="section-name selfRef">DRKey</a>
+<a href="#section-3.5" class="section-number selfRef">3.5. </a><a href="#name-drkey" class="section-name selfRef">DRKey</a>
         </h3>
 <ul class="normal">
-<li class="normal" id="section-3.6-1.1">
-            <p id="section-3.6-1.1.1">Is forward-secrecy DRKey useful and should we develop it?<a href="#section-3.6-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-3.5-1.1">
+            <p id="section-3.5-1.1.1">Is forward-secrecy DRKey useful and should we develop it?<a href="#section-3.5-1.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.6-1.2">
-            <p id="section-3.6-1.2.1">What are the properties of the control-plane?<a href="#section-3.6-1.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-3.5-1.2">
+            <p id="section-3.5-1.2.1">What are the properties of the control-plane?<a href="#section-3.5-1.2.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.6-1.2.2.1">
-                <p id="section-3.6-1.2.2.1.1">Do we want to have any authorization of the data-plane transit undertaken at this stage?<a href="#section-3.6-1.2.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-3.5-1.2.2.1">
+                <p id="section-3.5-1.2.2.1.1">Do we want to have any authorization of the data-plane transit undertaken at this stage?<a href="#section-3.5-1.2.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-3.6-1.2.2.2">
-                <p id="section-3.6-1.2.2.2.1">Would this obsolete firewalls?<a href="#section-3.6-1.2.2.2.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-3.5-1.2.2.2">
+                <p id="section-3.5-1.2.2.2.1">Would this obsolete firewalls?<a href="#section-3.5-1.2.2.2.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-3.6-1.2.2.3">
-                <p id="section-3.6-1.2.2.3.1">What do we mean when we say "authorize transit"?<a href="#section-3.6-1.2.2.3.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-3.5-1.2.2.3">
+                <p id="section-3.5-1.2.2.3.1">What do we mean when we say "authorize transit"?<a href="#section-3.5-1.2.2.3.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
         </ul>
-<p id="section-3.6-2">For more info: <span>[<a href="#I-D.garciapardo-drkey" class="cite xref">I-D.garciapardo-drkey</a>]</span>.<a href="#section-3.6-2" class="pilcrow">¶</a></p>
+<p id="section-3.5-2">For more info: <span>[<a href="#I-D.garciapardo-drkey" class="cite xref">I-D.garciapardo-drkey</a>]</span>.<a href="#section-3.5-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="scmp-authentication">
-<section id="section-3.7">
+<section id="section-3.6">
         <h3 id="name-scmp-authentication">
-<a href="#section-3.7" class="section-number selfRef">3.7. </a><a href="#name-scmp-authentication" class="section-name selfRef">SCMP Authentication</a>
+<a href="#section-3.6" class="section-number selfRef">3.6. </a><a href="#name-scmp-authentication" class="section-name selfRef">SCMP Authentication</a>
       </h3>
 </section>
 </div>
 <div id="proof-of-transit">
-<section id="section-3.8">
+<section id="section-3.7">
         <h3 id="name-proof-of-transit">
-<a href="#section-3.8" class="section-number selfRef">3.8. </a><a href="#name-proof-of-transit" class="section-name selfRef">Proof of transit</a>
+<a href="#section-3.7" class="section-number selfRef">3.7. </a><a href="#name-proof-of-transit" class="section-name selfRef">Proof of transit</a>
         </h3>
-<p id="section-3.8-1">FABRID <span>[<a href="#KRAHENBUHL2023" class="cite xref">KRAHENBUHL2023</a>]</span> and EPIC <span>[<a href="#LEGNER2020" class="cite xref">LEGNER2020</a>]</span>.<a href="#section-3.8-1" class="pilcrow">¶</a></p>
+<p id="section-3.7-1">FABRID <span>[<a href="#KRAHENBUHL2023" class="cite xref">KRAHENBUHL2023</a>]</span> and EPIC <span>[<a href="#LEGNER2020" class="cite xref">LEGNER2020</a>]</span>.<a href="#section-3.7-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="nat">
-<section id="section-3.9">
+<section id="section-3.8">
         <h3 id="name-nat">
-<a href="#section-3.9" class="section-number selfRef">3.9. </a><a href="#name-nat" class="section-name selfRef">NAT</a>
+<a href="#section-3.8" class="section-number selfRef">3.8. </a><a href="#name-nat" class="section-name selfRef">NAT</a>
         </h3>
-<p id="section-3.9-1">At this moment, the SCION implementation is not compatible out-of-the-box with NAT'ed devices, whether these devices are end-hosts, or even running SCION services. This is due to the (UDP-IP) underlay being modified by the NAT mechanism, but not the internal destination SCION address. Although this does not concern the SCION protocols themselves, we want to check that this will not be a problem.<a href="#section-3.9-1" class="pilcrow">¶</a></p>
+<p id="section-3.8-1">At this moment, the SCION implementation is not compatible out-of-the-box with NAT'ed devices, whether these devices are end-hosts, or even running SCION services. This is due to the (UDP-IP) underlay being modified by the NAT mechanism, but not the internal destination SCION address. Although this does not concern the SCION protocols themselves, we want to check that this will not be a problem.<a href="#section-3.8-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.9-2.1">
-            <p id="section-3.9-2.1.1">With IPv6 underlay, this problem disappears.<a href="#section-3.9-2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-3.8-2.1">
+            <p id="section-3.8-2.1.1">With IPv6 underlay, this problem disappears.<a href="#section-3.8-2.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.9-2.2">
-            <p id="section-3.9-2.2.1">Modify the SCION border router to also act as a STUN server.<a href="#section-3.9-2.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-3.8-2.2">
+            <p id="section-3.8-2.2.1">Modify the SCION border router to also act as a STUN server.<a href="#section-3.8-2.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -1488,6 +1458,36 @@ Currently only endhosts may realize that a segment does not work, this may be vi
 </li>
         </ul>
 <p id="section-4.2-3">There are some nuances: Usually the server's API will store the initial address of the client to be used through all the session. We might need to take this into account.<a href="#section-4.2-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="recovering-from-bad-segments">
+<section id="section-4.3">
+        <h3 id="name-recovering-from-bad-segment">
+<a href="#section-4.3" class="section-number selfRef">4.3. </a><a href="#name-recovering-from-bad-segment" class="section-name selfRef">Recovering from bad segments</a>
+        </h3>
+<p id="section-4.3-1">An AS may be coaxed to disseminate a bad segment (e.g. via "wormhole" attack, see <span>[<a href="#I-D.scion-cp" class="cite xref">I-D.scion-cp</a>]</span>). How do we recover from that?
+Currently only endhosts may realize that a segment does not work, this may be via SCMP errors or simply by traffic degradation.<a href="#section-4.3-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.3-2.1">
+            <p id="section-4.3-2.1.1">An endhost needs to tell it's local AS that the segment is bad<a href="#section-4.3-2.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-4.3-2.2">
+            <p id="section-4.3-2.2.1">Local AS needs to tell CORE AS that segment is bad<a href="#section-4.3-2.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-4.3-2.3">
+            <p id="section-4.3-2.3.1">The CORE AS needs to:<a href="#section-4.3-2.3.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.3-2.3.2.1">
+                <p id="section-4.3-2.3.2.1.1">change policy to exclude bad segments AND/OR<a href="#section-4.3-2.3.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-4.3-2.3.2.2">
+                <p id="section-4.3-2.3.2.2.1">tell other COREs and ISDs to stop delivering bad segment (they only deliver 5 each, so any bad segment shoud be avoided)<a href="#section-4.3-2.3.2.2.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+        </ul>
+<p id="section-4.3-3">Mitigation
+* An AS could monitor traffic for SCMP errors, however this works only if these errors are actually generated and forwarded.<a href="#section-4.3-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
