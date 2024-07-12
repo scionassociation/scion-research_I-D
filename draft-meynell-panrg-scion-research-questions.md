@@ -232,6 +232,9 @@ Currently only endhosts may realize that a segment does not work, this may be vi
   * change policy to exclude bad segments AND/OR
   * tell other COREs and ISDs to stop delivering bad segment (they only deliver 5 each, so any bad segment shoud be avoided)
 
+Mitigation
+* An AS could monitor traffic for SCMP errors, however this works only if these errors are actually generated and forwarded.
+
 
 ## Segment Dissemination
 
