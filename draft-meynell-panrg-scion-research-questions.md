@@ -218,7 +218,7 @@ This "best PCB" practive has several implications:
   routed through them, allowing them to completely block (or greyhole, etc ...) traffic from, or to, a given AS.
   For example, it seems feasinble that five cleverly located AS in Europe and 5 in Australia could block any traffic
   between the two (these ASes would need to be core ASes and would probably need to be in their a malitious ISD to be allowed as CORE).
-  A related question is discussed {{Recovering-from-bad-segments}}.
+  A related question is discussed {{recovering-from-bad-segments}}.
 
 
 ## Recovering from bad segments
