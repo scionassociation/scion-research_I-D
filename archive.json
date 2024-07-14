@@ -1,22 +1,17 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-07-11T00:19:32.172433+00:00",
+  "timestamp": "2024-07-14T00:21:30.903806+00:00",
   "repo": "scionassociation/scion-research_I-D",
   "labels": [
-    {
-      "name": "bug",
-      "description": "Something isn't working",
-      "color": "d73a4a"
-    },
-    {
-      "name": "documentation",
-      "description": "Improvements or additions to documentation",
-      "color": "0075ca"
-    },
     {
       "name": "duplicate",
       "description": "This issue or pull request already exists",
       "color": "cfd3d7"
+    },
+    {
+      "name": "editorial",
+      "description": "Good for newcomers",
+      "color": "9855E2"
     },
     {
       "name": "enhancement",
@@ -24,19 +19,9 @@
       "color": "a2eeef"
     },
     {
-      "name": "good first issue",
-      "description": "Good for newcomers",
-      "color": "7057ff"
-    },
-    {
-      "name": "help wanted",
-      "description": "Extra attention is needed",
-      "color": "008672"
-    },
-    {
-      "name": "invalid",
+      "name": "needs-discussion",
       "description": "This doesn't seem right",
-      "color": "e4e669"
+      "color": "fbca04"
     },
     {
       "name": "question",
@@ -44,12 +29,144 @@
       "color": "d876e3"
     },
     {
-      "name": "wontfix",
-      "description": "This will not be worked on",
-      "color": "ffffff"
+      "name": "design",
+      "description": "",
+      "color": "1d76db"
+    },
+    {
+      "name": "Prio 1",
+      "description": "",
+      "color": "DC0E1A"
+    },
+    {
+      "name": "Prio 2",
+      "description": "",
+      "color": "FBCA04"
+    },
+    {
+      "name": "Prio 3",
+      "description": "",
+      "color": "0E8A16"
     }
   ],
-  "issues": [],
+  "issues": [
+    {
+      "number": 2,
+      "id": "I_kwDOMRYres6PNDwJ",
+      "title": "Add scalability questions",
+      "url": "https://github.com/scionassociation/scion-research_I-D/issues/2",
+      "state": "OPEN",
+      "author": "nicorusti",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "- [ ] look at overelaps with the scalability section in the CP ID https://github.com/scionassociation/scion-cp_I-D/issues/46 \r\n- [ ] write some text for the research draft (e.g. how could we address scalability without rate limiting). Rest belongs to the control plane ID\r\n",
+      "createdAt": "2024-07-11T08:19:26Z",
+      "updatedAt": "2024-07-11T08:19:27Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 3,
+      "id": "I_kwDOMRYres6PNEc4",
+      "title": "Proof of transit",
+      "url": "https://github.com/scionassociation/scion-research_I-D/issues/3",
+      "state": "OPEN",
+      "author": "nicorusti",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [
+        "needs-discussion"
+      ],
+      "body": "- [ ] Add some text about FABRID/EPIC (NASR) \r\n- [ ] Clarify use case for proof of transit. Especially, clarify that with a secure path-aware architecture, the benefit of PoT is not as big, so secure path-awareness might be sufficient for most use cases  ",
+      "createdAt": "2024-07-11T08:20:54Z",
+      "updatedAt": "2024-07-11T08:33:24Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 4,
+      "id": "I_kwDOMRYres6PNEpe",
+      "title": "DrKey",
+      "url": "https://github.com/scionassociation/scion-research_I-D/issues/4",
+      "state": "OPEN",
+      "author": "nicorusti",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": " Move it to other section, call it something like pki extension and improve text\r\n",
+      "createdAt": "2024-07-11T08:21:19Z",
+      "updatedAt": "2024-07-11T08:21:19Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 5,
+      "id": "I_kwDOMRYres6PNGxE",
+      "title": "What do to about SCMP",
+      "url": "https://github.com/scionassociation/scion-research_I-D/issues/5",
+      "state": "OPEN",
+      "author": "nicorusti",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [
+        "needs-discussion"
+      ],
+      "body": "How do we position SCMP? Shall it be authenticated? \r\n\r\nContext: In the dataplane draft we had to adjust text to find a proper reference to the SCMP doc. Also the scionproto SCMP doc had to be updated. References: \r\n- https://github.com/scionassociation/scion-dp_I-D/issues/8\r\n- https://github.com/scionproto/scion/issues/4528 \r\n",
+      "createdAt": "2024-07-11T08:25:53Z",
+      "updatedAt": "2024-07-11T08:33:12Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 6,
+      "id": "I_kwDOMRYres6PNHId",
+      "title": "QoS?",
+      "url": "https://github.com/scionassociation/scion-research_I-D/issues/6",
+      "state": "OPEN",
+      "author": "nicorusti",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "Should QoS be part of the draft? Maybe we could remove it for now",
+      "createdAt": "2024-07-11T08:26:38Z",
+      "updatedAt": "2024-07-11T08:26:38Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 7,
+      "id": "I_kwDOMRYres6PNHnG",
+      "title": "Expand Interoperability",
+      "url": "https://github.com/scionassociation/scion-research_I-D/issues/7",
+      "state": "OPEN",
+      "author": "nicorusti",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "Add some text about IPv6 EH, aslo based on https://github.com/scionproto/scion/discussions/4324\r\n",
+      "createdAt": "2024-07-11T08:27:37Z",
+      "updatedAt": "2024-07-11T08:27:37Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 8,
+      "id": "I_kwDOMRYres6PNIDo",
+      "title": "Expand transport layer",
+      "url": "https://github.com/scionassociation/scion-research_I-D/issues/8",
+      "state": "OPEN",
+      "author": "nicorusti",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "- [ ] Mentions implications of MP-QUIC and recent changes related to path-IDs\r\n- [ ] TAPS/PANAPI",
+      "createdAt": "2024-07-11T08:28:30Z",
+      "updatedAt": "2024-07-11T08:28:30Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
   "pulls": [
     {
       "number": 1,
@@ -63,7 +180,7 @@
       "labels": [],
       "body": "",
       "createdAt": "2024-07-08T15:38:14Z",
-      "updatedAt": "2024-07-08T20:43:30Z",
+      "updatedAt": "2024-07-11T11:02:40Z",
       "baseRepository": "scionassociation/scion-research_I-D",
       "baseRefName": "main",
       "baseRefOid": "737e851cc8b7dfd8ae85e8c4c407978ad732485c",
@@ -120,6 +237,164 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 9,
+      "id": "PR_kwDOMRYres51FMcQ",
+      "title": "Actions update",
+      "url": "https://github.com/scionassociation/scion-research_I-D/pull/9",
+      "state": "MERGED",
+      "author": "nicorusti",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-07-11T11:04:33Z",
+      "updatedAt": "2024-07-11T11:06:24Z",
+      "baseRepository": "scionassociation/scion-research_I-D",
+      "baseRefName": "main",
+      "baseRefOid": "38ffeedc0412404f31acd732fb23543bc4fc8d2b",
+      "headRepository": "scionassociation/scion-research_I-D",
+      "headRefName": "actions-update",
+      "headRefOid": "47e15c4faa27de8879e077b072af39a26b812c0e",
+      "closedAt": "2024-07-11T11:06:21Z",
+      "mergedAt": "2024-07-11T11:06:21Z",
+      "mergedBy": "nicorusti",
+      "mergeCommit": {
+        "oid": "f1a1095ac818c68414fd14900412b0f00a83ce6b"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 10,
+      "id": "PR_kwDOMRYres51NzyA",
+      "title": "Segment dissemination numbers",
+      "url": "https://github.com/scionassociation/scion-research_I-D/pull/10",
+      "state": "OPEN",
+      "author": "tzaeschke",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Add some number to the segment dissemination section.",
+      "createdAt": "2024-07-12T12:39:48Z",
+      "updatedAt": "2024-07-12T12:39:49Z",
+      "baseRepository": "scionassociation/scion-research_I-D",
+      "baseRefName": "main",
+      "baseRefOid": "f1a1095ac818c68414fd14900412b0f00a83ce6b",
+      "headRepository": "scionassociation/scion-research_I-D",
+      "headRefName": "tz/01-segment-dissemination",
+      "headRefOid": "bad4abf9f15a5c1c17996f297034996f60eacf18",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 11,
+      "id": "PR_kwDOMRYres51N-Yp",
+      "title": "NAT",
+      "url": "https://github.com/scionassociation/scion-research_I-D/pull/11",
+      "state": "OPEN",
+      "author": "tzaeschke",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Clarification and correction (regarding use of STUN).\r\n\r\nRequires more discussion regarding use of IPv6.",
+      "createdAt": "2024-07-12T12:58:14Z",
+      "updatedAt": "2024-07-12T12:58:35Z",
+      "baseRepository": "scionassociation/scion-research_I-D",
+      "baseRefName": "main",
+      "baseRefOid": "f1a1095ac818c68414fd14900412b0f00a83ce6b",
+      "headRepository": "scionassociation/scion-research_I-D",
+      "headRefName": "tz/02-NAT",
+      "headRefOid": "5661a7050c824126737d037c5acfc02ceeac9b74",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 12,
+      "id": "PR_kwDOMRYres51OIUZ",
+      "title": "Return path refresh",
+      "url": "https://github.com/scionassociation/scion-research_I-D/pull/12",
+      "state": "OPEN",
+      "author": "tzaeschke",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "More comments on discussion about handling the danger that a server has only an expired path left.",
+      "createdAt": "2024-07-12T13:11:13Z",
+      "updatedAt": "2024-07-12T13:11:14Z",
+      "baseRepository": "scionassociation/scion-research_I-D",
+      "baseRefName": "main",
+      "baseRefOid": "f1a1095ac818c68414fd14900412b0f00a83ce6b",
+      "headRepository": "scionassociation/scion-research_I-D",
+      "headRefName": "tz/03-reverse-path-refresh",
+      "headRefOid": "e02cc232b8093bc4613b364403f45e886c0ffda0",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 13,
+      "id": "PR_kwDOMRYres51OzwB",
+      "title": "CORE beacon scalability",
+      "url": "https://github.com/scionassociation/scion-research_I-D/pull/13",
+      "state": "OPEN",
+      "author": "tzaeschke",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Discussion on core beacon scalability and Recovery",
+      "createdAt": "2024-07-12T14:37:15Z",
+      "updatedAt": "2024-07-12T14:51:20Z",
+      "baseRepository": "scionassociation/scion-research_I-D",
+      "baseRefName": "main",
+      "baseRefOid": "f1a1095ac818c68414fd14900412b0f00a83ce6b",
+      "headRepository": "scionassociation/scion-research_I-D",
+      "headRefName": "tz/04-beacon-scalability",
+      "headRefOid": "adc8d473c99851c65e9361fc3c6cb2e179ee4a94",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 14,
+      "id": "PR_kwDOMRYres51PAyq",
+      "title": "Mention QUIC-MP",
+      "url": "https://github.com/scionassociation/scion-research_I-D/pull/14",
+      "state": "OPEN",
+      "author": "tzaeschke",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Mention QUIC-MP because it appears now to be compatible with SCION by allowing multiple path per 4-tuple.",
+      "createdAt": "2024-07-12T15:07:13Z",
+      "updatedAt": "2024-07-12T15:07:13Z",
+      "baseRepository": "scionassociation/scion-research_I-D",
+      "baseRefName": "main",
+      "baseRefOid": "f1a1095ac818c68414fd14900412b0f00a83ce6b",
+      "headRepository": "scionassociation/scion-research_I-D",
+      "headRefName": "tz/05-interfaces-transport-layer",
+      "headRefOid": "b527e198bd57ba367f8ce86a5207a349ae67ba26",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
