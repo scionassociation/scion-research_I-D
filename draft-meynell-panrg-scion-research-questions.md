@@ -99,7 +99,7 @@ informative:
     target: https://datatracker.ietf.org/doc/draft-garciapardo-panrg-drkey/
     author:
       -
-        ins: 	J. Pardo
+        ins: J. Pardo
         name: Juan A. García Pardo Giménez de los Galanes
         org: ETH Zürich
       -
@@ -216,6 +216,17 @@ There are multiple possible and independent solution steps here:
 * Predefine some policies that can be resolved by the control server, e.g. ANY, BEST_LATENCY, BEST_BANDWIDTH, BEST_PRICE, BEST_CO2. For these, a control server could simply calculate 5-10 good paths and return these. Moreover these could be cached for commonly requested remote ASs. If a user requires a custom policy they can still resort to requesting actual segments.
 
 Doing path computation on the control server will initially increase computational cost. However, it would substantially decrease network egress. Caching of paths should reduce CPU cost, maybe even below the current cost for retrieving a large amount of segments from the local database and sending them over the network interface.
+
+Examples for requesting CORE segments between different ISDs or within an ISD (as of 2024-07-12):
+
+| src         | dst         | segments returned |
+| ----------: + ----------: + :---------------: |
+| 64-0:0:0    | 64-0:0:0    | 337               |
+| 64-0:0:0    | 65-0:0:0    | 240               |
+| 64-0:0:0    | 67-0:0:0    | 60                |
+| 64-0:0:0    | 64-2:0:13   | 60                |
+{: #segment-count-example title="CORE segment count examples"}
+
 
 ## Routing Policies and Traffic Engineering
 
