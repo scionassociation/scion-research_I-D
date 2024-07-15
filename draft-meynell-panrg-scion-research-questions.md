@@ -205,7 +205,7 @@ This draft assumes the reader is familiar with some of the fundamental concepts 
 
 The idea behind beaconing is to discover all possible paths (loop free and with a fixed maximu length) between two CORE AS.
 Every AS forwards any received becons to all neighbor CORE ASes unless this would cause a loop or exceed the fixed maximum length.
-Implemented naively, the number of paths (and beacons) grows superexponentially with the network size.
+Implemented naively, the number of paths (and beacons) grows exponentially with the network size.
 This is currently mitigated primarily (and efficiently) by forwarding only the 5 "best PCB" to neighbours.
 
 This "best PCB" practive has several implications:
