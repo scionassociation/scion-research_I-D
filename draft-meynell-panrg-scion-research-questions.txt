@@ -328,6 +328,9 @@ Table of Contents
 
    *  SCION-IP translation
 
+   *  How can we interface with QUIC Multipath
+      [I-D.ietf-quic-multipath]?
+
 7.  Implications of Path Awareness for the Transport and Application
     Layers
 
@@ -348,6 +351,13 @@ Table of Contents
 11.  References
 
 11.1.  Normative References
+
+   [I-D.ietf-quic-multipath]
+              Liu, Y., Ma, Y., De Coninck, Q., Bonaventure, O., Huitema,
+              C., and M. Kühlewind, "Multipath Extension for QUIC", Work
+              in Progress, Internet-Draft, draft-ietf-quic-multipath-10,
+              8 July 2024, <https://datatracker.ietf.org/doc/html/draft-
+              ietf-quic-multipath-10>.
 
    [I-D.scion-cp]
               de Kater, C., Rustignoli, N., and S. Hitz, "SCION Control
