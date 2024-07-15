@@ -242,8 +242,8 @@ FABRID {{KRAHENBUHL2023}} and EPIC {{LEGNER2020}}.
 
 ## NAT
 
-At this moment, the SCION implementation is not compatible out-of-the-box with NAT'ed devices, whether these devices are end-hosts, or even running SCION services. This is due to the (UDP-IP) underlay being modified by the NAT mechanism, but not the internal destination SCION address. Although this does not concern the SCION protocols themselves, we want to check that this will not be a problem.
-Critically, the SCION header needs to contain the SRC address as seen by the border router so that the border router can forward incoming reponse packeyts to the correct NAT device and port.
+At this moment, the SCION implementation is not compatible out-of-the-box with NAT'ed devices, regardless of whether these devices are end-hosts, or even running SCION services. This is due to the (UDP-IP) underlay being modified by the NAT mechanism, but not the internal destination SCION address. Although this does not concern the SCION protocols themselves, we want to check that this will not be a problem.
+Critically, the SCION header needs to contain the SRC address as seen by the border router so that the border router can forward incoming response packets to the correct NAT device and port.
 
 Possible solutions:
 
