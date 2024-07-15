@@ -327,6 +327,7 @@ Do we actually need to solve this reverse path refresh problem?
 
 An AS may be coaxed to disseminate a bad segment (e.g. via "wormhole" attack, see {{I-D.scion-cp}}). How do we recover from that?
 Currently only endhosts may realize that a segment does not work, this may be via SCMP errors or simply by traffic degradation.
+This would be a possible sequence of events:
 
 * An endhost needs to tell it's local AS that the segment is bad
 * Local AS needs to tell CORE AS that segment is bad
@@ -334,7 +335,8 @@ Currently only endhosts may realize that a segment does not work, this may be vi
   * change policy to exclude bad segments AND/OR
   * tell other COREs and ISDs to stop delivering bad segment (they only deliver 5 each, so any bad segment shoud be avoided)
 
-Mitigation
+Mitigation alternatives:
+
 * An AS could monitor traffic for SCMP errors, however this works only if these errors are actually generated and forwarded.
 
 
