@@ -5,11 +5,11 @@
 PANRG                                                         K. Meynell
 Internet-Draft                                         SCION Association
 Intended status: Informational                           J. García Pardo
-Expires: 13 January 2025                                      T. Zäschke
+Expires: 16 January 2025                                      T. Zäschke
                                                               ETH Zürich
                                                            N. Rustignoli
                                                        SCION Association
-                                                            12 July 2024
+                                                            15 July 2024
 
 
                         SCION Research Questions
@@ -52,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 13 January 2025.
+   This Internet-Draft will expire on 16 January 2025.
 
 Copyright Notice
 
@@ -288,14 +288,14 @@ Table of Contents
    A related question: how long before expiration should we still use a
    path?  How do we handle that?
 
-   Do we actually need to solve this?
+   Do we actually need to solve this reverse path refresh problem?
 
    *  CONTRA: It is probably rare that a server needs to send data for a
       long time without the client ever answering back.
 
    *  PRO: The client may happen to have an old-ish path.  If we can't
       refresh, the client always needs to consider whether a path is
-      valid "long enough".
+      valid "long enough", which might only be possible to guess.
 
    *  CONTRA: Sending keep-alives sounds like a connection based
       protocol.  It alo means we need to figure out when to stop sending
