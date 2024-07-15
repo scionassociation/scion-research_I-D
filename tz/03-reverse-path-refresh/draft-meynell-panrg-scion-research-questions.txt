@@ -291,7 +291,8 @@ Table of Contents
    Do we actually need to solve this reverse path refresh problem?
 
    *  CONTRA: It is probably rare that a server needs to send data for a
-      long time without the client ever answering back.
+      long time without the application layer protocol requiring the
+      client to ever answer back.
 
    *  PRO: The client may happen to have an old-ish path.  If we can't
       refresh, the client always needs to consider whether a path is
