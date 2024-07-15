@@ -5,11 +5,11 @@
 PANRG                                                         K. Meynell
 Internet-Draft                                         SCION Association
 Intended status: Informational                           J. García Pardo
-Expires: 12 January 2025                                      T. Zäschke
+Expires: 16 January 2025                                      T. Zäschke
                                                               ETH Zürich
                                                            N. Rustignoli
                                                        SCION Association
-                                                            11 July 2024
+                                                            15 July 2024
 
 
                         SCION Research Questions
@@ -52,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 12 January 2025.
+   This Internet-Draft will expire on 16 January 2025.
 
 Copyright Notice
 
@@ -179,6 +179,23 @@ Table of Contents
    egress.  Caching of paths should reduce CPU cost, maybe even below
    the current cost for retrieving a large amount of segments from the
    local database and sending them over the network interface.
+
+   Examples for requesting CORE segments between different ISDs or
+   within an ISD (as of 2024-07-12):
+
+               +==========+===========+===================+
+               |      src |       dst | segments returned |
+               +==========+===========+===================+
+               | 64-0:0:0 |  64-0:0:0 |        337        |
+               +----------+-----------+-------------------+
+               | 64-0:0:0 |  65-0:0:0 |        240        |
+               +----------+-----------+-------------------+
+               | 64-0:0:0 |  67-0:0:0 |         60        |
+               +----------+-----------+-------------------+
+               | 64-0:0:0 | 64-2:0:13 |         60        |
+               +----------+-----------+-------------------+
+
+                   Table 1: CORE segment count examples
 
 3.3.  Routing Policies and Traffic Engineering
 
