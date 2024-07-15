@@ -278,10 +278,10 @@ There are some nuances: Usually the server's API will store the initial address 
 
 A related question: how long before expiration should we still use a path? How do we handle that?
 
-Do we actually need to solve this?
+Do we actually need to solve this reverse path refresh problem?
 
 * CONTRA: It is probably rare that a server needs to send data for a long time without the client ever answering back.
-* PRO: The client may happen to have an old-ish path. If we can't refresh, the client always needs to consider whether a path is valid "long enough".
+* PRO: The client may happen to have an old-ish path. If we can't refresh, the client always needs to consider whether a path is valid "long enough", which might only be possible to guess.
 * CONTRA: Sending keep-alives sounds like a connection based protocol. It alo means we need to figure out when to stop sending keep alives.
 * CONTRA: It may be better to solve this in the application layer or in the overlay protocol, where we we know more about
   potential length of the session, or whether this is a singular request/answer type of exchange, or whether more frequent keep-alives
