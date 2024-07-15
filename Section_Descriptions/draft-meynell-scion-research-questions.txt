@@ -2,18 +2,18 @@
 
 
 
-PANRG                                                         K. Meynell
+Network Working Group                                         K. Meynell
 Internet-Draft                                         SCION Association
 Intended status: Informational                           J. García Pardo
-Expires: 9 January 2025                                       T. Zäschke
+Expires: 16 January 2025                                      T. Zäschke
                                                               ETH Zürich
                                                            N. Rustignoli
                                                        SCION Association
-                                                             8 July 2024
+                                                            15 July 2024
 
 
                         SCION Research Questions
-          draft-meynell-panrg-scion-research-questions-latest
+             draft-meynell-scion-research-questions-latest
 
 Abstract
 
@@ -25,14 +25,9 @@ About This Document
 
    The latest revision of this draft can be found at
    https://scionassociation.github.io/scion-research_I-D/draft-meynell-
-   panrg-scion-research-questions.html.  Status information for this
-   document may be found at https://datatracker.ietf.org/doc/draft-
-   meynell-panrg-scion-research-questions/.
-
-   Discussion of this document takes place on the WG Working Group
-   mailing list (mailto:panrg@irtf.org), which is archived at
-   https://datatracker.ietf.org/rg/panrg.  Subscribe at
-   https://www.ietf.org/mailman/listinfo/panrg/.
+   scion-research-questions.html.  Status information for this document
+   may be found at https://datatracker.ietf.org/doc/draft-meynell-scion-
+   research-questions/.
 
    Source for this draft and an issue tracker can be found at
    https://github.com/scionassociation/scion-research_I-D.
@@ -52,7 +47,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 9 January 2025.
+   This Internet-Draft will expire on 16 January 2025.
 
 Copyright Notice
 
@@ -71,14 +66,15 @@ Table of Contents
    2.  Conventions and Definitions
    3.  Discovery, Distribution, and Trustworthiness of Path Properties
      3.1.  ISD, AS identity
-     3.2.  Segment Dissemination
-     3.3.  Routing Policies and Traffic Engineering
-     3.4.  DRKey
-     3.5.  SCMP Authentication
-     3.6.  Proof of transit
-     3.7.  NAT
+     3.2.  Beaconing Scalability
+     3.3.  Segment Dissemination
+     3.4.  Routing Policies
+     3.5.  DRKey
+     3.6.  SCMP Authentication
+     3.7.  Proof of transit
+     3.8.  NAT
    4.  Dataplane stability
-     4.1.  Link load balancing
+     4.1.  Link over/under use
      4.2.  Reverse Path Refreshment
    5.  Hummingbird / QoS
    6.  Interfaces for Path Awareness
@@ -135,7 +131,34 @@ Table of Contents
 
    *  One AS belongs to many ISDs?
 
-3.2.  Segment Dissemination
+3.2.  Beaconing Scalability
+
+   The current beaconing system creates a large amount of beaconing
+   traffic because every node multiplies the beacons by forwarding them
+   to multiple other ASs.  This is currently handled by rate-limiting
+   identical beacons (with identical paths) to only be forwarded every
+   few minutes.  With larger networks, the beaconing traffic is expected
+   to grow “substantially”.
+
+   *  Risk: beaconing traffic grows exponentially with network size,
+      especially with multiple links between pairs of ASes.
+
+      -  Large amount of beacon traffic.
+
+      -  Large amount of state on beacon servers.
+
+      -  Considerable amount of state on control services to store
+         segments, and considerable data traffic for serving segments.
+
+   *  The beacon interval in the SSFN has been considerably reduced to
+      deal with beacon traffic.
+
+      -  This affects the propagation time of newly available routes.
+         [To be verified]
+
+      -  This can affect convergence time.
+
+3.3.  Segment Dissemination
 
    Control servers return a large number of path segments.  This can
    cost considerable bandwidth / network egress while at the same time
@@ -180,7 +203,7 @@ Table of Contents
    the current cost for retrieving a large amount of segments from the
    local database and sending them over the network interface.
 
-3.3.  Routing Policies and Traffic Engineering
+3.4.  Routing Policies
 
    Reduced adoption due to limited routing policy possibilities, such as
    a (core-)AS does not want to accept transit traffic unless it starts/
@@ -198,7 +221,7 @@ Table of Contents
    we have only a single resulting segment, and that segment needs to be
    used in full, e.g. no on-path trickery.
 
-3.4.  DRKey
+3.5.  DRKey
 
    *  Is forward-secrecy DRKey useful and should we develop it?
 
@@ -213,13 +236,13 @@ Table of Contents
 
    For more info: [I-D.garciapardo-drkey].
 
-3.5.  SCMP Authentication
+3.6.  SCMP Authentication
 
-3.6.  Proof of transit
+3.7.  Proof of transit
 
    FABRID [KRAHENBUHL2023] and EPIC [LEGNER2020].
 
-3.7.  NAT
+3.8.  NAT
 
    At this moment, the SCION implementation is not compatible out-of-
    the-box with NAT'ed devices, whether these devices are end-hosts, or
@@ -234,7 +257,7 @@ Table of Contents
 
 4.  Dataplane stability
 
-4.1.  Link load balancing
+4.1.  Link over/under use
 
    Links may get overloaded because the SCION routing system fails to
    distribute load properly over different links.  New/different links
@@ -244,7 +267,8 @@ Table of Contents
    Non comprehensively:
 
    *  Squeeze: send an SCMP message to trigger end-hosts to use an
-      alternative path
+      alternative path → is this bad if there are no alternative paths
+      of if these are even worse?
 
    *  Steer: send and SCMP to trigger users to ask CS for a better path
 
@@ -255,9 +279,9 @@ Table of Contents
    *  Recommend: let the end-hosts know which paths are recommended by
       the AS at this time.
 
-   If a link has good properties, many AS will disseminate segments,
-   therefore paths that go through this link and the link may become
-   overloaded.  See Simon Scherrer's work on Braess Paradox.
+   If a link has good properties, many AS will disseminate segments →
+   paths that go through this link and the link will be overloaded.  See
+   Simon Scherrer's work on Braess Paradox.
 
    Either there needs to be some constant control by all clients to not
    choose the best theoretical path, but the one that works best.  Or we
@@ -267,6 +291,12 @@ Table of Contents
    The current consensus is that end-hosts can use multi-pathing and
    “automatically” converge on the best path, i.e. creating an
    equilibrium.  Again, see Simon Scherrer's work on Braess Paradox.
+
+   TODO Check in SCION book in how much detail this has been solved and
+   whether there is any impact in terms of network probing traffic (i.e.
+   traffic that doesn’t result in useful data transfers but is
+   effectively used for probing (either directly, or indirectly via data
+   packets that race each other only only the fastest one is “useful”)).
 
 4.2.  Reverse Path Refreshment
 
@@ -301,7 +331,9 @@ Table of Contents
 
    *  IPv6 in the Data Plane
 
-   *  SCION-IP translation
+   *  SCION-IP translation - (OVGU: SCION-IP Translation proposal, SCION
+      Internet discussion @scionlab on 12.03.2024 by
+      robin.wehner@ovgu.de)
 
 7.  Implications of Path Awareness for the Transport and Application
     Layers
