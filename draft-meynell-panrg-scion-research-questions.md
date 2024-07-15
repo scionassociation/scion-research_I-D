@@ -41,6 +41,7 @@ author:
 
 normative:
   RFC9217:
+  I-D.ietf-quic-multipath:
   I-D.scion-cp:
     title: SCION Control Plane
     date: 2023
@@ -301,6 +302,7 @@ There are some nuances: Usually the server's API will store the initial address 
 
 * IPv6 in the Data Plane
 * SCION-IP translation
+* How can we interface with QUIC Multipath {{I-D.ietf-quic-multipath}}?
 
 # Implications of Path Awareness for the Transport and Application Layers
 
