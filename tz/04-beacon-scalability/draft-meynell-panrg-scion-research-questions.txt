@@ -5,11 +5,11 @@
 PANRG                                                         K. Meynell
 Internet-Draft                                         SCION Association
 Intended status: Informational                           J. García Pardo
-Expires: 16 January 2025                                      T. Zäschke
+Expires: 17 January 2025                                      T. Zäschke
                                                               ETH Zürich
                                                            N. Rustignoli
                                                        SCION Association
-                                                            15 July 2024
+                                                            16 July 2024
 
 
                         SCION Research Questions
@@ -52,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 16 January 2025.
+   This Internet-Draft will expire on 17 January 2025.
 
 Copyright Notice
 
@@ -71,7 +71,7 @@ Table of Contents
    2.  Conventions and Definitions
    3.  Discovery, Distribution, and Trustworthiness of Path Properties
      3.1.  ISD, AS identity
-     3.2.  CORE Beaconing Scalability
+     3.2.  Beacon Forwarding Policy
      3.3.  Segment Dissemination
      3.4.  Routing Policies and Traffic Engineering
      3.5.  DRKey
@@ -81,13 +81,17 @@ Table of Contents
    4.  Dataplane stability
      4.1.  Link load balancing
      4.2.  Reverse Path Refreshment
-     4.3.  Recovering from bad segments
+     4.3.  Recovering from faulty segments
+       4.3.1.  Implications
+       4.3.2.  Mitigation
    5.  Hummingbird / QoS
    6.  Interfaces for Path Awareness
    7.  Implications of Path Awareness for the Transport and
            Application Layers
    8.  Naming
    9.  Security Considerations
+     9.1.  DoS with Wormholes
+       9.1.1.  Impact
    10. IANA Considerations
    11. References
      11.1.  Normative References
@@ -137,7 +141,7 @@ Table of Contents
 
    *  One AS belongs to many ISDs?
 
-3.2.  CORE Beaconing Scalability
+3.2.  Beacon Forwarding Policy
 
    The idea behind beaconing is to discover all possible paths (loop
    free and with a fixed maximu length) between two CORE AS.  Every AS
@@ -149,7 +153,7 @@ Table of Contents
 
    This "best PCB" practive has several implications:
 
-   *  It limits the number of available paths for endhosts such that
+   *  It limits the number of available paths for endpoint such that
       only 5 path may be available to a given destination.  This is
       especially relevant for
 
@@ -163,14 +167,7 @@ Table of Contents
       destination, see Section 4.1.
 
    *  It opens the possibility of a DoS attack where a small number of
-      "wormholes", see [I-D.scion-cp], may be selected as "best" and
-      have all traffic routed through them, allowing them to completely
-      block (or greyhole, etc ...) traffic from, or to, a given AS.  For
-      example, it seems feasible that five cleverly located ASes in
-      Europe and 5 in Australia could block any traffic between the two
-      (these ASes would need to be core ASes and would probably need to
-      be in there a malicious ISD to be allowed as CORE).  A related
-      question is discussed in Section 4.3.
+      "wormholes", see Section 9.1.
 
 3.3.  Segment Dissemination
 
@@ -322,29 +319,60 @@ Table of Contents
    initial address of the client to be used through all the session.  We
    might need to take this into account.
 
-4.3.  Recovering from bad segments
+4.3.  Recovering from faulty segments
 
-   An AS may be coaxed to disseminate a bad segment (e.g. via "wormhole"
-   attack, see [I-D.scion-cp]).  How do we recover from that?  Currently
-   only endhosts may realize that a segment does not work, this may be
-   via SCMP errors or simply by traffic degradation.  This would be a
-   possible sequence of events:
+   Faulty segments are segments that do not work as advertised, i.e.
+   they are either physically faulty (broken link, high packet loss,
+   jitter, ...) or come with faulty metadata, suggesting too few hops,
+   too low latency, too much bandwith, or similar problems.  The
+   faultyness may be caused by a technical problem (e.g. broken link) or
+   by a malicious adversary.
 
-   *  An endhost needs to tell it's local AS that the segment is bad
+   An example for a malicious adversary is the "wormhole" attack, see
+   [I-D.scion-cp], where, an AS may be coaxed to disseminate a faulty
+   segment.  How do we recover from faulty segments?  Currently only
+   endhosts may realize that a segment does not work as advertised,
+   either via SCMP errors or simply by traffic degradation.  This would
+   be a possible sequence of events:
 
-   *  Local AS needs to tell CORE AS that segment is bad
+   *  An endpoint realizes that a segment is faulty
+
+   *  An endpoint needs to report to its local AS that the segment is
+      faulty
+
+   *  Local AS needs to report its CORE AS that segment is faulty
 
    *  The CORE AS needs to:
 
-      -  change policy to exclude bad segments AND/OR
+      -  change policy to exclude faulty segments AND/OR
 
-      -  tell other COREs and ISDs to stop delivering bad segment (they
-         only deliver 5 each, so any bad segment shoud be avoided)
+      -  tell other COREs and ISDs to stop delivering the segment (they
+         only deliver 5 each, so any faulty segment shoud be avoided)
 
-   Mitigation alternatives:
+4.3.1.  Implications
+
+   A lack of recovery can lead to an attack as described in Section 9.1.
+
+4.3.2.  Mitigation
 
    *  An AS could monitor traffic for SCMP errors, however this works
       only if these errors are actually generated and forwarded.
+
+   *  Endpoints need a way to signal faulty segments to ASes.  ASes need
+      a way to signal faulty ASes to other ASes (e.g. core ASes or ASes
+      in other ISDs).
+
+   *  ASes need adaptive becaon analysis algorithms that allow excluding
+      specific beacons, e.g. beacons that have known malicious ASes on
+      path.
+
+   *  For swift recovery, it would be useful if ASes could revoke faulty
+      segments.
+
+   *  Adapt the path discovery and dissemination algorithm to allow ASes
+      to have many more than five paths to a given remote destination.
+      This would allow endpoints to simply ignore faulty segments and
+      use other ones.
 
 5.  Hummingbird / QoS
 
@@ -376,6 +404,44 @@ Table of Contents
 9.  Security Considerations
 
    TODO Security
+
+9.1.  DoS with Wormholes
+
+   Scenario: an attacker creates ten core ASes anduses them to create
+   five (mostly disjunct) "wormholes", see [I-D.scion-cp], between to
+   "major" locations, e.g. between Europe and Australia.  The five
+   wormholes advertise excellent traffic conditions by advertising low
+   latency, few hops, low cost, ...).  As a result the beacons of the
+   five wormholes are likely to be chosen as the "five best" segments
+   for any traffic between Europe and Australia.  After all alternative
+   paths (which may be in local oath databases) have expired, the
+   wormholes will be the only paths available to local ASes.
+
+9.1.1.  Impact
+
+   The attacker can now perform blackhole attacks (DoS), greyhole
+   attacks, delay traffic, or similarily impact traffic.
+
+   Critically, there is no way no recover from this situation.  In order
+   to recover, ASes that are connected to the workhole-ASes would need
+   to learn of the problem and stop forwarding the wormhole beacons.
+
+   Mitigations: - Introduce a way to veryfy path properties.  This would
+   make it harder to install wormholes. - Introduce a way to report and
+   recover from malisious segments, see Section 4.3. - Adapt the path
+   discovery and dissemination algorithm to allow ASes to have many more
+   than five paths to a given remote destination.  The attack would then
+   require an (unreasonably) large number of compromosed ASes.
+
+   The attacker has now atteracted
+
+   , may be selected as "best" and have all traffic routed through them,
+   allowing them to completely block (or greyhole, etc ...) traffic
+   from, or to, a given AS.  For example, it seems feasible that five
+   cleverly located ASes in Europe and 5 in Australia could block any
+   traffic between the two (these ASes would need to be core ASes and
+   would probably need to be in there a malicious ISD to be allowed as
+   CORE).  A related question is discussed in Section 4.3.
 
 10.  IANA Considerations
 
