@@ -115,6 +115,37 @@ informative:
         ins: A. Perrig
         name: Adrian Perrig
         org: ETH Zürich
+
+  TABAEIAGHDAEI2023:
+    title: "Inter-domain Routing with Extensible Criteria"
+    date: 2023
+    target: https://netsec.ethz.ch/publications/papers/IREC_arXiv.pdf
+    author:
+      -
+        ins: S. Tabaeiaghdaei
+        name: Seyedali Tabaeiaghdaei
+        org: ETH Zürich
+      -
+        ins: M. Wyss
+        name: Marc Wyss
+        org: ETH Zürich
+      -
+        ins: G. Giuliari
+        name: Giacomo Giuliari
+        org: ETH Zürich
+      -
+        ins: J. van Bommel
+        name: Jelte van Bommel
+        org: ETH Zürich
+      -
+        ins: A. N. Zehmakan
+        name: Ahad N. Zehmakan
+        org: Australian National University
+      -
+        ins: A. Perrig
+        name: Adrian Perrig
+        org: ETH Zürich
+        
   LEGNER2020:
     title: "EPIC: Every Packet Is Checked in the Data Plane of a Path-Aware Internet"
     date: 2020
@@ -313,6 +344,7 @@ Examples for requesting CORE segments between different ISDs or within an ISD (a
 * Criteria change over time.
   * How can optimization functions adapt to incorporate these changes?
   * How to achieve fast adaptation of optimization functions?
+* IREC {{TABAEIAGHDAEI2023}} 
 
 
 ## Routing Policies and Traffic Engineering
