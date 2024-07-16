@@ -196,9 +196,34 @@ This draft assumes the reader is familiar with some of the fundamental concepts 
 
 ## ISD, AS identity
 
+The SCION protocol specifies 16 bits and 48 bits to identify the ISD and AS.
+These identification is, at this moment, necessary at the data-plane level,
+written on each one of the data packets to fully address the sender and receiver,
+as well as at the control-plane level, to identify the PCB sender and hops.
+
+While 48 bits seem sufficient to accommodate a large number of ASes,
+using 16 bits for the ISD might not be.
+Additionally, the justification of these figures is lacking at the moment.
+
+The following questions arise: (not comprehensive)
+
 * How many ASes do we expect in the SCION network model?
-* How many ISDs? What is the ontology of an ISD? Per geographic area only?
-* One AS belongs to many ISDs?
+* Can one AS belong to many ISDs?
+* Are AS numbers unique themselves? Or only unique in combination with an ISD?
+* How many ISDs do we expect?
+* What is the ontology of an ISD?
+  Note that not all combinations of ASes might be possible as ISDs:
+  An ISD MUST be connected via at least one core link to the rest of the ISD connected graph.
+  Otherwise the beaconing process does not transfer trust information among
+  the connected graph of existing ISDs and this ISD in question.
+  This reduces the absolute number of possible ISDs to those that satisfy a
+  strict direct connectivity requirement (hence they could become core ASes in
+  the new ISD). It is still super-exponential asymptotically.
+  * Per geographic area?
+  * Per legal jurisdiction?
+  * Per capacity tier?
+  * Per "type"? (meaning: any grouping that makes sense to their members)
+  * Possible combinations of any decided "type"?
 
 
 ## Segment Dissemination
