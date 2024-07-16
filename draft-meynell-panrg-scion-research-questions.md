@@ -205,8 +205,8 @@ This draft assumes the reader is familiar with some of the fundamental concepts 
 
 Control servers return a large number of path segments. This can cost considerable bandwidth / network egress while at the same time overloading clients with an unnecessarily large numbers of segments, mostly consisting of redundant information in terms of duplicate link and hops.
 
-* This problem may be more problematic in ASes with many end hosts (e.g. IoT), or end hosts with little computing power or little spare bandwidth.
-* Getting a full path to a remote endhost may require three round-trips with the control server.
+* This problem may be more problematic in ASes with many endpoints (e.g. IoT), or endpoints with little computing power or little spare bandwidth.
+* Getting a full path to a remote endpoint may require three round-trips with the control server.
 
 There are multiple possible and independent solution steps here:
 
@@ -260,7 +260,7 @@ Critically, the SCION header needs to contain the SRC address as seen by the bor
 Possible solutions:
 
 * With IPv6 underlay, this problem disappears. // TODO Clarify why it disappears? IS the idea that we can remove NATs if everyone would use IPv6?
-* Introduce a mechanism so that the SCION border router can report the NATed address to an endhost (similar to a STUN server).
+* Introduce a mechanism so that the SCION border router can report the NATed address to an endpoint (similar to a STUN server).
 
 # Dataplane stability
 
@@ -271,7 +271,7 @@ Links may get overloaded because the SCION routing system fails to distribute lo
 If links become overloaded, there are several ways to handle that. Non comprehensively:
 
 * Squeeze: send an SCMP message to trigger end-hosts to use an alternative path
-* Steer: send and SCMP to trigger users to ask CS for a better path
+* Steer: send and SCMP to trigger users to ask control server for a better path
 * Reduce: hand over very short lived paths, let the end-hosts wait for the path to expire so that they request new paths and (hopefully) decide on a different path.
 * Recommend: let the end-hosts know which paths are recommended by the AS at this time.
 
@@ -286,7 +286,7 @@ The current consensus is that end-hosts can use multi-pathing and “automatical
 
 When a client contacts a server, it is usually understood that it wants the server to use the reverse path to answer back. It the server uses that path for a long period of time, the path will eventually expire. How to standardize the process of refreshment?
 
-* The server must ask the CS for a path, regardless of the client's policy.
+* The server must ask the control server for a path, regardless of the client's policy.
 * The client (somehow) sends a new packet with a new path, prompting the server to use this path from now on.
 
 There are some nuances: Usually the server's API will store the initial address of the client to be used through all the session. We might need to take this into account.
