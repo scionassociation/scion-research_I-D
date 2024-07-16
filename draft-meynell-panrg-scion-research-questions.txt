@@ -143,11 +143,11 @@ Table of Contents
    mostly consisting of redundant information in terms of duplicate link
    and hops.
 
-   *  This problem may be more problematic in ASes with many end hosts
-      (e.g.  IoT), or end hosts with little computing power or little
+   *  This problem may be more problematic in ASes with many endpoints
+      (e.g.  IoT), or endpoints with little computing power or little
       spare bandwidth.
 
-   *  Getting a full path to a remote endhost may require three round-
+   *  Getting a full path to a remote endpoint may require three round-
       trips with the control server.
 
    There are multiple possible and independent solution steps here:
@@ -255,7 +255,7 @@ Table of Contents
       would use IPv6?
 
    *  Introduce a mechanism so that the SCION border router can report
-      the NATed address to an endhost (similar to a STUN server).
+      the NATed address to an endpoint (similar to a STUN server).
 
 4.  Dataplane stability
 
@@ -271,7 +271,8 @@ Table of Contents
    *  Squeeze: send an SCMP message to trigger end-hosts to use an
       alternative path
 
-   *  Steer: send and SCMP to trigger users to ask CS for a better path
+   *  Steer: send and SCMP to trigger users to ask control server for a
+      better path
 
    *  Reduce: hand over very short lived paths, let the end-hosts wait
       for the path to expire so that they request new paths and
@@ -300,8 +301,8 @@ Table of Contents
    server uses that path for a long period of time, the path will
    eventually expire.  How to standardize the process of refreshment?
 
-   *  The server must ask the CS for a path, regardless of the client's
-      policy.
+   *  The server must ask the control server for a path, regardless of
+      the client's policy.
 
    *  The client (somehow) sends a new packet with a new path, prompting
       the server to use this path from now on.
