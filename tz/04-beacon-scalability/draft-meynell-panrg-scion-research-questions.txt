@@ -143,35 +143,35 @@ Table of Contents
 
 3.2.  Beacon Forwarding Policy
 
-   The idea behind beaconing is to discover all possible paths (loop
-   free and with a fixed maximu length) between two CORE AS.  Every AS
-   forwards any received becons to all neighbor CORE ASes unless this
+   The idea behind "beaconing" is to discover all possible paths (loop
+   free and with a fixed maximum length) between two CORE AS.  Every AS
+   forwards any received beacons to all neighbor CORE ASes unless this
    would cause a loop or exceed the fixed maximum length.  Implemented
    naively, the number of paths (and beacons) grows exponentially with
-   the network size.  This is currently mitigated primarily (and
-   efficiently) by forwarding only the five "best PCB" to neighbours.
+   the network size.  This is currently mitigated, primarily (and
+   efficiently), by forwarding only the five "best PCBs" to neighbours.
 
-   This "best PCB" practive has several implications:
+   This "best PCB" practice has several implications:
 
    *  It limits the number of available paths for endpoints such that
       only five truly diverse paths may be available to a given
-      destination. "truly diverse" means: Most AS will receive five PCBs
-      to a given destination from several of their neighbours.  However,
-      assuming the ASes in the are use a similar PCB selection policy,
-      it is not unlikely that each neighbor AS will forward a very
-      similar set of five PCB.  In effect, there may be more than five
-      path available, but they are likely to diverge only on the first
-      one or two hops *(TBC: Is that true?  There is no research
+      destination. "truly diverse" means: Most ASes will receive five
+      PCBs to a given destination from several of their neighbours.
+      However, assuming those ASes are use a similar PCB selection
+      policy, it is not unlikely that each neighbor AS will forward a
+      very similar set of five PCB.  In effect, there may be more than
+      five paths available, but they are likely to diverge only on the
+      first one or two hops *(TBC: Is that true?  There is no research
       confirming this hypothesis)*. The problem that there may be only
       five truly diverse paths available is especially relevant for:
 
-      -  Multipathing: you may not be able to use more than five path
-         and no great selection of pats on offer .
+      -  Multipathing: endpoints may not be able to use more than five
+         paths and no great selection of pats on offer.
 
       -  Unusual path policies, such as geofencing, may not be
          fulfillable by the limited number of paths on offer.
 
-   *  It causes a small number of path to carry all traffic to a given
+   *  It causes a small number of paths to carry all traffic to a given
       destination, see Section 4.1.
 
    *  It opens the possibility of a DoS attack where a small number of
@@ -179,15 +179,15 @@ Table of Contents
 
 3.3.  Segment Dissemination
 
-   Control servers return a large number of path segments.  This can
-   cost considerable bandwidth / network egress while at the same time
-   overloading clients with an unnecessarily large numbers of segments,
-   mostly consisting of redundant information in terms of duplicate link
-   and hops.
+   Control servers return a large number of path segments when an
+   endpoint requests paths to a destination.  This can cost considerable
+   bandwidth / network egress while at the same time overloading clients
+   with an unnecessarily large numbers of segments, mostly consisting of
+   redundant information in terms of duplicate links and hops.
 
-   *  This problem may be more problematic in ASes with many end hosts
-      (e.g.  IoT), or end hosts with little computing power or little
-      spare bandwidth.
+   *  This problem may be more acute in ASes with many end hosts (e.g.
+      IoT), or end hosts with little computing power or little spare
+      bandwidth.
 
    *  Getting a full path to a remote endhost may require three round-
       trips with the control server.
@@ -213,10 +213,10 @@ Table of Contents
       server, e.g.  ANY, BEST_LATENCY, BEST_BANDWIDTH, BEST_PRICE,
       BEST_CO2.  For these, a control server could simply calculate 5-10
       good paths and return these.  Moreover these could be cached for
-      commonly requested remote ASs.  If a user requires a custom policy
-      they can still resort to requesting actual segments.
+      commonly requested remote ASes.  If a user requires a custom
+      policy they can still resort to requesting actual segments.
 
-   Doing path computation on the control server will initially increase
+   Doing path selection on the control server will initially increase
    computational cost.  However, it would substantially decrease network
    egress.  Caching of paths should reduce CPU cost, maybe even below
    the current cost for retrieving a large amount of segments from the
