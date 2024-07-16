@@ -558,6 +558,11 @@ Concretely:
   (Fine point: this requires the metadata to be forwarded frequently to non-core ASes). By reducing the probability
   of a segment to handed out, an AS can effectively do load balancing.
 
+* Mitigates "Beacon Forwarding Policy" implications:
+  The local network topology and the possibility to request any number of paths ansures that even that any
+  segment that is potentially available on the network is also available to endpoints, even for massive multipathing
+  and obscure path policies.
+
 * Mitigates "wormhole attack": This is a weak mitigation. An AS can send out a segment for signing and measure
   the time until it comes back. This time can give a good indication of the actual latency to the most remote AS.
   If the measured latency is much higher than the advertised latency, then the segment is probably faulty and should
