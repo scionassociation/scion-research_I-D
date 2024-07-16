@@ -320,8 +320,12 @@ Listing some pros and cons.
 
 ### Proposed Solutions
 
-* The server must ask the CS for a path, regardless of the client's policy.
-* The client (somehow) sends a new packet with a new path, prompting the server to use this path from now on.
+* The server MUST ask the CS for a path, regardless of the client's policy.
+* The client SHOULD (somehow) send a new packet with a new path,
+prompting the server to use this path from now on.
+* The client and server agree, via a path policy specification,
+on which kinds of paths are okay for the server to use.
+This solution implies a standard specification of this path policy.
 
 
 # Hummingbird / QoS
