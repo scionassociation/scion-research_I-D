@@ -298,6 +298,23 @@ Examples for requesting CORE segments between different ISDs or within an ISD (a
   * For response to link failures or availability of new paths, beacon services can respond instantly.
 * Re-propgating the same set of beacons at each interval is a waste of resources The periodic propagation can be used for the discovery of new paths at each interval, enhancing the scalability, and path diversity.
 
+## Beacon optimization and beaconing extensibility
+* Communication quality requirements vary based on source, destination, and applications.
+* Satisfying all these criteria either requires discovering all paths in the network, or optimizing paths during the beaconing process.
+  * Clearly, the 5-shortest path per destination cannot satisfy all communication requirements.
+* What optimization functions should be applied to beacons when propagating them?
+  * What are the optimality metrics considered in these functions?
+* Who should select these functions?
+* How should the deployment of these functions be enforced?
+* How can multiple functions be applied concurrently for different src/dst/applications?
+* How should end ASes express their desired requirements to the inter-domain control plane?
+* How do these requirements translate into concrete optimization functions?
+* How does standardization of the functions work? 
+* Criteria change over time.
+  * How can optimization functions adapt to incorporate these changes?
+  * How to achieve fast adaptation of optimization functions?
+
+
 ## Routing Policies and Traffic Engineering
 
 Reduced adoption due to limited routing policy possibilities, such as a (core-)AS does not want to accept transit traffic unless it starts/ends in ASs with special properties. For example a GEANT AS does not want to allow transit traffic unless it originates or ends in another research AS.
