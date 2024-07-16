@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-07-14T00:21:30.903806+00:00",
+  "timestamp": "2024-07-16T00:19:08.682795+00:00",
   "repo": "scionassociation/scion-research_I-D",
   "labels": [
     {
@@ -158,11 +158,13 @@
       "state": "OPEN",
       "author": "nicorusti",
       "authorAssociation": "MEMBER",
-      "assignees": [],
+      "assignees": [
+        "tzaeschke"
+      ],
       "labels": [],
       "body": "- [ ] Mentions implications of MP-QUIC and recent changes related to path-IDs\r\n- [ ] TAPS/PANAPI",
       "createdAt": "2024-07-11T08:28:30Z",
-      "updatedAt": "2024-07-11T08:28:30Z",
+      "updatedAt": "2024-07-15T11:38:46Z",
       "closedAt": null,
       "comments": []
     }
@@ -271,52 +273,84 @@
       "id": "PR_kwDOMRYres51NzyA",
       "title": "Segment dissemination numbers",
       "url": "https://github.com/scionassociation/scion-research_I-D/pull/10",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "tzaeschke",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Add some number to the segment dissemination section.",
       "createdAt": "2024-07-12T12:39:48Z",
-      "updatedAt": "2024-07-12T12:39:49Z",
+      "updatedAt": "2024-07-15T12:37:54Z",
       "baseRepository": "scionassociation/scion-research_I-D",
       "baseRefName": "main",
       "baseRefOid": "f1a1095ac818c68414fd14900412b0f00a83ce6b",
       "headRepository": "scionassociation/scion-research_I-D",
       "headRefName": "tz/01-segment-dissemination",
-      "headRefOid": "bad4abf9f15a5c1c17996f297034996f60eacf18",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "86dbadfb0a7c1d5c80391971c6b5882662ab5530",
+      "closedAt": "2024-07-15T12:37:48Z",
+      "mergedAt": "2024-07-15T12:37:48Z",
+      "mergedBy": "juagargi",
+      "mergeCommit": {
+        "oid": "b3d6fc59860bccf48b621b84af0142cad7264e1c"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOMRYres6By5aa",
+          "commit": {
+            "abbreviatedOid": "86dbadf"
+          },
+          "author": "juagargi",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-07-15T12:37:24Z",
+          "updatedAt": "2024-07-15T12:37:24Z",
+          "comments": []
+        }
+      ]
     },
     {
       "number": 11,
       "id": "PR_kwDOMRYres51N-Yp",
       "title": "NAT",
       "url": "https://github.com/scionassociation/scion-research_I-D/pull/11",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "tzaeschke",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Clarification and correction (regarding use of STUN).\r\n\r\nRequires more discussion regarding use of IPv6.",
       "createdAt": "2024-07-12T12:58:14Z",
-      "updatedAt": "2024-07-12T12:58:35Z",
+      "updatedAt": "2024-07-15T12:42:57Z",
       "baseRepository": "scionassociation/scion-research_I-D",
       "baseRefName": "main",
       "baseRefOid": "f1a1095ac818c68414fd14900412b0f00a83ce6b",
       "headRepository": "scionassociation/scion-research_I-D",
       "headRefName": "tz/02-NAT",
-      "headRefOid": "5661a7050c824126737d037c5acfc02ceeac9b74",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "bedf9fb6f7ee04995376bf545016a4e9b54cd571",
+      "closedAt": "2024-07-15T12:42:54Z",
+      "mergedAt": "2024-07-15T12:42:54Z",
+      "mergedBy": "juagargi",
+      "mergeCommit": {
+        "oid": "0ca1d3eb6fa9eadeab28f4efda2f8c2fb5424ee4"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOMRYres6By7-j",
+          "commit": {
+            "abbreviatedOid": "bedf9fb"
+          },
+          "author": "juagargi",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-07-15T12:42:21Z",
+          "updatedAt": "2024-07-15T12:42:21Z",
+          "comments": []
+        }
+      ]
     },
     {
       "number": 12,
@@ -330,19 +364,106 @@
       "labels": [],
       "body": "More comments on discussion about handling the danger that a server has only an expired path left.",
       "createdAt": "2024-07-12T13:11:13Z",
-      "updatedAt": "2024-07-12T13:11:14Z",
+      "updatedAt": "2024-07-15T16:03:51Z",
       "baseRepository": "scionassociation/scion-research_I-D",
       "baseRefName": "main",
       "baseRefOid": "f1a1095ac818c68414fd14900412b0f00a83ce6b",
       "headRepository": "scionassociation/scion-research_I-D",
       "headRefName": "tz/03-reverse-path-refresh",
-      "headRefOid": "e02cc232b8093bc4613b364403f45e886c0ffda0",
+      "headRefOid": "1a03894f0678fba0903bed86a95895bb0accae30",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOMRYres6By_4D",
+          "commit": {
+            "abbreviatedOid": "ff6caf7"
+          },
+          "author": "juagargi",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-15T12:49:55Z",
+          "updatedAt": "2024-07-15T12:50:06Z",
+          "comments": [
+            {
+              "originalPosition": 8,
+              "body": "Idk, we have use cases like video streaming, maybe?",
+              "createdAt": "2024-07-15T12:49:55Z",
+              "updatedAt": "2024-07-15T12:50:06Z"
+            },
+            {
+              "originalPosition": 11,
+              "body": "Correct, we talked about moving this to 7.  Implications of Path Awareness for the Transport and Application Layers.\r\nWhat do you think?",
+              "createdAt": "2024-07-15T12:49:59Z",
+              "updatedAt": "2024-07-15T12:50:06Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6B0T7x",
+          "commit": {
+            "abbreviatedOid": "ff6caf7"
+          },
+          "author": "tzaeschke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-15T15:04:55Z",
+          "updatedAt": "2024-07-15T15:04:56Z",
+          "comments": [
+            {
+              "originalPosition": 8,
+              "body": "I assume video streaming also has built-in keep-alive to stop sending if the client is disconnected?\r\nI'll change it to \"... send data for a long time without the **[application layer protocol requiring the]** client **[to]** ever answer[] back.\r\n",
+              "createdAt": "2024-07-15T15:04:55Z",
+              "updatedAt": "2024-07-15T15:04:56Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6B0YGg",
+          "commit": {
+            "abbreviatedOid": "ff6caf7"
+          },
+          "author": "tzaeschke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-15T15:11:36Z",
+          "updatedAt": "2024-07-15T15:11:37Z",
+          "comments": [
+            {
+              "originalPosition": 11,
+              "body": "Do you mean moving the whole 4.2 into 7? We could do that, but I think the application layer is only a _possible_ _solution_, while the _problem_ is actually on the data plane?\r\n\r\nAlso, in case that was the suggestion, I would rather not split it up, because this really seems to be a single topic, or not?\r\n\r\nWhat do you think?",
+              "createdAt": "2024-07-15T15:11:37Z",
+              "updatedAt": "2024-07-15T15:11:37Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6B05p7",
+          "commit": {
+            "abbreviatedOid": "1a03894"
+          },
+          "author": "juagargi",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-07-15T16:03:44Z",
+          "updatedAt": "2024-07-15T16:03:51Z",
+          "comments": [
+            {
+              "originalPosition": 11,
+              "body": "I see your point, and I agree this is a data-plane issue.\r\nAt least the statement of the problem should remain under data-plane. We can make it clear in the solution that it belongs to the transport and/or application layer (we can actually provide both solutions).\r\nI will later open a PR tackling other changes in the expired reverse path server issue.",
+              "createdAt": "2024-07-15T16:03:44Z",
+              "updatedAt": "2024-07-15T16:03:51Z"
+            }
+          ]
+        }
+      ]
     },
     {
       "number": 13,
@@ -356,39 +477,128 @@
       "labels": [],
       "body": "Discussion on core beacon scalability and Recovery",
       "createdAt": "2024-07-12T14:37:15Z",
-      "updatedAt": "2024-07-12T14:51:20Z",
+      "updatedAt": "2024-07-15T15:00:15Z",
       "baseRepository": "scionassociation/scion-research_I-D",
       "baseRefName": "main",
       "baseRefOid": "f1a1095ac818c68414fd14900412b0f00a83ce6b",
       "headRepository": "scionassociation/scion-research_I-D",
       "headRefName": "tz/04-beacon-scalability",
-      "headRefOid": "adc8d473c99851c65e9361fc3c6cb2e179ee4a94",
+      "headRefOid": "0db2173c433d86837e7cd27a1b073a6187dc6aa9",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOMRYres6BzKx2",
+          "commit": {
+            "abbreviatedOid": "adc8d47"
+          },
+          "author": "juagargi",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-15T13:09:48Z",
+          "updatedAt": "2024-07-15T13:21:15Z",
+          "comments": [
+            {
+              "originalPosition": 8,
+              "body": "Is it superexponential with the number of ASes? I thought it was _just_ exponential.",
+              "createdAt": "2024-07-15T13:09:48Z",
+              "updatedAt": "2024-07-15T13:21:15Z"
+            },
+            {
+              "originalPosition": 13,
+              "body": "I don't think it would limit the number of available paths, after enough time of beaconing.\r\nThose 5 beacons may be part of a different path than the previous ones. Same for the next ones, and so on.",
+              "createdAt": "2024-07-15T13:11:40Z",
+              "updatedAt": "2024-07-15T13:21:15Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6B0Lnk",
+          "commit": {
+            "abbreviatedOid": "adc8d47"
+          },
+          "author": "tzaeschke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-15T14:51:25Z",
+          "updatedAt": "2024-07-15T14:51:25Z",
+          "comments": [
+            {
+              "originalPosition": 13,
+              "body": "I think usually the same 5 paths would forwarded every time, if they are the best paths, then should it change and forward other paths? Or not? ",
+              "createdAt": "2024-07-15T14:51:25Z",
+              "updatedAt": "2024-07-15T14:51:25Z"
+            }
+          ]
+        }
+      ]
     },
     {
       "number": 14,
       "id": "PR_kwDOMRYres51PAyq",
       "title": "Mention QUIC-MP",
       "url": "https://github.com/scionassociation/scion-research_I-D/pull/14",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "tzaeschke",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
-      "body": "Mention QUIC-MP because it appears now to be compatible with SCION by allowing multiple path per 4-tuple.",
+      "body": "Mention QUIC-MP because it appears now to be compatible with SCION by allowing multiple path per 4-tuple.\r\n\r\nContributes to #8 ",
       "createdAt": "2024-07-12T15:07:13Z",
-      "updatedAt": "2024-07-12T15:07:13Z",
+      "updatedAt": "2024-07-15T13:28:15Z",
       "baseRepository": "scionassociation/scion-research_I-D",
       "baseRefName": "main",
       "baseRefOid": "f1a1095ac818c68414fd14900412b0f00a83ce6b",
       "headRepository": "scionassociation/scion-research_I-D",
       "headRefName": "tz/05-interfaces-transport-layer",
       "headRefOid": "b527e198bd57ba367f8ce86a5207a349ae67ba26",
+      "closedAt": "2024-07-15T13:28:12Z",
+      "mergedAt": "2024-07-15T13:28:12Z",
+      "mergedBy": "juagargi",
+      "mergeCommit": {
+        "oid": "6da37acbe08f672dcb4092d02f3e21d82e8c61a1"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMRYres6BzWO4",
+          "commit": {
+            "abbreviatedOid": "b527e19"
+          },
+          "author": "juagargi",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-07-15T13:27:57Z",
+          "updatedAt": "2024-07-15T13:27:57Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "id": "PR_kwDOMRYres51Zxux",
+      "title": "SVCB RFC 9460",
+      "url": "https://github.com/scionassociation/scion-research_I-D/pull/15",
+      "state": "OPEN",
+      "author": "tzaeschke",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Should we use SVCB RFC 9460 service binding?",
+      "createdAt": "2024-07-15T15:31:07Z",
+      "updatedAt": "2024-07-15T15:31:07Z",
+      "baseRepository": "scionassociation/scion-research_I-D",
+      "baseRefName": "main",
+      "baseRefOid": "6da37acbe08f672dcb4092d02f3e21d82e8c61a1",
+      "headRepository": "scionassociation/scion-research_I-D",
+      "headRefName": "tz/06-SVCB",
+      "headRefOid": "843792edf5cac0cf2b42831894afaf5f712eb30d",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
