@@ -303,7 +303,7 @@ with the ability of migrating a session to a different address, work efficiently
 * How long before expiration should the client and server still use a path?
 How do we handle that?
 
-* Is it actually necessary to solve this reverse path refresh problem at all?
+* Is it actually necessary to solve the reverse path refresh problem at all?
 Listing some pros and cons.
   * Pros:
     * The client may happen to have an about-to-expire path.
