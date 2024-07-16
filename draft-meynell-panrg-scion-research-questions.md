@@ -206,11 +206,16 @@ This draft assumes the reader is familiar with some of the fundamental concepts 
 The idea behind beaconing is to discover all possible paths (loop free and with a fixed maximu length) between two CORE AS.
 Every AS forwards any received becons to all neighbor CORE ASes unless this would cause a loop or exceed the fixed maximum length.
 Implemented naively, the number of paths (and beacons) grows exponentially with the network size.
-This is currently mitigated primarily (and efficiently) by forwarding only the 5 "best PCB" to neighbours.
+This is currently mitigated primarily (and efficiently) by forwarding only the five "best PCB" to neighbours.
 
 This "best PCB" practive has several implications:
 
-* It limits the number of available paths for endpoints such that only 5 path may be available to a given destination. This is especially relevant for
+* It limits the number of available paths for endpoints such that only five truly diverse paths may be available to a given destination.
+  "truly diverse" means: Most AS will receive five PCBs to a given destination from several of their neighbours. However, assuming
+  the ASes in the are use a similar PCB selection policy, it is not unlikely that each neighbor AS will forward a very
+  similar set of five PCB. In effect, there may be more than five path available, but they are likely to diverge only on the first
+  one or two hops **(TBC: Is that true? There is no research confirming this hypothesis)**.
+  The problem that there may be only five truly diverse paths available is especially relevant for:
   * Multipathing: you may not be able to use more than five path and no great selection of pats on offer .
   * Unusual path policies, such as geofencing, may not be fulfillable by the limited number of paths on offer.
 * It causes a small number of path to carry all traffic to a given destination, see {{link-load-balancing}}.
