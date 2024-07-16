@@ -484,6 +484,97 @@ This question relates to 2.5 in {{RFC9217}}.
 
 To be discussed
 
+# Alternative Algorithms
+
+## 2-Phase Core Beaconing
+
+### Overview
+
+(based on ideas from J. van Bommel, S. Tabaeiaghdaei, T. Zäschke)
+
+2-phase core beaconing is an idea for an alternative core beaconing algorithm that may mitigate or answer several of the
+questions in this document. 2-phase beaconing works in two phases:
+
+* First phase: use a simple, scalable algorithm to discover the complete network so that every AS can build
+  a local graph that represents the whole topology
+* Second phase: Every AS analyses the graph, indetifies desirable core segments and sends these segment out to
+  all ASes for signing the segments.
+
+Once the segments have been signed, they can be used as usual.
+The topology graph will be updated incrementally as new link lists arrive.
+An AS can request a core segments to be signed at any time.
+ASes can refuse to sign a segment but must comunicate such refusal.
+
+
+### Phase 1 - Discovery
+
+* At a regular intervall "tLL" (eg. 10 seconds), every AS sends out a list of its links to all neighboring ASes.
+* Every AS forwards all received link lists to all neighboring ASes unless it has seen the same link list recently (less 1/2 * tLL ago).
+* Every AS will thus receive link lists from all other ASes. It uses the information to build a complete graph of the
+  internet topology.
+
+This approach should scale well. Memory in control servers is O(AS count) to prevent forwardin the same linked list
+multiple times. The message complexity is at most one linked list per originating AS per link, i.e. O(AS count) per link.
+
+
+### Phase 2 - Segment construction
+
+An AS analyses the local representation of the network topology and identifies desirable core segments. It prepares
+the segments and sends them out to all participating ASes for them to sign it. This works analogous to PCBs in the
+current beaconing approach except that the segments need to be returned to the originator once the last AS has signed
+it. Any AS can refuse to sign the segment if it doesn't like it but should communicate the fact, and possibly a reason,
+to the originator.
+
+The AS can requests segments to be signed at any time, including on-demand when an endpoint has special
+path requirements.
+
+
+### Advantages
+
+Conceptually:
+* More trust separation #1: Any AS can request any segments that it desires, it is not dependend on what its
+  neighbors consider "best" PCBs
+* More trust separation #2: Every AS sees the complete segment when signing it. It doesn´t have to rely on
+  downstream ASes to extends the segment in a matter suits its own policy.
+
+
+Concretely:
+
+* Mitigates {{segment-dissemination}} for core segments in the local ISD: ?
+
+* Mitigates {{routing-policies-and-traffic-engineering}} #1 preventing transit traffic:
+  In a scenario where an ISD accepts inbound and ourpund traffic, but no transit trafic, ASes of the ISD can simply
+  refuse to sign the segment if it does not begin or end inside the ISD.
+
+* Mitigates {{routing-policies-and-traffic-engineering}} #2 ensure full segment usage:
+  In a scenario where an two ASes are concerned that ASes between them may use a partial segment to send traffic into
+  the end ASes, the SCION protocol could be extended such that CORE segments have their length XORed in the war paths.
+  This would prevent core segments from being shortened or partially used and would thus prevent on-path ASes
+  from using such a segment.
+
+* Mitigates {{link-load-balancing}}:
+  The link list that is sent out frequently could have attached some information about current link "load" or other
+  quality measurements. Any AS can then decide whether or how often it should disseminate the segment to endpoints.
+  (Fine point: this requires the metadata to be forwarded frequently to non-core ASes). By reducing the probability
+  of a segment to handed out, an AS can effectively do load balancing.
+
+* Mitigates "wormhole attack": This is a weak mitigation. An AS can send out a segment for signing and measure
+  the time until it comes back. This time can give a good indication of the actual latency to the most remote AS.
+  If the measured latency is much higher than the advertised latency, then the segment is probably faulty and should
+  not be used.
+
+* Mitigates 10-"wormhole attack":  This attack would be considerably mitigated: Creating a "wormhole" is already more
+  difficult. However, because every AS can request new segments any time, it can quickly react to faulty segments
+  (onced it learns) of them, and simply request new segments that go around suspicious ASes.
+
+
+### Open questions
+* How to communicate the reason for path rejection? I.e. is a small change to the route sufficient to proceed with
+  signing?
+* How to best best select a new core segment if a requested segment turns out to be faulty (signalled as faulty,
+  or because the signing time was suspiciously long)
+
+
 # Security Considerations
 
 TODO Security
