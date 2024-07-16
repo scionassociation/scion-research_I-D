@@ -210,7 +210,7 @@ This is currently mitigated primarily (and efficiently) by forwarding only the 5
 
 This "best PCB" practive has several implications:
 
-* It limits the number of available paths for endpoint such that only 5 path may be available to a given destination. This is especially relevant for
+* It limits the number of available paths for endpoints such that only 5 path may be available to a given destination. This is especially relevant for
   * Multipathing: you may not be able to use more than five path and no great selection of pats on offer .
   * Unusual path policies, such as geofencing, may not be fulfillable by the limited number of paths on offer.
 * It causes a small number of path to carry all traffic to a given destination, see {{link-load-balancing}}.
@@ -319,7 +319,7 @@ Do we actually need to solve this reverse path refresh problem?
   are anyway required.
 
 
-## Recovering from faulty segments
+## Signalling faulty segments
 
 Faulty segments are segments that do not work as advertised, i.e. they are either physically faulty
 (broken link, high packet loss, jitter, ...) or come with faulty metadata, suggesting too few hops, too low latency,
@@ -332,11 +332,11 @@ Currently only endpoints may realize that a segment does not work as advertised,
 This would be a possible sequence of events:
 
 * An endpoint realizes that a segment is faulty
-* An endpoint needs to report to its local AS that the segment is faulty
-* Local AS needs to report its CORE AS that segment is faulty
+* An endpoint needs to signal to its local AS that a segment is faulty
+* Local AS needs to signal its CORE AS that a segment is faulty
 * The CORE AS needs to:
   * change policy to exclude faulty segments AND/OR
-  * tell other COREs and ISDs to stop delivering the segment (they only deliver 5 each, so any faulty segment shoud be avoided)
+  * signal other COREs and ISDs to stop delivering the segment (they only deliver 5 each, so any faulty segment shoud be avoided)
 
 ### Implications
 
@@ -396,7 +396,7 @@ workhole-ASes would need to learn of the problem and stop forwarding the wormhol
 
 Mitigations:
 - Introduce a way to veryfy path properties. This would make it harder to install wormholes.
-- Introduce a way to report and recover from malisious segments, see {{recovering-from-faulty-segments}}.
+- Introduce a way to report and recover from malisious segments, see {{signalling-faulty-segments}}.
 - Adapt the path discovery and dissemination algorithm to allow ASes to have many more than five paths to
   a given remote destination. The attack would then require an (unreasonably) large number of compromosed ASes.
 
@@ -407,7 +407,7 @@ The attacker has now atteracted
   routed through them, allowing them to completely block (or greyhole, etc ...) traffic from, or to, a given AS.
   For example, it seems feasible that five cleverly located ASes in Europe and 5 in Australia could block any traffic
   between the two (these ASes would need to be core ASes and would probably need to be in there a malicious ISD to be allowed as CORE).
-  A related question is discussed in {{recovering-from-faulty-segments}}.
+  A related question is discussed in {{signalling-faulty-segments}}.
 
 
 # IANA Considerations
