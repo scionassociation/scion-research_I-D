@@ -361,7 +361,7 @@ A lack of recovery can lead to an attack as described in {{dos-with-wormholes}}.
 * An AS could monitor traffic for SCMP errors, however this works only if these errors are actually generated and forwarded.
 * Endpoints need a way to signal faulty segments to ASes. ASes need a way to signal faulty ASes to other ASes (e.g.
 core ASes or ASes in other ISDs).
-* ASes need adaptive becaon analysis algorithms that allow excluding specific beacons, e.g. beacons that have
+* ASes need adaptive beacon analysis algorithms that allow excluding specific beacons, e.g. beacons that have
   known malicious ASes on path.
 * For swift recovery, it would be useful if ASes could revoke faulty segments.
 * Adapt the path discovery and dissemination algorithm to allow ASes to have many more than five paths to
