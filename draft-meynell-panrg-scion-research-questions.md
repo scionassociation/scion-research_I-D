@@ -284,23 +284,44 @@ The current consensus is that end-hosts can use multi-pathing and “automatical
 
 ## Reverse Path Refreshment
 
-When a client contacts a server, it is usually understood that it wants the server to use the reverse path to answer back. It the server uses that path for a long period of time, the path will eventually expire. How to standardize the process of refreshment?
+When a client contacts a server, it is usually understood that it wants the server to use the reverse path to answer back.
+If the server uses that path for a long period of time, the path will eventually expire.
+How to standardize the process of refreshment?
+
+There are some relevant points we have identified for the discussion:
+
+* Usually the server's transport layer or application layer API will store
+the initial address of the client to be used through all the session.
+Bridging the semantics of the address being needed for the server to answer back,
+into a path being needed for the server to answer back,
+we can only assume that the server transport or application layer will store
+the initial path using its transport or application layer API.
+We will need to consider this, as well as how other protocols such as QUIC
+(TODO add reference to QUIC here)
+with the ability of migrating a session to a different address, work efficiently.
+
+* How long before expiration should the client and server still use a path?
+How do we handle that?
+
+* Is it actually necessary to solve this reverse path refresh problem at all?
+Listing some pros and cons.
+  * Pros:
+    * The client may happen to have an about-to-expire path.
+    If the server can't refresh, the client always needs to consider whether
+    a path is valid "long enough", which might only be possible to guess.
+  * Cons:
+    * It is probably rare that a server needs to send data for a long time without the application layer protocol requiring the client to ever answer back.
+    * Sending keep-alives sounds like a connection based protocol.
+    It alo means we need to figure out when to stop sending keep-alives.
+    * It may be better to solve this in the application layer or in the overlay protocol,
+    where we we know more about potential length of the session,
+    or whether this is a singular request/answer type of exchange,
+    or whether more frequent keep-alives are anyway required.
+
+### Proposed Solutions
 
 * The server must ask the CS for a path, regardless of the client's policy.
 * The client (somehow) sends a new packet with a new path, prompting the server to use this path from now on.
-
-There are some nuances: Usually the server's API will store the initial address of the client to be used through all the session. We might need to take this into account.
-
-A related question: how long before expiration should we still use a path? How do we handle that?
-
-Do we actually need to solve this reverse path refresh problem?
-
-* CONTRA: It is probably rare that a server needs to send data for a long time without the application layer protocol requiring the client to ever answer back.
-* PRO: The client may happen to have an old-ish path. If we can't refresh, the client always needs to consider whether a path is valid "long enough", which might only be possible to guess.
-* CONTRA: Sending keep-alives sounds like a connection based protocol. It alo means we need to figure out when to stop sending keep-alives.
-* CONTRA: It may be better to solve this in the application layer or in the overlay protocol, where we we know more about
-  potential length of the session, or whether this is a singular request/answer type of exchange, or whether more frequent keep-alives
-  are anyway required.
 
 
 # Hummingbird / QoS
