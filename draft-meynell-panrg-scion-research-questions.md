@@ -328,7 +328,7 @@ The faultyness may be caused by a technical problem (e.g. broken link) or by a m
 
 An example for a malicious adversary is the "wormhole" attack, see {{I-D.scion-cp}}, where, an AS may be coaxed to
 disseminate a faulty segment. How do we recover from faulty segments?
-Currently only endhosts may realize that a segment does not work as advertised, either via SCMP errors or simply by traffic degradation.
+Currently only endpoints may realize that a segment does not work as advertised, either via SCMP errors or simply by traffic degradation.
 This would be a possible sequence of events:
 
 * An endpoint realizes that a segment is faulty
