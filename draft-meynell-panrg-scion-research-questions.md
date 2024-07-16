@@ -303,12 +303,14 @@ Do we actually need to solve this reverse path refresh problem?
   are anyway required.
 
 
+<!--
 # Hummingbird / QoS
 
 * How many QoS flows to support at core routers?
 * How does QoS interact with Net Neutrality?
 * What proof of transit (or forwarding failure detection) is needed or wanted?
 * What time synchronization precision should we expect at the border router level of every AS? How far can we go realistically?
+-->
 
 # Interfaces for Path Awareness
 
