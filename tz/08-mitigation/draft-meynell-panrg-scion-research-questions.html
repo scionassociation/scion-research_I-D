@@ -1663,15 +1663,21 @@ quality measurements. Any AS can then decide whether or how often it should diss
 of a segment to handed out, an AS can effectively do load balancing.<a href="#section-9.1.4-3.4.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-9.1.4-3.5">
-              <p id="section-9.1.4-3.5.1">Mitigates "wormhole attack": This is a weak mitigation. An AS can send out a segment for signing and measure
-the time until it comes back. This time can give a good indication of the actual latency to the most remote AS.
-If the measured latency is much higher than the advertised latency, then the segment is probably faulty and should
-not be used.<a href="#section-9.1.4-3.5.1" class="pilcrow">¶</a></p>
+              <p id="section-9.1.4-3.5.1">Mitigates "Beacon Forwarding Policy" implications:
+The local network topology and the possibility to request any number of paths ansures that even that any
+segment that is potentially available on the network is also available to endpoints, even for massive multipathing
+and obscure path policies.<a href="#section-9.1.4-3.5.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-9.1.4-3.6">
-              <p id="section-9.1.4-3.6.1">Mitigates 10-"wormhole attack":  This attack would be considerably mitigated: Creating a "wormhole" is already more
+              <p id="section-9.1.4-3.6.1">Mitigates "wormhole attack": This is a weak mitigation. An AS can send out a segment for signing and measure
+the time until it comes back. This time can give a good indication of the actual latency to the most remote AS.
+If the measured latency is much higher than the advertised latency, then the segment is probably faulty and should
+not be used.<a href="#section-9.1.4-3.6.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-9.1.4-3.7">
+              <p id="section-9.1.4-3.7.1">Mitigates 10-"wormhole attack":  This attack would be considerably mitigated: Creating a "wormhole" is already more
 difficult. However, because every AS can request new segments any time, it can quickly react to faulty segments
-(onced it learns) of them, and simply request new segments that go around suspicious ASes.<a href="#section-9.1.4-3.6.1" class="pilcrow">¶</a></p>
+(onced it learns) of them, and simply request new segments that go around suspicious ASes.<a href="#section-9.1.4-3.7.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>
