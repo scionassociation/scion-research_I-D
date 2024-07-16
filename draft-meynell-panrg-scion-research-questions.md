@@ -318,7 +318,7 @@ Listing some pros and cons.
     or whether this is a singular request/answer type of exchange,
     or whether more frequent keep-alives are anyway required.
 
-### Proposed Solutions
+### Proposed Solutions (not comprehensive)
 
 * The server MUST ask the CS for a path, regardless of the client's policy.
 * The client SHOULD (somehow) send a new packet with a new path,
