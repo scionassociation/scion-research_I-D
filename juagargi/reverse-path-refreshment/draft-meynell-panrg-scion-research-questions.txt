@@ -317,8 +317,8 @@ Table of Contents
    *  How long before expiration should the client and server still use
       a path?  How do we handle that?
 
-   *  Is it actually necessary to solve this reverse path refresh
-      problem at all?  Listing some pros and cons.
+   *  Is it actually necessary to solve the reverse path refresh problem
+      at all?  Listing some pros and cons.
 
       -  Pros:
 
