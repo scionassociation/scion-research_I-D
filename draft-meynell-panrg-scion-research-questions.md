@@ -241,8 +241,8 @@ Collateral: this probably needs a data plane change. Conceptually, we have only 
 DRKey is a key distribution system that scales well with the number of endpoints in the network.
 It relies on two things:
 
-* Two sides of a key: A fast side, and a slow side. The ability of deriving a key very quickly on the fast
-  side is necessary for most of its use cases.
+* Two sides of a key: A fast side, and a slow side. Sometimes called fast and slow side of the derivation.
+  The ability of deriving a key very quickly on the fast side is necessary for most of its use cases.
 * A grouping of endpoints (such as ASes): The pieces necessary to derive a key, namely the L1 keys,
   are communicated to each keystore at each grouping (e.g., a keystore per AS).
 
