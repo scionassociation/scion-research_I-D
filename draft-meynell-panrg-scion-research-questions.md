@@ -235,7 +235,7 @@ or end hosts with little computing power or little spare bandwidth.
 
 There are multiple possible and independent solution steps here:
 
-* Compression (idea suggested by Francois Wirz): Segments could be stored in a way that duplicate information (hops & links) is only stored once and the segments contain only references to the hops and links.
+* Compression: Segments could be stored in a way that duplicate information (hops & links) is only stored once and the segments contain only references to the hops and links.
 * Allow queries from start AS to end AS across multiple segments. This should be very easy to implement and would be compatible with the current wire protocol (protobuf).
   * This would reduce the number of round trips to one.
   * It would reduce the number of returned segments because only segments that actually connect to other segments would need to be returned.
