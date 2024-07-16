@@ -81,7 +81,7 @@ Table of Contents
    4.  Dataplane stability
      4.1.  Link load balancing
      4.2.  Reverse Path Refreshment
-     4.3.  Recovering from faulty segments
+     4.3.  Signalling faulty segments
        4.3.1.  Implications
        4.3.2.  Mitigation
    5.  Hummingbird / QoS
@@ -153,7 +153,7 @@ Table of Contents
 
    This "best PCB" practive has several implications:
 
-   *  It limits the number of available paths for endpoint such that
+   *  It limits the number of available paths for endpoints such that
       only 5 path may be available to a given destination.  This is
       especially relevant for
 
@@ -367,7 +367,7 @@ Table of Contents
       answer type of exchange, or whether more frequent keep-alives are
       anyway required.
 
-4.3.  Recovering from faulty segments
+4.3.  Signalling faulty segments
 
    Faulty segments are segments that do not work as advertised, i.e.
    they are either physically faulty (broken link, high packet loss,
@@ -385,17 +385,18 @@ Table of Contents
 
    *  An endpoint realizes that a segment is faulty
 
-   *  An endpoint needs to report to its local AS that the segment is
+   *  An endpoint needs to signal to its local AS that a segment is
       faulty
 
-   *  Local AS needs to report its CORE AS that segment is faulty
+   *  Local AS needs to signal its CORE AS that a segment is faulty
 
    *  The CORE AS needs to:
 
       -  change policy to exclude faulty segments AND/OR
 
-      -  tell other COREs and ISDs to stop delivering the segment (they
-         only deliver 5 each, so any faulty segment shoud be avoided)
+      -  signal other COREs and ISDs to stop delivering the segment
+         (they only deliver 5 each, so any faulty segment shoud be
+         avoided)
 
 4.3.1.  Implications
 
