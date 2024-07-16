@@ -418,7 +418,7 @@ Table of Contents
       a way to signal faulty ASes to other ASes (e.g. core ASes or ASes
       in other ISDs).
 
-   *  ASes need adaptive becaon analysis algorithms that allow excluding
+   *  ASes need adaptive beacon analysis algorithms that allow excluding
       specific beacons, e.g. beacons that have known malicious ASes on
       path.
 
