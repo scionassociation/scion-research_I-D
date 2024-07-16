@@ -1304,6 +1304,44 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 </li>
         </ul>
 <p id="section-3.2-5">Doing path computation on the control server will initially increase computational cost. However, it would substantially decrease network egress. Caching of paths should reduce CPU cost, maybe even below the current cost for retrieving a large amount of segments from the local database and sending them over the network interface.<a href="#section-3.2-5" class="pilcrow">¶</a></p>
+<p id="section-3.2-6">Examples for requesting CORE segments between different ISDs or within an ISD (as of 2024-07-12):<a href="#section-3.2-6" class="pilcrow">¶</a></p>
+<span id="name-core-segment-count-examples"></span><div id="segment-count-example">
+<table class="center" id="table-1">
+          <caption>
+<a href="#table-1" class="selfRef">Table 1</a>:
+<a href="#name-core-segment-count-examples" class="selfRef">CORE segment count examples</a>
+          </caption>
+<thead>
+            <tr>
+              <th class="text-right" rowspan="1" colspan="1">src</th>
+              <th class="text-right" rowspan="1" colspan="1">dst</th>
+              <th class="text-center" rowspan="1" colspan="1">segments returned</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-right" rowspan="1" colspan="1">64-0:0:0</td>
+              <td class="text-right" rowspan="1" colspan="1">64-0:0:0</td>
+              <td class="text-center" rowspan="1" colspan="1">337</td>
+            </tr>
+            <tr>
+              <td class="text-right" rowspan="1" colspan="1">64-0:0:0</td>
+              <td class="text-right" rowspan="1" colspan="1">65-0:0:0</td>
+              <td class="text-center" rowspan="1" colspan="1">240</td>
+            </tr>
+            <tr>
+              <td class="text-right" rowspan="1" colspan="1">64-0:0:0</td>
+              <td class="text-right" rowspan="1" colspan="1">67-0:0:0</td>
+              <td class="text-center" rowspan="1" colspan="1">60</td>
+            </tr>
+            <tr>
+              <td class="text-right" rowspan="1" colspan="1">64-0:0:0</td>
+              <td class="text-right" rowspan="1" colspan="1">64-2:0:13</td>
+              <td class="text-center" rowspan="1" colspan="1">60</td>
+            </tr>
+          </tbody>
+        </table>
+</div>
 </section>
 </div>
 <div id="routing-policies-and-traffic-engineering">
@@ -1363,13 +1401,15 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
         <h3 id="name-nat">
 <a href="#section-3.7" class="section-number selfRef">3.7. </a><a href="#name-nat" class="section-name selfRef">NAT</a>
         </h3>
-<p id="section-3.7-1">At this moment, the SCION implementation is not compatible out-of-the-box with NAT'ed devices, whether these devices are end-hosts, or even running SCION services. This is due to the (UDP-IP) underlay being modified by the NAT mechanism, but not the internal destination SCION address. Although this does not concern the SCION protocols themselves, we want to check that this will not be a problem.<a href="#section-3.7-1" class="pilcrow">¶</a></p>
+<p id="section-3.7-1">At this moment, the SCION implementation is not compatible out-of-the-box with NAT'ed devices, regardless of whether these devices are end-hosts, or even running SCION services. This is due to the (UDP-IP) underlay being modified by the NAT mechanism, but not the internal destination SCION address. Although this does not concern the SCION protocols themselves, we want to check that this will not be a problem.
+Critically, the SCION header needs to contain the SRC address as seen by the border router so that the border router can forward incoming response packets to the correct NAT device and port.<a href="#section-3.7-1" class="pilcrow">¶</a></p>
+<p id="section-3.7-2">Possible solutions:<a href="#section-3.7-2" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.7-2.1">
-            <p id="section-3.7-2.1.1">With IPv6 underlay, this problem disappears.<a href="#section-3.7-2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-3.7-3.1">
+            <p id="section-3.7-3.1.1">With IPv6 underlay, this problem disappears. // TODO Clarify why it disappears? IS the idea that we can remove NATs if everyone would use IPv6?<a href="#section-3.7-3.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.7-2.2">
-            <p id="section-3.7-2.2.1">Modify the SCION border router to also act as a STUN server.<a href="#section-3.7-2.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-3.7-3.2">
+            <p id="section-3.7-3.2.1">Introduce a mechanism so that the SCION border router can report the NATed address to an endhost (similar to a STUN server).<a href="#section-3.7-3.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -1525,6 +1565,9 @@ This solution implies a standard specification of this path policy.<a href="#sec
         <li class="normal" id="section-6-1.2">
           <p id="section-6-1.2.1">SCION-IP translation<a href="#section-6-1.2.1" class="pilcrow">¶</a></p>
 </li>
+        <li class="normal" id="section-6-1.3">
+          <p id="section-6-1.3.1">How can we interface with QUIC Multipath <span>[<a href="#I-D.ietf-quic-multipath" class="cite xref">I-D.ietf-quic-multipath</a>]</span>?<a href="#section-6-1.3.1" class="pilcrow">¶</a></p>
+</li>
       </ul>
 </section>
 </div>
@@ -1570,6 +1613,10 @@ This solution implies a standard specification of this path policy.<a href="#sec
 <a href="#section-11.1" class="section-number selfRef">11.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
         </h3>
 <dl class="references">
+<dt id="I-D.ietf-quic-multipath">[I-D.ietf-quic-multipath]</dt>
+        <dd>
+<span class="refAuthor">Liu, Y.</span>, <span class="refAuthor">Ma, Y.</span>, <span class="refAuthor">De Coninck, Q.</span>, <span class="refAuthor">Bonaventure, O.</span>, <span class="refAuthor">Huitema, C.</span>, and <span class="refAuthor">M. Kühlewind</span>, <span class="refTitle">"Multipath Extension for QUIC"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-quic-multipath-10</span>, <time datetime="2024-07-08" class="refDate">8 July 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-quic-multipath-10">https://datatracker.ietf.org/doc/html/draft-ietf-quic-multipath-10</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="I-D.scion-cp">[I-D.scion-cp]</dt>
         <dd>
 <span class="refAuthor">de Kater, C.</span>, <span class="refAuthor">Rustignoli, N.</span>, and <span class="refAuthor">S. Hitz</span>, <span class="refTitle">"SCION Control Plane"</span>, <time datetime="2023" class="refDate">2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/draft-dekater-scion-controlplane/">https://datatracker.ietf.org/doc/draft-dekater-scion-controlplane/</a>&gt;</span>. </dd>
