@@ -5,11 +5,11 @@
 PANRG                                                         K. Meynell
 Internet-Draft                                         SCION Association
 Intended status: Informational                           J. García Pardo
-Expires: 16 January 2025                                      T. Zäschke
+Expires: 17 January 2025                                      T. Zäschke
                                                               ETH Zürich
                                                            N. Rustignoli
                                                        SCION Association
-                                                            15 July 2024
+                                                            16 July 2024
 
 
                         SCION Research Questions
@@ -52,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 16 January 2025.
+   This Internet-Draft will expire on 17 January 2025.
 
 Copyright Notice
 
@@ -309,6 +309,29 @@ Table of Contents
    There are some nuances: Usually the server's API will store the
    initial address of the client to be used through all the session.  We
    might need to take this into account.
+
+   A related question: how long before expiration should we still use a
+   path?  How do we handle that?
+
+   Do we actually need to solve this reverse path refresh problem?
+
+   *  CONTRA: It is probably rare that a server needs to send data for a
+      long time without the application layer protocol requiring the
+      client to ever answer back.
+
+   *  PRO: The client may happen to have an old-ish path.  If we can't
+      refresh, the client always needs to consider whether a path is
+      valid "long enough", which might only be possible to guess.
+
+   *  CONTRA: Sending keep-alives sounds like a connection based
+      protocol.  It alo means we need to figure out when to stop sending
+      keep alives.
+
+   *  CONTRA: It may be better to solve this in the application layer or
+      in the overlay protocol, where we we know more about potential
+      length of the session, or whether this is a singular request/
+      answer type of exchange, or whether more frequent keep-alives are
+      anyway required.
 
 5.  Hummingbird / QoS
 
