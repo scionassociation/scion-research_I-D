@@ -214,6 +214,23 @@ Table of Contents
    the current cost for retrieving a large amount of segments from the
    local database and sending them over the network interface.
 
+   Examples for requesting CORE segments between different ISDs or
+   within an ISD (as of 2024-07-12):
+
+               +==========+===========+===================+
+               |      src |       dst | segments returned |
+               +==========+===========+===================+
+               | 64-0:0:0 |  64-0:0:0 |        337        |
+               +----------+-----------+-------------------+
+               | 64-0:0:0 |  65-0:0:0 |        240        |
+               +----------+-----------+-------------------+
+               | 64-0:0:0 |  67-0:0:0 |         60        |
+               +----------+-----------+-------------------+
+               | 64-0:0:0 | 64-2:0:13 |         60        |
+               +----------+-----------+-------------------+
+
+                   Table 1: CORE segment count examples
+
 3.4.  Routing Policies and Traffic Engineering
 
    Reduced adoption due to limited routing policy possibilities, such as
@@ -256,15 +273,23 @@ Table of Contents
 3.8.  NAT
 
    At this moment, the SCION implementation is not compatible out-of-
-   the-box with NAT'ed devices, whether these devices are end-hosts, or
-   even running SCION services.  This is due to the (UDP-IP) underlay
-   being modified by the NAT mechanism, but not the internal destination
-   SCION address.  Although this does not concern the SCION protocols
-   themselves, we want to check that this will not be a problem.
+   the-box with NAT'ed devices, regardless of whether these devices are
+   end-hosts, or even running SCION services.  This is due to the (UDP-
+   IP) underlay being modified by the NAT mechanism, but not the
+   internal destination SCION address.  Although this does not concern
+   the SCION protocols themselves, we want to check that this will not
+   be a problem.  Critically, the SCION header needs to contain the SRC
+   address as seen by the border router so that the border router can
+   forward incoming response packets to the correct NAT device and port.
 
-   *  With IPv6 underlay, this problem disappears.
+   Possible solutions:
 
-   *  Modify the SCION border router to also act as a STUN server.
+   *  With IPv6 underlay, this problem disappears. // TODO Clarify why
+      it disappears?  IS the idea that we can remove NATs if everyone
+      would use IPv6?
+
+   *  Introduce a mechanism so that the SCION border router can report
+      the NATed address to an endhost (similar to a STUN server).
 
 4.  Dataplane stability
 
@@ -318,6 +343,29 @@ Table of Contents
    There are some nuances: Usually the server's API will store the
    initial address of the client to be used through all the session.  We
    might need to take this into account.
+
+   A related question: how long before expiration should we still use a
+   path?  How do we handle that?
+
+   Do we actually need to solve this reverse path refresh problem?
+
+   *  CONTRA: It is probably rare that a server needs to send data for a
+      long time without the application layer protocol requiring the
+      client to ever answer back.
+
+   *  PRO: The client may happen to have an old-ish path.  If we can't
+      refresh, the client always needs to consider whether a path is
+      valid "long enough", which might only be possible to guess.
+
+   *  CONTRA: Sending keep-alives sounds like a connection based
+      protocol.  It alo means we need to figure out when to stop sending
+      keep alives.
+
+   *  CONTRA: It may be better to solve this in the application layer or
+      in the overlay protocol, where we we know more about potential
+      length of the session, or whether this is a singular request/
+      answer type of exchange, or whether more frequent keep-alives are
+      anyway required.
 
 4.3.  Recovering from faulty segments
 
@@ -392,6 +440,9 @@ Table of Contents
 
    *  SCION-IP translation
 
+   *  How can we interface with QUIC Multipath
+      [I-D.ietf-quic-multipath]?
+
 7.  Implications of Path Awareness for the Transport and Application
     Layers
 
@@ -450,6 +501,13 @@ Table of Contents
 11.  References
 
 11.1.  Normative References
+
+   [I-D.ietf-quic-multipath]
+              Liu, Y., Ma, Y., De Coninck, Q., Bonaventure, O., Huitema,
+              C., and M. Kühlewind, "Multipath Extension for QUIC", Work
+              in Progress, Internet-Draft, draft-ietf-quic-multipath-10,
+              8 July 2024, <https://datatracker.ietf.org/doc/html/draft-
+              ietf-quic-multipath-10>.
 
    [I-D.scion-cp]
               de Kater, C., Rustignoli, N., and S. Hitz, "SCION Control
