@@ -466,15 +466,15 @@ Table of Contents
 
 9.1.  DoS with Wormholes
 
-   Scenario: an attacker creates ten core ASes anduses them to create
+   Scenario: an attacker creates ten core ASes and uses them to create
    five (mostly disjunct) "wormholes", see [I-D.scion-cp], between to
    "major" locations, e.g. between Europe and Australia.  The five
    wormholes advertise excellent traffic conditions by advertising low
-   latency, few hops, low cost, ...).  As a result the beacons of the
-   five wormholes are likely to be chosen as the "five best" segments
-   for any traffic between Europe and Australia.  After all alternative
-   paths (which may be in local oath databases) have expired, the
-   wormholes will be the only paths available to local ASes.
+   latency, few hops, low cost, ... As a result the beacons of the five
+   wormholes are likely to be chosen as the "five best" segments for any
+   traffic between Europe and Australia.  After all alternative paths
+   (which may be in local path databases) have expired, the wormholes
+   will be the only paths available to local ASes.
 
 9.1.1.  Impact
 
@@ -485,14 +485,19 @@ Table of Contents
    to recover, ASes that are connected to the workhole-ASes would need
    to learn of the problem and stop forwarding the wormhole beacons.
 
-   Mitigations: - Introduce a way to verify path properties.  This would
-   make it harder to install wormholes.  This could include measuring
-   latency or sense-checking of geolocation information. - Introduce a
-   way to report and recover from malisious segments, see Section 4.3. -
-   Adapt the path discovery and dissemination algorithm to allow ASes to
-   have many more than five paths to a given remote destination.  The
-   attack would then require an (unreasonably) large number of
-   compromosed ASes.
+   Mitigations:
+
+   *  Introduce a way to verify path properties.  This would make it
+      harder to install wormholes.  This could include measuring latency
+      or sense-checking of geolocation information.
+
+   *  Introduce a way to report and recover from malicious segments, see
+      Section 4.3.
+
+   *  Adapt the path discovery and dissemination algorithm to allow ASes
+      to have many more than five paths to a given remote destination.
+      The attack would then require an (unreasonably) large number of
+      compromised ASes.
 
    A related question is discussed in Section 4.3.
 
