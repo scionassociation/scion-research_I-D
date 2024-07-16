@@ -319,21 +319,39 @@ Do we actually need to solve this reverse path refresh problem?
   are anyway required.
 
 
-## Recovering from bad segments
+## Recovering from faulty segments
 
-An AS may be coaxed to disseminate a bad segment (e.g. via "wormhole" attack, see {{I-D.scion-cp}}). How do we recover from that?
-Currently only endhosts may realize that a segment does not work, this may be via SCMP errors or simply by traffic degradation.
+Faulty segments are segments that do not work as advertised, i.e. they are either physically faulty
+(broken link, high packet loss, jitter, ...) or come with faulty metadata, suggesting too few hops, too low latency,
+too much bandwith, or similar problems.
+The faultyness may be caused by a technical problem (e.g. broken link) or by a malicious adversary.
+
+An example for a malicious adversary is the "wormhole" attack, see {{I-D.scion-cp}}, where, an AS may be coaxed to
+disseminate a faulty segment. How do we recover from faulty segments?
+Currently only endhosts may realize that a segment does not work as advertised, either via SCMP errors or simply by traffic degradation.
 This would be a possible sequence of events:
 
-* An endhost needs to tell it's local AS that the segment is bad
-* Local AS needs to tell CORE AS that segment is bad
+* An endpoint realizes that a segment is faulty
+* An endpoint needs to report to its local AS that the segment is faulty
+* Local AS needs to report its CORE AS that segment is faulty
 * The CORE AS needs to:
-  * change policy to exclude bad segments AND/OR
-  * tell other COREs and ISDs to stop delivering bad segment (they only deliver 5 each, so any bad segment shoud be avoided)
+  * change policy to exclude faulty segments AND/OR
+  * tell other COREs and ISDs to stop delivering the segment (they only deliver 5 each, so any faulty segment shoud be avoided)
 
-Mitigation alternatives:
+### Implications
+
+A lack of recovery can lead to an attack as described in {{dos-with-wormholes}}.
+
+### Mitigation
 
 * An AS could monitor traffic for SCMP errors, however this works only if these errors are actually generated and forwarded.
+* Endpoints need a way to signal faulty segments to ASes. ASes need a way to signal faulty ASes to other ASes (e.g.
+core ASes or ASes in other ISDs).
+* ASes need adaptive becaon analysis algorithms that allow excluding specific beacons, e.g. beacons that have
+  known malicious ASes on path.
+* For swift recovery, it would be useful if ASes could revoke faulty segments.
+* Adapt the path discovery and dissemination algorithm to allow ASes to have many more than five paths to
+  a given remote destination. This would allow endpoints to simply ignore faulty segments and use other ones.
 
 
 # Hummingbird / QoS
@@ -378,7 +396,9 @@ workhole-ASes would need to learn of the problem and stop forwarding the wormhol
 
 Mitigations:
 - Introduce a way to veryfy path properties. This would make it harder to install wormholes.
-- Introduce a way to
+- Introduce a way to report and recover from malisious segments, see {{recovering-from-faulty-segments}}.
+- Adapt the path discovery and dissemination algorithm to allow ASes to have many more than five paths to
+  a given remote destination. The attack would then require an (unreasonably) large number of compromosed ASes.
 
 
 The attacker has now atteracted
@@ -387,7 +407,7 @@ The attacker has now atteracted
   routed through them, allowing them to completely block (or greyhole, etc ...) traffic from, or to, a given AS.
   For example, it seems feasible that five cleverly located ASes in Europe and 5 in Australia could block any traffic
   between the two (these ASes would need to be core ASes and would probably need to be in there a malicious ISD to be allowed as CORE).
-  A related question is discussed in {{recovering-from-bad-segments}}.
+  A related question is discussed in {{recovering-from-faulty-segments}}.
 
 
 # IANA Considerations
