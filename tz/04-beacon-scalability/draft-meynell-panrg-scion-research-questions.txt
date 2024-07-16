@@ -486,22 +486,16 @@ Table of Contents
    to recover, ASes that are connected to the workhole-ASes would need
    to learn of the problem and stop forwarding the wormhole beacons.
 
-   Mitigations: - Introduce a way to veryfy path properties.  This would
-   make it harder to install wormholes. - Introduce a way to report and
-   recover from malisious segments, see Section 4.3. - Adapt the path
-   discovery and dissemination algorithm to allow ASes to have many more
-   than five paths to a given remote destination.  The attack would then
-   require an (unreasonably) large number of compromosed ASes.
+   Mitigations: - Introduce a way to verify path properties.  This would
+   make it harder to install wormholes.  This could include measuring
+   latency or sense-checking of geolocation information. - Introduce a
+   way to report and recover from malisious segments, see Section 4.3. -
+   Adapt the path discovery and dissemination algorithm to allow ASes to
+   have many more than five paths to a given remote destination.  The
+   attack would then require an (unreasonably) large number of
+   compromosed ASes.
 
-   The attacker has now atteracted
-
-   , may be selected as "best" and have all traffic routed through them,
-   allowing them to completely block (or greyhole, etc ...) traffic
-   from, or to, a given AS.  For example, it seems feasible that five
-   cleverly located ASes in Europe and 5 in Australia could block any
-   traffic between the two (these ASes would need to be core ASes and
-   would probably need to be in there a malicious ISD to be allowed as
-   CORE).  A related question is discussed in Section 4.3.
+   A related question is discussed in Section 4.3.
 
 10.  IANA Considerations
 

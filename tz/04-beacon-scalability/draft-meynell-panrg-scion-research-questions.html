@@ -1692,16 +1692,12 @@ the wormholes will be the only paths available to local ASes.<a href="#section-9
 <p id="section-9.1.1-2">Critically, there is no way no recover from this situation. In order to recover, ASes that are connected to the
 workhole-ASes would need to learn of the problem and stop forwarding the wormhole beacons.<a href="#section-9.1.1-2" class="pilcrow">¶</a></p>
 <p id="section-9.1.1-3">Mitigations:
-- Introduce a way to veryfy path properties. This would make it harder to install wormholes.
+- Introduce a way to verify path properties. This would make it harder to install wormholes.
+  This could include measuring latency or sense-checking of geolocation information.
 - Introduce a way to report and recover from malisious segments, see <a href="#signalling-faulty-segments" class="auto internal xref">Section 4.3</a>.
 - Adapt the path discovery and dissemination algorithm to allow ASes to have many more than five paths to
   a given remote destination. The attack would then require an (unreasonably) large number of compromosed ASes.<a href="#section-9.1.1-3" class="pilcrow">¶</a></p>
-<p id="section-9.1.1-4">The attacker has now atteracted<a href="#section-9.1.1-4" class="pilcrow">¶</a></p>
-<p id="section-9.1.1-5">, may be selected as "best" and have all traffic
-  routed through them, allowing them to completely block (or greyhole, etc ...) traffic from, or to, a given AS.
-  For example, it seems feasible that five cleverly located ASes in Europe and 5 in Australia could block any traffic
-  between the two (these ASes would need to be core ASes and would probably need to be in there a malicious ISD to be allowed as CORE).
-  A related question is discussed in <a href="#signalling-faulty-segments" class="auto internal xref">Section 4.3</a>.<a href="#section-9.1.1-5" class="pilcrow">¶</a></p>
+<p id="section-9.1.1-4">A related question is discussed in <a href="#signalling-faulty-segments" class="auto internal xref">Section 4.3</a>.<a href="#section-9.1.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
