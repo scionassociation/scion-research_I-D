@@ -1296,11 +1296,16 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <p id="section-3.2-1">The idea behind beaconing is to discover all possible paths (loop free and with a fixed maximu length) between two CORE AS.
 Every AS forwards any received becons to all neighbor CORE ASes unless this would cause a loop or exceed the fixed maximum length.
 Implemented naively, the number of paths (and beacons) grows exponentially with the network size.
-This is currently mitigated primarily (and efficiently) by forwarding only the 5 "best PCB" to neighbours.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
+This is currently mitigated primarily (and efficiently) by forwarding only the five "best PCB" to neighbours.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
 <p id="section-3.2-2">This "best PCB" practive has several implications:<a href="#section-3.2-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.2-3.1">
-            <p id="section-3.2-3.1.1">It limits the number of available paths for endpoints such that only 5 path may be available to a given destination. This is especially relevant for<a href="#section-3.2-3.1.1" class="pilcrow">¶</a></p>
+            <p id="section-3.2-3.1.1">It limits the number of available paths for endpoints such that only five truly diverse paths may be available to a given destination.
+"truly diverse" means: Most AS will receive five PCBs to a given destination from several of their neighbours. However, assuming
+the ASes in the are use a similar PCB selection policy, it is not unlikely that each neighbor AS will forward a very
+similar set of five PCB. In effect, there may be more than five path available, but they are likely to diverge only on the first
+one or two hops <strong>(TBC: Is that true? There is no research confirming this hypothesis)</strong>.
+The problem that there may be only five truly diverse paths available is especially relevant for:<a href="#section-3.2-3.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.2-3.1.2.1">
                 <p id="section-3.2-3.1.2.1.1">Multipathing: you may not be able to use more than five path and no great selection of pats on offer .<a href="#section-3.2-3.1.2.1.1" class="pilcrow">¶</a></p>
