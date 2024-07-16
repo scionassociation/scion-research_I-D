@@ -201,7 +201,7 @@ This draft assumes the reader is familiar with some of the fundamental concepts 
 * One AS belongs to many ISDs?
 
 
-## CORE Beaconing Scalability
+## Beacon Forwarding Policy
 
 The idea behind beaconing is to discover all possible paths (loop free and with a fixed maximu length) between two CORE AS.
 Every AS forwards any received becons to all neighbor CORE ASes unless this would cause a loop or exceed the fixed maximum length.
@@ -210,15 +210,11 @@ This is currently mitigated primarily (and efficiently) by forwarding only the 5
 
 This "best PCB" practive has several implications:
 
-* It limits the number of available paths for endhosts such that only 5 path may be available to a given destination. This is especially relevant for
+* It limits the number of available paths for endpoint such that only 5 path may be available to a given destination. This is especially relevant for
   * Multipathing: you may not be able to use more than five path and no great selection of pats on offer .
   * Unusual path policies, such as geofencing, may not be fulfillable by the limited number of paths on offer.
 * It causes a small number of path to carry all traffic to a given destination, see {{link-load-balancing}}.
-* It opens the possibility of a DoS attack where a small number of "wormholes", see {{I-D.scion-cp}}, may be selected as "best" and have all traffic
-  routed through them, allowing them to completely block (or greyhole, etc ...) traffic from, or to, a given AS.
-  For example, it seems feasible that five cleverly located ASes in Europe and 5 in Australia could block any traffic
-  between the two (these ASes would need to be core ASes and would probably need to be in there a malicious ISD to be allowed as CORE).
-  A related question is discussed in {{recovering-from-bad-segments}}.
+* It opens the possibility of a DoS attack where a small number of "wormholes", see {{dos-with-wormholes}}.
 
 
 ## Segment Dissemination
@@ -364,6 +360,34 @@ To be discussed
 # Security Considerations
 
 TODO Security
+
+## DoS with Wormholes
+
+Scenario: an attacker creates ten core ASes anduses them to create five (mostly disjunct) "wormholes",
+see {{I-D.scion-cp}}, between to "major" locations, e.g. between Europe and Australia.
+The five wormholes advertise excellent traffic conditions by advertising low latency, few hops, low cost, ...).
+As a result the beacons of the five wormholes are likely to be chosen as the "five best" segments for any traffic
+between Europe and Australia. After all alternative paths (which may be in local oath databases) have expired,
+the wormholes will be the only paths available to local ASes.
+
+### Impact
+The attacker can now perform blackhole attacks (DoS), greyhole attacks, delay traffic, or similarily impact traffic.
+
+Critically, there is no way no recover from this situation. In order to recover, ASes that are connected to the
+workhole-ASes would need to learn of the problem and stop forwarding the wormhole beacons.
+
+Mitigations:
+- Introduce a way to veryfy path properties. This would make it harder to install wormholes.
+- Introduce a way to
+
+
+The attacker has now atteracted
+
+, may be selected as "best" and have all traffic
+  routed through them, allowing them to completely block (or greyhole, etc ...) traffic from, or to, a given AS.
+  For example, it seems feasible that five cleverly located ASes in Europe and 5 in Australia could block any traffic
+  between the two (these ASes would need to be core ASes and would probably need to be in there a malicious ISD to be allowed as CORE).
+  A related question is discussed in {{recovering-from-bad-segments}}.
 
 
 # IANA Considerations
