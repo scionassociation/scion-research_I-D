@@ -238,11 +238,25 @@ One solution could be to add a “confirm full path”-flag to certain segments.
 Collateral: this probably needs a data plane change. Conceptually, we have only a single resulting segment, and that segment needs to be used in full, e.g. no on-path trickery.
 
 ## DRKey
-* Is forward-secrecy DRKey useful and should we develop it?
-* What are the properties of the control-plane?
-  * Do we want to have any authorization of the data-plane transit undertaken at this stage?
-  * Would this obsolete firewalls?
+DRKey is a key distribution system that scales well with the number of endpoints in the network.
+It relies on two things:
+
+* Two sides of a key: A fast side, and a slow side. The ability of deriving a key very quickly on the fast
+  side is necessary for most of its use cases.
+* A grouping of endpoints (such as ASes): The pieces necessary to derive a key, namely the L1 keys,
+  are communicated to each keystore at each grouping (e.g., a keystore per AS).
+
+The questions related to DRKey are the following ones (not comprehensive):
+
+* Do we want to have any possible authorization that is at the moment carried out at the data-plane,
+  be moved to the control-plane? This could include e.g. authorization to deliver traffic depending on the source,
+  but also things like port numbers/ranges per source, etc.
+  * Could this obsolete firewalls? What else would be necessary?
   * What do we mean when we say "authorize transit"?
+* Could perfect forward secrecy DRKey be useful, and should we research it?
+  * What would be the trust model? Do end-users trust their ASes to ephemerally create personal keys?
+  * What would be the attacker model?
+  * Which use cases are relevant?
 
 For more info: {{I-D.garciapardo-drkey}}.
 
