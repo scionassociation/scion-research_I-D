@@ -340,7 +340,7 @@ Examples for requesting CORE segments between different ISDs or within an ISD (a
 * How should end ASes express their desired requirements to the inter-domain control plane?
 * How do these requirements translate into concrete optimization functions?
 * How does standardization of the functions work? 
-* Criteria change over time.
+* Criteria changing over time.
   * How can optimization functions adapt to incorporate these changes?
   * How to achieve fast adaptation of optimization functions?
 * IREC {{TABAEIAGHDAEI2023}} 
