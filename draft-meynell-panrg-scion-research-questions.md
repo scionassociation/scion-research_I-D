@@ -331,7 +331,6 @@ Examples for requesting CORE segments between different ISDs or within an ISD (a
 
 ## Beacon optimization and beaconing extensibility
 * Communication requirements vary according to source, destination, and application. Satisfying all these requirements either requires discovering all paths in the network, or optimizing paths during the beaconing process. Selecting the 5 shortest paths per destination cannot satisfy all requirements.
-* Satisfying all these criteria either requires discovering all paths in the network, or optimizing paths during the beaconing process.
   * Clearly, the 5-shortest path per destination cannot satisfy all communication requirements.
 * What optimization functions should be applied to beacons when propagating them?
   * What are the optimality metrics considered in these functions?
