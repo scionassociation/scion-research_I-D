@@ -1351,33 +1351,77 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
         <h3 id="name-drkey">
 <a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-drkey" class="section-name selfRef">DRKey</a>
         </h3>
+<p id="section-3.4-1">DRKey is a key distribution system that scales well with the number of endpoints in the network.
+It relies on two things:<a href="#section-3.4-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.4-1.1">
-            <p id="section-3.4-1.1.1">Is forward-secrecy DRKey useful and should we develop it?<a href="#section-3.4-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-3.4-2.1">
+            <p id="section-3.4-2.1.1">Two sides of a key: A fast side, and a slow side. Sometimes called fast and slow side of the derivation.
+The ability of deriving a key very quickly on the fast side is necessary for most of its use cases.<a href="#section-3.4-2.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.4-1.2">
-            <p id="section-3.4-1.2.1">What are the properties of the control-plane?<a href="#section-3.4-1.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-3.4-2.2">
+            <p id="section-3.4-2.2.1">A grouping of endpoints (such as ASes): The pieces necessary to derive a key, namely the L1 keys,
+are communicated to each keystore at each grouping (e.g., a keystore per AS).<a href="#section-3.4-2.2.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-3.4-3">The questions related to DRKey are the following ones (not comprehensive):<a href="#section-3.4-3" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.4-1.2.2.1">
-                <p id="section-3.4-1.2.2.1.1">Do we want to have any authorization of the data-plane transit undertaken at this stage?<a href="#section-3.4-1.2.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-3.4-4.1">
+            <p id="section-3.4-4.1.1">Do we want to have any possible authorization that is at the moment carried out at the data-plane,
+be moved to the control-plane? This could include e.g. authorization to deliver traffic depending on the source,
+but also things like port numbers/ranges per source, etc.<a href="#section-3.4-4.1.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3.4-4.1.2.1">
+                <p id="section-3.4-4.1.2.1.1">Could this obsolete firewalls? What else would be necessary?<a href="#section-3.4-4.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-3.4-1.2.2.2">
-                <p id="section-3.4-1.2.2.2.1">Would this obsolete firewalls?<a href="#section-3.4-1.2.2.2.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-3.4-4.1.2.2">
+                <p id="section-3.4-4.1.2.2.1">What do we mean when we say "authorize transit"?<a href="#section-3.4-4.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-3.4-1.2.2.3">
-                <p id="section-3.4-1.2.2.3.1">What do we mean when we say "authorize transit"?<a href="#section-3.4-1.2.2.3.1" class="pilcrow">¶</a></p>
+            </ul>
+</li>
+          <li class="normal" id="section-3.4-4.2">
+            <p id="section-3.4-4.2.1">Could perfect forward secrecy DRKey be useful, and should we research it?<a href="#section-3.4-4.2.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3.4-4.2.2.1">
+                <p id="section-3.4-4.2.2.1.1">What would be the trust model? Do end-users trust their ASes to ephemerally create personal keys?<a href="#section-3.4-4.2.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-3.4-4.2.2.2">
+                <p id="section-3.4-4.2.2.2.1">What would be the attacker model?<a href="#section-3.4-4.2.2.2.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-3.4-4.2.2.3">
+                <p id="section-3.4-4.2.2.3.1">Which use cases are relevant?<a href="#section-3.4-4.2.2.3.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
         </ul>
-<p id="section-3.4-2">For more info: <span>[<a href="#I-D.garciapardo-drkey" class="cite xref">I-D.garciapardo-drkey</a>]</span>.<a href="#section-3.4-2" class="pilcrow">¶</a></p>
+<p id="section-3.4-5">For more info: <span>[<a href="#I-D.garciapardo-drkey" class="cite xref">I-D.garciapardo-drkey</a>]</span>.<a href="#section-3.4-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="scmp-authentication">
 <section id="section-3.5">
         <h3 id="name-scmp-authentication">
 <a href="#section-3.5" class="section-number selfRef">3.5. </a><a href="#name-scmp-authentication" class="section-name selfRef">SCMP Authentication</a>
-      </h3>
+        </h3>
+<p id="section-3.5-1">In SCION, we would like to have SCMP (SCION Control Message Protocol) include authentication for
+some of the message types, e.g. the interface down type, as it would affect the path choices that the
+endpoint, and even the source AS, can make.<a href="#section-3.5-1" class="pilcrow">¶</a></p>
+<p id="section-3.5-2">We propose to use DRKey as the mechanism to use to derive the authentication key,
+where the fast path would be on the infrastructure side (e.g. the border router in the case of an
+interface down type of message), and the slow side being on the intended endpoint destination
+for that SCMP message (e.g. the endpoint receiving the SCMP interface down message).
+However, we have identified a number of possible issues (not comprehensive):<a href="#section-3.5-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3.5-3.1">
+            <p id="section-3.5-3.1.1">Denial of Service/Capability Attacks: If an endpoint receives (too) many SCMP messages,
+it will need (too) many resources just to authenticate their origin.
+Most of these messages could just be sent to the endpoint to exhaust its processing capacity.<a href="#section-3.5-3.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.5-3.2">
+            <p id="section-3.5-3.2.1">Sending an SCMP message in certain cases might be an amplification factor:
+If a border router sends an SCMP message (e.g. interface down) on all cases, even with small packets,
+there is the risk of having that border router sending a lot of traffic to
+a possibly unintended recipient, e.g. when the packet is not source validated.<a href="#section-3.5-3.2.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
 </section>
 </div>
 <div id="proof-of-transit">
