@@ -5,11 +5,11 @@
 PANRG                                                         K. Meynell
 Internet-Draft                                         SCION Association
 Intended status: Informational                           J. García Pardo
-Expires: 17 January 2025                                      T. Zäschke
+Expires: 18 January 2025                                      T. Zäschke
                                                               ETH Zürich
                                                            N. Rustignoli
                                                        SCION Association
-                                                            16 July 2024
+                                                            17 July 2024
 
 
                         SCION Research Questions
@@ -52,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 17 January 2025.
+   This Internet-Draft will expire on 18 January 2025.
 
 Copyright Notice
 
@@ -310,9 +310,8 @@ Table of Contents
       to answer back, we can only assume that the server transport or
       application layer will store the initial path using its transport
       or application layer API.  We will need to consider this, as well
-      as how other protocols such as QUIC (TODO add reference to QUIC
-      here) with the ability of migrating a session to a different
-      address, work efficiently.
+      as how other protocols such as QUIC [RFC9000] with the ability of
+      migrating a session to a different address, work efficiently.
 
    *  How long before expiration should the client and server still use
       a path?  How do we handle that?
@@ -427,6 +426,11 @@ Table of Contents
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+
+   [RFC9000]  Iyengar, J., Ed. and M. Thomson, Ed., "QUIC: A UDP-Based
+              Multiplexed and Secure Transport", RFC 9000,
+              DOI 10.17487/RFC9000, May 2021,
+              <https://www.rfc-editor.org/rfc/rfc9000>.
 
    [RFC9217]  Trammell, B., "Current Open Questions in Path-Aware
               Networking", RFC 9217, DOI 10.17487/RFC9217, March 2022,
