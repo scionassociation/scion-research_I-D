@@ -5,11 +5,11 @@
 PANRG                                                         K. Meynell
 Internet-Draft                                         SCION Association
 Intended status: Informational                           J. García Pardo
-Expires: 17 January 2025                                      T. Zäschke
+Expires: 18 January 2025                                      T. Zäschke
                                                               ETH Zürich
                                                            N. Rustignoli
                                                        SCION Association
-                                                            16 July 2024
+                                                            17 July 2024
 
 
                         SCION Research Questions
@@ -52,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 17 January 2025.
+   This Internet-Draft will expire on 18 January 2025.
 
 Copyright Notice
 
@@ -129,10 +129,10 @@ Table of Contents
 3.1.  ISD, AS identity
 
    The SCION protocol specifies 16 bits and 48 bits to identify the ISD
-   and AS.  These identification is, at this moment, necessary at the
-   data-plane level, written on each one of the data packets to fully
-   address the sender and receiver, as well as at the control-plane
-   level, to identify the PCB sender and hops.
+   and AS.  This identification is, at this moment, necessary at the
+   data-plane level.  It is written in each one of the data packets to
+   fully address the sender and receiver, as well as at the control-
+   plane level, to identify the PCB sender and hops.
 
    While 48 bits seem sufficient to accommodate a large number of ASes,
    using 16 bits for the ISD might not be.  Additionally, the
@@ -149,15 +149,15 @@ Table of Contents
 
    *  How many ISDs do we expect?
 
-   *  What is the ontology of an ISD?  Note that not all combinations of
-      ASes might be possible as ISDs: An ISD MUST be connected via at
-      least one core link to the rest of the ISD connected graph.
-      Otherwise the beaconing process does not transfer trust
-      information among the connected graph of existing ISDs and this
-      ISD in question.  This reduces the absolute number of possible
-      ISDs to those that satisfy a strict direct connectivity
-      requirement (hence they could become core ASes in the new ISD).
-      It is still super-exponential asymptotically.
+   *  What is the ontology of an ISD?  Note that the entire set of all
+      combinations of ASes might be the complete set of ISDs: An ISD
+      MUST be connected via at least one core link to the rest of the
+      ISD connected graph.  Otherwise the beaconing process does not
+      transfer trust information among the connected graph of existing
+      ISDs and this ISD in question.  This reduces the absolute number
+      of possible ISDs to those that satisfy a strict direct
+      connectivity requirement (hence they could become core ASes in the
+      new ISD).  It is still super-exponential asymptotically.
 
       -  Per geographic area?
 

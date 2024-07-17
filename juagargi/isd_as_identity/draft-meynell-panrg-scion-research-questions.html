@@ -1031,7 +1031,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Meynell, et al.</td>
-<td class="center">Expires 17 January 2025</td>
+<td class="center">Expires 18 January 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1044,12 +1044,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-meynell-panrg-scion-research-questions-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-07-16" class="published">16 July 2024</time>
+<time datetime="2024-07-17" class="published">17 July 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-01-17">17 January 2025</time></dd>
+<dd class="expires"><time datetime="2025-01-18">18 January 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1111,7 +1111,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 17 January 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 18 January 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1252,8 +1252,8 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-isd-as-identity" class="section-name selfRef">ISD, AS identity</a>
         </h3>
 <p id="section-3.1-1">The SCION protocol specifies 16 bits and 48 bits to identify the ISD and AS.
-These identification is, at this moment, necessary at the data-plane level,
-written on each one of the data packets to fully address the sender and receiver,
+This identification is, at this moment, necessary at the data-plane level.
+It is written in each one of the data packets to fully address the sender and receiver,
 as well as at the control-plane level, to identify the PCB sender and hops.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
 <p id="section-3.1-2">While 48 bits seem sufficient to accommodate a large number of ASes,
 using 16 bits for the ISD might not be.
@@ -1274,7 +1274,7 @@ Additionally, the justification of these figures is lacking at the moment.<a hre
 </li>
           <li class="normal" id="section-3.1-4.5">
             <p id="section-3.1-4.5.1">What is the ontology of an ISD?
-Note that not all combinations of ASes might be possible as ISDs:
+Note that the entire set of all combinations of ASes might be the complete set of ISDs:
 An ISD <span class="bcp14">MUST</span> be connected via at least one core link to the rest of the ISD connected graph.
 Otherwise the beaconing process does not transfer trust information among
 the connected graph of existing ISDs and this ISD in question.
