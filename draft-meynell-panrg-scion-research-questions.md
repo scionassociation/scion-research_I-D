@@ -40,7 +40,8 @@ author:
      email: nic@scion.org
 
 normative:
-  RFC9217:
+  RFC9217: # Current Open Questions in PAN
+  RFC9000: # QUIC
   I-D.ietf-quic-multipath:
   I-D.scion-cp:
     title: SCION Control Plane
@@ -297,7 +298,7 @@ into a path being needed for the server to answer back,
 we can only assume that the server transport or application layer will store
 the initial path using its transport or application layer API.
 We will need to consider this, as well as how other protocols such as QUIC
-(TODO add reference to QUIC here)
+{{RFC9000}}
 with the ability of migrating a session to a different address, work efficiently.
 
 * How long before expiration should the client and server still use a path?
