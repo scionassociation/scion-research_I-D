@@ -5,11 +5,11 @@
 PANRG                                                         K. Meynell
 Internet-Draft                                         SCION Association
 Intended status: Informational                           J. García Pardo
-Expires: 17 January 2025                                      T. Zäschke
+Expires: 18 January 2025                                      T. Zäschke
                                                               ETH Zürich
                                                            N. Rustignoli
                                                        SCION Association
-                                                            16 July 2024
+                                                            17 July 2024
 
 
                         SCION Research Questions
@@ -52,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 17 January 2025.
+   This Internet-Draft will expire on 18 January 2025.
 
 Copyright Notice
 
@@ -72,12 +72,15 @@ Table of Contents
    3.  Discovery, Distribution, and Trustworthiness of Path Properties
      3.1.  ISD, AS identity
      3.2.  Beacon Forwarding Policy
-     3.3.  Segment Dissemination
-     3.4.  Routing Policies and Traffic Engineering
-     3.5.  DRKey
-     3.6.  SCMP Authentication
-     3.7.  Proof of transit
-     3.8.  NAT
+     3.3.  Wormhole attack
+       3.3.1.  Set up
+       3.3.2.  Impact
+     3.4.  Segment Dissemination
+     3.5.  Routing Policies and Traffic Engineering
+     3.6.  DRKey
+     3.7.  SCMP Authentication
+     3.8.  Proof of transit
+     3.9.  NAT
    4.  Dataplane stability
      4.1.  Link load balancing
      4.2.  Reverse Path Refreshment
@@ -90,8 +93,6 @@ Table of Contents
            Application Layers
    8.  Naming
    9.  Security Considerations
-     9.1.  DoS with Wormholes
-       9.1.1.  Impact
    10. IANA Considerations
    11. References
      11.1.  Normative References
@@ -149,41 +150,79 @@ Table of Contents
    would cause a loop or exceed the fixed maximum length.  Implemented
    naively, the number of paths (and beacons) grows exponentially with
    the network size.  This is currently mitigated, primarily (and
-   efficiently), by forwarding only the five "best PCBs" to neighbours.
+   efficiently), by forwarding only the five "best PCBs" (to a given
+   remote destination AS) to neighbours.  "Best" here takes into account
+   properties such as diversity, time to aexpire and whether (or how
+   recently) the same PCBs has been forwarded before.
 
-   This "best PCB" practice has several implications:
+   Since path may expire after an hour or so and because expiration is
+   not the only factor, an AS will typically start resending the same
+   beacons in less than an hour (i.e. the typical expiration time).
 
-   *  It limits the number of available paths for endpoints such that
-      only five truly diverse paths may be available to a given
-      destination. "truly diverse" means: Most ASes will receive five
-      PCBs to a given destination from several of their neighbours.
-      However, assuming those ASes are use a similar PCB selection
-      policy, it is not unlikely that each neighbor AS will forward a
-      very similar set of five PCB.  In effect, there may be more than
-      five paths available, but they are likely to diverge only on the
-      first one or two hops *(TBC: Is that true?  There is no research
-      confirming this hypothesis)*. The problem that there may be only
-      five truly diverse paths available is especially relevant for:
+   This means the total number of different PCBs that an AS will receive
+   from a given neighbour is e.g. 5 per minute * 30 minute = 150 paths.
 
-      -  Multipathing: endpoints may not be able to use more than five
-         paths and no great selection of pats on offer.
+   Most likely, an AS will receive PCBs to a given destination from
+   several neighbors, however these are likely to be very similar.  They
+   are likely to have the same tail and only differ in the first few
+   hops, i.e. the immediate neighbors.
 
-      -  Unusual path policies, such as geofencing, may not be
-         fulfillable by the limited number of paths on offer.
+   As a result, an AS will probably have only little more than 150 paths
+   to a given remote AS.
 
-   *  It causes a small number of paths to carry all traffic to a given
-      destination, see Section 4.1.
+   This is likely sufficient for most applications, but is probably far
+   from a complete view of the network.
 
-   *  It opens the possibility of a DoS attack where a small number of
-      "wormholes", see Section 9.1.
+   This can be problematic: * Massive multipathing: endpoints may not be
+   able to use the theoretically best paths. * Unusual path policies,
+   such as geofencing, may not be fulfillable by the limited number of
+   paths on offer.
 
-3.3.  Segment Dissemination
+3.3.  Wormhole attack
 
-   Control servers return a large number of path segments when an
-   endpoint requests paths to a destination.  This can cost considerable
-   bandwidth / network egress while at the same time overloading clients
-   with an unnecessarily large numbers of segments, mostly consisting of
-   redundant information in terms of duplicate links and hops.
+3.3.1.  Set up
+
+   Scenario: attackers creates two core ASes that are geographically far
+   apart.  They then anounce a link (effectively a shortcut) between
+   these two AS with very appealing properties (low latency, few hops,
+   ...).
+
+3.3.2.  Impact
+
+   The attacker can now perform blackhole attacks (DoS), greyhole
+   attacks, delay traffic, or similarily impact traffic.
+
+   Critically, there is currently no clear way to recover from this
+   situation.  In order to recover, ASes that are connected to the
+   workhole-ASes would need to learn of the problem and stop forwarding
+   the wormhole beacons.
+
+   Mitigations:
+
+   *  Introduce a way for ASes to verify path properties.  This would
+      make it harder to install wormholes.  This could include measuring
+      latency or sense-checking of geolocation information.
+
+   *  Introduce a way for endpoints to discover path problems.
+
+   *  Introduce a way for endpoints to report path problems.
+
+   *  Introduce a way to recover from malicious segments, see
+      Section 4.3.
+
+   *  Adapt the path discovery and dissemination algorithm to allow ASes
+      to have many more than five paths to a given remote destination.
+      The attack would then require an (unreasonably) large number of
+      compromised ASes.
+
+   A related question is discussed in Section 4.3.
+
+3.4.  Segment Dissemination
+
+   Control servers may return a large number of path segments for some
+   queries.  This can cost considerable bandwidth / network egress while
+   at the same time overloading clients with an unnecessarily large
+   numbers of segments.
 
    *  This problem may be more acute in ASes with many end hosts (e.g.
       IoT), or end hosts with little computing power or little spare
@@ -198,9 +237,10 @@ Table of Contents
       information (hops & links) is only stored once and the segments
       contain only references to the hops and links.
 
-   *  Allow queries from start AS to end AS across multiple segments.
-      This should be very easy to implement and would be compatible with
-      the current wire protocol (protobuf).
+   *  Instead of requiring three separate queries for UP/CORE/DOWN), we
+      could allow a single query from <start AS> to <end AS> across
+      multiple segments.  This should be very easy to implement and
+      would be compatible with the current wire protocol (protobuf).
 
       -  This would reduce the number of round trips to one.
 
@@ -238,7 +278,7 @@ Table of Contents
 
                    Table 1: CORE segment count examples
 
-3.4.  Routing Policies and Traffic Engineering
+3.5.  Routing Policies and Traffic Engineering
 
    Reduced adoption due to limited routing policy possibilities, such as
    a (core-)AS does not want to accept transit traffic unless it starts/
@@ -256,7 +296,7 @@ Table of Contents
    we have only a single resulting segment, and that segment needs to be
    used in full, e.g. no on-path trickery.
 
-3.5.  DRKey
+3.6.  DRKey
 
    *  Is forward-secrecy DRKey useful and should we develop it?
 
@@ -271,13 +311,13 @@ Table of Contents
 
    For more info: [I-D.garciapardo-drkey].
 
-3.6.  SCMP Authentication
+3.7.  SCMP Authentication
 
-3.7.  Proof of transit
+3.8.  Proof of transit
 
    FABRID [KRAHENBUHL2023] and EPIC [LEGNER2020].
 
-3.8.  NAT
+3.9.  NAT
 
    At this moment, the SCION implementation is not compatible out-of-
    the-box with NAT'ed devices, regardless of whether these devices are
@@ -407,7 +447,8 @@ Table of Contents
 
 4.3.1.  Implications
 
-   A lack of recovery can lead to an attack as described in Section 9.1.
+   Besides general service degradation, a lack of recovery can worsen
+   the impact of a Section 3.3.
 
 4.3.2.  Mitigation
 
@@ -422,13 +463,8 @@ Table of Contents
       specific beacons, e.g. beacons that have known malicious ASes on
       path.
 
-   *  For swift recovery, it would be useful if ASes could revoke faulty
-      segments.
-
-   *  Adapt the path discovery and dissemination algorithm to allow ASes
-      to have many more than five paths to a given remote destination.
-      This would allow endpoints to simply ignore faulty segments and
-      use other ones.
+   *  For swift recovery, it would be useful if ASes could communicate
+      the faultiness of faulty segments.
 
 5.  Hummingbird / QoS
 
@@ -463,43 +499,6 @@ Table of Contents
 9.  Security Considerations
 
    TODO Security
-
-9.1.  DoS with Wormholes
-
-   Scenario: an attacker creates ten core ASes and uses them to create
-   five (mostly disjunct) "wormholes", see [I-D.scion-cp], between to
-   "major" locations, e.g. between Europe and Australia.  The five
-   wormholes advertise excellent traffic conditions by advertising low
-   latency, few hops, low cost, ... As a result the beacons of the five
-   wormholes are likely to be chosen as the "five best" segments for any
-   traffic between Europe and Australia.  After all alternative paths
-   (which may be in local path databases) have expired, the wormholes
-   will be the only paths available to local ASes.
-
-9.1.1.  Impact
-
-   The attacker can now perform blackhole attacks (DoS), greyhole
-   attacks, delay traffic, or similarily impact traffic.
-
-   Critically, there is no way no recover from this situation.  In order
-   to recover, ASes that are connected to the workhole-ASes would need
-   to learn of the problem and stop forwarding the wormhole beacons.
-
-   Mitigations:
-
-   *  Introduce a way to verify path properties.  This would make it
-      harder to install wormholes.  This could include measuring latency
-      or sense-checking of geolocation information.
-
-   *  Introduce a way to report and recover from malicious segments, see
-      Section 4.3.
-
-   *  Adapt the path discovery and dissemination algorithm to allow ASes
-      to have many more than five paths to a given remote destination.
-      The attack would then require an (unreasonably) large number of
-      compromised ASes.
-
-   A related question is discussed in Section 4.3.
 
 10.  IANA Considerations
 
