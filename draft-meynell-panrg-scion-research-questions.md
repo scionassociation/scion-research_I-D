@@ -330,7 +330,7 @@ Examples for requesting CORE segments between different ISDs or within an ISD (a
 * Re-propgating the same set of beacons at each interval is a waste of resources The periodic propagation can be used for the discovery of new paths at each interval, enhancing the scalability, and path diversity.
 
 ## Beacon optimization and beaconing extensibility
-* Communication quality requirements vary based on source, destination, and applications.
+* Communication requirements vary according to source, destination, and application. Satisfying all these requirements either requires discovering all paths in the network, or optimizing paths during the beaconing process. Selecting the 5 shortest paths per destination cannot satisfy all requirements.
 * Satisfying all these criteria either requires discovering all paths in the network, or optimizing paths during the beaconing process.
   * Clearly, the 5-shortest path per destination cannot satisfy all communication requirements.
 * What optimization functions should be applied to beacons when propagating them?
