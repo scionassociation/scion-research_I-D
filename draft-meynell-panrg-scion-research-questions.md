@@ -256,12 +256,31 @@ Mitigations:
 A related question is discussed in {{signalling-faulty-segments}}.
 
 
-## DNS Service Binding
+## DNS Service Binding (SVCB)
 
-The DNS Service Binding {{RFC9460, Section 14.3}} allows a dedicated SCION Service Parameter to be specified.
+The DNS Service Binding {{?RFC9460, Section 14.3}} allows a dedicated SCION Service Parameter to be specified.
 
 Service Parameters allow the specification of alternative IP addresses or other parameters such as ISD/AS numbers) for a given URL.
 This would be more elegant than using DNS TXT records.
+
+Example of current entry:
+
+    $ dig +short ethz.ch TXT  | grep scion
+    "x-sciondiscovery=8041"
+    "scion=64-2:0:9,129.132.230.98"
+
+
+With SVCB this may look like this for https:
+
+    dig +short https ethz.ch
+    1 . alpn="h2" scion=64-2:0:9,129.132.230.98
+
+I am not entirely sure how it looks like for non-https traffic, I assume probably like this:
+
+    dig +short svcb ethz.ch
+    1 . scion=64-2:0:9,129.132.230.98
+
+SVCB is also planned to be supported by Happy Eyeballs v3 {{?I-D.draft-pauly-v6ops-happy-eyeballs-v3-01}}.
 
 
 ## Segment Dissemination
