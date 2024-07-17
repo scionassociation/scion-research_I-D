@@ -291,21 +291,18 @@ How to standardize the process of refreshment?
 
 There are some relevant points we have identified for the discussion:
 
-* Usually the server's transport layer or application layer API will store
-the initial address of the client to be used through all the session.
-Bridging the semantics of the address being needed for the server to answer back,
-into a path being needed for the server to answer back,
-we can only assume that the server transport or application layer will store
-the initial path using its transport or application layer API.
-We will need to consider this, as well as how other protocols such as QUIC
-{{RFC9000}}
-with the ability of migrating a session to a different address, work efficiently.
+* In order to send data back to the client the server needs to store the path locally
+  (analogous to storing the client's IP/TCP-port in an TCP/IP scenario).
+
+* More generally, if multiple paths are used to contact the server,
+  which one of those would be used to reply? Leave it to transport  like in the case
+  of QUIC-MP {{I-D.ietf-quic-multipath}}?
 
 * How long before expiration should the client and server still use a path?
-How do we handle that?
+  How do we handle that?
 
 * Is it actually necessary to solve the reverse path refresh problem at all?
-Listing some pros and cons.
+  Listing some pros and cons of solving it at the network layer.
   * Pros:
     * The client may happen to have an about-to-expire path.
     If the server can't refresh, the client always needs to consider whether
@@ -313,9 +310,9 @@ Listing some pros and cons.
   * Cons:
     * It is probably rare that a server needs to send data for a long time without the application layer protocol requiring the client to ever answer back.
     * Sending keep-alives sounds like a connection based protocol.
-    It alo means we need to figure out when to stop sending keep-alives.
-    * It may be better to solve this in the application layer or in the overlay protocol,
-    where we we know more about potential length of the session,
+    It also means we need to figure out when to stop sending keep-alives.
+    * It may be better to solve this in the transport or application layers,
+    where we know more about potential length of the session,
     or whether this is a singular request/answer type of exchange,
     or whether more frequent keep-alives are anyway required.
 
@@ -325,8 +322,8 @@ Listing some pros and cons.
 * The client SHOULD (somehow) send a new packet with a new path,
 prompting the server to use this path from now on.
 * The client and server agree, via a path policy specification,
-on which kinds of paths are okay for the server to use.
-This solution implies a standard specification of this path policy.
+  on which kinds of paths are okay for the server to use.
+  This solution implies a standard specification of this path policy.
 
 
 # Hummingbird / QoS
