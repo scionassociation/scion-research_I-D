@@ -324,7 +324,7 @@ Examples for requesting CORE segments between different ISDs or within an ISD (a
 {: #segment-count-example title="CORE segment count examples"}
 
 ## Periodic beacon propagation
-* Is it necessary to propagate beacons periodically? If so, why? 
+* Is it necessary to propagate beacons periodically? 
   * For path freshness, only the origin needs to originate beacons periodically, and others disseminate immediately.
   * For response to link failures or availability of new paths, beacon services can respond instantly.
 * Re-propgating the same set of beacons at each interval is a waste of resources The periodic propagation can be used for the discovery of new paths at each interval, enhancing the scalability, and path diversity.
