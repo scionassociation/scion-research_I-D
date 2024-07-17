@@ -197,8 +197,8 @@ This draft assumes the reader is familiar with some of the fundamental concepts 
 ## ISD, AS identity
 
 The SCION protocol specifies 16 bits and 48 bits to identify the ISD and AS.
-These identification is, at this moment, necessary at the data-plane level,
-written on each one of the data packets to fully address the sender and receiver,
+This identification is, at this moment, necessary at the data-plane level.
+It is written in each one of the data packets to fully address the sender and receiver,
 as well as at the control-plane level, to identify the PCB sender and hops.
 
 While 48 bits seem sufficient to accommodate a large number of ASes,
@@ -212,7 +212,7 @@ The following questions arise: (not comprehensive)
 * Are AS numbers unique themselves? Or only unique in combination with an ISD?
 * How many ISDs do we expect?
 * What is the ontology of an ISD?
-  Note that not all combinations of ASes might be possible as ISDs:
+  Note that the entire set of all combinations of ASes might be the complete set of ISDs:
   An ISD MUST be connected via at least one core link to the rest of the ISD connected graph.
   Otherwise the beaconing process does not transfer trust information among
   the connected graph of existing ISDs and this ISD in question.
