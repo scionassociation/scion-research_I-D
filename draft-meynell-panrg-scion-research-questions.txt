@@ -5,11 +5,11 @@
 PANRG                                                         K. Meynell
 Internet-Draft                                         SCION Association
 Intended status: Informational                           J. García Pardo
-Expires: 17 January 2025                                      T. Zäschke
+Expires: 18 January 2025                                      T. Zäschke
                                                               ETH Zürich
                                                            N. Rustignoli
                                                        SCION Association
-                                                            16 July 2024
+                                                            17 July 2024
 
 
                         SCION Research Questions
@@ -52,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 17 January 2025.
+   This Internet-Draft will expire on 18 January 2025.
 
 Copyright Notice
 
@@ -80,16 +80,15 @@ Table of Contents
    4.  Dataplane stability
      4.1.  Link load balancing
      4.2.  Reverse Path Refreshment
-   5.  Hummingbird / QoS
-   6.  Interfaces for Path Awareness
-   7.  Implications of Path Awareness for the Transport and
+   5.  Interfaces for Path Awareness
+   6.  Implications of Path Awareness for the Transport and
            Application Layers
-   8.  Naming
-   9.  Security Considerations
-   10. IANA Considerations
-   11. References
-     11.1.  Normative References
-     11.2.  Informative References
+   7.  Naming
+   8.  Security Considerations
+   9.  IANA Considerations
+   10. References
+     10.1.  Normative References
+     10.2.  Informative References
    Acknowledgments
    Authors' Addresses
 
@@ -334,19 +333,7 @@ Table of Contents
       answer type of exchange, or whether more frequent keep-alives are
       anyway required.
 
-5.  Hummingbird / QoS
-
-   *  How many QoS flows to support at core routers?
-
-   *  How does QoS interact with Net Neutrality?
-
-   *  What proof of transit (or forwarding failure detection) is needed
-      or wanted?
-
-   *  What time synchronization precision should we expect at the border
-      router level of every AS?  How far can we go realistically?
-
-6.  Interfaces for Path Awareness
+5.  Interfaces for Path Awareness
 
    *  IPv6 in the Data Plane
 
@@ -355,26 +342,26 @@ Table of Contents
    *  How can we interface with QUIC Multipath
       [I-D.ietf-quic-multipath]?
 
-7.  Implications of Path Awareness for the Transport and Application
+6.  Implications of Path Awareness for the Transport and Application
     Layers
 
    To be discussed
 
-8.  Naming
+7.  Naming
 
    To be discussed
 
-9.  Security Considerations
+8.  Security Considerations
 
    TODO Security
 
-10.  IANA Considerations
+9.  IANA Considerations
 
    This document has no IANA actions.
 
-11.  References
+10.  References
 
-11.1.  Normative References
+10.1.  Normative References
 
    [I-D.ietf-quic-multipath]
               Liu, Y., Ma, Y., De Coninck, Q., Bonaventure, O., Huitema,
@@ -411,7 +398,7 @@ Table of Contents
               Networking", RFC 9217, DOI 10.17487/RFC9217, March 2022,
               <https://www.rfc-editor.org/rfc/rfc9217>.
 
-11.2.  Informative References
+10.2.  Informative References
 
    [I-D.garciapardo-drkey]
               Pardo, J., Krähenbühl, C., Rothenberger, B., and A.
