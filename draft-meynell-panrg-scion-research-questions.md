@@ -258,7 +258,7 @@ A related question is discussed in {{signalling-faulty-segments}}.
 
 ## DNS Service Binding
 
-The DNS Service Binding {{RFC9460, Section 14.3}} allows to easily specify a dedicated "SCION" Service Parameter.
+The DNS Service Binding {{RFC9460, Section 14.3}} allows a dedicated SCION Service Parameter to be specified.
 
 Service Parameters allow specifying alternative IP addresses (or other parameters, such ISD/AS numbers) for a given URL.
 This would be more elegant than using DNS TXT records.
