@@ -572,6 +572,10 @@ Concretely:
   difficult. However, because every AS can request new segments any time, it can quickly react to faulty segments
   (onced it learns) of them, and simply request new segments that go around suspicious ASes.
 
+* (Core-)Segment revocation is straight forward. One of the two link owners simply removes the revoked link from the
+  link list before sending it out. Any AS that receives the link list should remove the link from its local graph and
+  remove associated segments from the local segment store.
+
 
 ### Open questions
 * How to communicate the reason for path rejection? I.e. is a small change to the route sufficient to proceed with
