@@ -336,7 +336,7 @@ Examples for requesting CORE segments between different ISDs or within an ISD (a
   * What are the optimality metrics considered in these functions?
 * Who should select these functions?
 * How should the deployment of these functions be enforced?
-* How can multiple functions be applied concurrently for different src/dst/applications?
+* How can multiple functions be applied concurrently for different source and destination applications?
 * How should end ASes express their desired requirements to the inter-domain control plane?
 * How do these requirements translate into concrete optimization functions?
 * How does standardization of the functions work? 
