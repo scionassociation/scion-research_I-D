@@ -71,7 +71,7 @@ Table of Contents
    2.  Conventions and Definitions
    3.  Discovery, Distribution, and Trustworthiness of Path Properties
      3.1.  ISD, AS identity
-     3.2.  DNS Service Binding
+     3.2.  DNS Service Binding (SVCB)
      3.3.  Segment Dissemination
      3.4.  Routing Policies and Traffic Engineering
      3.5.  DRKey
@@ -136,7 +136,7 @@ Table of Contents
 
    *  One AS belongs to many ISDs?
 
-3.2.  DNS Service Binding
+3.2.  DNS Service Binding (SVCB)
 
    The DNS Service Binding [RFC9460], Section 14.3 allows a dedicated
    SCION Service Parameter to be specified.
@@ -144,6 +144,26 @@ Table of Contents
    Service Parameters allow the specification of alternative IP
    addresses or other parameters such as ISD/AS numbers) for a given
    URL.  This would be more elegant than using DNS TXT records.
+
+   Example of current entry:
+
+   $ dig +short ethz.ch TXT  | grep scion
+   "x-sciondiscovery=8041"
+   "scion=64-2:0:9,129.132.230.98"
+
+   With SVCB this may look like this for https:
+
+   dig +short https ethz.ch
+   1 . alpn="h2" scion=64-2:0:9,129.132.230.98
+
+   I am not entirely sure how it looks like for non-https traffic, I
+   assume probably like this:
+
+   dig +short svcb ethz.ch
+   1 . scion=64-2:0:9,129.132.230.98
+
+   SVCB is also planned to be supported by Happy Eyeballs v3
+   [I-D.draft-pauly-v6ops-happy-eyeballs-v3-01].
 
 3.3.  Segment Dissemination
 
@@ -363,6 +383,14 @@ Table of Contents
               <https://www.rfc-editor.org/rfc/rfc9217>.
 
 11.2.  Informative References
+
+   [I-D.draft-pauly-v6ops-happy-eyeballs-v3-01]
+              Pauly, T., Schinazi, D., Jaju, N., and K. Ishibashi,
+              "Happy Eyeballs Version 3: Better Connectivity Using
+              Concurrency", Work in Progress, Internet-Draft, draft-
+              pauly-v6ops-happy-eyeballs-v3-01, 4 March 2024,
+              <https://datatracker.ietf.org/doc/html/draft-pauly-v6ops-
+              happy-eyeballs-v3-01>.
 
    [I-D.garciapardo-drkey]
               Pardo, J., Krähenbühl, C., Rothenberger, B., and A.
