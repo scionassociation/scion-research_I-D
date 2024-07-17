@@ -206,28 +206,60 @@ This draft assumes the reader is familiar with some of the fundamental concepts 
 The idea behind "beaconing" is to discover all possible paths (loop free and with a fixed maximum length) between two CORE AS.
 Every AS forwards any received beacons to all neighbor CORE ASes unless this would cause a loop or exceed the fixed maximum length.
 Implemented naively, the number of paths (and beacons) grows exponentially with the network size.
-This is currently mitigated, primarily (and efficiently), by forwarding only the five "best PCBs" to neighbours.
+This is currently mitigated, primarily (and efficiently), by forwarding only the five "best PCBs" (to a given remote destination AS) to neighbours.
+"Best" here takes into account properties such as diversity, time to aexpire and whether (or how recently) the same
+PCBs has been forwarded before.
 
-This "best PCB" practice has several implications:
+Since path may expire after an hour or so and because expiration is not the only factor, an AS will typically start
+resending the same beacons in less than an hour (i.e. the typical expiration time).
 
-* It limits the number of available paths for endpoints such that only five truly diverse paths may be available to a given destination.
-  "truly diverse" means: Most ASes will receive five PCBs to a given destination from several of their neighbours. However, assuming
-  those ASes are use a similar PCB selection policy, it is not unlikely that each neighbor AS will forward a very
-  similar set of five PCB. In effect, there may be more than five paths available, but they are likely to diverge only on the first
-  one or two hops **(TBC: Is that true? There is no research confirming this hypothesis)**.
-  The problem that there may be only five truly diverse paths available is especially relevant for:
-  * Multipathing: endpoints may not be able to use more than five paths and no great selection of pats on offer.
-  * Unusual path policies, such as geofencing, may not be fulfillable by the limited number of paths on offer.
-* It causes a small number of paths to carry all traffic to a given destination, see {{link-load-balancing}}.
-* It opens the possibility of a DoS attack where a small number of "wormholes", see {{dos-with-wormholes}}.
+This means the total number of different PCBs that an AS will receive from a given neighbour is e.g.
+5 per minute * 30 minute = 150 paths.
+
+Most likely, an AS will receive PCBs to a given destination from several neighbors, however these are likely to be
+very similar. They are likely to have the same tail and only differ in the first few hops, i.e. the immediate neighbors.
+
+As a result, an AS will probably have only little more than 150 paths to a given remote AS.
+
+This is likely sufficient for most applications, but is probably far from a complete view of the network.
+
+This can be problematic:
+* Massive multipathing: endpoints may not be able to use the theoretically best paths.
+* Unusual path policies, such as geofencing, may not be fulfillable by the limited number of paths on offer.
+
+
+## Wormhole attack
+
+### Set up
+
+Scenario: attackers creates two core ASes that are geographically far apart. They then anounce a link (effectively a shortcut) between these two AS with
+very appealing properties (low latency, few hops, ...).
+
+### Impact
+The attacker can now perform blackhole attacks (DoS), greyhole attacks, delay traffic, or similarily impact traffic.
+
+Critically, there is currently no clear way to recover from this situation. In order to recover, ASes that are connected to the
+workhole-ASes would need to learn of the problem and stop forwarding the wormhole beacons.
+
+Mitigations:
+
+- Introduce a way for ASes to verify path properties. This would make it harder to install wormholes.
+  This could include measuring latency or sense-checking of geolocation information.
+- Introduce a way for endpoints to discover path problems.
+- Introduce a way for endpoints to report path problems.
+- Introduce a way to recover from malicious segments, see {{signalling-faulty-segments}}.
+- Adapt the path discovery and dissemination algorithm to allow ASes to have many more than five paths to
+  a given remote destination. The attack would then require an (unreasonably) large number of compromised ASes.
+
+A related question is discussed in {{signalling-faulty-segments}}.
+
 
 
 ## Segment Dissemination
 
-Control servers return a large number of path segments when an endpoint requests paths to a destination.
+Control servers may return a large number of path segments for some queries.
 This can cost considerable bandwidth / network egress while at the same time
-overloading clients with an unnecessarily large numbers of segments,
-mostly consisting of redundant information in terms of duplicate links and hops.
+overloading clients with an unnecessarily large numbers of segments.
 
 * This problem may be more acute in ASes with many end hosts (e.g. IoT),
 or end hosts with little computing power or little spare bandwidth.
@@ -236,7 +268,8 @@ or end hosts with little computing power or little spare bandwidth.
 There are multiple possible and independent solution steps here:
 
 * Compression: Segments could be stored in a way that duplicate information (hops & links) is only stored once and the segments contain only references to the hops and links.
-* Allow queries from start AS to end AS across multiple segments. This should be very easy to implement and would be compatible with the current wire protocol (protobuf).
+* Instead of requiring three separate queries for UP/CORE/DOWN), we could allow a single query from \<start AS\> to \<end AS\> across multiple segments.
+  This should be very easy to implement and would be compatible with the current wire protocol (protobuf).
   * This would reduce the number of round trips to one.
   * It would reduce the number of returned segments because only segments that actually connect to other segments would need to be returned.
 * Predefine some policies that can be resolved by the control server, e.g. ANY, BEST_LATENCY, BEST_BANDWIDTH, BEST_PRICE,
@@ -354,7 +387,7 @@ This would be a possible sequence of events:
 
 ### Implications
 
-A lack of recovery can lead to an attack as described in {{dos-with-wormholes}}.
+Besides general service degradation, a lack of recovery can worsen the impact of a {{wormhole-attack}}.
 
 ### Mitigation
 
@@ -363,9 +396,7 @@ A lack of recovery can lead to an attack as described in {{dos-with-wormholes}}.
 core ASes or ASes in other ISDs).
 * ASes need adaptive beacon analysis algorithms that allow excluding specific beacons, e.g. beacons that have
   known malicious ASes on path.
-* For swift recovery, it would be useful if ASes could revoke faulty segments.
-* Adapt the path discovery and dissemination algorithm to allow ASes to have many more than five paths to
-  a given remote destination. This would allow endpoints to simply ignore faulty segments and use other ones.
+* For swift recovery, it would be useful if ASes could communicate the faultiness of faulty segments.
 
 
 # Hummingbird / QoS
@@ -392,31 +423,6 @@ To be discussed
 # Security Considerations
 
 TODO Security
-
-## DoS with Wormholes
-
-Scenario: an attacker creates ten core ASes and uses them to create five (mostly disjunct) "wormholes",
-see {{I-D.scion-cp}}, between to "major" locations, e.g. between Europe and Australia.
-The five wormholes advertise excellent traffic conditions by advertising low latency, few hops, low cost, ...
-As a result the beacons of the five wormholes are likely to be chosen as the "five best" segments for any traffic
-between Europe and Australia. After all alternative paths (which may be in local path databases) have expired,
-the wormholes will be the only paths available to local ASes.
-
-### Impact
-The attacker can now perform blackhole attacks (DoS), greyhole attacks, delay traffic, or similarily impact traffic.
-
-Critically, there is no way no recover from this situation. In order to recover, ASes that are connected to the
-workhole-ASes would need to learn of the problem and stop forwarding the wormhole beacons.
-
-Mitigations:
-
-- Introduce a way to verify path properties. This would make it harder to install wormholes.
-  This could include measuring latency or sense-checking of geolocation information.
-- Introduce a way to report and recover from malicious segments, see {{signalling-faulty-segments}}.
-- Adapt the path discovery and dissemination algorithm to allow ASes to have many more than five paths to
-  a given remote destination. The attack would then require an (unreasonably) large number of compromised ASes.
-
-A related question is discussed in {{signalling-faulty-segments}}.
 
 
 # IANA Considerations
