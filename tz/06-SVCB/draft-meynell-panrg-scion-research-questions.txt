@@ -5,11 +5,11 @@
 PANRG                                                         K. Meynell
 Internet-Draft                                         SCION Association
 Intended status: Informational                           J. García Pardo
-Expires: 16 January 2025                                      T. Zäschke
+Expires: 18 January 2025                                      T. Zäschke
                                                               ETH Zürich
                                                            N. Rustignoli
                                                        SCION Association
-                                                            15 July 2024
+                                                            17 July 2024
 
 
                         SCION Research Questions
@@ -52,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 16 January 2025.
+   This Internet-Draft will expire on 18 January 2025.
 
 Copyright Notice
 
@@ -138,8 +138,8 @@ Table of Contents
 
 3.2.  DNS Service Binding
 
-   The DNS Service Binding [RFC9460], Section 14.3 allows to easily
-   specify a dedicated "SCION" Service Parameter.
+   The DNS Service Binding [RFC9460], Section 14.3 allows a dedicated
+   SCION Service Parameter to be specified.
 
    Service Parameters allow specifying alternative IP addresses (or
    other parameters, such ISD/AS numbers) for a given URL.  This would
