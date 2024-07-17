@@ -301,15 +301,47 @@ One solution could be to add a “confirm full path”-flag to certain segments.
 Collateral: this probably needs a data plane change. Conceptually, we have only a single resulting segment, and that segment needs to be used in full, e.g. no on-path trickery.
 
 ## DRKey
-* Is forward-secrecy DRKey useful and should we develop it?
-* What are the properties of the control-plane?
-  * Do we want to have any authorization of the data-plane transit undertaken at this stage?
-  * Would this obsolete firewalls?
+DRKey is a key distribution system that scales well with the number of endpoints in the network.
+It relies on two things:
+
+* Two sides of a key: A fast side, and a slow side. Sometimes called fast and slow side of the derivation.
+  The ability of deriving a key very quickly on the fast side is necessary for most of its use cases.
+* A grouping of endpoints (such as ASes): The pieces necessary to derive a key, namely the L1 keys,
+  are communicated to each keystore at each grouping (e.g., a keystore per AS).
+
+The questions related to DRKey are the following ones (not comprehensive):
+
+* Do we want to have any possible authorization that is at the moment carried out at the data-plane,
+  be moved to the control-plane? This could include e.g. authorization to deliver traffic depending on the source,
+  but also things like port numbers/ranges per source, etc.
+  * Could this obsolete firewalls? What else would be necessary?
   * What do we mean when we say "authorize transit"?
+* Could perfect forward secrecy DRKey be useful, and should we research it?
+  * What would be the trust model? Do end-users trust their ASes to ephemerally create personal keys?
+  * What would be the attacker model?
+  * Which use cases are relevant?
 
 For more info: {{I-D.garciapardo-drkey}}.
 
 ## SCMP Authentication
+In SCION, we would like to have SCMP (SCION Control Message Protocol) include authentication for
+some of the message types, e.g. the interface down type, as it would affect the path choices that the
+endpoint, and even the source AS, can make.
+
+We propose to use DRKey as the mechanism to use to derive the authentication key,
+where the fast path would be on the infrastructure side (e.g. the border router in the case of an
+interface down type of message), and the slow side being on the intended endpoint destination
+for that SCMP message (e.g. the endpoint receiving the SCMP interface down message).
+However, we have identified a number of possible issues (not comprehensive):
+
+* Denial of Service/Capability Attacks: If an endpoint receives (too) many SCMP messages,
+  it will need (too) many resources just to authenticate their origin.
+  Most of these messages could just be sent to the endpoint to exhaust its processing capacity.
+
+* Sending an SCMP message in certain cases might be an amplification factor:
+  If a border router sends an SCMP message (e.g. interface down) on all cases, even with small packets,
+  there is the risk of having that border router sending a lot of traffic to
+  a possibly unintended recipient, e.g. when the packet is not source validated.
 
 ## Proof of transit
 
@@ -323,7 +355,7 @@ Critically, the SCION header needs to contain the SRC address as seen by the bor
 Possible solutions:
 
 * With IPv6 underlay, this problem disappears. // TODO Clarify why it disappears? IS the idea that we can remove NATs if everyone would use IPv6?
-* Introduce a mechanism so that the SCION border router can report the NATed address to an endhost (similar to a STUN server).
+* Introduce a mechanism so that the SCION border router can report the NATed address to an endpoint (similar to a STUN server).
 
 # Dataplane stability
 
@@ -334,7 +366,7 @@ Links may get overloaded because the SCION routing system fails to distribute lo
 If links become overloaded, there are several ways to handle that. Non comprehensively:
 
 * Squeeze: send an SCMP message to trigger end-hosts to use an alternative path
-* Steer: send and SCMP to trigger users to ask CS for a better path
+* Steer: send and SCMP to trigger users to ask control server for a better path
 * Reduce: hand over very short lived paths, let the end-hosts wait for the path to expire so that they request new paths and (hopefully) decide on a different path.
 * Recommend: let the end-hosts know which paths are recommended by the AS at this time.
 
@@ -349,7 +381,7 @@ The current consensus is that end-hosts can use multi-pathing and “automatical
 
 When a client contacts a server, it is usually understood that it wants the server to use the reverse path to answer back. It the server uses that path for a long period of time, the path will eventually expire. How to standardize the process of refreshment?
 
-* The server must ask the CS for a path, regardless of the client's policy.
+* The server must ask the control server for a path, regardless of the client's policy.
 * The client (somehow) sends a new packet with a new path, prompting the server to use this path from now on.
 
 There are some nuances: Usually the server's API will store the initial address of the client to be used through all the session. We might need to take this into account.
@@ -399,12 +431,14 @@ core ASes or ASes in other ISDs).
 * For swift recovery, it would be useful if ASes could communicate the faultiness of faulty segments.
 
 
+<!--
 # Hummingbird / QoS
 
 * How many QoS flows to support at core routers?
 * How does QoS interact with Net Neutrality?
 * What proof of transit (or forwarding failure detection) is needed or wanted?
 * What time synchronization precision should we expect at the border router level of every AS? How far can we go realistically?
+-->
 
 # Interfaces for Path Awareness
 
