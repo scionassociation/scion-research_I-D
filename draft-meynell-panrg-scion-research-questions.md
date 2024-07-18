@@ -212,7 +212,7 @@ TODO Abstract here
 
 # Introduction
 
-SCION is an inter-domain network architecture. Its core components specification, as deployed by some of its early adopters, is outlined in {{I-D.scion-dataplane}}, {{I-D.scion-cppki}}, {{I-D.scion-cp}}, currently under ISE review.
+SCION is an inter-domain network architecture. Its core components, as deployed by some of its early adopters, are specified in {{I-D.scion-dataplane}}, {{I-D.scion-cppki}}, {{I-D.scion-cp}} which are currently under ISE review.
 
 The goal of this draft is to explore how SCION and its early deployments try to address open research questions in {{RFC9217}}. Specifically, there are still many open areas of research around path-aware networking, where SCION with its early deployment experiences and research efforts can provide a contribution. This can also be a starting point for discussions around long-term protocol evolution.
 
@@ -230,19 +230,15 @@ This draft assumes the reader is familiar with some of the fundamental concepts 
 ## ISD, AS identity
 
 The SCION protocol specifies 16 bits and 48 bits to identify the ISD and AS respectively.
-This identification is used, at the data-plane level, in every packet to fully address the sender and receiver,
-and at the control-plane level, to identify the PCB sender and hops.
+This identification is used at the data-plane level, in every packet to fully address the sender and receiver, and at the control-plane level, to identify the PCB sender and hops.
 
-Whilst 48 bits for the AS will accommodate up to 2.81475e14 assignments which is
-likely to be more than sufficient for the future
-using 16 bits for the ISD only offers 65,536 possible assignments.
-Further investigation on whether this is sufficient is needed.
+Whilst 48 bits for the AS will accommodate up to 2.81475e14 assignments which is likely to be more than sufficient for the future, using 16 bits for the ISD only offers 65,536 possible assignments. Further investigation on whether this is sufficient is required.
 
 The following questions arise: (not comprehensive)
 
 * How many ASes do we expect in the SCION network model?
 * Can one AS belong to many ISDs?
-* Are AS numbers unique themselves? Or only unique in combination with an ISD?
+* Are AS numbers unique themselves, or only unique in combination with an ISD?
 * How many ISDs do we expect?
 * What is the ontology of an ISD?
   * Per geographic area?
@@ -258,20 +254,20 @@ The following questions arise: (not comprehensive)
 
 ## Beacon Forwarding Policy
 
-The idea behind "beaconing" is to discover all possible paths (loop free and with a fixed maximum length) between two CORE AS.
+The idea behind "beaconing" is to discover all possible paths (loop free and with a fixed maximum length) between two CORE ASes.
 Every CORE AS forwards any received beacons to all neighbor CORE ASes unless this would cause a loop or exceed the fixed maximum length.
 Implemented naively, the number of paths (and beacons) grows exponentially with the network size.
 This is currently mitigated, primarily (and efficiently), by forwarding only the five "best PCBs" (from a given remote source CORE AS) to neighbors.
 "Best" here takes into account properties such as diversity, time to expire and whether (or how recently) the same
 PCBs has been forwarded before.
 
-Since path may expire after an hour or so and because expiration is not the only factor, an AS will typically start
+Since a path may expire after an hour or so and because expiration is not the only factor, an AS will typically start
 resending the same beacons in less than an hour (i.e. the typical expiration time).
 
 This means the total number of different PCBs that an AS will receive from a given neighbor is e.g.
 5 per minute * 30 minute = 150 paths.
 
-Most likely, an AS will receive PCBs originated from a given source from several neighbors, however these are likely to be
+Most likely, an AS will receive PCBs originating from a given source from several neighbors, although these are likely to be
 very similar. They are likely to have the same tail and only differ in the few last added hops, i.e. the immediate neighbors.
 
 As a result, an AS will probably have only little more than 150 paths to a given remote AS.
@@ -288,14 +284,14 @@ This can be problematic:
 
 ### Set up
 
-Scenario: attackers create two core ASes that are geographically far apart. They then anounce a link (effectively a shortcut) between these two AS with
+Scenario: attackers create two core ASes that are geographically far apart. They then announce a link (effectively a shortcut) between these two ASes with
 very appealing properties (low latency, few hops, ...).
 
 ### Impact
 The attacker can now perform blackhole attacks (DoS), greyhole attacks, delay traffic, or similarily impact traffic.
 
 Critically, there is currently no clear way to recover from this situation. In order to recover, ASes that are connected to the
-workhole-ASes would need to learn of the problem and stop forwarding the wormhole beacons.
+wormhole ASes would need to learn of the problem and stop forwarding the wormhole beacons.
 
 Mitigations:
 
@@ -314,8 +310,7 @@ A related question is discussed in {{signalling-faulty-segments}}.
 
 The DNS Service Binding {{?RFC9460, Section 14.3}} allows a dedicated SCION Service Parameter to be specified.
 
-Service Parameters allow the specification of alternative IP addresses or other parameters
-(such as ISD/AS numbers) for a given URL.
+Service Parameters allow the specification of alternative IP addresses or other parameters (such as ISD/AS numbers) for a given URL.
 This would be more elegant than using DNS TXT records.
 
 Example of current entry:
@@ -356,8 +351,7 @@ Moreover these could be cached for commonly requested remote ASes.
 If a user requires a custom policy they can still resort to requesting actual segments.
 
 Doing path selection on the control server will initially increase computational cost.
-However, it would substantially decrease network egress. Caching of paths should reduce CPU cost,
-maybe even below the current cost for retrieving a large amount of segments from the local database and sending them over the network interface.
+However, it would substantially decrease network egress. Caching of paths should reduce CPU cost, maybe even below the current cost for retrieving a large amount of segments from the local database and sending them over the network interface.
 
 Examples for requesting CORE segments between different ISDs or within an ISD (as of 2024-07-12):
 
@@ -371,13 +365,13 @@ Examples for requesting CORE segments between different ISDs or within an ISD (a
 
 ## Periodic beacon propagation
 The SCION control plane protocol specifies that beacons should be propagated periodically.
-Is it really necessary?
+Is this really necessary?
 
   * For path freshness, only the initial AS emitting the PCB needs to originate beacons periodically,
   and others can disseminate immediately.
   * As response to link failures or availability of new paths, beacon services can respond instantly.
 
-If no periodic propagation is necessary for path freshness, or to respond to link failures,
+If no periodic propagation is necessary for path freshness or to respond to link failures,
 the periodic propagation would only be used for the discovery of new paths at each interval,
 enhancing the scalability and path diversity.
 
@@ -385,8 +379,8 @@ enhancing the scalability and path diversity.
 Communication requirements vary according to source, destination, and application.
 Satisfying all these requirements either requires discovering all paths in the network,
 or optimizing the creation of paths during the beaconing process.
-Selecting the 5 shortest paths per destination at each beaconing period may not satisfy all requirements
-that different applications, on different endpoints, on different ASes, will have.
+Selecting the 5 shortest paths per destination for each beaconing period may not satisfy all requirements
+that different applications, on different endpoints, and on different ASes, will have.
 The beacon selection process, the criteria and metrics that they carry, and the adaptability
 of them all have a strong impact in the traffic engineering of the individual ASes,
 and of the inter-domain communication as a whole. See question 2.7 of {{RFC9217}}.
@@ -409,7 +403,7 @@ and of the inter-domain communication as a whole. See question 2.7 of {{RFC9217}
 
 ## Routing Policies and Traffic Engineering
 
-Reduced adoption due to limited routing policy possibilities, such as a (core-)AS does not want to accept transit traffic unless it starts/ends in ASs with special properties. For example a GEANT AS does not want to allow transit traffic unless it originates or ends in another research AS.
+Reduced adoption due to limited routing policy possibilities, such as a (core-)AS does not want to accept transit traffic unless it starts/ends in ASes with special properties. For example a GEANT AS does not want to allow transit traffic unless it originates or ends in another research and education AS.
 
 One solution could be to add a “confirm full path”-flag to certain segments. If this flag is set, the full path (all segments) needs to authorized by all ASes that insist on authorizing it. This is obviously less scalable but may be viable for ASes that insist on such policies. This also allows for “secret” policies.
 
@@ -419,16 +413,14 @@ Collateral: this probably needs a data plane change. Conceptually, we have only 
 DRKey is a key distribution system that scales well with the number of endpoints in the network.
 It relies on two things:
 
-* Two sides of a key: A fast side, and a slow side. Sometimes called fast and slow side of the derivation.
+* Two sides of a key: a fast side, and a slow side. Sometimes called fast and slow side of the derivation.
   The ability of deriving a key very quickly on the fast side is necessary for most of its use cases.
 * A grouping of endpoints (such as ASes): The pieces necessary to derive a key, namely the L1 keys,
   are communicated to each keystore at each grouping (e.g., a keystore per AS).
 
 The questions related to DRKey are the following ones (not comprehensive):
 
-* Do we want to have any possible authorization that is at the moment carried out at the data-plane,
-  be moved to the control-plane? This could include e.g. authorization to deliver traffic depending on the source,
-  but also things like port numbers/ranges per source, etc.
+* Do we want to have any possible authorization that is at the moment carried out at the data-plane to be moved to the control-plane? This could include e.g. authorization to deliver traffic depending on the source, but also information like port numbers/ranges per source, etc.
   * Could this obsolete firewalls? What else would be necessary?
   * What do we mean when we say "authorize transit"?
 * Could perfect forward secrecy DRKey be useful, and should we research it?
@@ -469,7 +461,7 @@ Critically, the SCION header needs to contain the SRC address as seen by the bor
 
 Possible solutions:
 
-* With IPv6 underlay, this problem disappears. // TODO Clarify why it disappears? IS the idea that we can remove NATs if everyone would use IPv6?
+* With IPv6 underlay, this problem disappears. // TODO Clarify why it disappears? Is the idea that we can remove NATs if everyone would use IPv6?
 * Introduce a mechanism so that the SCION border router can report the NATed address to an endpoint (similar to a STUN server).
 
 # Dataplane stability
@@ -478,16 +470,16 @@ Possible solutions:
 
 Links may get overloaded because the SCION routing system fails to distribute load properly over different links. New/different links might be underutilized.
 
-If links become overloaded, there are several ways to handle that. Non comprehensively:
+If links become overloaded, there are several ways to handle this. Non comprehensively:
 
 * Squeeze: send an SCMP message to trigger end-hosts to use an alternative path
-* Steer: send and SCMP to trigger users to ask control server for a better path
+* Steer: send and SCMP to trigger users to ask the control server for a better path
 * Reduce: hand over very short lived paths, let the end-hosts wait for the path to expire so that they request new paths and (hopefully) decide on a different path.
 * Recommend: let the end-hosts know which paths are recommended by the AS at this time.
 
-If a link has good properties, many AS will disseminate segments, therefore paths that go through this link and the link may become overloaded. See Simon Scherrer's work on Braess Paradox.
+If a link has good properties, many ASes will disseminate segments and therefore paths through this link to the extent link may become overloaded. See Simon Scherrer's work on Braess Paradox.
 
-Either there needs to be some constant control by all clients to not choose the best theoretical path, but the one that works best. Or we need to find a way that control servers do not disseminate “good” links to all end-hosts.
+Either there needs to be some constant control by all clients to not choose the best theoretical path, but the one that works best, or there needs to be a mechanism whereby control servers do not disseminate “good” links to all end-hosts.
 
 The current consensus is that end-hosts can use multi-pathing and “automatically” converge on the best path, i.e. creating an equilibrium. Again, see Simon Scherrer's work on Braess Paradox.
 
@@ -537,28 +529,28 @@ Do we actually need to solve this reverse path refresh problem?
 
 * CONTRA: It is probably rare that a server needs to send data for a long time without the application layer protocol requiring the client to ever answer back.
 * PRO: The client may happen to have an old-ish path. If we can't refresh, the client always needs to consider whether a path is valid "long enough", which might only be possible to guess.
-* CONTRA: Sending keep-alives sounds like a connection based protocol. It alo means we need to figure out when to stop sending keep alives.
+* CONTRA: Sending keep-alives sounds like a connection based protocol. It also means we need to figure out when to stop sending keep-alives.
 * CONTRA: It may be better to solve this in the application layer or in the overlay protocol, where we we know more about
-  potential length of the session, or whether this is a singular request/answer type of exchange, or whether more frequent keep-alives
-  are anyway required.
+  potential length of the session, whether this is a singular request/answer type of exchange, or whether more frequent keep-alives
+  are required anyway.
 
 
 ## Signalling faulty segments
 
 Faulty segments are segments that do not work as advertised, i.e. they are either physically faulty
-(broken link, high packet loss, jitter, ...) or come with faulty metadata, suggesting too few hops, too low latency,
+(broken link, high packet loss, jitter, ...) or have faulty metadata suggesting too few hops, too low latency,
 too much bandwith, or similar problems.
 The fault may be caused by a technical problem (e.g. broken link) or by a malicious adversary.
 
-An example for a malicious adversary is the "wormhole" attack, see {{I-D.scion-cp}}, where, an AS may be coaxed to
+An example for a malicious adversary is the "wormhole" attack, see {{I-D.scion-cp}} where an AS may be coaxed to
 disseminate a faulty segment. How do we recover from faulty segments?
 Currently only endpoints may realize that a segment does not work as advertised, either via SCMP errors or simply by traffic degradation.
 This would be a possible sequence of events:
 
 * An endpoint realizes that a segment is faulty
 * An endpoint needs to signal to its local AS that a segment is faulty
-* Local AS needs to signal its CORE AS that a segment is faulty
-* The CORE AS needs to:
+* A Local AS needs to signal to a CORE AS that a segment is faulty
+* A CORE AS needs to:
   * change policy to exclude faulty segments AND/OR
   * signal other COREs and ISDs to stop delivering the segment (they only deliver 5 each, so any faulty segment shoud be avoided)
 
@@ -568,7 +560,7 @@ Besides general service degradation, a lack of recovery can worsen the impact of
 
 ### Mitigation
 
-* An AS could monitor traffic for SCMP errors, however this works only if these errors are actually generated and forwarded.
+* An AS could monitor traffic for SCMP errors, although this only works if these errors are actually generated and forwarded.
 * Endpoints need a way to signal faulty segments to ASes. ASes need a way to signal faulty ASes to other ASes (e.g.
 core ASes or ASes in other ISDs).
 * ASes need adaptive beacon analysis algorithms that allow excluding specific beacons, e.g. beacons that have
