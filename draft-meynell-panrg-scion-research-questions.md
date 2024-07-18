@@ -204,26 +204,27 @@ This draft assumes the reader is familiar with some of the fundamental concepts 
 ## Beacon Forwarding Policy
 
 The idea behind "beaconing" is to discover all possible paths (loop free and with a fixed maximum length) between two CORE AS.
-Every AS forwards any received beacons to all neighbor CORE ASes unless this would cause a loop or exceed the fixed maximum length.
+Every CORE AS forwards any received beacons to all neighbor CORE ASes unless this would cause a loop or exceed the fixed maximum length.
 Implemented naively, the number of paths (and beacons) grows exponentially with the network size.
-This is currently mitigated, primarily (and efficiently), by forwarding only the five "best PCBs" (to a given remote destination AS) to neighbours.
-"Best" here takes into account properties such as diversity, time to aexpire and whether (or how recently) the same
+This is currently mitigated, primarily (and efficiently), by forwarding only the five "best PCBs" (from a given remote source CORE AS) to neighbors.
+"Best" here takes into account properties such as diversity, time to expire and whether (or how recently) the same
 PCBs has been forwarded before.
 
 Since path may expire after an hour or so and because expiration is not the only factor, an AS will typically start
 resending the same beacons in less than an hour (i.e. the typical expiration time).
 
-This means the total number of different PCBs that an AS will receive from a given neighbour is e.g.
+This means the total number of different PCBs that an AS will receive from a given neighbor is e.g.
 5 per minute * 30 minute = 150 paths.
 
-Most likely, an AS will receive PCBs to a given destination from several neighbors, however these are likely to be
-very similar. They are likely to have the same tail and only differ in the first few hops, i.e. the immediate neighbors.
+Most likely, an AS will receive PCBs originated from a given source from several neighbors, however these are likely to be
+very similar. They are likely to have the same tail and only differ in the few last added hops, i.e. the immediate neighbors.
 
 As a result, an AS will probably have only little more than 150 paths to a given remote AS.
 
-This is likely sufficient for most applications, but is probably far from a complete view of the network.
+This is likely sufficient for most applications, but is far from a complete view of the network.
 
 This can be problematic:
+
 * Massive multipathing: endpoints may not be able to use the theoretically best paths.
 * Unusual path policies, such as geofencing, may not be fulfillable by the limited number of paths on offer.
 
@@ -232,7 +233,7 @@ This can be problematic:
 
 ### Set up
 
-Scenario: attackers creates two core ASes that are geographically far apart. They then anounce a link (effectively a shortcut) between these two AS with
+Scenario: attackers create two core ASes that are geographically far apart. They then anounce a link (effectively a shortcut) between these two AS with
 very appealing properties (low latency, few hops, ...).
 
 ### Impact
@@ -268,7 +269,7 @@ or end hosts with little computing power or little spare bandwidth.
 There are multiple possible and independent solution steps here:
 
 * Compression: Segments could be stored in a way that duplicate information (hops & links) is only stored once and the segments contain only references to the hops and links.
-* Instead of requiring three separate queries for UP/CORE/DOWN), we could allow a single query from \<start AS\> to \<end AS\> across multiple segments.
+* Instead of requiring three separate queries for (UP/CORE/DOWN), we could allow a single query from \<start AS\> to \<end AS\> across multiple segments.
   This should be very easy to implement and would be compatible with the current wire protocol (protobuf).
   * This would reduce the number of round trips to one.
   * It would reduce the number of returned segments because only segments that actually connect to other segments would need to be returned.
@@ -403,7 +404,7 @@ Do we actually need to solve this reverse path refresh problem?
 Faulty segments are segments that do not work as advertised, i.e. they are either physically faulty
 (broken link, high packet loss, jitter, ...) or come with faulty metadata, suggesting too few hops, too low latency,
 too much bandwith, or similar problems.
-The faultyness may be caused by a technical problem (e.g. broken link) or by a malicious adversary.
+The fault may be caused by a technical problem (e.g. broken link) or by a malicious adversary.
 
 An example for a malicious adversary is the "wormhole" attack, see {{I-D.scion-cp}}, where, an AS may be coaxed to
 disseminate a faulty segment. How do we recover from faulty segments?
@@ -419,7 +420,7 @@ This would be a possible sequence of events:
 
 ### Implications
 
-Besides general service degradation, a lack of recovery can worsen the impact of a {{wormhole-attack}}.
+Besides general service degradation, a lack of recovery can worsen the impact of a wormhole attack {{wormhole-attack}}.
 
 ### Mitigation
 
