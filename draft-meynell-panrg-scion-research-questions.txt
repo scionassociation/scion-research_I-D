@@ -75,12 +75,13 @@ Table of Contents
      3.3.  Wormhole attack
        3.3.1.  Set up
        3.3.2.  Impact
-     3.4.  Segment Dissemination
-     3.5.  Routing Policies and Traffic Engineering
-     3.6.  DRKey
-     3.7.  SCMP Authentication
-     3.8.  Proof of transit
-     3.9.  NAT
+     3.4.  DNS Service Binding (SVCB)
+     3.5.  Segment Dissemination
+     3.6.  Routing Policies and Traffic Engineering
+     3.7.  DRKey
+     3.8.  SCMP Authentication
+     3.9.  Proof of transit
+     3.10. NAT
    4.  Dataplane stability
      4.1.  Link load balancing
      4.2.  Reverse Path Refreshment
@@ -219,7 +220,30 @@ Table of Contents
 
    A related question is discussed in Section 4.3.
 
-3.4.  Segment Dissemination
+3.4.  DNS Service Binding (SVCB)
+
+   The DNS Service Binding [RFC9460], Section 14.3 allows a dedicated
+   SCION Service Parameter to be specified.
+
+   Service Parameters allow the specification of alternative IP
+   addresses or other parameters (such as ISD/AS numbers) for a given
+   URL.  This would be more elegant than using DNS TXT records.
+
+   Example of current entry:
+
+   $ dig +short ethz.ch TXT  | grep scion
+   "x-sciondiscovery=8041"
+   "scion=64-2:0:9,129.132.230.98"
+
+   With SVCB this may look like this for https:
+
+   dig +short https ethz.ch
+   1 . alpn="h2" scion=64-2:0:9,129.132.230.98
+
+   SVCB is also planned to be supported by Happy Eyeballs v3
+   [I-D.draft-pauly-v6ops-happy-eyeballs-v3-01].
+
+3.5.  Segment Dissemination
 
    Control servers may return a large number of path segments for some
    queries.  This can cost considerable bandwidth / network egress while
@@ -280,7 +304,7 @@ Table of Contents
 
                    Table 1: CORE segment count examples
 
-3.5.  Routing Policies and Traffic Engineering
+3.6.  Routing Policies and Traffic Engineering
 
    Reduced adoption due to limited routing policy possibilities, such as
    a (core-)AS does not want to accept transit traffic unless it starts/
@@ -298,7 +322,7 @@ Table of Contents
    we have only a single resulting segment, and that segment needs to be
    used in full, e.g. no on-path trickery.
 
-3.6.  DRKey
+3.7.  DRKey
 
    DRKey is a key distribution system that scales well with the number
    of endpoints in the network.  It relies on two things:
@@ -337,7 +361,7 @@ Table of Contents
 
    For more info: [I-D.garciapardo-drkey].
 
-3.7.  SCMP Authentication
+3.8.  SCMP Authentication
 
    In SCION, we would like to have SCMP (SCION Control Message Protocol)
    include authentication for some of the message types, e.g. the
@@ -364,11 +388,11 @@ Table of Contents
       unintended recipient, e.g. when the packet is not source
       validated.
 
-3.8.  Proof of transit
+3.9.  Proof of transit
 
    FABRID [KRAHENBUHL2023] and EPIC [LEGNER2020].
 
-3.9.  NAT
+3.10.  NAT
 
    At this moment, the SCION implementation is not compatible out-of-
    the-box with NAT'ed devices, regardless of whether these devices are
@@ -585,6 +609,14 @@ Table of Contents
 
 10.2.  Informative References
 
+   [I-D.draft-pauly-v6ops-happy-eyeballs-v3-01]
+              Pauly, T., Schinazi, D., Jaju, N., and K. Ishibashi,
+              "Happy Eyeballs Version 3: Better Connectivity Using
+              Concurrency", Work in Progress, Internet-Draft, draft-
+              pauly-v6ops-happy-eyeballs-v3-01, 4 March 2024,
+              <https://datatracker.ietf.org/doc/html/draft-pauly-v6ops-
+              happy-eyeballs-v3-01>.
+
    [I-D.garciapardo-drkey]
               Pardo, J., Krähenbühl, C., Rothenberger, B., and A.
               Perrig, "Dynamically Recreatable Keys", 2022,
@@ -604,6 +636,11 @@ Table of Contents
               of a Path-Aware Internet", 2020,
               <https://netsec.ethz.ch/publications/papers/
               Legner_Usenix2020_EPIC.pdf>.
+
+   [RFC9460]  Schwartz, B., Bishop, M., and E. Nygren, "Service Binding
+              and Parameter Specification via the DNS (SVCB and HTTPS
+              Resource Records)", RFC 9460, DOI 10.17487/RFC9460,
+              November 2023, <https://www.rfc-editor.org/rfc/rfc9460>.
 
 Acknowledgments
 
