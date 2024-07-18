@@ -246,18 +246,18 @@ The following questions arise: (not comprehensive)
   * Per capacity tier?
   * Per "type"? (meaning: any grouping that makes sense to their members)
   * Possible combinations of any previous "types"?
-* Note that ISDs require CORE links to other ISDs.
-  This reduces the number of ISDs to those that have CORE ASes that can directly
-  connect to CORE ASes in other ISDs.
+* Note that ISDs require core links to other ISDs.
+  This reduces the number of ISDs to those that have core ASes that can directly
+  connect to core ASes in other ISDs.
   The number of ISDs is still super-exponential asymptotically.
 
 
 ## Beacon Forwarding Policy
 
-The idea behind "beaconing" is to discover all possible paths (loop free and with a fixed maximum length) between two CORE ASes.
-Every CORE AS forwards any received beacons to all neighbor CORE ASes unless this would cause a loop or exceed the fixed maximum length.
+The idea behind "beaconing" is to discover all possible paths (loop free and with a fixed maximum length) between two core ASes.
+Every core AS forwards any received beacons to all neighbor core ASes unless this would cause a loop or exceed the fixed maximum length.
 Implemented naively, the number of paths (and beacons) grows exponentially with the network size.
-This is currently mitigated, primarily (and efficiently), by forwarding only the five "best PCBs" (from a given remote source CORE AS) to neighbors.
+This is currently mitigated, primarily (and efficiently), by forwarding only the five "best PCBs" (from a given remote source core AS) to neighbors.
 "Best" here takes into account properties such as diversity, time to expire and whether (or how recently) the same
 PCBs has been forwarded before.
 
@@ -330,30 +330,30 @@ SVCB is also planned to be supported by Happy Eyeballs v3 {{?I-D.draft-pauly-v6o
 
 ## Segment Dissemination
 
-Control servers may return a large number of path segments for some queries.
+Control services may return a large number of path segments for some queries.
 This can cost considerable bandwidth / network egress while at the same time
 overloading clients with an unnecessarily large numbers of segments.
 
 * This problem may be more acute in ASes with many end hosts (e.g. IoT),
 or end hosts with little computing power or little spare bandwidth.
-* Getting a full path to a remote endhost may require three round-trips with the control server.
+* Getting a full path to a remote endhost may require three queries to the control service.
 
 There are multiple possible and independent solution steps here:
 
 * Compression: Segments could be stored in a way that duplicate information (hops & links) is only stored once and the segments contain only references to the hops and links.
-* Instead of requiring three separate queries for (UP/CORE/DOWN), we could allow a single query from \<start AS\> to \<end AS\> across multiple segments.
+* Instead of requiring three separate queries for (up, core, and down-segments), we could allow a single query from \<start AS\> to \<end AS\> across multiple segments.
   This should be very easy to implement and would be compatible with the current wire protocol (protobuf).
   * This would reduce the number of round trips to one.
   * It would reduce the number of returned segments because only segments that actually connect to other segments would need to be returned.
-* Predefine some policies that can be resolved by the control server, e.g. ANY, BEST_LATENCY, BEST_BANDWIDTH, BEST_PRICE,
-BEST_CO2. For these, a control server could simply calculate 5-10 good paths and return these.
+* Predefine some policies that can be resolved by the control plane, e.g. ANY, BEST_LATENCY, BEST_BANDWIDTH, BEST_PRICE,
+BEST_CO2. For these, the control plane could simply calculate 5-10 good paths and return these.
 Moreover these could be cached for commonly requested remote ASes.
 If a user requires a custom policy they can still resort to requesting actual segments.
 
-Doing path selection on the control server will initially increase computational cost.
+Doing path selection in the control plane will initially increase computational cost.
 However, it would substantially decrease network egress. Caching of paths should reduce CPU cost, maybe even below the current cost for retrieving a large amount of segments from the local database and sending them over the network interface.
 
-Examples for requesting CORE segments between different ISDs or within an ISD (as of 2024-07-12):
+Examples for requesting core segments between different ISDs or within an ISD (as of 2024-07-12):
 
 | src         | dst         | segments returned |
 | ----------: + ----------: + :---------------: |
@@ -361,7 +361,7 @@ Examples for requesting CORE segments between different ISDs or within an ISD (a
 | 64-0:0:0    | 65-0:0:0    | 240               |
 | 64-0:0:0    | 67-0:0:0    | 60                |
 | 64-0:0:0    | 64-2:0:13   | 60                |
-{: #segment-count-example title="CORE segment count examples"}
+{: #segment-count-example title="core segment count examples"}
 
 ## Periodic beacon propagation
 The SCION control plane protocol specifies that beacons should be propagated periodically.
@@ -456,7 +456,7 @@ FABRID {{KRAHENBUHL2023}} and EPIC {{LEGNER2020}}.
 
 ## NAT
 
-At this moment, the SCION implementation is not compatible out-of-the-box with NAT'ed devices, regardless of whether these devices are end-hosts, or even running SCION services. This is due to the (UDP-IP) underlay being modified by the NAT mechanism, but not the internal destination SCION address. Although this does not concern the SCION protocols themselves, we want to check that this will not be a problem.
+Currently, the SCION implementation is not compatible out-of-the-box with NAT'ed devices, regardless of whether these devices are end-hosts, or even running SCION services. This is due to the (UDP-IP) underlay being modified by the NAT mechanism, but not the internal destination SCION address. Although this does not concern the SCION protocols themselves, we want to check that this will not be a problem.
 Critically, the SCION header needs to contain the SRC address as seen by the border router so that the border router can forward incoming response packets to the correct NAT device and port.
 
 Possible solutions:
@@ -473,13 +473,13 @@ Links may get overloaded because the SCION routing system fails to distribute lo
 If links become overloaded, there are several ways to handle this. Non comprehensively:
 
 * Squeeze: send an SCMP message to trigger end-hosts to use an alternative path
-* Steer: send and SCMP to trigger users to ask the control server for a better path
+* Steer: send and SCMP to trigger users to ask the control plane for a better path
 * Reduce: hand over very short lived paths, let the end-hosts wait for the path to expire so that they request new paths and (hopefully) decide on a different path.
 * Recommend: let the end-hosts know which paths are recommended by the AS at this time.
 
 If a link has good properties, many ASes will disseminate segments and therefore paths through this link to the extent link may become overloaded. See Simon Scherrer's work on Braess Paradox.
 
-Either there needs to be some constant control by all clients to not choose the best theoretical path, but the one that works best, or there needs to be a mechanism whereby control servers do not disseminate “good” links to all end-hosts.
+Either there needs to be some constant control by all clients to not choose the best theoretical path, but the one that works best, or there needs to be a mechanism whereby control plane do not disseminate “good” links to all end-hosts.
 
 The current consensus is that end-hosts can use multi-pathing and “automatically” converge on the best path, i.e. creating an equilibrium. Again, see Simon Scherrer's work on Braess Paradox.
 
@@ -506,7 +506,7 @@ There are some relevant points we have identified for the discussion:
 
 ### Proposed Solutions (not comprehensive)
 
-* The server MUST ask the Control Services for a path, regardless of the client's policy.
+* The server MUST ask the control plane for a path, regardless of the client's policy.
 * The client SHOULD (somehow) send a new packet with a new path,
 prompting the server to use this path from now on.
 * The client and server agree, via a path policy specification,
@@ -518,7 +518,7 @@ prompting the server to use this path from now on.
   With this knowledge these two layers can easily determine when to send a new path
   (analogous to connection migration in QUIC {{RFC9000}}), so that the server is instructed
   to use it for the next replies.
-* The server must ask the control server for a path, regardless of the client's policy.
+* The server must ask the control plane for a path, regardless of the client's policy.
 * The client (somehow) sends a new packet with a new path, prompting the server to use this path from now on.
 
 There are some nuances: Usually the server's API will store the initial address of the client to be used through all the session. We might need to take this into account.
@@ -527,10 +527,10 @@ A related question: how long before expiration should we still use a path? How d
 
 Do we actually need to solve this reverse path refresh problem?
 
-* CONTRA: It is probably rare that a server needs to send data for a long time without the application layer protocol requiring the client to ever answer back.
-* PRO: The client may happen to have an old-ish path. If we can't refresh, the client always needs to consider whether a path is valid "long enough", which might only be possible to guess.
-* CONTRA: Sending keep-alives sounds like a connection based protocol. It also means we need to figure out when to stop sending keep-alives.
-* CONTRA: It may be better to solve this in the application layer or in the overlay protocol, where we we know more about
+* Contra: It is probably rare that a server needs to send data for a long time without the application layer protocol requiring the client to ever answer back.
+* Pro: The client may happen to have an old-ish path. If we can't refresh, the client always needs to consider whether a path is valid "long enough", which might only be possible to guess.
+* Contra: Sending keep-alives sounds like a connection based protocol. It also means we need to figure out when to stop sending keep-alives.
+* Contra: It may be better to solve this in the application layer or in the overlay protocol, where we we know more about
   potential length of the session, whether this is a singular request/answer type of exchange, or whether more frequent keep-alives
   are required anyway.
 
@@ -549,10 +549,10 @@ This would be a possible sequence of events:
 
 * An endpoint realizes that a segment is faulty
 * An endpoint needs to signal to its local AS that a segment is faulty
-* A Local AS needs to signal to a CORE AS that a segment is faulty
-* A CORE AS needs to:
+* A Local AS needs to signal to a core AS that a segment is faulty
+* A core AS needs to:
   * change policy to exclude faulty segments AND/OR
-  * signal other COREs and ISDs to stop delivering the segment (they only deliver 5 each, so any faulty segment shoud be avoided)
+  * signal other cores and ISDs to stop delivering the segment (they only deliver 5 each, so any faulty segment shoud be avoided)
 
 ### Implications
 
