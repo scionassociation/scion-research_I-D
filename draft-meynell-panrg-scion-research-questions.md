@@ -324,10 +324,16 @@ Examples for requesting CORE segments between different ISDs or within an ISD (a
 {: #segment-count-example title="CORE segment count examples"}
 
 ## Periodic beacon propagation
-* Is it necessary to propagate beacons periodically? 
-  * For path freshness, only the origin needs to originate beacons periodically, and others disseminate immediately.
-  * For response to link failures or availability of new paths, beacon services can respond instantly.
-* Re-propagating the same set of beacons at each interval makes inefficient use of resources. The periodic propagation can be used for the discovery of new paths at each interval, enhancing the scalability and path diversity.
+The SCION control plane protocol specifies that beacons should be propagated periodically.
+Is it really necessary?
+
+  * For path freshness, only the initial AS emitting the PCB needs to originate beacons periodically,
+  and others can disseminate immediately.
+  * As response to link failures or availability of new paths, beacon services can respond instantly.
+
+If no periodic propagation is necessary for path freshness, or to respond to link failures,
+the periodic propagation would only be used for the discovery of new paths at each interval,
+enhancing the scalability and path diversity.
 
 ## Beacon optimization and extensibility
 * Communication requirements vary according to source, destination, and application. Satisfying all these requirements either requires discovering all paths in the network, or optimizing paths during the beaconing process. Selecting the 5 shortest paths per destination cannot satisfy all requirements.
