@@ -295,35 +295,28 @@ There are some relevant points we have identified for the discussion:
   (analogous to storing the client's IP/TCP-port in an TCP/IP scenario).
 
 * More generally, if multiple paths are used to contact the server,
-  which one of those would be used to reply? Leave it to transport  like in the case
-  of QUIC-MP {{I-D.ietf-quic-multipath}}?
+  which one of those would be used to reply? Leave it to transport layer protocol,
+  as in the case of QUIC-MP {{I-D.ietf-quic-multipath}}?
 
 * How long before expiration should the client and server still use a path?
-  How do we handle that?
-
-* Is it actually necessary to solve the reverse path refresh problem at all?
-  Listing some pros and cons of solving it at the network layer.
-  * Pros:
-    * The client may happen to have an about-to-expire path.
-    If the server can't refresh, the client always needs to consider whether
-    a path is valid "long enough", which might only be possible to guess.
-  * Cons:
-    * It is probably rare that a server needs to send data for a long time without the application layer protocol requiring the client to ever answer back.
-    * Sending keep-alives sounds like a connection based protocol.
-    It also means we need to figure out when to stop sending keep-alives.
-    * It may be better to solve this in the transport or application layers,
-    where we know more about potential length of the session,
-    or whether this is a singular request/answer type of exchange,
-    or whether more frequent keep-alives are anyway required.
+  The client can choose from paths that will not expire in a short period of time,
+  but it does not control for how long the server will attempt to use it (i.e.
+  how long it will take the server to send the complete response).
 
 ### Proposed Solutions (not comprehensive)
 
-* The server MUST ask the CS for a path, regardless of the client's policy.
+* The server MUST ask the Control Services for a path, regardless of the client's policy.
 * The client SHOULD (somehow) send a new packet with a new path,
 prompting the server to use this path from now on.
 * The client and server agree, via a path policy specification,
   on which kinds of paths are okay for the server to use.
   This solution implies a standard specification of this path policy.
+* Leave the solution to the application and transport layers.
+  Transport protocols may require keep alive messages, or already support multiple paths.
+  Applications should know for how long they are willing to read a response from a server.
+  With this knowledge these two layers can easily determine when to send a new path
+  (analogous to connection migration in QUIC {{RFC9000}}), so that the server is instructed
+  to use it for the next replies.
 
 
 # Hummingbird / QoS
