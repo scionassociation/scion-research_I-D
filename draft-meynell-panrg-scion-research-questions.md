@@ -201,22 +201,86 @@ This draft assumes the reader is familiar with some of the fundamental concepts 
 * One AS belongs to many ISDs?
 
 
+## Beacon Forwarding Policy
+
+The idea behind "beaconing" is to discover all possible paths (loop free and with a fixed maximum length) between two CORE AS.
+Every CORE AS forwards any received beacons to all neighbor CORE ASes unless this would cause a loop or exceed the fixed maximum length.
+Implemented naively, the number of paths (and beacons) grows exponentially with the network size.
+This is currently mitigated, primarily (and efficiently), by forwarding only the five "best PCBs" (from a given remote source CORE AS) to neighbors.
+"Best" here takes into account properties such as diversity, time to expire and whether (or how recently) the same
+PCBs has been forwarded before.
+
+Since path may expire after an hour or so and because expiration is not the only factor, an AS will typically start
+resending the same beacons in less than an hour (i.e. the typical expiration time).
+
+This means the total number of different PCBs that an AS will receive from a given neighbor is e.g.
+5 per minute * 30 minute = 150 paths.
+
+Most likely, an AS will receive PCBs originated from a given source from several neighbors, however these are likely to be
+very similar. They are likely to have the same tail and only differ in the few last added hops, i.e. the immediate neighbors.
+
+As a result, an AS will probably have only little more than 150 paths to a given remote AS.
+
+This is likely sufficient for most applications, but is far from a complete view of the network.
+
+This can be problematic:
+
+* Massive multipathing: endpoints may not be able to use the theoretically best paths.
+* Unusual path policies, such as geofencing, may not be fulfillable by the limited number of paths on offer.
+
+
+## Wormhole attack
+
+### Set up
+
+Scenario: attackers create two core ASes that are geographically far apart. They then anounce a link (effectively a shortcut) between these two AS with
+very appealing properties (low latency, few hops, ...).
+
+### Impact
+The attacker can now perform blackhole attacks (DoS), greyhole attacks, delay traffic, or similarily impact traffic.
+
+Critically, there is currently no clear way to recover from this situation. In order to recover, ASes that are connected to the
+workhole-ASes would need to learn of the problem and stop forwarding the wormhole beacons.
+
+Mitigations:
+
+- Introduce a way for ASes to verify path properties. This would make it harder to install wormholes.
+  This could include measuring latency or sense-checking of geolocation information.
+- Introduce a way for endpoints to discover path problems.
+- Introduce a way for endpoints to report path problems.
+- Introduce a way to recover from malicious segments, see {{signalling-faulty-segments}}.
+- Adapt the path discovery and dissemination algorithm to allow ASes to have many more than five paths to
+  a given remote destination. The attack would then require an (unreasonably) large number of compromised ASes.
+
+A related question is discussed in {{signalling-faulty-segments}}.
+
+
+
 ## Segment Dissemination
 
-Control servers return a large number of path segments. This can cost considerable bandwidth / network egress while at the same time overloading clients with an unnecessarily large numbers of segments, mostly consisting of redundant information in terms of duplicate link and hops.
+Control servers may return a large number of path segments for some queries.
+This can cost considerable bandwidth / network egress while at the same time
+overloading clients with an unnecessarily large numbers of segments.
 
-* This problem may be more problematic in ASes with many endpoints (e.g. IoT), or endpoints with little computing power or little spare bandwidth.
-* Getting a full path to a remote endpoint may require three round-trips with the control server.
+* This problem may be more acute in ASes with many end hosts (e.g. IoT),
+or end hosts with little computing power or little spare bandwidth.
+* Getting a full path to a remote endhost may require three round-trips with the control server.
 
 There are multiple possible and independent solution steps here:
 
-* Compression (idea suggested by Francois Wirz): Segments could be stored in a way that duplicate information (hops & links) is only stored once and the segments contain only references to the hops and links.
-* Allow queries from start AS to end AS across multiple segments. This should be very easy to implement and would be compatible with the current wire protocol (protobuf).
+* Compression: Segments could be stored in a way that duplicate information (hops & links) is only stored once and the segments contain only references to the hops and links.
+* Instead of requiring three separate queries for (UP/CORE/DOWN), we could allow a single query from \<start AS\> to \<end AS\> across multiple segments.
+  This should be very easy to implement and would be compatible with the current wire protocol (protobuf).
   * This would reduce the number of round trips to one.
   * It would reduce the number of returned segments because only segments that actually connect to other segments would need to be returned.
-* Predefine some policies that can be resolved by the control server, e.g. ANY, BEST_LATENCY, BEST_BANDWIDTH, BEST_PRICE, BEST_CO2. For these, a control server could simply calculate 5-10 good paths and return these. Moreover these could be cached for commonly requested remote ASs. If a user requires a custom policy they can still resort to requesting actual segments.
+* Predefine some policies that can be resolved by the control server, e.g. ANY, BEST_LATENCY, BEST_BANDWIDTH, BEST_PRICE,
+BEST_CO2. For these, a control server could simply calculate 5-10 good paths and return these.
+Moreover these could be cached for commonly requested remote ASes.
+If a user requires a custom policy they can still resort to requesting actual segments.
 
-Doing path computation on the control server will initially increase computational cost. However, it would substantially decrease network egress. Caching of paths should reduce CPU cost, maybe even below the current cost for retrieving a large amount of segments from the local database and sending them over the network interface.
+Doing path selection on the control server will initially increase computational cost.
+However, it would substantially decrease network egress. Caching of paths should reduce CPU cost,
+maybe even below the current cost for retrieving a large amount of segments from the local database and sending them over the network interface.
 
 Examples for requesting CORE segments between different ISDs or within an ISD (as of 2024-07-12):
 
@@ -333,6 +397,39 @@ Do we actually need to solve this reverse path refresh problem?
 * CONTRA: It may be better to solve this in the application layer or in the overlay protocol, where we we know more about
   potential length of the session, or whether this is a singular request/answer type of exchange, or whether more frequent keep-alives
   are anyway required.
+
+
+## Signalling faulty segments
+
+Faulty segments are segments that do not work as advertised, i.e. they are either physically faulty
+(broken link, high packet loss, jitter, ...) or come with faulty metadata, suggesting too few hops, too low latency,
+too much bandwith, or similar problems.
+The fault may be caused by a technical problem (e.g. broken link) or by a malicious adversary.
+
+An example for a malicious adversary is the "wormhole" attack, see {{I-D.scion-cp}}, where, an AS may be coaxed to
+disseminate a faulty segment. How do we recover from faulty segments?
+Currently only endpoints may realize that a segment does not work as advertised, either via SCMP errors or simply by traffic degradation.
+This would be a possible sequence of events:
+
+* An endpoint realizes that a segment is faulty
+* An endpoint needs to signal to its local AS that a segment is faulty
+* Local AS needs to signal its CORE AS that a segment is faulty
+* The CORE AS needs to:
+  * change policy to exclude faulty segments AND/OR
+  * signal other COREs and ISDs to stop delivering the segment (they only deliver 5 each, so any faulty segment shoud be avoided)
+
+### Implications
+
+Besides general service degradation, a lack of recovery can worsen the impact of a wormhole attack {{wormhole-attack}}.
+
+### Mitigation
+
+* An AS could monitor traffic for SCMP errors, however this works only if these errors are actually generated and forwarded.
+* Endpoints need a way to signal faulty segments to ASes. ASes need a way to signal faulty ASes to other ASes (e.g.
+core ASes or ASes in other ISDs).
+* ASes need adaptive beacon analysis algorithms that allow excluding specific beacons, e.g. beacons that have
+  known malicious ASes on path.
+* For swift recovery, it would be useful if ASes could communicate the faultiness of faulty segments.
 
 
 <!--
