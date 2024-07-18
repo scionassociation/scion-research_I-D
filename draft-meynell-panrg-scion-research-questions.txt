@@ -77,11 +77,13 @@ Table of Contents
        3.3.2.  Impact
      3.4.  DNS Service Binding (SVCB)
      3.5.  Segment Dissemination
-     3.6.  Routing Policies and Traffic Engineering
-     3.7.  DRKey
-     3.8.  SCMP Authentication
-     3.9.  Proof of transit
-     3.10. NAT
+     3.6.  Periodic beacon propagation
+     3.7.  Beacon optimization and extensibility
+     3.8.  Routing Policies and Traffic Engineering
+     3.9.  DRKey
+     3.10. SCMP Authentication
+     3.11. Proof of transit
+     3.12. NAT
    4.  Dataplane stability
      4.1.  Link load balancing
      4.2.  Reverse Path Refreshment
@@ -304,7 +306,70 @@ Table of Contents
 
                    Table 1: CORE segment count examples
 
-3.6.  Routing Policies and Traffic Engineering
+3.6.  Periodic beacon propagation
+
+   The SCION control plane protocol specifies that beacons should be
+   propagated periodically.  Is it really necessary?
+
+   *  For path freshness, only the initial AS emitting the PCB needs to
+      originate beacons periodically, and others can disseminate
+      immediately.
+
+   *  As response to link failures or availability of new paths, beacon
+      services can respond instantly.
+
+   If no periodic propagation is necessary for path freshness, or to
+   respond to link failures, the periodic propagation would only be used
+   for the discovery of new paths at each interval, enhancing the
+   scalability and path diversity.
+
+3.7.  Beacon optimization and extensibility
+
+   Communication requirements vary according to source, destination, and
+   application.  Satisfying all these requirements either requires
+   discovering all paths in the network, or optimizing the creation of
+   paths during the beaconing process.  Selecting the 5 shortest paths
+   per destination at each beaconing period may not satisfy all
+   requirements that different applications, on different endpoints, on
+   different ASes, will have.  The beacon selection process, the
+   criteria and metrics that they carry, and the adaptability of them
+   all have a strong impact in the traffic engineering of the individual
+   ASes, and of the inter-domain communication as a whole.  See question
+   2.7 of [RFC9217].
+
+   *  What optimization functions should be applied to beacons and what
+      metrics should be considered when propagating them ? Is the set of
+      properties composed of path length, peering ASes, path
+      disjointness, PCB last reception, and path lifetime enough?
+
+   *  How do we extend the metrics with new dimensions, such as
+      bandwidth, latency, geo-position, etc?
+
+   *  Who should select these functions?
+
+   *  How should the outcome of these functions be verified?
+
+   *  How can multiple functions be applied concurrently, for different
+      source and destination applications?
+
+   *  How should end-ASes express their desired requirements to the
+      inter-domain control plane?
+
+   *  How do these requirements translate into concrete optimization
+      functions?
+
+   *  How would standardization of the functions look like?
+
+   *  The functions changing over time:
+
+      -  How can optimization functions adapt to incorporate these
+         changes?
+
+      -  How to achieve fast adaptation of optimization functions?
+
+   *  See also: IREC [TABAEIAGHDAEI2023]
+
+3.8.  Routing Policies and Traffic Engineering
 
    Reduced adoption due to limited routing policy possibilities, such as
    a (core-)AS does not want to accept transit traffic unless it starts/
@@ -322,7 +387,7 @@ Table of Contents
    we have only a single resulting segment, and that segment needs to be
    used in full, e.g. no on-path trickery.
 
-3.7.  DRKey
+3.9.  DRKey
 
    DRKey is a key distribution system that scales well with the number
    of endpoints in the network.  It relies on two things:
@@ -361,7 +426,7 @@ Table of Contents
 
    For more info: [I-D.garciapardo-drkey].
 
-3.8.  SCMP Authentication
+3.10.  SCMP Authentication
 
    In SCION, we would like to have SCMP (SCION Control Message Protocol)
    include authentication for some of the message types, e.g. the
@@ -388,11 +453,11 @@ Table of Contents
       unintended recipient, e.g. when the packet is not source
       validated.
 
-3.9.  Proof of transit
+3.11.  Proof of transit
 
    FABRID [KRAHENBUHL2023] and EPIC [LEGNER2020].
 
-3.10.  NAT
+3.12.  NAT
 
    At this moment, the SCION implementation is not compatible out-of-
    the-box with NAT'ed devices, regardless of whether these devices are
@@ -641,6 +706,13 @@ Table of Contents
               and Parameter Specification via the DNS (SVCB and HTTPS
               Resource Records)", RFC 9460, DOI 10.17487/RFC9460,
               November 2023, <https://www.rfc-editor.org/rfc/rfc9460>.
+
+   [TABAEIAGHDAEI2023]
+              Tabaeiaghdaei, S., Wyss, M., Giuliari, G., van Bommel, J.,
+              Zehmakan, A. N., and A. Perrig, "Inter-domain Routing with
+              Extensible Criteria", 2023,
+              <https://netsec.ethz.ch/publications/papers/
+              IREC_arXiv.pdf>.
 
 Acknowledgments
 
