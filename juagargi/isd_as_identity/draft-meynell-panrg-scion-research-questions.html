@@ -1031,7 +1031,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Meynell, et al.</td>
-<td class="center">Expires 18 January 2025</td>
+<td class="center">Expires 19 January 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1044,12 +1044,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-meynell-panrg-scion-research-questions-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-07-17" class="published">17 July 2024</time>
+<time datetime="2024-07-18" class="published">18 July 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-01-18">18 January 2025</time></dd>
+<dd class="expires"><time datetime="2025-01-19">19 January 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1111,7 +1111,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 18 January 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 19 January 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1251,12 +1251,11 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
         <h3 id="name-isd-as-identity">
 <a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-isd-as-identity" class="section-name selfRef">ISD, AS identity</a>
         </h3>
-<p id="section-3.1-1">The SCION protocol specifies 16 bits and 48 bits to identify the ISD and AS.
-This identification is, at this moment, necessary at the data-plane level.
-It is written in each one of the data packets to fully address the sender and receiver,
-as well as at the control-plane level, to identify the PCB sender and hops.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.1-1">The SCION protocol specifies 16 bits and 48 bits to identify the ISD and AS respectively.
+This identification is used, at the data-plane level, in every packet to fully address the sender and receiver,
+and at the control-plane level, to identify the PCB sender and hops.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
 <p id="section-3.1-2">While 48 bits seem sufficient to accommodate a large number of ASes,
-using 16 bits for the ISD might not be.
+using 16 bits for the ISD only offers 65,536 possible assignments which is conceivably insufficient.
 Additionally, the justification of these figures is lacking at the moment.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
 <p id="section-3.1-3">The following questions arise: (not comprehensive)<a href="#section-3.1-3" class="pilcrow">¶</a></p>
 <ul class="normal">
@@ -1273,14 +1272,7 @@ Additionally, the justification of these figures is lacking at the moment.<a hre
             <p id="section-3.1-4.4.1">How many ISDs do we expect?<a href="#section-3.1-4.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.1-4.5">
-            <p id="section-3.1-4.5.1">What is the ontology of an ISD?
-Note that the entire set of all combinations of ASes might be the complete set of ISDs:
-An ISD <span class="bcp14">MUST</span> be connected via at least one core link to the rest of the ISD connected graph.
-Otherwise the beaconing process does not transfer trust information among
-the connected graph of existing ISDs and this ISD in question.
-This reduces the absolute number of possible ISDs to those that satisfy a
-strict direct connectivity requirement (hence they could become core ASes in
-the new ISD). It is still super-exponential asymptotically.<a href="#section-3.1-4.5.1" class="pilcrow">¶</a></p>
+            <p id="section-3.1-4.5.1">What is the ontology of an ISD?<a href="#section-3.1-4.5.1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.1-4.5.2.1">
                 <p id="section-3.1-4.5.2.1.1">Per geographic area?<a href="#section-3.1-4.5.2.1.1" class="pilcrow">¶</a></p>
@@ -1295,9 +1287,15 @@ the new ISD). It is still super-exponential asymptotically.<a href="#section-3.1
                 <p id="section-3.1-4.5.2.4.1">Per "type"? (meaning: any grouping that makes sense to their members)<a href="#section-3.1-4.5.2.4.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-3.1-4.5.2.5">
-                <p id="section-3.1-4.5.2.5.1">Possible combinations of any decided "type"?<a href="#section-3.1-4.5.2.5.1" class="pilcrow">¶</a></p>
+                <p id="section-3.1-4.5.2.5.1">Possible combinations of any previous "types"?<a href="#section-3.1-4.5.2.5.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
+</li>
+          <li class="normal" id="section-3.1-4.6">
+            <p id="section-3.1-4.6.1">Note that ISDs require CORE links to other ISDs.
+This reduces the number of ISDs to those that have CORE ASes that can directly
+connect to CORE ASes in other ISDs.
+The number of ISDs is still super-exponential asymptotically.<a href="#section-3.1-4.6.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -1588,6 +1586,7 @@ are anyway required.<a href="#section-4.2-6.4.1" class="pilcrow">¶</a></p>
 <p id="section-10-1">This document has no IANA actions.<a href="#section-10-1" class="pilcrow">¶</a></p>
 </section>
 </div>
+<div id="sec-combined-references">
 <section id="section-11">
       <h2 id="name-references">
 <a href="#section-11" class="section-number selfRef">11. </a><a href="#name-references" class="section-name selfRef">References</a>
@@ -1651,6 +1650,7 @@ are anyway required.<a href="#section-4.2-6.4.1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
+</div>
 <div id="acknowledgments">
 <section id="appendix-A">
       <h2 id="name-acknowledgments">
