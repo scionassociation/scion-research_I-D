@@ -222,64 +222,43 @@ Table of Contents
 3.4.  Segment Dissemination
 
    Control services may return a large number of path segments for some
-   queries.  This can cost considerable bandwidth / network egress while
-   at the same time overloading clients with an unnecessarily large
-   numbers of segments.
+   queries.  This can cost considerable bandwidth while at the same time
+   overloading clients with an unnecessarily large numbers of segments.
 
-   *  This problem may be more acute in ASes with many end hosts (e.g.
-      IoT), or end hosts with little computing power or little spare
-      bandwidth.
+   *  This problem may be more acute in ASes with many endpoints (e.g.
+      IoT), or for resource-constrained endpoints.
 
-   *  Getting a full path to a remote endhost may require three queries
+   *  Getting a full path to a remote endpoint may require three queries
       to the control service.
 
    There are multiple possible and independent solution steps here:
 
-   *  Compression: Segments could be stored in a way that duplicate
-      information (hops & links) is only stored once and the segments
-      contain only references to the hops and links.
-
-   *  Instead of requiring three separate queries for (up, core, and
-      down-segments), we could allow a single query from <start AS> to
-      <end AS> across multiple segments.  This should be very easy to
-      implement and would be compatible with the current wire protocol
-      (protobuf).
-
-      -  This would reduce the number of round trips to one.
-
-      -  It would reduce the number of returned segments because only
-         segments that actually connect to other segments would need to
-         be returned.
-
    *  Predefine some policies that can be resolved by the control plane,
       e.g.  ANY, BEST_LATENCY, BEST_BANDWIDTH, BEST_PRICE, BEST_CO2.
-      For these, the control plane could simply calculate 5-10 good
+      For these, the control plane could simply calculate 5-10 compliant
       paths and return these.  Moreover these could be cached for
       commonly requested remote ASes.  If a user requires a custom
       policy they can still resort to requesting actual segments.
 
-   Doing path selection in the control plane will initially increase
-   computational cost.  However, it would substantially decrease network
-   egress.  Caching of paths should reduce CPU cost, maybe even below
-   the current cost for retrieving a large amount of segments from the
-   local database and sending them over the network interface.
+   *  Caching of paths.  An open question concerns when a control
+      service should return a chached path, versus performing a
+      recursive path lookup.
 
-   Examples for requesting core segments between different ISDs or
-   within an ISD (as of 2024-07-12):
+   An example including the number of core segments between different
+   ISDs as of 2024-07-12 in the SCION production network is shown in
+   Table 1.
 
-               +==========+===========+===================+
-               |      src |       dst | segments returned |
-               +==========+===========+===================+
-               | 64-0:0:0 |  64-0:0:0 |        337        |
-               +----------+-----------+-------------------+
-               | 64-0:0:0 |  65-0:0:0 |        240        |
-               +----------+-----------+-------------------+
-               | 64-0:0:0 |  67-0:0:0 |         60        |
-               +----------+-----------+-------------------+
-               | 64-0:0:0 | 64-2:0:13 |         60        |
-               +----------+-----------+-------------------+
+                 +=========+=========+===================+
+                 | src ISD | dst ISD | segments returned |
+                 +=========+=========+===================+
+                 |      64 |      64 |        337        |
+                 +---------+---------+-------------------+
+                 |      64 |      65 |        240        |
+                 +---------+---------+-------------------+
+                 |      64 |      67 |         60        |
+                 +---------+---------+-------------------+
 
-                   Table 1: core segment count examples
+                    Table 1: core segment count examples
 
 3.5.  Periodic beacon propagation
 
