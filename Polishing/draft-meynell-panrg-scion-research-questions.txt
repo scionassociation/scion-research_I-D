@@ -72,18 +72,15 @@ Table of Contents
    3.  Discovery, Distribution, and Trustworthiness of Path Properties
      3.1.  ISD, AS identity
      3.2.  Beacon Selection Policies
-     3.3.  Wormhole attack
-       3.3.1.  Set up
-       3.3.2.  Impact
-     3.4.  DNS Service Binding (SVCB)
-     3.5.  Segment Dissemination
-     3.6.  Periodic beacon propagation
-     3.7.  Beacon optimization and extensibility
-     3.8.  Routing Policies and Traffic Engineering
-     3.9.  DRKey
-     3.10. SCMP Authentication
-     3.11. Proof of transit
-     3.12. NAT
+     3.3.  DNS Service Binding (SVCB)
+     3.4.  Segment Dissemination
+     3.5.  Periodic beacon propagation
+     3.6.  Beacon optimization and extensibility
+     3.7.  Routing Policies and Traffic Engineering
+     3.8.  DRKey
+     3.9.  SCMP Authentication
+     3.10. Proof of transit
+     3.11. NAT
    4.  Dataplane stability
      4.1.  Link load balancing
      4.2.  Reverse Path Refreshment
@@ -199,46 +196,7 @@ Table of Contents
    * What are the desirable path properties (e.g. diversity, PCB
    Expiration Time, how recently the same PCBs was forwarded before).
 
-3.3.  Wormhole attack
-
-3.3.1.  Set up
-
-   Scenario: attackers create two core ASes that are geographically far
-   apart.  They then announce a link (effectively a shortcut) between
-   these two ASes with very appealing properties (low latency, few hops,
-   ...).
-
-3.3.2.  Impact
-
-   The attacker can now perform blackhole attacks (DoS), greyhole
-   attacks, delay traffic, or similarily impact traffic.
-
-   Critically, there is currently no clear way to recover from this
-   situation.  In order to recover, ASes that are connected to the
-   wormhole ASes would need to learn of the problem and stop forwarding
-   the wormhole beacons.
-
-   Mitigations:
-
-   *  Introduce a way for ASes to verify path properties.  This would
-      make it harder to install wormholes.  This could include measuring
-      latency or sense-checking of geolocation information.
-
-   *  Introduce a way for endpoints to discover path problems.
-
-   *  Introduce a way for endpoints to report path problems.
-
-   *  Introduce a way to recover from malicious segments, see
-      Section 4.3.
-
-   *  Adapt the path discovery and dissemination algorithm to allow ASes
-      to have many more than five paths to a given remote destination.
-      The attack would then require an (unreasonably) large number of
-      compromised ASes.
-
-   A related question is discussed in Section 4.3.
-
-3.4.  DNS Service Binding (SVCB)
+3.3.  DNS Service Binding (SVCB)
 
    The DNS Service Binding [RFC9460], Section 14.3 allows a dedicated
    SCION Service Parameter to be specified.
@@ -261,7 +219,7 @@ Table of Contents
    SVCB is also planned to be supported by Happy Eyeballs v3
    [I-D.draft-pauly-v6ops-happy-eyeballs-v3-01].
 
-3.5.  Segment Dissemination
+3.4.  Segment Dissemination
 
    Control services may return a large number of path segments for some
    queries.  This can cost considerable bandwidth / network egress while
@@ -323,7 +281,7 @@ Table of Contents
 
                    Table 1: core segment count examples
 
-3.6.  Periodic beacon propagation
+3.5.  Periodic beacon propagation
 
    The SCION control plane protocol specifies that beacons should be
    propagated periodically.  Is this really necessary?
@@ -340,7 +298,7 @@ Table of Contents
    for the discovery of new paths at each interval, enhancing the
    scalability and path diversity.
 
-3.7.  Beacon optimization and extensibility
+3.6.  Beacon optimization and extensibility
 
    Communication requirements vary according to source, destination, and
    application.  Satisfying all these requirements either requires
@@ -386,7 +344,7 @@ Table of Contents
 
    *  See also: IREC [TABAEIAGHDAEI2023]
 
-3.8.  Routing Policies and Traffic Engineering
+3.7.  Routing Policies and Traffic Engineering
 
    Reduced adoption due to limited routing policy possibilities, such as
    a (core-)AS does not want to accept transit traffic unless it starts/
@@ -404,7 +362,7 @@ Table of Contents
    we have only a single resulting segment, and that segment needs to be
    used in full, e.g. no on-path trickery.
 
-3.9.  DRKey
+3.8.  DRKey
 
    DRKey is a key distribution system that scales well with the number
    of endpoints in the network.  It relies on two things:
@@ -443,7 +401,7 @@ Table of Contents
 
    For more info: [I-D.garciapardo-drkey].
 
-3.10.  SCMP Authentication
+3.9.  SCMP Authentication
 
    In SCION, we would like to have SCMP (SCION Control Message Protocol)
    include authentication for some of the message types, e.g. the
@@ -470,11 +428,11 @@ Table of Contents
       unintended recipient, e.g. when the packet is not source
       validated.
 
-3.11.  Proof of transit
+3.10.  Proof of transit
 
    FABRID [KRAHENBUHL2023] and EPIC [LEGNER2020].
 
-3.12.  NAT
+3.11.  NAT
 
    Currently, the SCION implementation is not compatible out-of-the-box
    with NAT'ed devices, regardless of whether these devices are end-
@@ -643,7 +601,7 @@ Table of Contents
 4.3.1.  Implications
 
    Besides general service degradation, a lack of recovery can worsen
-   the impact of a wormhole attack Section 3.3.
+   the impact of a wormhole attack [I-D.scion-cp].
 
 4.3.2.  Mitigation
 
