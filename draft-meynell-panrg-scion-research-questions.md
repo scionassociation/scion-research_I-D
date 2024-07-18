@@ -116,6 +116,37 @@ informative:
         ins: A. Perrig
         name: Adrian Perrig
         org: ETH Zürich
+
+  TABAEIAGHDAEI2023:
+    title: "Inter-domain Routing with Extensible Criteria"
+    date: 2023
+    target: https://netsec.ethz.ch/publications/papers/IREC_arXiv.pdf
+    author:
+      -
+        ins: S. Tabaeiaghdaei
+        name: Seyedali Tabaeiaghdaei
+        org: ETH Zürich
+      -
+        ins: M. Wyss
+        name: Marc Wyss
+        org: ETH Zürich
+      -
+        ins: G. Giuliari
+        name: Giacomo Giuliari
+        org: ETH Zürich
+      -
+        ins: J. van Bommel
+        name: Jelte van Bommel
+        org: ETH Zürich
+      -
+        ins: A. N. Zehmakan
+        name: Ahad N. Zehmakan
+        org: Australian National University
+      -
+        ins: A. Perrig
+        name: Adrian Perrig
+        org: ETH Zürich
+
   LEGNER2020:
     title: "EPIC: Every Packet Is Checked in the Data Plane of a Path-Aware Internet"
     date: 2020
@@ -314,6 +345,43 @@ Examples for requesting CORE segments between different ISDs or within an ISD (a
 | 64-0:0:0    | 67-0:0:0    | 60                |
 | 64-0:0:0    | 64-2:0:13   | 60                |
 {: #segment-count-example title="CORE segment count examples"}
+
+## Periodic beacon propagation
+The SCION control plane protocol specifies that beacons should be propagated periodically.
+Is it really necessary?
+
+  * For path freshness, only the initial AS emitting the PCB needs to originate beacons periodically,
+  and others can disseminate immediately.
+  * As response to link failures or availability of new paths, beacon services can respond instantly.
+
+If no periodic propagation is necessary for path freshness, or to respond to link failures,
+the periodic propagation would only be used for the discovery of new paths at each interval,
+enhancing the scalability and path diversity.
+
+## Beacon optimization and extensibility
+Communication requirements vary according to source, destination, and application.
+Satisfying all these requirements either requires discovering all paths in the network,
+or optimizing the creation of paths during the beaconing process.
+Selecting the 5 shortest paths per destination at each beaconing period may not satisfy all requirements
+that different applications, on different endpoints, on different ASes, will have.
+The beacon selection process, the criteria and metrics that they carry, and the adaptability
+of them all have a strong impact in the traffic engineering of the individual ASes,
+and of the inter-domain communication as a whole. See question 2.7 of {{RFC9217}}.
+
+* What optimization functions should be applied to beacons and what metrics should be considered when propagating them ?
+  Is the set of properties composed of path length, peering ASes, path disjointness, PCB last reception,
+  and path lifetime enough?
+* How do we extend the metrics with new dimensions, such as bandwidth, latency, geo-position, etc?
+* Who should select these functions?
+* How should the outcome of these functions be verified?
+* How can multiple functions be applied concurrently, for different source and destination applications?
+* How should end-ASes express their desired requirements to the inter-domain control plane?
+* How do these requirements translate into concrete optimization functions?
+* How would standardization of the functions look like?
+* The functions changing over time:
+  * How can optimization functions adapt to incorporate these changes?
+  * How to achieve fast adaptation of optimization functions?
+* See also: IREC {{TABAEIAGHDAEI2023}}
 
 
 ## Routing Policies and Traffic Engineering
