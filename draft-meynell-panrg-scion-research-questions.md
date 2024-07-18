@@ -336,23 +336,26 @@ the periodic propagation would only be used for the discovery of new paths at ea
 enhancing the scalability and path diversity.
 
 ## Beacon optimization and extensibility
-* Communication requirements vary according to source, destination, and application.
+Communication requirements vary according to source, destination, and application.
 Satisfying all these requirements either requires discovering all paths in the network,
-or optimizing paths during the beaconing process. Selecting the 5 shortest paths per destination
-cannot satisfy all requirements.
-  * Clearly, the 5-shortest path per destination cannot satisfy all communication requirements.
+or optimizing the creation of paths during the beaconing process.
+Selecting the 5 shortest paths per destination at each beaconing period may not satisfy all requirements
+that different applications, on different endpoints, on different ASes, will have.
+
 * What optimization functions should be applied to beacons and what metrics should be considered when propagating them ?
-  * What are the optimality metrics considered in these functions?
+  Is the set of properties composed of path length, peering ASes, path disjointness, PCB last reception,
+  and path lifetime enough?
+* How do we extend the metrics with new dimensions, such as bandwidth, latency, geo-position, etc?
 * Who should select these functions?
-* How should the deployment of these functions be enforced?
-* How can multiple functions be applied concurrently for different source and destination applications?
-* How should end ASes express their desired requirements to the inter-domain control plane?
+* How should the outcome of these functions be verified?
+* How can multiple functions be applied concurrently, for different source and destination applications?
+* How should end-ASes express their desired requirements to the inter-domain control plane?
 * How do these requirements translate into concrete optimization functions?
-* How does standardization of the functions work?
-* Criteria changing over time.
+* How would standardization of the functions look like?
+* The functions changing over time:
   * How can optimization functions adapt to incorporate these changes?
   * How to achieve fast adaptation of optimization functions?
-* IREC {{TABAEIAGHDAEI2023}}
+* See also: IREC {{TABAEIAGHDAEI2023}}
 
 
 ## Routing Policies and Traffic Engineering
