@@ -5,11 +5,11 @@
 PANRG                                                         K. Meynell
 Internet-Draft                                         SCION Association
 Intended status: Informational                           J. García Pardo
-Expires: 18 January 2025                                      T. Zäschke
+Expires: 19 January 2025                                      T. Zäschke
                                                               ETH Zürich
                                                            N. Rustignoli
                                                        SCION Association
-                                                            17 July 2024
+                                                            18 July 2024
 
 
                         SCION Research Questions
@@ -52,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 18 January 2025.
+   This Internet-Draft will expire on 19 January 2025.
 
 Copyright Notice
 
@@ -142,7 +142,7 @@ Table of Contents
    SCION Service Parameter to be specified.
 
    Service Parameters allow the specification of alternative IP
-   addresses or other parameters such as ISD/AS numbers) for a given
+   addresses or other parameters (such as ISD/AS numbers) for a given
    URL.  This would be more elegant than using DNS TXT records.
 
    Example of current entry:
@@ -155,12 +155,6 @@ Table of Contents
 
    dig +short https ethz.ch
    1 . alpn="h2" scion=64-2:0:9,129.132.230.98
-
-   I am not entirely sure how it looks like for non-https traffic, I
-   assume probably like this:
-
-   dig +short svcb ethz.ch
-   1 . scion=64-2:0:9,129.132.230.98
 
    SVCB is also planned to be supported by Happy Eyeballs v3
    [I-D.draft-pauly-v6ops-happy-eyeballs-v3-01].

@@ -1031,7 +1031,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Meynell, et al.</td>
-<td class="center">Expires 18 January 2025</td>
+<td class="center">Expires 19 January 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1044,12 +1044,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-meynell-panrg-scion-research-questions-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-07-17" class="published">17 July 2024</time>
+<time datetime="2024-07-18" class="published">18 July 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-01-18">18 January 2025</time></dd>
+<dd class="expires"><time datetime="2025-01-19">19 January 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1111,7 +1111,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 18 January 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 19 January 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1273,7 +1273,8 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-dns-service-binding-svcb" class="section-name selfRef">DNS Service Binding (SVCB)</a>
         </h3>
 <p id="section-3.2-1">The DNS Service Binding <span>[<a href="#RFC9460" class="cite xref">RFC9460</a>], <a href="https://rfc-editor.org/rfc/rfc9460#section-14.3" class="relref">Section 14.3</a></span> allows a dedicated SCION Service Parameter to be specified.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
-<p id="section-3.2-2">Service Parameters allow the specification of alternative IP addresses or other parameters such as ISD/AS numbers) for a given URL.
+<p id="section-3.2-2">Service Parameters allow the specification of alternative IP addresses or other parameters
+(such as ISD/AS numbers) for a given URL.
 This would be more elegant than using DNS TXT records.<a href="#section-3.2-2" class="pilcrow">¶</a></p>
 <p id="section-3.2-3">Example of current entry:<a href="#section-3.2-3" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-3.2-4">
@@ -1290,14 +1291,7 @@ dig +short https ethz.ch
 1 . alpn="h2" scion=64-2:0:9,129.132.230.98
 </pre><a href="#section-3.2-6" class="pilcrow">¶</a>
 </div>
-<p id="section-3.2-7">I am not entirely sure how it looks like for non-https traffic, I assume probably like this:<a href="#section-3.2-7" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.2-8">
-<pre>
-dig +short svcb ethz.ch
-1 . scion=64-2:0:9,129.132.230.98
-</pre><a href="#section-3.2-8" class="pilcrow">¶</a>
-</div>
-<p id="section-3.2-9">SVCB is also planned to be supported by Happy Eyeballs v3 <span>[<a href="#I-D.draft-pauly-v6ops-happy-eyeballs-v3-01" class="cite xref">I-D.draft-pauly-v6ops-happy-eyeballs-v3-01</a>]</span>.<a href="#section-3.2-9" class="pilcrow">¶</a></p>
+<p id="section-3.2-7">SVCB is also planned to be supported by Happy Eyeballs v3 <span>[<a href="#I-D.draft-pauly-v6ops-happy-eyeballs-v3-01" class="cite xref">I-D.draft-pauly-v6ops-happy-eyeballs-v3-01</a>]</span>.<a href="#section-3.2-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="segment-dissemination">
@@ -1525,6 +1519,7 @@ dig +short svcb ethz.ch
 <p id="section-10-1">This document has no IANA actions.<a href="#section-10-1" class="pilcrow">¶</a></p>
 </section>
 </div>
+<div id="sec-combined-references">
 <section id="section-11">
       <h2 id="name-references">
 <a href="#section-11" class="section-number selfRef">11. </a><a href="#name-references" class="section-name selfRef">References</a>
@@ -1592,6 +1587,7 @@ dig +short svcb ethz.ch
 </section>
 </div>
 </section>
+</div>
 <div id="acknowledgments">
 <section id="appendix-A">
       <h2 id="name-acknowledgments">
