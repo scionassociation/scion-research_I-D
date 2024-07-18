@@ -443,21 +443,20 @@ Possible solutions:
 
 ## Link load balancing
 
-Links may get overloaded because the SCION routing system fails to distribute load properly over different links. New/different links might be underutilized.
+Links may get overloaded because the SCION distributed path selection process fails to distribute load properly over different links, resulting in uneven utilization.
 
-If links become overloaded, there are several ways to handle this. Non comprehensively:
+There are several potential approaches to relieve an overloaded link:
 
-* Squeeze: send an SCMP message to trigger end-hosts to use an alternative path
-* Steer: send and SCMP to trigger users to ask the control plane for a better path
-* Reduce: hand over very short lived paths, let the end-hosts wait for the path to expire so that they request new paths and (hopefully) decide on a different path.
-* Recommend: let the end-hosts know which paths are recommended by the AS at this time.
+* introduce explicit congestion notifications from routers to endpoints.
+* optimize the path lookup process so that the control plane hands out paths that optimize load balancing.
 
+<!--
 If a link has good properties, many ASes will disseminate segments and therefore paths through this link to the extent link may become overloaded. See Simon Scherrer's work on Braess Paradox.
 
 Either there needs to be some constant control by all clients to not choose the best theoretical path, but the one that works best, or there needs to be a mechanism whereby control plane do not disseminate “good” links to all end-hosts.
 
 The current consensus is that end-hosts can use multi-pathing and “automatically” converge on the best path, i.e. creating an equilibrium. Again, see Simon Scherrer's work on Braess Paradox.
-
+-->
 
 ## Reverse Path Refreshment
 
