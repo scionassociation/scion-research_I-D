@@ -196,13 +196,12 @@ This draft assumes the reader is familiar with some of the fundamental concepts 
 
 ## ISD, AS identity
 
-The SCION protocol specifies 16 bits and 48 bits to identify the ISD and AS.
-This identification is, at this moment, necessary at the data-plane level.
-It is written in each one of the data packets to fully address the sender and receiver,
-as well as at the control-plane level, to identify the PCB sender and hops.
+The SCION protocol specifies 16 bits and 48 bits to identify the ISD and AS respectively.
+This identification is used, at the data-plane level, in every packet to fully address the sender and receiver,
+and at the control-plane level, to identify the PCB sender and hops.
 
 While 48 bits seem sufficient to accommodate a large number of ASes,
-using 16 bits for the ISD might not be.
+using 16 bits for the ISD only offers 65,536 possible assignments which is conceivably insufficient.
 Additionally, the justification of these figures is lacking at the moment.
 
 The following questions arise: (not comprehensive)
@@ -212,18 +211,15 @@ The following questions arise: (not comprehensive)
 * Are AS numbers unique themselves? Or only unique in combination with an ISD?
 * How many ISDs do we expect?
 * What is the ontology of an ISD?
-  Note that the entire set of all combinations of ASes might be the complete set of ISDs:
-  An ISD MUST be connected via at least one core link to the rest of the ISD connected graph.
-  Otherwise the beaconing process does not transfer trust information among
-  the connected graph of existing ISDs and this ISD in question.
-  This reduces the absolute number of possible ISDs to those that satisfy a
-  strict direct connectivity requirement (hence they could become core ASes in
-  the new ISD). It is still super-exponential asymptotically.
   * Per geographic area?
   * Per legal jurisdiction?
   * Per capacity tier?
   * Per "type"? (meaning: any grouping that makes sense to their members)
-  * Possible combinations of any decided "type"?
+  * Possible combinations of any previous "types"?
+* Note that ISDs require CORE links to other ISDs.
+  This reduces the number of ISDs to those that have CORE ASes that can directly
+  connect to CORE ASes in other ISDs.
+  The number of ISDs is still super-exponential asymptotically.
 
 
 ## Segment Dissemination
