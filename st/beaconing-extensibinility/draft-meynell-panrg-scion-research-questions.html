@@ -1479,54 +1479,51 @@ enhancing the scalability and path diversity.<a href="#section-3.5-3" class="pil
         <h3 id="name-beacon-optimization-and-ext">
 <a href="#section-3.6" class="section-number selfRef">3.6. </a><a href="#name-beacon-optimization-and-ext" class="section-name selfRef">Beacon optimization and extensibility</a>
         </h3>
+<p id="section-3.6-1">Communication requirements vary according to source, destination, and application.
+Satisfying all these requirements either requires discovering all paths in the network,
+or optimizing the creation of paths during the beaconing process.
+Selecting the 5 shortest paths per destination at each beaconing period may not satisfy all requirements
+that different applications, on different endpoints, on different ASes, will have.<a href="#section-3.6-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.6-1.1">
-            <p id="section-3.6-1.1.1">Communication requirements vary according to source, destination, and application. Satisfying all these requirements either requires discovering all paths in the network, or optimizing paths during the beaconing process. Selecting the 5 shortest paths per destination cannot satisfy all requirements.<a href="#section-3.6-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-3.6-2.1">
+            <p id="section-3.6-2.1.1">What optimization functions should be applied to beacons and what metrics should be considered when propagating them ?
+Is the set of properties composed of path length, peering ASes, path disjointness, PCB last reception,
+and path lifetime enough?<a href="#section-3.6-2.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.6-2.2">
+            <p id="section-3.6-2.2.1">How do we extend the metrics with new dimensions, such as bandwidth, latency, geo-position, etc?<a href="#section-3.6-2.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.6-2.3">
+            <p id="section-3.6-2.3.1">Who should select these functions?<a href="#section-3.6-2.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.6-2.4">
+            <p id="section-3.6-2.4.1">How should the outcome of these functions be verified?<a href="#section-3.6-2.4.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.6-2.5">
+            <p id="section-3.6-2.5.1">How can multiple functions be applied concurrently, for different source and destination applications?<a href="#section-3.6-2.5.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.6-2.6">
+            <p id="section-3.6-2.6.1">How should end-ASes express their desired requirements to the inter-domain control plane?<a href="#section-3.6-2.6.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.6-2.7">
+            <p id="section-3.6-2.7.1">How do these requirements translate into concrete optimization functions?<a href="#section-3.6-2.7.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.6-2.8">
+            <p id="section-3.6-2.8.1">How would standardization of the functions look like?<a href="#section-3.6-2.8.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.6-2.9">
+            <p id="section-3.6-2.9.1">The functions changing over time:<a href="#section-3.6-2.9.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.6-1.1.2.1">
-                <p id="section-3.6-1.1.2.1.1">Clearly, the 5-shortest path per destination cannot satisfy all communication requirements.<a href="#section-3.6-1.1.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-3.6-2.9.2.1">
+                <p id="section-3.6-2.9.2.1.1">How can optimization functions adapt to incorporate these changes?<a href="#section-3.6-2.9.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-3.6-2.9.2.2">
+                <p id="section-3.6-2.9.2.2.1">How to achieve fast adaptation of optimization functions?<a href="#section-3.6-2.9.2.2.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
-          <li class="normal" id="section-3.6-1.2">
-            <p id="section-3.6-1.2.1">What optimization functions should be applied to beacons and what metrics should be considered when propagating them ?<a href="#section-3.6-1.2.1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-3.6-1.2.2.1">
-                <p id="section-3.6-1.2.2.1.1">What are the optimality metrics considered in these functions?<a href="#section-3.6-1.2.2.1.1" class="pilcrow">¶</a></p>
-</li>
-            </ul>
-</li>
-          <li class="normal" id="section-3.6-1.3">
-            <p id="section-3.6-1.3.1">Who should select these functions?<a href="#section-3.6-1.3.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-3.6-1.4">
-            <p id="section-3.6-1.4.1">How should the deployment of these functions be enforced?<a href="#section-3.6-1.4.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-3.6-1.5">
-            <p id="section-3.6-1.5.1">How can multiple functions be applied concurrently for different source and destination applications?<a href="#section-3.6-1.5.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-3.6-1.6">
-            <p id="section-3.6-1.6.1">How should end ASes express their desired requirements to the inter-domain control plane?<a href="#section-3.6-1.6.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-3.6-1.7">
-            <p id="section-3.6-1.7.1">How do these requirements translate into concrete optimization functions?<a href="#section-3.6-1.7.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-3.6-1.8">
-            <p id="section-3.6-1.8.1">How does standardization of the functions work?<a href="#section-3.6-1.8.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-3.6-1.9">
-            <p id="section-3.6-1.9.1">Criteria changing over time.<a href="#section-3.6-1.9.1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-3.6-1.9.2.1">
-                <p id="section-3.6-1.9.2.1.1">How can optimization functions adapt to incorporate these changes?<a href="#section-3.6-1.9.2.1.1" class="pilcrow">¶</a></p>
-</li>
-              <li class="normal" id="section-3.6-1.9.2.2">
-                <p id="section-3.6-1.9.2.2.1">How to achieve fast adaptation of optimization functions?<a href="#section-3.6-1.9.2.2.1" class="pilcrow">¶</a></p>
-</li>
-            </ul>
-</li>
-          <li class="normal" id="section-3.6-1.10">
-            <p id="section-3.6-1.10.1">IREC <span>[<a href="#TABAEIAGHDAEI2023" class="cite xref">TABAEIAGHDAEI2023</a>]</span><a href="#section-3.6-1.10.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-3.6-2.10">
+            <p id="section-3.6-2.10.1">See also: IREC <span>[<a href="#TABAEIAGHDAEI2023" class="cite xref">TABAEIAGHDAEI2023</a>]</span><a href="#section-3.6-2.10.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
