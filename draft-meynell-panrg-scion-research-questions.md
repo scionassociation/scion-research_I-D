@@ -509,38 +509,6 @@ Is reverse path refresh a relevant problem?
   are required anyway.
 
 
-## Signalling faulty segments
-
-Faulty segments are segments that do not work as advertised, i.e. they are either physically faulty
-(broken link, high packet loss, jitter, ...) or have faulty metadata suggesting too few hops, too low latency,
-too much bandwith, or similar problems.
-The fault may be caused by a technical problem (e.g. broken link) or by a malicious adversary.
-
-An example for a malicious adversary is the "wormhole" attack, see {{I-D.scion-cp}} where an AS may be coaxed to
-disseminate a faulty segment. How do we recover from faulty segments?
-Currently only endpoints may realize that a segment does not work as advertised, either via SCMP errors or simply by traffic degradation.
-This would be a possible sequence of events:
-
-* An endpoint realizes that a segment is faulty
-* An endpoint needs to signal to its local AS that a segment is faulty
-* A Local AS needs to signal to a core AS that a segment is faulty
-* A core AS needs to:
-  * change policy to exclude faulty segments AND/OR
-  * signal other cores and ISDs to stop delivering the segment (they only deliver 5 each, so any faulty segment shoud be avoided)
-
-### Implications
-
-Besides general service degradation, a lack of recovery can worsen the impact of a wormhole attack {{I-D.scion-cp}}.
-
-### Mitigation
-
-* An AS could monitor traffic for SCMP errors, although this only works if these errors are actually generated and forwarded.
-* Endpoints need a way to signal faulty segments to ASes. ASes need a way to signal faulty ASes to other ASes (e.g.
-core ASes or ASes in other ISDs).
-* ASes need adaptive beacon analysis algorithms that allow excluding specific beacons, e.g. beacons that have
-  known malicious ASes on path.
-* For swift recovery, it would be useful if ASes could communicate the faultiness of faulty segments.
-
 
 <!--
 # Hummingbird / QoS
