@@ -1287,15 +1287,52 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
         <h3 id="name-isd-as-identity">
 <a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-isd-as-identity" class="section-name selfRef">ISD, AS identity</a>
         </h3>
+<p id="section-3.1-1">The SCION protocol specifies 16 bits and 48 bits to identify the ISD and AS respectively.
+This identification is used, at the data-plane level, in every packet to fully address the sender and receiver,
+and at the control-plane level, to identify the PCB sender and hops.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.1-2">Whilst 48 bits for the AS will accommodate up to 2.81475e14 assignments which is
+likely to be more than sufficient for the future
+using 16 bits for the ISD only offers 65,536 possible assignments.
+Further investigation on whether this is sufficient is needed.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
+<p id="section-3.1-3">The following questions arise: (not comprehensive)<a href="#section-3.1-3" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.1-1.1">
-            <p id="section-3.1-1.1.1">How many ASes do we expect in the SCION network model?<a href="#section-3.1-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-3.1-4.1">
+            <p id="section-3.1-4.1.1">How many ASes do we expect in the SCION network model?<a href="#section-3.1-4.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.1-1.2">
-            <p id="section-3.1-1.2.1">How many ISDs? What is the ontology of an ISD? Per geographic area only?<a href="#section-3.1-1.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-3.1-4.2">
+            <p id="section-3.1-4.2.1">Can one AS belong to many ISDs?<a href="#section-3.1-4.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.1-1.3">
-            <p id="section-3.1-1.3.1">One AS belongs to many ISDs?<a href="#section-3.1-1.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-3.1-4.3">
+            <p id="section-3.1-4.3.1">Are AS numbers unique themselves? Or only unique in combination with an ISD?<a href="#section-3.1-4.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.1-4.4">
+            <p id="section-3.1-4.4.1">How many ISDs do we expect?<a href="#section-3.1-4.4.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.1-4.5">
+            <p id="section-3.1-4.5.1">What is the ontology of an ISD?<a href="#section-3.1-4.5.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3.1-4.5.2.1">
+                <p id="section-3.1-4.5.2.1.1">Per geographic area?<a href="#section-3.1-4.5.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-3.1-4.5.2.2">
+                <p id="section-3.1-4.5.2.2.1">Per legal jurisdiction?<a href="#section-3.1-4.5.2.2.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-3.1-4.5.2.3">
+                <p id="section-3.1-4.5.2.3.1">Per capacity tier?<a href="#section-3.1-4.5.2.3.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-3.1-4.5.2.4">
+                <p id="section-3.1-4.5.2.4.1">Per "type"? (meaning: any grouping that makes sense to their members)<a href="#section-3.1-4.5.2.4.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-3.1-4.5.2.5">
+                <p id="section-3.1-4.5.2.5.1">Possible combinations of any previous "types"?<a href="#section-3.1-4.5.2.5.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+          <li class="normal" id="section-3.1-4.6">
+            <p id="section-3.1-4.6.1">Note that ISDs require CORE links to other ISDs.
+This reduces the number of ISDs to those that have CORE ASes that can directly
+connect to CORE ASes in other ISDs.
+The number of ISDs is still super-exponential asymptotically.<a href="#section-3.1-4.6.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>

@@ -138,12 +138,44 @@ Table of Contents
 
 3.1.  ISD, AS identity
 
+   The SCION protocol specifies 16 bits and 48 bits to identify the ISD
+   and AS respectively.  This identification is used, at the data-plane
+   level, in every packet to fully address the sender and receiver, and
+   at the control-plane level, to identify the PCB sender and hops.
+
+   Whilst 48 bits for the AS will accommodate up to 2.81475e14
+   assignments which is likely to be more than sufficient for the future
+   using 16 bits for the ISD only offers 65,536 possible assignments.
+   Further investigation on whether this is sufficient is needed.
+
+   The following questions arise: (not comprehensive)
+
    *  How many ASes do we expect in the SCION network model?
 
-   *  How many ISDs?  What is the ontology of an ISD?  Per geographic
-      area only?
+   *  Can one AS belong to many ISDs?
 
-   *  One AS belongs to many ISDs?
+   *  Are AS numbers unique themselves?  Or only unique in combination
+      with an ISD?
+
+   *  How many ISDs do we expect?
+
+   *  What is the ontology of an ISD?
+
+      -  Per geographic area?
+
+      -  Per legal jurisdiction?
+
+      -  Per capacity tier?
+
+      -  Per "type"? (meaning: any grouping that makes sense to their
+         members)
+
+      -  Possible combinations of any previous "types"?
+
+   *  Note that ISDs require CORE links to other ISDs.  This reduces the
+      number of ISDs to those that have CORE ASes that can directly
+      connect to CORE ASes in other ISDs.  The number of ISDs is still
+      super-exponential asymptotically.
 
 3.2.  Beacon Forwarding Policy
 
