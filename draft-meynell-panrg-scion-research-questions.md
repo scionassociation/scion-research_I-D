@@ -402,14 +402,17 @@ The questions related to DRKey are the following ones (not comprehensive):
 For more info: {{I-D.garciapardo-drkey}}.
 
 ## SCMP Authentication
-In SCION, we would like to have SCMP (SCION Control Message Protocol) include authentication for
-some of the message types, e.g. the interface down type, as it would affect the path choices that the
-endpoint, and even the source AS, can make.
+In SCION, endpoints are responsible to select alternate paths in case of failure.
+One approach to detect failures is to rely on signals from the network, such as SCMP (SCION Control Message Protocol) messages.
+These signals must be authenticated in order to be trusted by endpoints. This reflects a question raised in section 2.7 of {{RFC9217}}.
 
-We propose to use DRKey as the mechanism to use to derive the authentication key,
+
+One option is to use DRKey as the mechanism to use to derive the authentication key,
 where the fast path would be on the infrastructure side (e.g. the border router in the case of an
 interface down type of message), and the slow side being on the intended endpoint destination
 for that SCMP message (e.g. the endpoint receiving the SCMP interface down message).
+Another option is to leverage the control-plane PKI.
+
 However, we have identified a number of possible issues (not comprehensive):
 
 * Denial of Service/Capability Attacks: If an endpoint receives (too) many SCMP messages,
@@ -420,6 +423,7 @@ However, we have identified a number of possible issues (not comprehensive):
   If a border router sends an SCMP message (e.g. interface down) on all cases, even with small packets,
   there is the risk of having that border router sending a lot of traffic to
   a possibly unintended recipient, e.g. when the packet is not source validated.
+  In addition, validation may trigger additional requests for keys.
 
 ## Proof of transit
 
