@@ -5,11 +5,11 @@
 PANRG                                                         K. Meynell
 Internet-Draft                                         SCION Association
 Intended status: Informational                           J. García Pardo
-Expires: 18 January 2025                                      T. Zäschke
+Expires: 19 January 2025                                      T. Zäschke
                                                               ETH Zürich
                                                            N. Rustignoli
                                                        SCION Association
-                                                            17 July 2024
+                                                            18 July 2024
 
 
                         SCION Research Questions
@@ -52,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 18 January 2025.
+   This Internet-Draft will expire on 19 January 2025.
 
 Copyright Notice
 
@@ -309,42 +309,19 @@ Table of Contents
 
    *  More generally, if multiple paths are used to contact the server,
       which one of those would be used to reply?  Leave it to transport
-      like in the case of QUIC-MP [I-D.ietf-quic-multipath]?
+      layer protocol, as in the case of QUIC-MP
+      [I-D.ietf-quic-multipath]?
 
    *  How long before expiration should the client and server still use
-      a path?  How do we handle that?
-
-   *  Is it actually necessary to solve the reverse path refresh problem
-      at all?  Listing some pros and cons of solving it at the network
-      layer.
-
-      -  Pros:
-
-         o  The client may happen to have an about-to-expire path.  If
-            the server can't refresh, the client always needs to
-            consider whether a path is valid "long enough", which might
-            only be possible to guess.
-
-      -  Cons:
-
-         o  It is probably rare that a server needs to send data for a
-            long time without the application layer protocol requiring
-            the client to ever answer back.
-
-         o  Sending keep-alives sounds like a connection based protocol.
-            It also means we need to figure out when to stop sending
-            keep-alives.
-
-         o  It may be better to solve this in the transport or
-            application layers, where we know more about potential
-            length of the session, or whether this is a singular
-            request/answer type of exchange, or whether more frequent
-            keep-alives are anyway required.
+      a path?  The client can choose from paths that will not expire in
+      a short period of time, but it does not control for how long the
+      server will attempt to use it (i.e. how long it will take the
+      server to send the complete response).
 
 4.2.1.  Proposed Solutions (not comprehensive)
 
-   *  The server MUST ask the CS for a path, regardless of the client's
-      policy.
+   *  The server MUST ask the Control Services for a path, regardless of
+      the client's policy.
 
    *  The client SHOULD (somehow) send a new packet with a new path,
       prompting the server to use this path from now on.
@@ -352,6 +329,14 @@ Table of Contents
    *  The client and server agree, via a path policy specification, on
       which kinds of paths are okay for the server to use.  This
       solution implies a standard specification of this path policy.
+
+   *  Leave the solution to the application and transport layers.
+      Transport protocols may require keep alive messages, or already
+      support multiple paths.  Applications should know for how long
+      they are willing to read a response from a server.  With this
+      knowledge these two layers can easily determine when to send a new
+      path (analogous to connection migration in QUIC [RFC9000]), so
+      that the server is instructed to use it for the next replies.
 
 5.  Hummingbird / QoS
 

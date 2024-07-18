@@ -1031,7 +1031,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Meynell, et al.</td>
-<td class="center">Expires 18 January 2025</td>
+<td class="center">Expires 19 January 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1044,12 +1044,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-meynell-panrg-scion-research-questions-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-07-17" class="published">17 July 2024</time>
+<time datetime="2024-07-18" class="published">18 July 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-01-18">18 January 2025</time></dd>
+<dd class="expires"><time datetime="2025-01-19">19 January 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1111,7 +1111,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 18 January 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 19 January 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1463,46 +1463,14 @@ How to standardize the process of refreshment?<a href="#section-4.2-1" class="pi
 </li>
           <li class="normal" id="section-4.2-3.2">
             <p id="section-4.2-3.2.1">More generally, if multiple paths are used to contact the server,
-which one of those would be used to reply? Leave it to transport  like in the case
-of QUIC-MP <span>[<a href="#I-D.ietf-quic-multipath" class="cite xref">I-D.ietf-quic-multipath</a>]</span>?<a href="#section-4.2-3.2.1" class="pilcrow">¶</a></p>
+which one of those would be used to reply? Leave it to transport layer protocol,
+as in the case of QUIC-MP <span>[<a href="#I-D.ietf-quic-multipath" class="cite xref">I-D.ietf-quic-multipath</a>]</span>?<a href="#section-4.2-3.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-4.2-3.3">
             <p id="section-4.2-3.3.1">How long before expiration should the client and server still use a path?
-How do we handle that?<a href="#section-4.2-3.3.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-4.2-3.4">
-            <p id="section-4.2-3.4.1">Is it actually necessary to solve the reverse path refresh problem at all?
-Listing some pros and cons of solving it at the network layer.<a href="#section-4.2-3.4.1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-4.2-3.4.2.1">
-                <p id="section-4.2-3.4.2.1.1">Pros:<a href="#section-4.2-3.4.2.1.1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-4.2-3.4.2.1.2.1">
-                    <p id="section-4.2-3.4.2.1.2.1.1">The client may happen to have an about-to-expire path.
-If the server can't refresh, the client always needs to consider whether
-a path is valid "long enough", which might only be possible to guess.<a href="#section-4.2-3.4.2.1.2.1.1" class="pilcrow">¶</a></p>
-</li>
-                </ul>
-</li>
-              <li class="normal" id="section-4.2-3.4.2.2">
-                <p id="section-4.2-3.4.2.2.1">Cons:<a href="#section-4.2-3.4.2.2.1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-4.2-3.4.2.2.2.1">
-                    <p id="section-4.2-3.4.2.2.2.1.1">It is probably rare that a server needs to send data for a long time without the application layer protocol requiring the client to ever answer back.<a href="#section-4.2-3.4.2.2.2.1.1" class="pilcrow">¶</a></p>
-</li>
-                  <li class="normal" id="section-4.2-3.4.2.2.2.2">
-                    <p id="section-4.2-3.4.2.2.2.2.1">Sending keep-alives sounds like a connection based protocol.
-It also means we need to figure out when to stop sending keep-alives.<a href="#section-4.2-3.4.2.2.2.2.1" class="pilcrow">¶</a></p>
-</li>
-                  <li class="normal" id="section-4.2-3.4.2.2.2.3">
-                    <p id="section-4.2-3.4.2.2.2.3.1">It may be better to solve this in the transport or application layers,
-where we know more about potential length of the session,
-or whether this is a singular request/answer type of exchange,
-or whether more frequent keep-alives are anyway required.<a href="#section-4.2-3.4.2.2.2.3.1" class="pilcrow">¶</a></p>
-</li>
-                </ul>
-</li>
-            </ul>
+The client can choose from paths that will not expire in a short period of time,
+but it does not control for how long the server will attempt to use it (i.e.
+how long it will take the server to send the complete response).<a href="#section-4.2-3.3.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <div id="proposed-solutions-not-comprehensive">
@@ -1512,7 +1480,7 @@ or whether more frequent keep-alives are anyway required.<a href="#section-4.2-3
           </h4>
 <ul class="normal">
 <li class="normal" id="section-4.2.1-1.1">
-              <p id="section-4.2.1-1.1.1">The server <span class="bcp14">MUST</span> ask the CS for a path, regardless of the client's policy.<a href="#section-4.2.1-1.1.1" class="pilcrow">¶</a></p>
+              <p id="section-4.2.1-1.1.1">The server <span class="bcp14">MUST</span> ask the Control Services for a path, regardless of the client's policy.<a href="#section-4.2.1-1.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-4.2.1-1.2">
               <p id="section-4.2.1-1.2.1">The client <span class="bcp14">SHOULD</span> (somehow) send a new packet with a new path,
@@ -1522,6 +1490,14 @@ prompting the server to use this path from now on.<a href="#section-4.2.1-1.2.1"
               <p id="section-4.2.1-1.3.1">The client and server agree, via a path policy specification,
 on which kinds of paths are okay for the server to use.
 This solution implies a standard specification of this path policy.<a href="#section-4.2.1-1.3.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-4.2.1-1.4">
+              <p id="section-4.2.1-1.4.1">Leave the solution to the application and transport layers.
+Transport protocols may require keep alive messages, or already support multiple paths.
+Applications should know for how long they are willing to read a response from a server.
+With this knowledge these two layers can easily determine when to send a new path
+(analogous to connection migration in QUIC <span>[<a href="#RFC9000" class="cite xref">RFC9000</a>]</span>), so that the server is instructed
+to use it for the next replies.<a href="#section-4.2.1-1.4.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>
@@ -1601,6 +1577,7 @@ This solution implies a standard specification of this path policy.<a href="#sec
 <p id="section-10-1">This document has no IANA actions.<a href="#section-10-1" class="pilcrow">¶</a></p>
 </section>
 </div>
+<div id="sec-combined-references">
 <section id="section-11">
       <h2 id="name-references">
 <a href="#section-11" class="section-number selfRef">11. </a><a href="#name-references" class="section-name selfRef">References</a>
@@ -1668,6 +1645,7 @@ This solution implies a standard specification of this path policy.<a href="#sec
 </section>
 </div>
 </section>
+</div>
 <div id="acknowledgments">
 <section id="appendix-A">
       <h2 id="name-acknowledgments">
