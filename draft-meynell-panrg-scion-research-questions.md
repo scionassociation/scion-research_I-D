@@ -200,7 +200,8 @@ The SCION protocol specifies 16 bits and 48 bits to identify the ISD and AS resp
 This identification is used, at the data-plane level, in every packet to fully address the sender and receiver,
 and at the control-plane level, to identify the PCB sender and hops.
 
-While 48 bits seem sufficient to accommodate a large number of ASes,
+Whilst 48 bits for the AS will accommodate up to 2.81475e14 assignments which is
+likely to be more than sufficient for the future
 using 16 bits for the ISD only offers 65,536 possible assignments which is conceivably insufficient.
 Additionally, the justification of these figures is lacking at the moment.
 
