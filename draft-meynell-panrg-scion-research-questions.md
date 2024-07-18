@@ -40,7 +40,8 @@ author:
      email: nic@scion.org
 
 normative:
-  RFC9217:
+  RFC9217: # Current Open Questions in PAN
+  RFC9000: # QUIC
   I-D.ietf-quic-multipath:
   I-D.scion-cp:
     title: SCION Control Plane
@@ -471,8 +472,38 @@ The current consensus is that end-hosts can use multi-pathing and “automatical
 
 ## Reverse Path Refreshment
 
-When a client contacts a server, it is usually understood that it wants the server to use the reverse path to answer back. It the server uses that path for a long period of time, the path will eventually expire. How to standardize the process of refreshment?
+When a client contacts a server, it is usually understood that it wants the server to use the reverse path to answer back.
+If the server uses that path for a long period of time, the path will eventually expire.
+How to standardize the process of refreshment?
 
+There are some relevant points we have identified for the discussion:
+
+* In order to send data back to the client the server needs to store the path locally
+  (analogous to storing the client's IP/TCP-port in an TCP/IP scenario).
+
+* More generally, if multiple paths are used to contact the server,
+  which one of those would be used to reply? Leave it to transport layer protocol,
+  as in the case of QUIC-MP {{I-D.ietf-quic-multipath}}?
+
+* How long before expiration should the client and server still use a path?
+  The client can choose from paths that will not expire in a short period of time,
+  but it does not control for how long the server will attempt to use it (i.e.
+  how long it will take the server to send the complete response).
+
+### Proposed Solutions (not comprehensive)
+
+* The server MUST ask the Control Services for a path, regardless of the client's policy.
+* The client SHOULD (somehow) send a new packet with a new path,
+prompting the server to use this path from now on.
+* The client and server agree, via a path policy specification,
+  on which kinds of paths are okay for the server to use.
+  This solution implies a standard specification of this path policy.
+* Leave the solution to the application and transport layers.
+  Transport protocols may require keep alive messages, or already support multiple paths.
+  Applications should know for how long they are willing to read a response from a server.
+  With this knowledge these two layers can easily determine when to send a new path
+  (analogous to connection migration in QUIC {{RFC9000}}), so that the server is instructed
+  to use it for the next replies.
 * The server must ask the control server for a path, regardless of the client's policy.
 * The client (somehow) sends a new packet with a new path, prompting the server to use this path from now on.
 
