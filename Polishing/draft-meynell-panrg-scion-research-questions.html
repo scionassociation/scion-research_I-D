@@ -1150,7 +1150,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
                 <p id="section-toc.1-1.3.2.1.1" class="keepWithNext"><a href="#section-3.1" class="auto internal xref">3.1</a>.  <a href="#name-isd-as-identity" class="internal xref">ISD, AS identity</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2">
-                <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="auto internal xref">3.2</a>.  <a href="#name-beacon-forwarding-policy" class="internal xref">Beacon Forwarding Policy</a></p>
+                <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="auto internal xref">3.2</a>.  <a href="#name-beacon-selection-policies" class="internal xref">Beacon Selection Policies</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3">
                 <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="auto internal xref">3.3</a>.  <a href="#name-wormhole-attack" class="internal xref">Wormhole attack</a></p>
@@ -1333,34 +1333,17 @@ The number of ISDs is still super-exponential asymptotically.<a href="#section-3
         </ul>
 </section>
 </div>
-<div id="beacon-forwarding-policy">
+<div id="beacon-selection-policies">
 <section id="section-3.2">
-        <h3 id="name-beacon-forwarding-policy">
-<a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-beacon-forwarding-policy" class="section-name selfRef">Beacon Forwarding Policy</a>
+        <h3 id="name-beacon-selection-policies">
+<a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-beacon-selection-policies" class="section-name selfRef">Beacon Selection Policies</a>
         </h3>
-<p id="section-3.2-1">The idea behind "beaconing" is to discover all possible paths (loop free and with a fixed maximum length) between two core ASes.
-Every core AS forwards any received beacons to all neighbor core ASes unless this would cause a loop or exceed the fixed maximum length.
-Implemented naively, the number of paths (and beacons) grows exponentially with the network size.
-This is currently mitigated, primarily (and efficiently), by forwarding only the five "best PCBs" (from a given remote source core AS) to neighbors.
-"Best" here takes into account properties such as diversity, time to expire and whether (or how recently) the same
-PCBs has been forwarded before.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
-<p id="section-3.2-2">Since a path may expire after an hour or so and because expiration is not the only factor, an AS will typically start
-resending the same beacons in less than an hour (i.e. the typical expiration time).<a href="#section-3.2-2" class="pilcrow">¶</a></p>
-<p id="section-3.2-3">This means the total number of different PCBs that an AS will receive from a given neighbor is e.g.
-5 per minute * 30 minute = 150 paths.<a href="#section-3.2-3" class="pilcrow">¶</a></p>
-<p id="section-3.2-4">Most likely, an AS will receive PCBs originating from a given source from several neighbors, although these are likely to be
-very similar. They are likely to have the same tail and only differ in the few last added hops, i.e. the immediate neighbors.<a href="#section-3.2-4" class="pilcrow">¶</a></p>
-<p id="section-3.2-5">As a result, an AS will probably have only little more than 150 paths to a given remote AS.<a href="#section-3.2-5" class="pilcrow">¶</a></p>
-<p id="section-3.2-6">This is likely sufficient for most applications, but is far from a complete view of the network.<a href="#section-3.2-6" class="pilcrow">¶</a></p>
-<p id="section-3.2-7">This can be problematic:<a href="#section-3.2-7" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-3.2-8.1">
-            <p id="section-3.2-8.1.1">Massive multipathing: endpoints may not be able to use the theoretically best paths.<a href="#section-3.2-8.1.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-3.2-8.2">
-            <p id="section-3.2-8.2.1">Unusual path policies, such as geofencing, may not be fulfillable by the limited number of paths on offer.<a href="#section-3.2-8.2.1" class="pilcrow">¶</a></p>
-</li>
-        </ul>
+<p id="section-3.2-1">Path discovery between SCION ASes relies on Path Construction Beacons (PCBs). In core beaconing PCBs are propagated omnidirectionally, unless this would cause a loop or exceed the maximum <em>path length</em>.
+A core AS selects a small number of paths to/from other core ASes, based on its beacon selection policy. It then propagates valid and policy compliant paths to neighbor ASes. The number of propagated beacons is limited to the <em>best PCBs set size</em>, in order to avoid that the number of paths (and beacons) grows exponentially with core network size.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
+<p id="section-3.2-2">Some potential questions are:
+* Limiting the number of beacons to a <em>best PCBs set size</em> per AS results in a partial view of the network being available to endpoints. To what point this affects endpoint's path-selection possibilities?
+* what is a good, practical, general purpose policy, that can fulfill conflicting requirements of both operators and endpoints, as highlighted in section 2.7 of <span>[<a href="#RFC9217" class="cite xref">RFC9217</a>]</span>?
+* What are the desirable path properties (e.g. diversity, PCB Expiration Time, how recently the same PCBs was forwarded before).<a href="#section-3.2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="wormhole-attack">

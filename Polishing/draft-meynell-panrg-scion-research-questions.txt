@@ -71,7 +71,7 @@ Table of Contents
    2.  Conventions and Definitions
    3.  Discovery, Distribution, and Trustworthiness of Path Properties
      3.1.  ISD, AS identity
-     3.2.  Beacon Forwarding Policy
+     3.2.  Beacon Selection Policies
      3.3.  Wormhole attack
        3.3.1.  Set up
        3.3.2.  Impact
@@ -178,44 +178,26 @@ Table of Contents
       connect to core ASes in other ISDs.  The number of ISDs is still
       super-exponential asymptotically.
 
-3.2.  Beacon Forwarding Policy
+3.2.  Beacon Selection Policies
 
-   The idea behind "beaconing" is to discover all possible paths (loop
-   free and with a fixed maximum length) between two core ASes.  Every
-   core AS forwards any received beacons to all neighbor core ASes
-   unless this would cause a loop or exceed the fixed maximum length.
-   Implemented naively, the number of paths (and beacons) grows
-   exponentially with the network size.  This is currently mitigated,
-   primarily (and efficiently), by forwarding only the five "best PCBs"
-   (from a given remote source core AS) to neighbors.  "Best" here takes
-   into account properties such as diversity, time to expire and whether
-   (or how recently) the same PCBs has been forwarded before.
+   Path discovery between SCION ASes relies on Path Construction Beacons
+   (PCBs).  In core beaconing PCBs are propagated omnidirectionally,
+   unless this would cause a loop or exceed the maximum _path length_. A
+   core AS selects a small number of paths to/from other core ASes,
+   based on its beacon selection policy.  It then propagates valid and
+   policy compliant paths to neighbor ASes.  The number of propagated
+   beacons is limited to the _best PCBs set size_, in order to avoid
+   that the number of paths (and beacons) grows exponentially with core
+   network size.
 
-   Since a path may expire after an hour or so and because expiration is
-   not the only factor, an AS will typically start resending the same
-   beacons in less than an hour (i.e. the typical expiration time).
-
-   This means the total number of different PCBs that an AS will receive
-   from a given neighbor is e.g. 5 per minute * 30 minute = 150 paths.
-
-   Most likely, an AS will receive PCBs originating from a given source
-   from several neighbors, although these are likely to be very similar.
-   They are likely to have the same tail and only differ in the few last
-   added hops, i.e. the immediate neighbors.
-
-   As a result, an AS will probably have only little more than 150 paths
-   to a given remote AS.
-
-   This is likely sufficient for most applications, but is far from a
-   complete view of the network.
-
-   This can be problematic:
-
-   *  Massive multipathing: endpoints may not be able to use the
-      theoretically best paths.
-
-   *  Unusual path policies, such as geofencing, may not be fulfillable
-      by the limited number of paths on offer.
+   Some potential questions are: * Limiting the number of beacons to a
+   _best PCBs set size_ per AS results in a partial view of the network
+   being available to endpoints.  To what point this affects endpoint's
+   path-selection possibilities? * what is a good, practical, general
+   purpose policy, that can fulfill conflicting requirements of both
+   operators and endpoints, as highlighted in section 2.7 of [RFC9217]?
+   * What are the desirable path properties (e.g. diversity, PCB
+   Expiration Time, how recently the same PCBs was forwarded before).
 
 3.3.  Wormhole attack
 
