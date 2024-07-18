@@ -307,7 +307,11 @@ Table of Contents
    paths during the beaconing process.  Selecting the 5 shortest paths
    per destination at each beaconing period may not satisfy all
    requirements that different applications, on different endpoints, on
-   different ASes, will have.
+   different ASes, will have.  The beacon selection process, the
+   criteria and metrics that they carry, and the adaptability of them
+   all have a strong impact in the traffic engineering of the individual
+   ASes, and of the inter-domain communication as a whole.  See question
+   2.7 of [RFC9217].
 
    *  What optimization functions should be applied to beacons and what
       metrics should be considered when propagating them ? Is the set of

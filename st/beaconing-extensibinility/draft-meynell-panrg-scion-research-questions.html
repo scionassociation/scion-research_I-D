@@ -1483,7 +1483,10 @@ enhancing the scalability and path diversity.<a href="#section-3.5-3" class="pil
 Satisfying all these requirements either requires discovering all paths in the network,
 or optimizing the creation of paths during the beaconing process.
 Selecting the 5 shortest paths per destination at each beaconing period may not satisfy all requirements
-that different applications, on different endpoints, on different ASes, will have.<a href="#section-3.6-1" class="pilcrow">¶</a></p>
+that different applications, on different endpoints, on different ASes, will have.
+The beacon selection process, the criteria and metrics that they carry, and the adaptability
+of them all have a strong impact in the traffic engineering of the individual ASes,
+and of the inter-domain communication as a whole. See question 2.7 of <span>[<a href="#RFC9217" class="cite xref">RFC9217</a>]</span>.<a href="#section-3.6-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.6-2.1">
             <p id="section-3.6-2.1.1">What optimization functions should be applied to beacons and what metrics should be considered when propagating them ?
