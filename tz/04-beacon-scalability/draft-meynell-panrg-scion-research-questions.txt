@@ -5,11 +5,11 @@
 PANRG                                                         K. Meynell
 Internet-Draft                                         SCION Association
 Intended status: Informational                           J. García Pardo
-Expires: 18 January 2025                                      T. Zäschke
+Expires: 19 January 2025                                      T. Zäschke
                                                               ETH Zürich
                                                            N. Rustignoli
                                                        SCION Association
-                                                            17 July 2024
+                                                            18 July 2024
 
 
                         SCION Research Questions
@@ -52,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 18 January 2025.
+   This Internet-Draft will expire on 19 January 2025.
 
 Copyright Notice
 
@@ -144,44 +144,47 @@ Table of Contents
 3.2.  Beacon Forwarding Policy
 
    The idea behind "beaconing" is to discover all possible paths (loop
-   free and with a fixed maximum length) between two CORE AS.  Every AS
-   forwards any received beacons to all neighbor CORE ASes unless this
-   would cause a loop or exceed the fixed maximum length.  Implemented
-   naively, the number of paths (and beacons) grows exponentially with
-   the network size.  This is currently mitigated, primarily (and
-   efficiently), by forwarding only the five "best PCBs" (to a given
-   remote destination AS) to neighbours.  "Best" here takes into account
-   properties such as diversity, time to aexpire and whether (or how
-   recently) the same PCBs has been forwarded before.
+   free and with a fixed maximum length) between two CORE AS.  Every
+   CORE AS forwards any received beacons to all neighbor CORE ASes
+   unless this would cause a loop or exceed the fixed maximum length.
+   Implemented naively, the number of paths (and beacons) grows
+   exponentially with the network size.  This is currently mitigated,
+   primarily (and efficiently), by forwarding only the five "best PCBs"
+   (from a given remote source CORE AS) to neighbors.  "Best" here takes
+   into account properties such as diversity, time to expire and whether
+   (or how recently) the same PCBs has been forwarded before.
 
    Since path may expire after an hour or so and because expiration is
    not the only factor, an AS will typically start resending the same
    beacons in less than an hour (i.e. the typical expiration time).
 
    This means the total number of different PCBs that an AS will receive
-   from a given neighbour is e.g. 5 per minute * 30 minute = 150 paths.
+   from a given neighbor is e.g. 5 per minute * 30 minute = 150 paths.
 
-   Most likely, an AS will receive PCBs to a given destination from
-   several neighbors, however these are likely to be very similar.  They
-   are likely to have the same tail and only differ in the first few
-   hops, i.e. the immediate neighbors.
+   Most likely, an AS will receive PCBs originated from a given source
+   from several neighbors, however these are likely to be very similar.
+   They are likely to have the same tail and only differ in the few last
+   added hops, i.e. the immediate neighbors.
 
    As a result, an AS will probably have only little more than 150 paths
    to a given remote AS.
 
-   This is likely sufficient for most applications, but is probably far
-   from a complete view of the network.
+   This is likely sufficient for most applications, but is far from a
+   complete view of the network.
 
-   This can be problematic: * Massive multipathing: endpoints may not be
-   able to use the theoretically best paths. * Unusual path policies,
-   such as geofencing, may not be fulfillable by the limited number of
-   paths on offer.
+   This can be problematic:
+
+   *  Massive multipathing: endpoints may not be able to use the
+      theoretically best paths.
+
+   *  Unusual path policies, such as geofencing, may not be fulfillable
+      by the limited number of paths on offer.
 
 3.3.  Wormhole attack
 
 3.3.1.  Set up
 
-   Scenario: attackers creates two core ASes that are geographically far
+   Scenario: attackers create two core ASes that are geographically far
    apart.  They then anounce a link (effectively a shortcut) between
    these two AS with very appealing properties (low latency, few hops,
    ...).
@@ -236,7 +239,7 @@ Table of Contents
       information (hops & links) is only stored once and the segments
       contain only references to the hops and links.
 
-   *  Instead of requiring three separate queries for UP/CORE/DOWN), we
+   *  Instead of requiring three separate queries for (UP/CORE/DOWN), we
       could allow a single query from <start AS> to <end AS> across
       multiple segments.  This should be very easy to implement and
       would be compatible with the current wire protocol (protobuf).
@@ -468,9 +471,9 @@ Table of Contents
    Faulty segments are segments that do not work as advertised, i.e.
    they are either physically faulty (broken link, high packet loss,
    jitter, ...) or come with faulty metadata, suggesting too few hops,
-   too low latency, too much bandwith, or similar problems.  The
-   faultyness may be caused by a technical problem (e.g. broken link) or
-   by a malicious adversary.
+   too low latency, too much bandwith, or similar problems.  The fault
+   may be caused by a technical problem (e.g. broken link) or by a
+   malicious adversary.
 
    An example for a malicious adversary is the "wormhole" attack, see
    [I-D.scion-cp], where, an AS may be coaxed to disseminate a faulty
@@ -497,7 +500,7 @@ Table of Contents
 4.3.1.  Implications
 
    Besides general service degradation, a lack of recovery can worsen
-   the impact of a Section 3.3.
+   the impact of a wormhole attack Section 3.3.
 
 4.3.2.  Mitigation
 
