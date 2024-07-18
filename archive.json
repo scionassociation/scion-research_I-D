@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-07-16T00:19:08.682795+00:00",
+  "timestamp": "2024-07-18T00:18:54.686568+00:00",
   "repo": "scionassociation/scion-research_I-D",
   "labels": [
     {
@@ -60,11 +60,19 @@
       "authorAssociation": "MEMBER",
       "assignees": [],
       "labels": [],
-      "body": "- [ ] look at overelaps with the scalability section in the CP ID https://github.com/scionassociation/scion-cp_I-D/issues/46 \r\n- [ ] write some text for the research draft (e.g. how could we address scalability without rate limiting). Rest belongs to the control plane ID\r\n",
+      "body": "- [x] look at overelaps with the scalability section in the CP ID https://github.com/scionassociation/scion-cp_I-D/issues/46 \r\n- [x] write some text for the research draft (e.g. how could we address scalability without rate limiting). Rest belongs to the control plane ID\r\n- [ ] Criteria for optimizing paths while compromising with scalability @SeyedaliTaba (also  see question 2.7.  Operating a Path-Aware Network rfc9217 ) \r\n  > A concept for path-aware network operations will need to have clear\r\n   methods for the resolution of apparent (if not actual) conflicts of\r\n   intent between the network's operator and the path selection at an\r\n   endpoint.  I\r\n",
       "createdAt": "2024-07-11T08:19:26Z",
-      "updatedAt": "2024-07-11T08:19:27Z",
+      "updatedAt": "2024-07-16T08:23:27Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "juagargi",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Addressed in #10 and #13 ",
+          "createdAt": "2024-07-16T07:27:03Z",
+          "updatedAt": "2024-07-16T07:27:03Z"
+        }
+      ]
     },
     {
       "number": 3,
@@ -89,15 +97,17 @@
       "id": "I_kwDOMRYres6PNEpe",
       "title": "DrKey",
       "url": "https://github.com/scionassociation/scion-research_I-D/issues/4",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "nicorusti",
       "authorAssociation": "MEMBER",
-      "assignees": [],
+      "assignees": [
+        "juagargi"
+      ],
       "labels": [],
       "body": " Move it to other section, call it something like pki extension and improve text\r\n",
       "createdAt": "2024-07-11T08:21:19Z",
-      "updatedAt": "2024-07-11T08:21:19Z",
-      "closedAt": null,
+      "updatedAt": "2024-07-17T09:45:58Z",
+      "closedAt": "2024-07-17T09:45:58Z",
       "comments": []
     },
     {
@@ -108,30 +118,49 @@
       "state": "OPEN",
       "author": "nicorusti",
       "authorAssociation": "MEMBER",
-      "assignees": [],
+      "assignees": [
+        "juagargi"
+      ],
       "labels": [
         "needs-discussion"
       ],
       "body": "How do we position SCMP? Shall it be authenticated? \r\n\r\nContext: In the dataplane draft we had to adjust text to find a proper reference to the SCMP doc. Also the scionproto SCMP doc had to be updated. References: \r\n- https://github.com/scionassociation/scion-dp_I-D/issues/8\r\n- https://github.com/scionproto/scion/issues/4528 \r\n",
       "createdAt": "2024-07-11T08:25:53Z",
-      "updatedAt": "2024-07-11T08:33:12Z",
+      "updatedAt": "2024-07-17T16:06:49Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "juagargi",
+          "authorAssociation": "COLLABORATOR",
+          "body": "What about we state the problems that we know about already?\r\nWe can also provide some solutions, like in other sections, to be discussed in PANRG.",
+          "createdAt": "2024-07-16T07:31:12Z",
+          "updatedAt": "2024-07-16T07:31:12Z"
+        },
+        {
+          "author": "nicorusti",
+          "authorAssociation": "MEMBER",
+          "body": "Thanks, I see you already did this in #20, sounds good, I'd just be a bit more careful about DoS phrasing. I think there we should highlight that the challenge is to find a treadeoff between authenticating network signals and (not) introducing new DoS vectors",
+          "createdAt": "2024-07-17T16:06:47Z",
+          "updatedAt": "2024-07-17T16:06:47Z"
+        }
+      ]
     },
     {
       "number": 6,
       "id": "I_kwDOMRYres6PNHId",
       "title": "QoS?",
       "url": "https://github.com/scionassociation/scion-research_I-D/issues/6",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "nicorusti",
       "authorAssociation": "MEMBER",
-      "assignees": [],
+      "assignees": [
+        "juagargi"
+      ],
       "labels": [],
       "body": "Should QoS be part of the draft? Maybe we could remove it for now",
       "createdAt": "2024-07-11T08:26:38Z",
-      "updatedAt": "2024-07-11T08:26:38Z",
-      "closedAt": null,
+      "updatedAt": "2024-07-17T09:45:20Z",
+      "closedAt": "2024-07-17T09:45:20Z",
       "comments": []
     },
     {
@@ -144,9 +173,9 @@
       "authorAssociation": "MEMBER",
       "assignees": [],
       "labels": [],
-      "body": "Add some text about IPv6 EH, aslo based on https://github.com/scionproto/scion/discussions/4324\r\n",
+      "body": "Add some text about IPv6 EH, aslo based on https://github.com/scionproto/scion/discussions/4324\r\n\r\nYou could use the [component analysis draft](https://datatracker.ietf.org/doc/draft-rustignoli-panrg-scion-components/) as a reference: \r\n",
       "createdAt": "2024-07-11T08:27:37Z",
-      "updatedAt": "2024-07-11T08:27:37Z",
+      "updatedAt": "2024-07-16T09:09:45Z",
       "closedAt": null,
       "comments": []
     },
@@ -162,9 +191,33 @@
         "tzaeschke"
       ],
       "labels": [],
-      "body": "- [ ] Mentions implications of MP-QUIC and recent changes related to path-IDs\r\n- [ ] TAPS/PANAPI",
+      "body": "- [x] Mentions implications of MP-QUIC and recent changes related to path-IDs #14 \r\n- [ ] TAPS/PANAPI\r\n\r\nAs guidance use rfc9217: ` 2.5.  Implications of Path Awareness for the Transport and Application Layers`",
       "createdAt": "2024-07-11T08:28:30Z",
-      "updatedAt": "2024-07-15T11:38:46Z",
+      "updatedAt": "2024-07-17T09:28:45Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "tzaeschke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@nicorusti Sorry, I must have missed that yesterday. Could you remind me what should  I to write about TAPS/PANAPI? I am not really familiar with these...",
+          "createdAt": "2024-07-17T09:28:44Z",
+          "updatedAt": "2024-07-17T09:28:44Z"
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "id": "I_kwDOMRYres6PriNh",
+      "title": "Follow questions in rfc9217 and don't go too deep",
+      "url": "https://github.com/scionassociation/scion-research_I-D/issues/16",
+      "state": "OPEN",
+      "author": "nicorusti",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "Keep in mind that goals of the drafts are\r\n- Keep discussion alive to figure out what needs to be done if one day we want to have an IETF SCION --> Avoid going too deep in specific implementation issues, this might yield unproductive discussions\r\n- Answer some of the questions in rfc9217 and identify remaining gaps",
+      "createdAt": "2024-07-16T08:34:43Z",
+      "updatedAt": "2024-07-16T08:38:18Z",
       "closedAt": null,
       "comments": []
     }
@@ -357,25 +410,35 @@
       "id": "PR_kwDOMRYres51OIUZ",
       "title": "Return path refresh",
       "url": "https://github.com/scionassociation/scion-research_I-D/pull/12",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "tzaeschke",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "More comments on discussion about handling the danger that a server has only an expired path left.",
       "createdAt": "2024-07-12T13:11:13Z",
-      "updatedAt": "2024-07-15T16:03:51Z",
+      "updatedAt": "2024-07-16T07:40:56Z",
       "baseRepository": "scionassociation/scion-research_I-D",
       "baseRefName": "main",
       "baseRefOid": "f1a1095ac818c68414fd14900412b0f00a83ce6b",
       "headRepository": "scionassociation/scion-research_I-D",
       "headRefName": "tz/03-reverse-path-refresh",
       "headRefOid": "1a03894f0678fba0903bed86a95895bb0accae30",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
-      "comments": [],
+      "closedAt": "2024-07-16T07:40:53Z",
+      "mergedAt": "2024-07-16T07:40:53Z",
+      "mergedBy": "juagargi",
+      "mergeCommit": {
+        "oid": "304d148357228c18980f75ce6a1afc4f84f900a5"
+      },
+      "comments": [
+        {
+          "author": "nicorusti",
+          "authorAssociation": "MEMBER",
+          "body": "> How to standardize the process of refreshment? \r\n\r\nI'd change into this, otherwise people would be confused about going via a standards track: \r\n`How to handle the process of refreshment?`\r\n\r\nI'd also try to use abbreviations like CS that were not introduced int he draft, I'd write `SCION control plane {{I-D.scion-cp}}`",
+          "createdAt": "2024-07-16T07:13:21Z",
+          "updatedAt": "2024-07-16T07:13:21Z"
+        }
+      ],
       "reviews": [
         {
           "id": "PRR_kwDOMRYres6By_4D",
@@ -462,6 +525,26 @@
               "updatedAt": "2024-07-15T16:03:51Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6B5xxQ",
+          "commit": {
+            "abbreviatedOid": "ff6caf7"
+          },
+          "author": "nicorusti",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-16T07:15:32Z",
+          "updatedAt": "2024-07-16T07:15:32Z",
+          "comments": [
+            {
+              "originalPosition": 11,
+              "body": "+1 for moving this into 7 Implications of Path Awareness for the Transport and Application Layers\r\n\r\nMaybe MP-QUIC has something about refreshing paths?",
+              "createdAt": "2024-07-16T07:15:32Z",
+              "updatedAt": "2024-07-16T07:15:32Z"
+            }
+          ]
         }
       ]
     },
@@ -475,15 +558,15 @@
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
-      "body": "Discussion on core beacon scalability and Recovery",
+      "body": "Discussion on core beacon scalability and Recovery\r\n\r\nContributes to #2 ",
       "createdAt": "2024-07-12T14:37:15Z",
-      "updatedAt": "2024-07-15T15:00:15Z",
+      "updatedAt": "2024-07-17T15:07:31Z",
       "baseRepository": "scionassociation/scion-research_I-D",
       "baseRefName": "main",
-      "baseRefOid": "f1a1095ac818c68414fd14900412b0f00a83ce6b",
+      "baseRefOid": "2faf7d9ad4db52cee49a5d7e655a77a61d3e9039",
       "headRepository": "scionassociation/scion-research_I-D",
       "headRefName": "tz/04-beacon-scalability",
-      "headRefOid": "0db2173c433d86837e7cd27a1b073a6187dc6aa9",
+      "headRefOid": "d1c5c81402e24257197dc729ef1ab1c35e610f80",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -533,6 +616,412 @@
               "body": "I think usually the same 5 paths would forwarded every time, if they are the best paths, then should it change and forward other paths? Or not? ",
               "createdAt": "2024-07-15T14:51:25Z",
               "updatedAt": "2024-07-15T14:51:25Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6B571a",
+          "commit": {
+            "abbreviatedOid": "adc8d47"
+          },
+          "author": "nicorusti",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-16T07:35:36Z",
+          "updatedAt": "2024-07-16T07:35:36Z",
+          "comments": [
+            {
+              "originalPosition": 8,
+              "body": "Two things: \r\n- I'd clarify the context for this number.. Is it in total in an overall SCION network? Is it per AS? I think it makes sense to talk about numbers per AS in general\r\n- According to our (@matzf ) calculations and my understanding, if you limit the number of beacons with the \"best PCB\" practice, then the number is o(N*log(N)). So this would be if you were to not filter the number of beacons at all?\r\n- I'd explain more clearly what \"naively\" means, e.g. `if there were no limits to the numbers of beacons propagated by each core AS, the number of paths and beacons would grow exponentially`)",
+              "createdAt": "2024-07-16T07:35:36Z",
+              "updatedAt": "2024-07-16T07:38:02Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6B5-bj",
+          "commit": {
+            "abbreviatedOid": "0db2173"
+          },
+          "author": "nicorusti",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-16T07:40:24Z",
+          "updatedAt": "2024-07-16T07:40:25Z",
+          "comments": [
+            {
+              "originalPosition": 13,
+              "body": "```suggestion\r\n* It limits the number of available paths for endpoints such that only 5 path may be available to a given destination. This is especially relevant for\r\n```\r\n\r\nIn drafts, we use `endpoint`  as per definition in RFC9473. Could you generally use endpoint instead of end host? \r\n",
+              "createdAt": "2024-07-16T07:40:24Z",
+              "updatedAt": "2024-07-16T07:40:25Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6B5_0v",
+          "commit": {
+            "abbreviatedOid": "0db2173"
+          },
+          "author": "nicorusti",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-16T07:43:16Z",
+          "updatedAt": "2024-07-16T07:43:16Z",
+          "comments": [
+            {
+              "originalPosition": 13,
+              "body": "> such that only 5 path may be available to a given destination.  \r\n\r\nThis text gives the impression that there are at most 5 paths between a src and dst, which is not the case. Is this just an edge case? I think in general more paths are available between endpoints  ",
+              "createdAt": "2024-07-16T07:43:16Z",
+              "updatedAt": "2024-07-16T07:43:16Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6B6Anr",
+          "commit": {
+            "abbreviatedOid": "0db2173"
+          },
+          "author": "nicorusti",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-16T07:44:47Z",
+          "updatedAt": "2024-07-16T07:44:47Z",
+          "comments": [
+            {
+              "originalPosition": 15,
+              "body": "```\r\n  * Unusual path policies, such as geofencing, may not be fulfillable by the limited number of paths on offer.\r\n```\r\nWas this ever an actual problem? Is it an edge case? I've never heard of this before",
+              "createdAt": "2024-07-16T07:44:47Z",
+              "updatedAt": "2024-07-16T07:44:47Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6B6C4D",
+          "commit": {
+            "abbreviatedOid": "0db2173"
+          },
+          "author": "nicorusti",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-16T07:48:22Z",
+          "updatedAt": "2024-07-16T07:48:22Z",
+          "comments": [
+            {
+              "originalPosition": 17,
+              "body": "Are you referring to the `Wormhole Attack` we describe in the CP draft? \r\nWhy is this related to core beaconing scalability?",
+              "createdAt": "2024-07-16T07:48:22Z",
+              "updatedAt": "2024-07-16T07:48:22Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6B6EgZ",
+          "commit": {
+            "abbreviatedOid": "0db2173"
+          },
+          "author": "nicorusti",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-16T07:50:27Z",
+          "updatedAt": "2024-07-16T07:50:28Z",
+          "comments": [
+            {
+              "originalPosition": 46,
+              "body": "Wouldn't a wormhole segment work? Is this section about segment revocation? ",
+              "createdAt": "2024-07-16T07:50:28Z",
+              "updatedAt": "2024-07-16T07:50:28Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6B8LqU",
+          "commit": {
+            "abbreviatedOid": "0db2173"
+          },
+          "author": "tzaeschke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-16T12:03:21Z",
+          "updatedAt": "2024-07-16T12:03:21Z",
+          "comments": [
+            {
+              "originalPosition": 15,
+              "body": "Not sure it happened yet, simply because we do not have much useful metadata yet (geofencing etc).\r\nI think it can become a problem: if all ASes only forward their best five paths, then these five paths may be disjunct in themselves, but neighboring ASes are probably likely to forward the (almost) same 5 paths. In effect, an endpoint may have more than 5 paths available, but they are likely to be very similar and may not offer the choice that an endpoint desires?\r\n\r\n",
+              "createdAt": "2024-07-16T12:03:21Z",
+              "updatedAt": "2024-07-16T12:03:21Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6B9L8-",
+          "commit": {
+            "abbreviatedOid": "adc8d47"
+          },
+          "author": "tzaeschke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-16T13:44:58Z",
+          "updatedAt": "2024-07-16T13:44:58Z",
+          "comments": [
+            {
+              "originalPosition": 13,
+              "body": "I added an explanation. Does it make sense? Otherwise I can remove the whole bullet point.",
+              "createdAt": "2024-07-16T13:44:58Z",
+              "updatedAt": "2024-07-16T13:44:59Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CAP_7",
+          "commit": {
+            "abbreviatedOid": "30c5e10"
+          },
+          "author": "juagargi",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2024-07-16T19:08:32Z",
+          "updatedAt": "2024-07-16T19:57:50Z",
+          "comments": [
+            {
+              "originalPosition": 16,
+              "body": "For this to happen, these neighbors have to share a common trailing path, e.g., being X our AS:\r\n```\r\n1) a->b->c -> X\r\n2) a'->b'->c' -> X\r\netc.\r\n```\r\nPaths 1 and 2 would be \"similar\" if a' \u2248 a and b'\u2248 b, while having c and c' being different neighbors.\r\nDefinitely not an impossible situation, but also not common: most likely the trailing path of neighbor c will be different that that of neighbor c', either in AS numbers or interface IDs.",
+              "createdAt": "2024-07-16T19:08:32Z",
+              "updatedAt": "2024-07-16T19:57:51Z"
+            },
+            {
+              "originalPosition": 13,
+              "body": "I don't agree with this. It might limit the number of paths if and only if there are no _new_ beacons arriving to the neighboring ASes after **N** beaconing periods. For that to happen, we require that the beaconing step _i+1_ forwards the same beacons than step _i_. OR that the beacons are very short lived and cannot survive longer than one period.\r\nIn any other case, period _i+1_ could, and would, forward different beacons to the neighboring ASes.\r\n\r\nThis is how I would explain it.\r\n- The time needed to propagate all the beacons to the neighboring ASes increments.\r\n- Since all beacons have an expiration time, we have a finite amount of time until a beaconing period will need to forward an already forwarded beacon, just because it expired.\r\n- And, _most importantly_, the semantics of what a \"best PCB\" means, are defined locally by the **beacon forwarder AS**, not by the receiver AS, who is the actual judge of the quality of the PCB.",
+              "createdAt": "2024-07-16T19:17:10Z",
+              "updatedAt": "2024-07-16T19:57:51Z"
+            },
+            {
+              "originalPosition": 15,
+              "body": "I agree with @tzaeschke _iff_ they forward the same PCBs during each beaconing period.\r\nLet me give an example to clarify:\r\n- First AS \"A\" discriminates good PCBs using latency criteria. This means that for AS \"A\" only good latency PCBs are forwarded.\r\n- Second AS \"B\" receives PCBs from AS \"A\", but \"B\" discriminates bases on bandwidth. Maybe some PCBs have a good bandwidth, but many were already filtered by \"A\".\r\n- etc.\r\n\r\nIf ASes forward _all received beacons_ (in general, and assuming there is no expiration time inside the PCBs), there should not be a problem, since all paths will be eventually discovered.\r\n\r\nNow, because reality is that ASes cannot forward all of the PCBs, the non forwarded PCBs (those that an AS never forwards) are the least interesting ones _according to the local criteria of that AS_, which may or may not coincide with that criteria of the next neighbors this PCB will encounter.\r\n\r\nI believe this to be clearer if explained in terms of completeness of the graph exploration vs. time needed for it.",
+              "createdAt": "2024-07-16T19:25:27Z",
+              "updatedAt": "2024-07-16T19:57:51Z"
+            },
+            {
+              "originalPosition": 21,
+              "body": "See comments above: only if the exploration achieved by this beaconing is very far from a full exploration of the complete graph, when the equality operator here `link1 = link2` means they have the same four tuple `[AS1,interface number1, AS2, interface number2]`",
+              "createdAt": "2024-07-16T19:28:20Z",
+              "updatedAt": "2024-07-16T19:57:51Z"
+            },
+            {
+              "originalPosition": 22,
+              "body": "The possibility of attacking the selection of the best paths does not appear due to this beaconing process.\r\nThe same issue appears with an e.g. push-pull-publish-subscribe method, as long as the information propagated in the PCBs is trusted by the AS selecting the beacons and paths. Be that information latency, bandwidth, number of hops, etc (anything).",
+              "createdAt": "2024-07-16T19:30:20Z",
+              "updatedAt": "2024-07-16T19:57:51Z"
+            },
+            {
+              "originalPosition": 28,
+              "body": "Maybe refresh the process of an endpoint requesting a path from itself as SRC, to a given DST.\r\nThis will make clear how the core ASes' control service is contacted, how many times, etc.",
+              "createdAt": "2024-07-16T19:31:51Z",
+              "updatedAt": "2024-07-16T19:57:51Z"
+            },
+            {
+              "originalPosition": 31,
+              "body": "This is not immediately clear to me: why _mostly_ redundant information?",
+              "createdAt": "2024-07-16T19:32:47Z",
+              "updatedAt": "2024-07-16T19:57:51Z"
+            },
+            {
+              "originalPosition": 36,
+              "body": "Three round trips from the local control service to control services of other two ASes.",
+              "createdAt": "2024-07-16T19:36:53Z",
+              "updatedAt": "2024-07-16T19:57:51Z"
+            },
+            {
+              "originalPosition": 40,
+              "body": "I don't understand the approach. Can you clarify?",
+              "createdAt": "2024-07-16T19:39:32Z",
+              "updatedAt": "2024-07-16T19:57:51Z"
+            },
+            {
+              "originalPosition": 90,
+              "body": "Although we could revisit the topic, path revocation was studied already, and brought only more problems into the picture. For a full rationale, see the SCION book v2, 5.7 Path Revokation",
+              "createdAt": "2024-07-16T19:49:51Z",
+              "updatedAt": "2024-07-16T19:57:51Z"
+            },
+            {
+              "originalPosition": 91,
+              "body": "As a comment: This is essentially what the book promises, that the endpoints will have anyway a big selection to choose paths from.",
+              "createdAt": "2024-07-16T19:51:31Z",
+              "updatedAt": "2024-07-16T19:57:51Z"
+            },
+            {
+              "originalPosition": 114,
+              "body": "```suggestion\r\nCritically, there is no current way to recover from this situation. In order to recover, ASes that are connected to the\r\n```",
+              "createdAt": "2024-07-16T19:55:39Z",
+              "updatedAt": "2024-07-16T19:57:51Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CEjW1",
+          "commit": {
+            "abbreviatedOid": "30c5e10"
+          },
+          "author": "tzaeschke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-17T08:15:42Z",
+          "updatedAt": "2024-07-17T08:15:42Z",
+          "comments": [
+            {
+              "originalPosition": 90,
+              "body": "Thanks for the pointer. It turns out, path revocation comes basically for free with 2-phase beaconing :-D.",
+              "createdAt": "2024-07-17T08:15:42Z",
+              "updatedAt": "2024-07-17T08:15:42Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CF_B4",
+          "commit": {
+            "abbreviatedOid": "42c1ad0"
+          },
+          "author": "juagargi",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2024-07-17T11:09:12Z",
+          "updatedAt": "2024-07-17T11:09:30Z",
+          "comments": [
+            {
+              "originalPosition": 90,
+              "body": "Is there a concept of emitting information to invalidate a previously authorized PCB?\r\nIf so, that is what we call a revocation. If it is not possible to invalidate previously authorized PCB, then I would call it differently, to distinguish from _revocation_ used in the book or previous I-Ds.",
+              "createdAt": "2024-07-17T11:09:12Z",
+              "updatedAt": "2024-07-17T11:09:30Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CGEB4",
+          "commit": {
+            "abbreviatedOid": "30c5e10"
+          },
+          "author": "tzaeschke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-17T11:19:28Z",
+          "updatedAt": "2024-07-17T11:19:28Z",
+          "comments": [
+            {
+              "originalPosition": 16,
+              "body": "Just to clarify the example, we are looking for paths from X to Y:\r\n```\r\n1) Y->a->b->c -> X\r\n2) Y->a'->b'->c' -> X\r\n```\r\nAt a first step I'd argue that it is quite likely that, going from Y->X,  we have a'=a. If a=a' then the same argument applies to b=b' and so forth.\r\nConsequently I'd argue that there is a high probability of overlap.\r\n\r\nUnfortunately, I don't think there is any analysis or experiments to confirm/reject this. If people think this is wrong then we can remove it. Or I can try to rephrase it as a research question that would need to be clarified whether this may be a problem or not?",
+              "createdAt": "2024-07-17T11:19:28Z",
+              "updatedAt": "2024-07-17T11:19:28Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CGGNe",
+          "commit": {
+            "abbreviatedOid": "30c5e10"
+          },
+          "author": "tzaeschke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-17T11:24:13Z",
+          "updatedAt": "2024-07-17T11:24:14Z",
+          "comments": [
+            {
+              "originalPosition": 13,
+              "body": "Sorry, I don't understand what you are saying. Maybe you can clarify?\r\n\r\nMy assumption is that an AS will rarely change it's what-is-the-best-PCB algorithm. Consequently, they would always forward the same five segments. They may receive new beacons, but as long as the \"best 5\" are still among them (and I assume they will be, why shouldn'\u00b4t they?), they will continue forwarding these 5 PCBs.",
+              "createdAt": "2024-07-17T11:24:14Z",
+              "updatedAt": "2024-07-17T11:24:14Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CIIo-",
+          "commit": {
+            "abbreviatedOid": "30c5e10"
+          },
+          "author": "tzaeschke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-17T14:50:37Z",
+          "updatedAt": "2024-07-17T14:50:37Z",
+          "comments": [
+            {
+              "originalPosition": 36,
+              "body": "I actually meant from the local endpoint to the local control server. I am less concerned about roundtrips between ASes, they have stonger machines and better connections.",
+              "createdAt": "2024-07-17T14:50:37Z",
+              "updatedAt": "2024-07-17T14:50:37Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CILHu",
+          "commit": {
+            "abbreviatedOid": "30c5e10"
+          },
+          "author": "tzaeschke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-17T14:53:47Z",
+          "updatedAt": "2024-07-17T14:53:47Z",
+          "comments": [
+            {
+              "originalPosition": 40,
+              "body": "I did. Can you have another look?",
+              "createdAt": "2024-07-17T14:53:47Z",
+              "updatedAt": "2024-07-17T14:53:47Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CIOu8",
+          "commit": {
+            "abbreviatedOid": "30c5e10"
+          },
+          "author": "tzaeschke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-17T14:58:46Z",
+          "updatedAt": "2024-07-17T14:58:46Z",
+          "comments": [
+            {
+              "originalPosition": 90,
+              "body": "Done",
+              "createdAt": "2024-07-17T14:58:46Z",
+              "updatedAt": "2024-07-17T14:58:47Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CIPDa",
+          "commit": {
+            "abbreviatedOid": "30c5e10"
+          },
+          "author": "tzaeschke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-17T14:59:15Z",
+          "updatedAt": "2024-07-17T14:59:15Z",
+          "comments": [
+            {
+              "originalPosition": 91,
+              "body": "Done.",
+              "createdAt": "2024-07-17T14:59:15Z",
+              "updatedAt": "2024-07-17T14:59:15Z"
             }
           ]
         }
@@ -592,19 +1081,988 @@
       "labels": [],
       "body": "Should we use SVCB RFC 9460 service binding?",
       "createdAt": "2024-07-15T15:31:07Z",
-      "updatedAt": "2024-07-15T15:31:07Z",
+      "updatedAt": "2024-07-17T16:31:46Z",
       "baseRepository": "scionassociation/scion-research_I-D",
       "baseRefName": "main",
       "baseRefOid": "6da37acbe08f672dcb4092d02f3e21d82e8c61a1",
       "headRepository": "scionassociation/scion-research_I-D",
       "headRefName": "tz/06-SVCB",
-      "headRefOid": "843792edf5cac0cf2b42831894afaf5f712eb30d",
+      "headRefOid": "b903ebebd5f831216532b18c2fe2e092d0c95b06",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOMRYres6B5sND",
+          "commit": {
+            "abbreviatedOid": "843792e"
+          },
+          "author": "nicorusti",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-16T07:03:23Z",
+          "updatedAt": "2024-07-16T07:06:16Z",
+          "comments": [
+            {
+              "originalPosition": 14,
+              "body": "Keep in mind this would require a IANA action, not sure if this can be there in an IRTF draft. Nothing blocking, just something to keep in mind",
+              "createdAt": "2024-07-16T07:03:23Z",
+              "updatedAt": "2024-07-16T07:06:16Z"
+            },
+            {
+              "originalPosition": 17,
+              "body": "Maybe you could add a bit more context about name resolution?\r\n- 1-2 sentences explain how it was implemented today: \r\n```\r\nnic@nic-mbp  % dig +short ethz.ch TXT  | grep scion\r\n\"x-sciondiscovery=8041\"\r\n\"scion=64-2:0:9,129.132.230.98\"\r\n```\r\n- Why RFC9460 is better",
+              "createdAt": "2024-07-16T07:05:22Z",
+              "updatedAt": "2024-07-16T07:06:16Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CH89b",
+          "commit": {
+            "abbreviatedOid": "843792e"
+          },
+          "author": "knmeynell",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2024-07-17T14:35:12Z",
+          "updatedAt": "2024-07-17T14:37:00Z",
+          "comments": [
+            {
+              "originalPosition": 14,
+              "body": "```suggestion\r\nThe DNS Service Binding {{RFC9460, Section 14.3}} allows a dedicated SCION Service Parameter to be specified.\r\n```",
+              "createdAt": "2024-07-17T14:35:12Z",
+              "updatedAt": "2024-07-17T14:37:00Z"
+            },
+            {
+              "originalPosition": 16,
+              "body": "```suggestion\r\nService Parameters allow the specification of alternative IP addresses or other parameters such as ISD/AS numbers) for a given URL.\r\n```",
+              "createdAt": "2024-07-17T14:35:47Z",
+              "updatedAt": "2024-07-17T14:37:00Z"
+            },
+            {
+              "originalPosition": 16,
+              "body": "Rephrasing",
+              "createdAt": "2024-07-17T14:35:54Z",
+              "updatedAt": "2024-07-17T14:37:00Z"
+            },
+            {
+              "originalPosition": 14,
+              "body": "Rephrasing",
+              "createdAt": "2024-07-17T14:36:03Z",
+              "updatedAt": "2024-07-17T14:37:00Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CJCqh",
+          "commit": {
+            "abbreviatedOid": "843792e"
+          },
+          "author": "tzaeschke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-17T16:17:33Z",
+          "updatedAt": "2024-07-17T16:17:39Z",
+          "comments": [
+            {
+              "originalPosition": 14,
+              "body": "Not sure what you are saying here. Yes, it needs to be registered with IANA, but that appears to be a reasonably simple process.\r\nWhy should this not be mentioned in an IRTF draft?",
+              "createdAt": "2024-07-17T16:17:33Z",
+              "updatedAt": "2024-07-17T16:17:40Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CJEDL",
+          "commit": {
+            "abbreviatedOid": "843792e"
+          },
+          "author": "tzaeschke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-17T16:20:22Z",
+          "updatedAt": "2024-07-17T16:20:23Z",
+          "comments": [
+            {
+              "originalPosition": 17,
+              "body": "I added an example. ",
+              "createdAt": "2024-07-17T16:20:23Z",
+              "updatedAt": "2024-07-17T16:20:23Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CJIcW",
+          "commit": {
+            "abbreviatedOid": "843792e"
+          },
+          "author": "nicorusti",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-17T16:29:53Z",
+          "updatedAt": "2024-07-17T16:29:54Z",
+          "comments": [
+            {
+              "originalPosition": 14,
+              "body": "No action for now, I just pointed this out because saying anything that causes IANA actions raises some eyebrows. For now, let's leave it in the draft. If the draft gets adopted, then it will be a problem",
+              "createdAt": "2024-07-17T16:29:53Z",
+              "updatedAt": "2024-07-17T16:29:54Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CJJTR",
+          "commit": {
+            "abbreviatedOid": "b903ebe"
+          },
+          "author": "nicorusti",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-17T16:31:45Z",
+          "updatedAt": "2024-07-17T16:31:46Z",
+          "comments": [
+            {
+              "originalPosition": 34,
+              "body": "Maybe you can just omit these lines if you are not sure? \r\nI would also not use \"I\" in a draft\r\n```suggestion\r\n```",
+              "createdAt": "2024-07-17T16:31:46Z",
+              "updatedAt": "2024-07-17T16:31:46Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 17,
+      "id": "PR_kwDOMRYres51f_Xd",
+      "title": "ISD AS Identity",
+      "url": "https://github.com/scionassociation/scion-research_I-D/pull/17",
+      "state": "OPEN",
+      "author": "juagargi",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Expanded the section.",
+      "createdAt": "2024-07-16T11:08:55Z",
+      "updatedAt": "2024-07-17T15:45:57Z",
+      "baseRepository": "scionassociation/scion-research_I-D",
+      "baseRefName": "main",
+      "baseRefOid": "304d148357228c18980f75ce6a1afc4f84f900a5",
+      "headRepository": "scionassociation/scion-research_I-D",
+      "headRefName": "juagargi/isd_as_identity",
+      "headRefOid": "8bba8bb938559d5df464aa6d0b7b9d43e6af4680",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMRYres6CE2Ih",
+          "commit": {
+            "abbreviatedOid": "f76a36f"
+          },
+          "author": "tzaeschke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-17T08:49:29Z",
+          "updatedAt": "2024-07-17T09:01:05Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "`These` -> `This`\r\n`written on each one of` -> `contained in each of`\r\nI think  there is something wrong with the sentence, maybe split it up?\r\n-> `This identification is, at this moment, necessary at the data-plane level.` and then `It is written on each one of the data packets to fully address the ...`",
+              "createdAt": "2024-07-17T08:49:29Z",
+              "updatedAt": "2024-07-17T09:01:05Z"
+            },
+            {
+              "originalPosition": 5,
+              "body": "What do you mean by \"at the moment\", is there a plan/option to change that? Can you elaborate?",
+              "createdAt": "2024-07-17T08:50:06Z",
+              "updatedAt": "2024-07-17T09:01:05Z"
+            },
+            {
+              "originalPosition": 22,
+              "body": "I am not sure what you mean by \"combination of ASes might be possible as ISD\", can you maybe elaborate on that?\r\n\r\nDoes that refer to the fact that an AS may be in more than one ISD?",
+              "createdAt": "2024-07-17T08:51:18Z",
+              "updatedAt": "2024-07-17T09:01:05Z"
+            },
+            {
+              "originalPosition": 28,
+              "body": "Okay, I think you mean if you combining ASes into ISD an see how many distinct ISD you can get? Interesting thought.\r\nWouldn't the number of ISDs be infinite? There infinitely many ISD that contain exactly the same set of ASes...?\r\n",
+              "createdAt": "2024-07-17T08:58:50Z",
+              "updatedAt": "2024-07-17T09:01:05Z"
+            },
+            {
+              "originalPosition": 31,
+              "body": "Can you briefly motivate what the benefit would be for someone to create an ISD to indicate capacity?\r\nAlso, since an AS has a given capacity, I guess it should only ever be in one of those ISDs, never in multiple ones?",
+              "createdAt": "2024-07-17T09:00:54Z",
+              "updatedAt": "2024-07-17T09:01:05Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CFIBk",
+          "commit": {
+            "abbreviatedOid": "f76a36f"
+          },
+          "author": "juagargi",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-17T09:21:02Z",
+          "updatedAt": "2024-07-17T09:21:02Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "The question posed in this section relates to how many ISDs and ASes we expect, and what upper bound we have for them. E.g. 16 bits for ISD numbers allow only for ~16K distinct ISDs.",
+              "createdAt": "2024-07-17T09:21:02Z",
+              "updatedAt": "2024-07-17T09:21:03Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CFJk7",
+          "commit": {
+            "abbreviatedOid": "f76a36f"
+          },
+          "author": "juagargi",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-17T09:23:34Z",
+          "updatedAt": "2024-07-17T09:23:34Z",
+          "comments": [
+            {
+              "originalPosition": 22,
+              "body": "Yes, it refers to an AS being part of multiple ISDs.",
+              "createdAt": "2024-07-17T09:23:34Z",
+              "updatedAt": "2024-07-17T09:23:35Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CFKMH",
+          "commit": {
+            "abbreviatedOid": "f76a36f"
+          },
+          "author": "juagargi",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-17T09:24:40Z",
+          "updatedAt": "2024-07-17T09:24:41Z",
+          "comments": [
+            {
+              "originalPosition": 28,
+              "body": "Not infinite if the criteria to establish an ISD (trust relationship, and \"type\" like country, etc) is finite.",
+              "createdAt": "2024-07-17T09:24:40Z",
+              "updatedAt": "2024-07-17T09:24:41Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CFMmk",
+          "commit": {
+            "abbreviatedOid": "f76a36f"
+          },
+          "author": "juagargi",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-17T09:29:06Z",
+          "updatedAt": "2024-07-17T09:29:06Z",
+          "comments": [
+            {
+              "originalPosition": 31,
+              "body": "For capacity, an example would be \"Tier Level\". An AS would belong to only one ISD, but there might be many e.g. \"Tier-2\" ISDs, since not all ASes that fall into the category tier-2 can directly connect with each other.\r\nNote that even though the type itself (capacity) defines a partition of the graph, the aggregated of all types is not a partition, but a set of possible partitions (hence the superexponentiallity).",
+              "createdAt": "2024-07-17T09:29:06Z",
+              "updatedAt": "2024-07-17T09:29:06Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CFscc",
+          "commit": {
+            "abbreviatedOid": "f76a36f"
+          },
+          "author": "tzaeschke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-17T10:31:34Z",
+          "updatedAt": "2024-07-17T10:31:34Z",
+          "comments": [
+            {
+              "originalPosition": 28,
+              "body": "Well, there are probably infinitely many thinkable \"types\" :-). Maybe the point is that \"super-exponential asymptotically\" sound very specific and mathematically precise.\r\n\r\nI think the point of the section is that should make sure (e.g. provide an adverse incentive or maybe a strict specification) that prevents ASes to join to many ISD, or alternatively, to provide an adverse incentive (or a strict specification) that prevents creation of ISDs?\r\n\r\nMaybe we can emphasize somewhere that ISD should really only be created to signify \"trust\" and no other \"types\" of commonalities? That would mitigate the problem a little bit.\r\n",
+              "createdAt": "2024-07-17T10:31:34Z",
+              "updatedAt": "2024-07-17T10:31:35Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CFyIf",
+          "commit": {
+            "abbreviatedOid": "f76a36f"
+          },
+          "author": "tzaeschke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-17T10:43:49Z",
+          "updatedAt": "2024-07-17T10:43:50Z",
+          "comments": [
+            {
+              "originalPosition": 22,
+              "body": "Maybe it can be rephrased a bit? I think I misunderstood the meaning of \"all\". I think what it means is that all (=arbitrary) combinations should definitely be possible, but not (all) at the same time. \r\nDoes that make sense?\r\n\r\nActually, I also think the word \"combinations\" is a bit misleading. I think it doesn't really matter how many combinations are available. If ISD start being used as \"types\", many of them may contain an identical set of ASes. We may still run out of ISD numbers, even if the number of actually used combinations is quite low....\r\n",
+              "createdAt": "2024-07-17T10:43:49Z",
+              "updatedAt": "2024-07-17T10:43:50Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CF4hy",
+          "commit": {
+            "abbreviatedOid": "f76a36f"
+          },
+          "author": "tzaeschke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-17T10:56:24Z",
+          "updatedAt": "2024-07-17T10:56:24Z",
+          "comments": [
+            {
+              "originalPosition": 31,
+              "body": "> but there might be many e.g. \"Tier-2\" ISDs, since not all ASes that fall into the category tier-2 can directly connect with each other.\r\n\r\nIs that the case? I didn't think a direct connection is a requirement? For example in SCIERA, I guess not all Universities or core ASes have a direct connection, even if they are all in the same ISD?\r\n\r\nThat question aside, I am still not sure what the motivation would be to create ISDs for capacity tiers. \r\nHowever, I won't object if you leave it as is :-)",
+              "createdAt": "2024-07-17T10:56:24Z",
+              "updatedAt": "2024-07-17T10:56:24Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CF6yA",
+          "commit": {
+            "abbreviatedOid": "f76a36f"
+          },
+          "author": "tzaeschke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-17T11:00:10Z",
+          "updatedAt": "2024-07-17T11:00:10Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "I think from the text it sound like \"at the moment\" refers to being \"necessary on the data-plane level\".\r\n\r\nMaybe rephrase this section to:\r\n``\r\n[At the moment] the SCION protocol specifies 16 bits and 48 bits to identify the ISD and AS.\r\nThis identification is used, at the data-plane level, in every data packet to fully address the sender and receiver, and at the control-plane level, to identify the PCB sender and hops.`\r\n``` ",
+              "createdAt": "2024-07-17T11:00:10Z",
+              "updatedAt": "2024-07-17T11:00:10Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CF7o-",
+          "commit": {
+            "abbreviatedOid": "8bba8bb"
+          },
+          "author": "tzaeschke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM % open comments",
+          "createdAt": "2024-07-17T11:02:01Z",
+          "updatedAt": "2024-07-17T11:02:01Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMRYres6CF9QG",
+          "commit": {
+            "abbreviatedOid": "8bba8bb"
+          },
+          "author": "juagargi",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-17T11:05:16Z",
+          "updatedAt": "2024-07-17T11:05:51Z",
+          "comments": [
+            {
+              "originalPosition": 28,
+              "body": "Correct, using trust as the main driver to create ISDs is a conclusion I would like to reach through the discussion.\r\nIt is also true that there might be an arbitrary big number of \"types\". And maybe the discussion goes to that point too, describing what \"types\" are acceptable to create ISDs.\r\nStill, due to the control plane protocol, core ASes have to beacon directly to their neighbors. Whether that _directly_ means an L2 or something else, that is also open to debate.",
+              "createdAt": "2024-07-17T11:05:16Z",
+              "updatedAt": "2024-07-17T11:05:51Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CHAr4",
+          "commit": {
+            "abbreviatedOid": "8bba8bb"
+          },
+          "author": "knmeynell",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2024-07-17T13:08:51Z",
+          "updatedAt": "2024-07-17T13:24:29Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "```suggestion\r\nThe SCION protocol specifies 16 bits and 48 bits to identify the ISD and AS respectively.\r\n```",
+              "createdAt": "2024-07-17T13:08:51Z",
+              "updatedAt": "2024-07-17T13:24:29Z"
+            },
+            {
+              "originalPosition": 4,
+              "body": "What is the correct terminology here for the 16+48 bit identifier?",
+              "createdAt": "2024-07-17T13:10:03Z",
+              "updatedAt": "2024-07-17T13:24:29Z"
+            },
+            {
+              "originalPosition": 9,
+              "body": "```suggestion\r\nWhilst 48 bits for the AS will accommodate up to 2.81475e14 assignments which is likely to be more than sufficient for the future,\r\n```",
+              "createdAt": "2024-07-17T13:18:22Z",
+              "updatedAt": "2024-07-17T13:24:29Z"
+            },
+            {
+              "originalPosition": 10,
+              "body": "using 16 bits for the ISD only offers 65,536 possible assignments which is conceivably insufficient.",
+              "createdAt": "2024-07-17T13:20:25Z",
+              "updatedAt": "2024-07-17T13:24:29Z"
+            },
+            {
+              "originalPosition": 11,
+              "body": "Can this be better clarified? Is there any more information about why these values were chosen.",
+              "createdAt": "2024-07-17T13:22:25Z",
+              "updatedAt": "2024-07-17T13:24:29Z"
+            },
+            {
+              "originalPosition": 23,
+              "body": "What is the meaning of 'graph' here?",
+              "createdAt": "2024-07-17T13:23:23Z",
+              "updatedAt": "2024-07-17T13:24:29Z"
+            },
+            {
+              "originalPosition": 28,
+              "body": "This terminology needs some work. ",
+              "createdAt": "2024-07-17T13:24:13Z",
+              "updatedAt": "2024-07-17T13:24:29Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CIgGs",
+          "commit": {
+            "abbreviatedOid": "f76a36f"
+          },
+          "author": "tzaeschke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-17T15:24:26Z",
+          "updatedAt": "2024-07-17T15:24:26Z",
+          "comments": [
+            {
+              "originalPosition": 28,
+              "body": "> Still, due to the control plane protocol, core ASes have to beacon directly to their neighbors. Whether that directly means an L2 or something else, that is also open to debate.\r\n\r\nYes, they have to _beacon_  to neighbors, but I think an core-AS has no obligation to have a direct connection to other core-AS in the same ISD. They can still beacon to neighbors in other ISDs. Or not?",
+              "createdAt": "2024-07-17T15:24:26Z",
+              "updatedAt": "2024-07-17T15:24:26Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CIs4_",
+          "commit": {
+            "abbreviatedOid": "8bba8bb"
+          },
+          "author": "nicorusti",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-17T15:45:57Z",
+          "updatedAt": "2024-07-17T15:45:57Z",
+          "comments": [
+            {
+              "originalPosition": 28,
+              "body": "I think we will be talking a bit more about ISD creation and governance in the deployment draft, so perhaps in this draft we can only focus on wether 65k ISDs is enough.",
+              "createdAt": "2024-07-17T15:45:57Z",
+              "updatedAt": "2024-07-17T15:45:58Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 18,
+      "id": "PR_kwDOMRYres51gAR-",
+      "title": "Restructure Reverse Path Refreshment",
+      "url": "https://github.com/scionassociation/scion-research_I-D/pull/18",
+      "state": "OPEN",
+      "author": "juagargi",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Restructuring",
+      "createdAt": "2024-07-16T11:11:12Z",
+      "updatedAt": "2024-07-17T14:31:01Z",
+      "baseRepository": "scionassociation/scion-research_I-D",
+      "baseRefName": "main",
+      "baseRefOid": "304d148357228c18980f75ce6a1afc4f84f900a5",
+      "headRepository": "scionassociation/scion-research_I-D",
+      "headRefName": "juagargi/reverse-path-refreshment",
+      "headRefOid": "b76121b8d4aff4318f88e443ececad7b6e955883",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMRYres6CFApP",
+          "commit": {
+            "abbreviatedOid": "fb81d5e"
+          },
+          "author": "tzaeschke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-07-17T09:08:00Z",
+          "updatedAt": "2024-07-17T09:09:45Z",
+          "comments": [
+            {
+              "originalPosition": 31,
+              "body": "In the case of JPAN, the path storage transparent to any API users.",
+              "createdAt": "2024-07-17T09:08:00Z",
+              "updatedAt": "2024-07-17T09:09:45Z"
+            },
+            {
+              "originalPosition": 27,
+              "body": "Nitpick, this is not a bullet point, or is it? :)",
+              "createdAt": "2024-07-17T09:08:33Z",
+              "updatedAt": "2024-07-17T09:09:45Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CFOy7",
+          "commit": {
+            "abbreviatedOid": "fb81d5e"
+          },
+          "author": "juagargi",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-17T09:33:10Z",
+          "updatedAt": "2024-07-17T09:33:10Z",
+          "comments": [
+            {
+              "originalPosition": 31,
+              "body": "Correct. Depending at what layer it stores it (QUIC, UDP transport), it would apply to only that layer and above. E.g. if storing it at the QUIC library level, users of raw UDP packets (maybe videoconferencing tools) would have to use a different technique, as this would not be provided to them; additionally, the QUIC specification for SCION would have to include this step.",
+              "createdAt": "2024-07-17T09:33:10Z",
+              "updatedAt": "2024-07-17T09:33:10Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CFRLW",
+          "commit": {
+            "abbreviatedOid": "fb81d5e"
+          },
+          "author": "juagargi",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-17T09:37:42Z",
+          "updatedAt": "2024-07-17T09:37:42Z",
+          "comments": [
+            {
+              "originalPosition": 27,
+              "body": "The intention is for it to be one point. What I want to convey here is that the path has to be stored somewhere, analogously to storing the sender's address with IP.\r\nMaybe I convoluted the explanation too much.\r\nShould I just simplify it?",
+              "createdAt": "2024-07-17T09:37:42Z",
+              "updatedAt": "2024-07-17T09:37:42Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CF-AJ",
+          "commit": {
+            "abbreviatedOid": "47f3f6c"
+          },
+          "author": "tzaeschke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-17T11:06:54Z",
+          "updatedAt": "2024-07-17T11:06:54Z",
+          "comments": [
+            {
+              "originalPosition": 27,
+              "body": "Yes, maybe remove some parts? I am not sure how relevant the question is where the path is stored on the server? Maybe something like: \r\n\r\n```\r\nIn order to send data to the client the server needs to store the path locally (analogous to storing the clients IP/port in a non-SCION scenario).\r\n```\r\n?",
+              "createdAt": "2024-07-17T11:06:54Z",
+              "updatedAt": "2024-07-17T11:06:54Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CGEBf",
+          "commit": {
+            "abbreviatedOid": "fb81d5e"
+          },
+          "author": "juagargi",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-17T11:19:26Z",
+          "updatedAt": "2024-07-17T11:19:27Z",
+          "comments": [
+            {
+              "originalPosition": 27,
+              "body": "Done. PTAL also at the new point I've added.",
+              "createdAt": "2024-07-17T11:19:27Z",
+              "updatedAt": "2024-07-17T11:19:27Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CH0wR",
+          "commit": {
+            "abbreviatedOid": "b76121b"
+          },
+          "author": "knmeynell",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2024-07-17T14:23:05Z",
+          "updatedAt": "2024-07-17T14:31:01Z",
+          "comments": [
+            {
+              "originalPosition": 41,
+              "body": "```suggestion\r\n  which one of those would be used to reply? Leave it to transport as in the case\r\n```",
+              "createdAt": "2024-07-17T14:23:05Z",
+              "updatedAt": "2024-07-17T14:31:01Z"
+            },
+            {
+              "originalPosition": 41,
+              "body": "Should this be 'leave it to the transport layer'?",
+              "createdAt": "2024-07-17T14:24:32Z",
+              "updatedAt": "2024-07-17T14:31:02Z"
+            },
+            {
+              "originalPosition": 44,
+              "body": "Can this be explained a bit more, as what is the expiration for if it's not used at some undefined time before expiry? ",
+              "createdAt": "2024-07-17T14:26:33Z",
+              "updatedAt": "2024-07-17T14:31:01Z"
+            },
+            {
+              "originalPosition": 60,
+              "body": "The text from 'How do we handle that?' onwards will need re-phrasing at some point, and perhaps integrated with the 'Proposed Solutions' (i.e. pros/cons of each approach).",
+              "createdAt": "2024-07-17T14:29:07Z",
+              "updatedAt": "2024-07-17T14:31:01Z"
+            },
+            {
+              "originalPosition": 64,
+              "body": "```suggestion\r\n* The server MUST ask the Control Services for a path, regardless of the client's policy.\r\n```",
+              "createdAt": "2024-07-17T14:30:23Z",
+              "updatedAt": "2024-07-17T14:31:02Z"
+            },
+            {
+              "originalPosition": 64,
+              "body": "Should expand SCION-specific acronyms.",
+              "createdAt": "2024-07-17T14:30:49Z",
+              "updatedAt": "2024-07-17T14:31:02Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 19,
+      "id": "PR_kwDOMRYres51gBLD",
+      "title": "Remove all of QoS.",
+      "url": "https://github.com/scionassociation/scion-research_I-D/pull/19",
+      "state": "MERGED",
+      "author": "juagargi",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Closes #6 ",
+      "createdAt": "2024-07-16T11:13:26Z",
+      "updatedAt": "2024-07-17T09:45:22Z",
+      "baseRepository": "scionassociation/scion-research_I-D",
+      "baseRefName": "main",
+      "baseRefOid": "304d148357228c18980f75ce6a1afc4f84f900a5",
+      "headRepository": "scionassociation/scion-research_I-D",
+      "headRefName": "juagargi/remove_qos",
+      "headRefOid": "bd15249954a454866dd95f4df5e197887276e23b",
+      "closedAt": "2024-07-17T09:45:19Z",
+      "mergedAt": "2024-07-17T09:45:19Z",
+      "mergedBy": "juagargi",
+      "mergeCommit": {
+        "oid": "ead64457010c43f075412e4e06462e8d4bd5d158"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMRYres6CFCQ2",
+          "commit": {
+            "abbreviatedOid": "bd15249"
+          },
+          "author": "tzaeschke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-07-17T09:10:36Z",
+          "updatedAt": "2024-07-17T09:10:36Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 20,
+      "id": "PR_kwDOMRYres51gNWA",
+      "title": "DRKey and SCMP changes",
+      "url": "https://github.com/scionassociation/scion-research_I-D/pull/20",
+      "state": "MERGED",
+      "author": "juagargi",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "- DRKey section with some questions for PANRG\r\n- SCMP section proposing DRKey-based authentication, and some questions\r\n\r\nCloses #4 and #5",
+      "createdAt": "2024-07-16T11:44:53Z",
+      "updatedAt": "2024-07-17T16:05:25Z",
+      "baseRepository": "scionassociation/scion-research_I-D",
+      "baseRefName": "main",
+      "baseRefOid": "304d148357228c18980f75ce6a1afc4f84f900a5",
+      "headRepository": "scionassociation/scion-research_I-D",
+      "headRefName": "juagargi/drkey",
+      "headRefOid": "8a332c9de8b16d3b0b034d82b22ba2e159535b96",
+      "closedAt": "2024-07-17T09:45:57Z",
+      "mergedAt": "2024-07-17T09:45:57Z",
+      "mergedBy": "juagargi",
+      "mergeCommit": {
+        "oid": "2faf7d9ad4db52cee49a5d7e655a77a61d3e9039"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMRYres6CFFRX",
+          "commit": {
+            "abbreviatedOid": "8a332c9"
+          },
+          "author": "tzaeschke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM, but I cannot really comment on the technical accuracy, I know little about DRKey.",
+          "createdAt": "2024-07-17T09:16:02Z",
+          "updatedAt": "2024-07-17T09:16:02Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMRYres6CI7kJ",
+          "commit": {
+            "abbreviatedOid": "8a332c9"
+          },
+          "author": "nicorusti",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-17T16:05:25Z",
+          "updatedAt": "2024-07-17T16:05:25Z",
+          "comments": [
+            {
+              "originalPosition": 48,
+              "body": "Sorry, I just saw it. How about we summarize this paragraph into: \r\nHow shall the network provide trustworthy signals, without introducing new attack vectors due to message authentication?\r\n",
+              "createdAt": "2024-07-17T16:05:25Z",
+              "updatedAt": "2024-07-17T16:05:25Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 21,
+      "id": "PR_kwDOMRYres51hJAu",
+      "title": "improve terminology: CS, BR, endhosts",
+      "url": "https://github.com/scionassociation/scion-research_I-D/pull/21",
+      "state": "MERGED",
+      "author": "tzaeschke",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-07-16T13:49:46Z",
+      "updatedAt": "2024-07-16T16:14:53Z",
+      "baseRepository": "scionassociation/scion-research_I-D",
+      "baseRefName": "main",
+      "baseRefOid": "304d148357228c18980f75ce6a1afc4f84f900a5",
+      "headRepository": "scionassociation/scion-research_I-D",
+      "headRefName": "tz/07-CS-BR-endpoint",
+      "headRefOid": "c4abfd70735db519dd301449b5ae5848991b17a7",
+      "closedAt": "2024-07-16T16:14:50Z",
+      "mergedAt": "2024-07-16T16:14:50Z",
+      "mergedBy": "juagargi",
+      "mergeCommit": {
+        "oid": "089041b638b14114386c9fdaabbef27fc341781f"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMRYres6B-1V3",
+          "commit": {
+            "abbreviatedOid": "c4abfd7"
+          },
+          "author": "juagargi",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-07-16T16:14:40Z",
+          "updatedAt": "2024-07-16T16:14:40Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 22,
+      "id": "PR_kwDOMRYres51mgbj",
+      "title": "St/beaconing extensibinility",
+      "url": "https://github.com/scionassociation/scion-research_I-D/pull/22",
+      "state": "OPEN",
+      "author": "SeyedaliTaba",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This PR explains the research question of how to optimise routes based on various and ever-changing criteria.",
+      "createdAt": "2024-07-17T07:16:38Z",
+      "updatedAt": "2024-07-17T15:36:58Z",
+      "baseRepository": "scionassociation/scion-research_I-D",
+      "baseRefName": "main",
+      "baseRefOid": "089041b638b14114386c9fdaabbef27fc341781f",
+      "headRepository": "scionassociation/scion-research_I-D",
+      "headRefName": "st/beaconing-extensibinility",
+      "headRefOid": "37349a19e710619229b25f72d0f0dbb8ae575982",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "nicorusti",
+          "authorAssociation": "MEMBER",
+          "body": "@SeyedaliTaba the tool does not like trailing whitespaces, you can use `make fix-lint` ti make the draft compile",
+          "createdAt": "2024-07-17T15:18:18Z",
+          "updatedAt": "2024-07-17T15:18:18Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMRYres6CGBdV",
+          "commit": {
+            "abbreviatedOid": "affcda7"
+          },
+          "author": "knmeynell",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-07-17T11:14:04Z",
+          "updatedAt": "2024-07-17T11:26:30Z",
+          "comments": [
+            {
+              "originalPosition": 43,
+              "body": "```suggestion\r\n* Is it necessary to propagate beacons periodically?\r\n```",
+              "createdAt": "2024-07-17T11:14:04Z",
+              "updatedAt": "2024-07-17T13:25:11Z"
+            },
+            {
+              "originalPosition": 46,
+              "body": "```suggestion\r\n* Re-propagating the same set of beacons at each interval makes inefficient use of resources. The periodic propagation can be used for the discovery of new paths at each interval, enhancing the scalability and path diversity.\r\n```",
+              "createdAt": "2024-07-17T11:17:37Z",
+              "updatedAt": "2024-07-17T11:26:30Z"
+            },
+            {
+              "originalPosition": 48,
+              "body": "```suggestion\r\n## Beacon optimization and extensibility\r\n```",
+              "createdAt": "2024-07-17T11:18:01Z",
+              "updatedAt": "2024-07-17T11:26:30Z"
+            },
+            {
+              "originalPosition": 49,
+              "body": "```suggestion\r\n* Communication requirements vary according to source, destination, and application. Satisfying all these requirements either requires discovering all paths in the network, or optimizing paths during the beaconing process. Selecting the 5 shortest paths per destination cannot satisfy all requirements.\r\n```",
+              "createdAt": "2024-07-17T11:21:16Z",
+              "updatedAt": "2024-07-17T11:26:30Z"
+            },
+            {
+              "originalPosition": 50,
+              "body": "```suggestion\r\n```",
+              "createdAt": "2024-07-17T11:21:31Z",
+              "updatedAt": "2024-07-17T11:26:30Z"
+            },
+            {
+              "originalPosition": 52,
+              "body": "```suggestion\r\n* What optimization functions should be applied to beacons and what metrics should be considered when propagating them?\r\n```",
+              "createdAt": "2024-07-17T11:23:26Z",
+              "updatedAt": "2024-07-17T13:25:54Z"
+            },
+            {
+              "originalPosition": 56,
+              "body": "```suggestion\r\n* How can multiple functions be applied concurrently for different source and destination applications?\r\n```",
+              "createdAt": "2024-07-17T11:25:01Z",
+              "updatedAt": "2024-07-17T11:26:30Z"
+            },
+            {
+              "originalPosition": 60,
+              "body": "```suggestion\r\n* Criteria changing over time.\r\n```",
+              "createdAt": "2024-07-17T11:26:09Z",
+              "updatedAt": "2024-07-17T11:26:30Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CIds1",
+          "commit": {
+            "abbreviatedOid": "37349a1"
+          },
+          "author": "nicorusti",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "Hi Ali, thanks a lot for this initial text. I've added some specific comments above, then some more general comments: \r\n- I feel that overall the key question about beaconing is to improve the tradeoffs between scalability/finding sufficient paths and doing it quickly. I'd try to highlight that in the text\r\n- This topics connects to question 2.7  of RFC9217 (and also a bit 2.8)\r\n  > Competing control inputs from path-aware endpoints and the routing control plane may lead to more difficult traffic engineering or non-convergent forwarding, especially if the endpoints' and operators' notion of the \"best\" path for given traffic diverges significantly. \r\n  \r\n  I'd mention that, and that this has implications for traffic engineering. This is a question that we get a lot at IETF. I'd almost call this paragraph `Beacon optimization and traffic engineering` if this could fit..",
+          "createdAt": "2024-07-17T15:20:27Z",
+          "updatedAt": "2024-07-17T15:36:58Z",
+          "comments": [
+            {
+              "originalPosition": 46,
+              "body": "How would a newly connected AS learn of existing paths? Lookup its neighbors?\r\n",
+              "createdAt": "2024-07-17T15:20:27Z",
+              "updatedAt": "2024-07-17T15:36:58Z"
+            },
+            {
+              "originalPosition": 49,
+              "body": "```suggestion\r\n* Communication requirements vary according to source, destination, and application. Satisfying all these requirements either requires discovering all paths in the network, or optimizing paths during the beaconing process. Selecting the 5 shortest paths per destination may not satisfy all requirements.\r\n```",
+              "createdAt": "2024-07-17T15:22:38Z",
+              "updatedAt": "2024-07-17T15:36:58Z"
+            },
+            {
+              "originalPosition": 50,
+              "body": "Is current beaconing actually only offering 5 shortest paths per destination? I've always heard there are a lot more..\r\n",
+              "createdAt": "2024-07-17T15:25:57Z",
+              "updatedAt": "2024-07-17T15:36:58Z"
+            },
+            {
+              "originalPosition": 58,
+              "body": "```suggestion\r\n```\r\nI don't think this question is relevant in a RG, that does not do standards track work",
+              "createdAt": "2024-07-17T15:26:55Z",
+              "updatedAt": "2024-07-17T15:36:58Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
