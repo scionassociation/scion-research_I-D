@@ -95,6 +95,7 @@ normative:
         name: Samuel Hitz
         org: Anapaya Systems
 informative:
+  RFC9460:
   I-D.garciapardo-drkey:
     title: Dynamically Recreatable Keys
     date: 2022
@@ -116,6 +117,37 @@ informative:
         ins: A. Perrig
         name: Adrian Perrig
         org: ETH Zürich
+
+  TABAEIAGHDAEI2023:
+    title: "Inter-domain Routing with Extensible Criteria"
+    date: 2023
+    target: https://netsec.ethz.ch/publications/papers/IREC_arXiv.pdf
+    author:
+      -
+        ins: S. Tabaeiaghdaei
+        name: Seyedali Tabaeiaghdaei
+        org: ETH Zürich
+      -
+        ins: M. Wyss
+        name: Marc Wyss
+        org: ETH Zürich
+      -
+        ins: G. Giuliari
+        name: Giacomo Giuliari
+        org: ETH Zürich
+      -
+        ins: J. van Bommel
+        name: Jelte van Bommel
+        org: ETH Zürich
+      -
+        ins: A. N. Zehmakan
+        name: Ahad N. Zehmakan
+        org: Australian National University
+      -
+        ins: A. Perrig
+        name: Adrian Perrig
+        org: ETH Zürich
+
   LEGNER2020:
     title: "EPIC: Every Packet Is Checked in the Data Plane of a Path-Aware Internet"
     date: 2020
@@ -202,22 +234,108 @@ This draft assumes the reader is familiar with some of the fundamental concepts 
 * One AS belongs to many ISDs?
 
 
+## Beacon Forwarding Policy
+
+The idea behind "beaconing" is to discover all possible paths (loop free and with a fixed maximum length) between two CORE AS.
+Every CORE AS forwards any received beacons to all neighbor CORE ASes unless this would cause a loop or exceed the fixed maximum length.
+Implemented naively, the number of paths (and beacons) grows exponentially with the network size.
+This is currently mitigated, primarily (and efficiently), by forwarding only the five "best PCBs" (from a given remote source CORE AS) to neighbors.
+"Best" here takes into account properties such as diversity, time to expire and whether (or how recently) the same
+PCBs has been forwarded before.
+
+Since path may expire after an hour or so and because expiration is not the only factor, an AS will typically start
+resending the same beacons in less than an hour (i.e. the typical expiration time).
+
+This means the total number of different PCBs that an AS will receive from a given neighbor is e.g.
+5 per minute * 30 minute = 150 paths.
+
+Most likely, an AS will receive PCBs originated from a given source from several neighbors, however these are likely to be
+very similar. They are likely to have the same tail and only differ in the few last added hops, i.e. the immediate neighbors.
+
+As a result, an AS will probably have only little more than 150 paths to a given remote AS.
+
+This is likely sufficient for most applications, but is far from a complete view of the network.
+
+This can be problematic:
+
+* Massive multipathing: endpoints may not be able to use the theoretically best paths.
+* Unusual path policies, such as geofencing, may not be fulfillable by the limited number of paths on offer.
+
+
+## Wormhole attack
+
+### Set up
+
+Scenario: attackers create two core ASes that are geographically far apart. They then anounce a link (effectively a shortcut) between these two AS with
+very appealing properties (low latency, few hops, ...).
+
+### Impact
+The attacker can now perform blackhole attacks (DoS), greyhole attacks, delay traffic, or similarily impact traffic.
+
+Critically, there is currently no clear way to recover from this situation. In order to recover, ASes that are connected to the
+workhole-ASes would need to learn of the problem and stop forwarding the wormhole beacons.
+
+Mitigations:
+
+- Introduce a way for ASes to verify path properties. This would make it harder to install wormholes.
+  This could include measuring latency or sense-checking of geolocation information.
+- Introduce a way for endpoints to discover path problems.
+- Introduce a way for endpoints to report path problems.
+- Introduce a way to recover from malicious segments, see {{signalling-faulty-segments}}.
+- Adapt the path discovery and dissemination algorithm to allow ASes to have many more than five paths to
+  a given remote destination. The attack would then require an (unreasonably) large number of compromised ASes.
+
+A related question is discussed in {{signalling-faulty-segments}}.
+
+
+## DNS Service Binding (SVCB)
+
+The DNS Service Binding {{?RFC9460, Section 14.3}} allows a dedicated SCION Service Parameter to be specified.
+
+Service Parameters allow the specification of alternative IP addresses or other parameters
+(such as ISD/AS numbers) for a given URL.
+This would be more elegant than using DNS TXT records.
+
+Example of current entry:
+
+    $ dig +short ethz.ch TXT  | grep scion
+    "x-sciondiscovery=8041"
+    "scion=64-2:0:9,129.132.230.98"
+
+
+With SVCB this may look like this for https:
+
+    dig +short https ethz.ch
+    1 . alpn="h2" scion=64-2:0:9,129.132.230.98
+
+SVCB is also planned to be supported by Happy Eyeballs v3 {{?I-D.draft-pauly-v6ops-happy-eyeballs-v3-01}}.
+
+
 ## Segment Dissemination
 
-Control servers return a large number of path segments. This can cost considerable bandwidth / network egress while at the same time overloading clients with an unnecessarily large numbers of segments, mostly consisting of redundant information in terms of duplicate link and hops.
+Control servers may return a large number of path segments for some queries.
+This can cost considerable bandwidth / network egress while at the same time
+overloading clients with an unnecessarily large numbers of segments.
 
-* This problem may be more problematic in ASes with many end hosts (e.g. IoT), or end hosts with little computing power or little spare bandwidth.
+* This problem may be more acute in ASes with many end hosts (e.g. IoT),
+or end hosts with little computing power or little spare bandwidth.
 * Getting a full path to a remote endhost may require three round-trips with the control server.
 
 There are multiple possible and independent solution steps here:
 
-* Compression (idea suggested by Francois Wirz): Segments could be stored in a way that duplicate information (hops & links) is only stored once and the segments contain only references to the hops and links.
-* Allow queries from start AS to end AS across multiple segments. This should be very easy to implement and would be compatible with the current wire protocol (protobuf).
+* Compression: Segments could be stored in a way that duplicate information (hops & links) is only stored once and the segments contain only references to the hops and links.
+* Instead of requiring three separate queries for (UP/CORE/DOWN), we could allow a single query from \<start AS\> to \<end AS\> across multiple segments.
+  This should be very easy to implement and would be compatible with the current wire protocol (protobuf).
   * This would reduce the number of round trips to one.
   * It would reduce the number of returned segments because only segments that actually connect to other segments would need to be returned.
-* Predefine some policies that can be resolved by the control server, e.g. ANY, BEST_LATENCY, BEST_BANDWIDTH, BEST_PRICE, BEST_CO2. For these, a control server could simply calculate 5-10 good paths and return these. Moreover these could be cached for commonly requested remote ASs. If a user requires a custom policy they can still resort to requesting actual segments.
+* Predefine some policies that can be resolved by the control server, e.g. ANY, BEST_LATENCY, BEST_BANDWIDTH, BEST_PRICE,
+BEST_CO2. For these, a control server could simply calculate 5-10 good paths and return these.
+Moreover these could be cached for commonly requested remote ASes.
+If a user requires a custom policy they can still resort to requesting actual segments.
 
-Doing path computation on the control server will initially increase computational cost. However, it would substantially decrease network egress. Caching of paths should reduce CPU cost, maybe even below the current cost for retrieving a large amount of segments from the local database and sending them over the network interface.
+Doing path selection on the control server will initially increase computational cost.
+However, it would substantially decrease network egress. Caching of paths should reduce CPU cost,
+maybe even below the current cost for retrieving a large amount of segments from the local database and sending them over the network interface.
 
 Examples for requesting CORE segments between different ISDs or within an ISD (as of 2024-07-12):
 
@@ -229,6 +347,43 @@ Examples for requesting CORE segments between different ISDs or within an ISD (a
 | 64-0:0:0    | 64-2:0:13   | 60                |
 {: #segment-count-example title="CORE segment count examples"}
 
+## Periodic beacon propagation
+The SCION control plane protocol specifies that beacons should be propagated periodically.
+Is it really necessary?
+
+  * For path freshness, only the initial AS emitting the PCB needs to originate beacons periodically,
+  and others can disseminate immediately.
+  * As response to link failures or availability of new paths, beacon services can respond instantly.
+
+If no periodic propagation is necessary for path freshness, or to respond to link failures,
+the periodic propagation would only be used for the discovery of new paths at each interval,
+enhancing the scalability and path diversity.
+
+## Beacon optimization and extensibility
+Communication requirements vary according to source, destination, and application.
+Satisfying all these requirements either requires discovering all paths in the network,
+or optimizing the creation of paths during the beaconing process.
+Selecting the 5 shortest paths per destination at each beaconing period may not satisfy all requirements
+that different applications, on different endpoints, on different ASes, will have.
+The beacon selection process, the criteria and metrics that they carry, and the adaptability
+of them all have a strong impact in the traffic engineering of the individual ASes,
+and of the inter-domain communication as a whole. See question 2.7 of {{RFC9217}}.
+
+* What optimization functions should be applied to beacons and what metrics should be considered when propagating them ?
+  Is the set of properties composed of path length, peering ASes, path disjointness, PCB last reception,
+  and path lifetime enough?
+* How do we extend the metrics with new dimensions, such as bandwidth, latency, geo-position, etc?
+* Who should select these functions?
+* How should the outcome of these functions be verified?
+* How can multiple functions be applied concurrently, for different source and destination applications?
+* How should end-ASes express their desired requirements to the inter-domain control plane?
+* How do these requirements translate into concrete optimization functions?
+* How would standardization of the functions look like?
+* The functions changing over time:
+  * How can optimization functions adapt to incorporate these changes?
+  * How to achieve fast adaptation of optimization functions?
+* See also: IREC {{TABAEIAGHDAEI2023}}
+
 
 ## Routing Policies and Traffic Engineering
 
@@ -239,15 +394,47 @@ One solution could be to add a “confirm full path”-flag to certain segments.
 Collateral: this probably needs a data plane change. Conceptually, we have only a single resulting segment, and that segment needs to be used in full, e.g. no on-path trickery.
 
 ## DRKey
-* Is forward-secrecy DRKey useful and should we develop it?
-* What are the properties of the control-plane?
-  * Do we want to have any authorization of the data-plane transit undertaken at this stage?
-  * Would this obsolete firewalls?
+DRKey is a key distribution system that scales well with the number of endpoints in the network.
+It relies on two things:
+
+* Two sides of a key: A fast side, and a slow side. Sometimes called fast and slow side of the derivation.
+  The ability of deriving a key very quickly on the fast side is necessary for most of its use cases.
+* A grouping of endpoints (such as ASes): The pieces necessary to derive a key, namely the L1 keys,
+  are communicated to each keystore at each grouping (e.g., a keystore per AS).
+
+The questions related to DRKey are the following ones (not comprehensive):
+
+* Do we want to have any possible authorization that is at the moment carried out at the data-plane,
+  be moved to the control-plane? This could include e.g. authorization to deliver traffic depending on the source,
+  but also things like port numbers/ranges per source, etc.
+  * Could this obsolete firewalls? What else would be necessary?
   * What do we mean when we say "authorize transit"?
+* Could perfect forward secrecy DRKey be useful, and should we research it?
+  * What would be the trust model? Do end-users trust their ASes to ephemerally create personal keys?
+  * What would be the attacker model?
+  * Which use cases are relevant?
 
 For more info: {{I-D.garciapardo-drkey}}.
 
 ## SCMP Authentication
+In SCION, we would like to have SCMP (SCION Control Message Protocol) include authentication for
+some of the message types, e.g. the interface down type, as it would affect the path choices that the
+endpoint, and even the source AS, can make.
+
+We propose to use DRKey as the mechanism to use to derive the authentication key,
+where the fast path would be on the infrastructure side (e.g. the border router in the case of an
+interface down type of message), and the slow side being on the intended endpoint destination
+for that SCMP message (e.g. the endpoint receiving the SCMP interface down message).
+However, we have identified a number of possible issues (not comprehensive):
+
+* Denial of Service/Capability Attacks: If an endpoint receives (too) many SCMP messages,
+  it will need (too) many resources just to authenticate their origin.
+  Most of these messages could just be sent to the endpoint to exhaust its processing capacity.
+
+* Sending an SCMP message in certain cases might be an amplification factor:
+  If a border router sends an SCMP message (e.g. interface down) on all cases, even with small packets,
+  there is the risk of having that border router sending a lot of traffic to
+  a possibly unintended recipient, e.g. when the packet is not source validated.
 
 ## Proof of transit
 
@@ -261,7 +448,7 @@ Critically, the SCION header needs to contain the SRC address as seen by the bor
 Possible solutions:
 
 * With IPv6 underlay, this problem disappears. // TODO Clarify why it disappears? IS the idea that we can remove NATs if everyone would use IPv6?
-* Introduce a mechanism so that the SCION border router can report the NATed address to an endhost (similar to a STUN server).
+* Introduce a mechanism so that the SCION border router can report the NATed address to an endpoint (similar to a STUN server).
 
 # Dataplane stability
 
@@ -272,7 +459,7 @@ Links may get overloaded because the SCION routing system fails to distribute lo
 If links become overloaded, there are several ways to handle that. Non comprehensively:
 
 * Squeeze: send an SCMP message to trigger end-hosts to use an alternative path
-* Steer: send and SCMP to trigger users to ask CS for a better path
+* Steer: send and SCMP to trigger users to ask control server for a better path
 * Reduce: hand over very short lived paths, let the end-hosts wait for the path to expire so that they request new paths and (hopefully) decide on a different path.
 * Recommend: let the end-hosts know which paths are recommended by the AS at this time.
 
@@ -317,14 +504,64 @@ prompting the server to use this path from now on.
   With this knowledge these two layers can easily determine when to send a new path
   (analogous to connection migration in QUIC {{RFC9000}}), so that the server is instructed
   to use it for the next replies.
+* The server must ask the control server for a path, regardless of the client's policy.
+* The client (somehow) sends a new packet with a new path, prompting the server to use this path from now on.
+
+There are some nuances: Usually the server's API will store the initial address of the client to be used through all the session. We might need to take this into account.
+
+A related question: how long before expiration should we still use a path? How do we handle that?
+
+Do we actually need to solve this reverse path refresh problem?
+
+* CONTRA: It is probably rare that a server needs to send data for a long time without the application layer protocol requiring the client to ever answer back.
+* PRO: The client may happen to have an old-ish path. If we can't refresh, the client always needs to consider whether a path is valid "long enough", which might only be possible to guess.
+* CONTRA: Sending keep-alives sounds like a connection based protocol. It alo means we need to figure out when to stop sending keep alives.
+* CONTRA: It may be better to solve this in the application layer or in the overlay protocol, where we we know more about
+  potential length of the session, or whether this is a singular request/answer type of exchange, or whether more frequent keep-alives
+  are anyway required.
 
 
+## Signalling faulty segments
+
+Faulty segments are segments that do not work as advertised, i.e. they are either physically faulty
+(broken link, high packet loss, jitter, ...) or come with faulty metadata, suggesting too few hops, too low latency,
+too much bandwith, or similar problems.
+The fault may be caused by a technical problem (e.g. broken link) or by a malicious adversary.
+
+An example for a malicious adversary is the "wormhole" attack, see {{I-D.scion-cp}}, where, an AS may be coaxed to
+disseminate a faulty segment. How do we recover from faulty segments?
+Currently only endpoints may realize that a segment does not work as advertised, either via SCMP errors or simply by traffic degradation.
+This would be a possible sequence of events:
+
+* An endpoint realizes that a segment is faulty
+* An endpoint needs to signal to its local AS that a segment is faulty
+* Local AS needs to signal its CORE AS that a segment is faulty
+* The CORE AS needs to:
+  * change policy to exclude faulty segments AND/OR
+  * signal other COREs and ISDs to stop delivering the segment (they only deliver 5 each, so any faulty segment shoud be avoided)
+
+### Implications
+
+Besides general service degradation, a lack of recovery can worsen the impact of a wormhole attack {{wormhole-attack}}.
+
+### Mitigation
+
+* An AS could monitor traffic for SCMP errors, however this works only if these errors are actually generated and forwarded.
+* Endpoints need a way to signal faulty segments to ASes. ASes need a way to signal faulty ASes to other ASes (e.g.
+core ASes or ASes in other ISDs).
+* ASes need adaptive beacon analysis algorithms that allow excluding specific beacons, e.g. beacons that have
+  known malicious ASes on path.
+* For swift recovery, it would be useful if ASes could communicate the faultiness of faulty segments.
+
+
+<!--
 # Hummingbird / QoS
 
 * How many QoS flows to support at core routers?
 * How does QoS interact with Net Neutrality?
 * What proof of transit (or forwarding failure detection) is needed or wanted?
 * What time synchronization precision should we expect at the border router level of every AS? How far can we go realistically?
+-->
 
 # Interfaces for Path Awareness
 
