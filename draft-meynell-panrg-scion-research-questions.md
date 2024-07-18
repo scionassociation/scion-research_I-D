@@ -283,30 +283,6 @@ This can be problematic:
 * Unusual path policies, such as geofencing, may not be fulfillable by the limited number of paths on offer.
 -->
 
-## Wormhole attack
-
-### Set up
-
-Scenario: attackers create two core ASes that are geographically far apart. They then announce a link (effectively a shortcut) between these two ASes with
-very appealing properties (low latency, few hops, ...).
-
-### Impact
-The attacker can now perform blackhole attacks (DoS), greyhole attacks, delay traffic, or similarily impact traffic.
-
-Critically, there is currently no clear way to recover from this situation. In order to recover, ASes that are connected to the
-wormhole ASes would need to learn of the problem and stop forwarding the wormhole beacons.
-
-Mitigations:
-
-- Introduce a way for ASes to verify path properties. This would make it harder to install wormholes.
-  This could include measuring latency or sense-checking of geolocation information.
-- Introduce a way for endpoints to discover path problems.
-- Introduce a way for endpoints to report path problems.
-- Introduce a way to recover from malicious segments, see {{signalling-faulty-segments}}.
-- Adapt the path discovery and dissemination algorithm to allow ASes to have many more than five paths to
-  a given remote destination. The attack would then require an (unreasonably) large number of compromised ASes.
-
-A related question is discussed in {{signalling-faulty-segments}}.
 
 
 ## DNS Service Binding (SVCB)
@@ -559,7 +535,7 @@ This would be a possible sequence of events:
 
 ### Implications
 
-Besides general service degradation, a lack of recovery can worsen the impact of a wormhole attack {{wormhole-attack}}.
+Besides general service degradation, a lack of recovery can worsen the impact of a wormhole attack {{I-D.scion-cp}}.
 
 ### Mitigation
 
