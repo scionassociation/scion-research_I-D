@@ -145,7 +145,7 @@ informative:
         ins: A. Perrig
         name: Adrian Perrig
         org: ETH Zürich
-        
+
   LEGNER2020:
     title: "EPIC: Every Packet Is Checked in the Data Plane of a Path-Aware Internet"
     date: 2020
@@ -339,11 +339,11 @@ Examples for requesting CORE segments between different ISDs or within an ISD (a
 * How can multiple functions be applied concurrently for different source and destination applications?
 * How should end ASes express their desired requirements to the inter-domain control plane?
 * How do these requirements translate into concrete optimization functions?
-* How does standardization of the functions work? 
+* How does standardization of the functions work?
 * Criteria changing over time.
   * How can optimization functions adapt to incorporate these changes?
   * How to achieve fast adaptation of optimization functions?
-* IREC {{TABAEIAGHDAEI2023}} 
+* IREC {{TABAEIAGHDAEI2023}}
 
 
 ## Routing Policies and Traffic Engineering
