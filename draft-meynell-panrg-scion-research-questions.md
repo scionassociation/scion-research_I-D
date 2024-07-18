@@ -202,8 +202,8 @@ and at the control-plane level, to identify the PCB sender and hops.
 
 Whilst 48 bits for the AS will accommodate up to 2.81475e14 assignments which is
 likely to be more than sufficient for the future
-using 16 bits for the ISD only offers 65,536 possible assignments which is conceivably insufficient.
-Additionally, the justification of these figures is lacking at the moment.
+using 16 bits for the ISD only offers 65,536 possible assignments.
+Further investigation on whether this is sufficient is needed.
 
 The following questions arise: (not comprehensive)
 
