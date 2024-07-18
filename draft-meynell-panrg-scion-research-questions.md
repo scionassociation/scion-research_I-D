@@ -460,20 +460,20 @@ The current consensus is that end-hosts can use multi-pathing and “automatical
 
 ## Reverse Path Refreshment
 
-When a client contacts a server, it is usually understood that it wants the server to use the reverse path to answer back.
+When a client and server communicate, return traffic should usually follow the same reverse path.
 If the server uses that path for a long period of time, the path will eventually expire.
-How to standardize the process of refreshment?
+How should the server determine the path for return traffic and at which layer? How to avoid this being a vector pf path hijackings?
 
-There are some relevant points we have identified for the discussion:
+There are some relevant points for the discussion:
 
-* In order to send data back to the client the server needs to store the path locally
-  (analogous to storing the client's IP/TCP-port in an TCP/IP scenario).
+* In order to send data back to the client, the server needs to store the path locally
+  (analogous to storing the client's 4-tuple in an TCP/IP scenario).
 
 * More generally, if multiple paths are used to contact the server,
-  which one of those would be used to reply? Leave it to transport layer protocol,
+  which one of those would be used to reply? Should this be responsibility of the transport protocol,
   as in the case of QUIC-MP {{I-D.ietf-quic-multipath}}?
 
-* How long before expiration should the client and server still use a path?
+* How long before path expiration should the client and server still use a path?
   The client can choose from paths that will not expire in a short period of time,
   but it does not control for how long the server will attempt to use it (i.e.
   how long it will take the server to send the complete response).
@@ -495,11 +495,11 @@ prompting the server to use this path from now on.
 * The server must ask the control plane for a path, regardless of the client's policy.
 * The client (somehow) sends a new packet with a new path, prompting the server to use this path from now on.
 
-There are some nuances: Usually the server's API will store the initial address of the client to be used through all the session. We might need to take this into account.
+There are some nuances: Usually the server's API will store the initial address of the client to be used through all the session.
 
-A related question: how long before expiration should we still use a path? How do we handle that?
+A related question: how long before expiration should a path be used?
 
-Do we actually need to solve this reverse path refresh problem?
+Is reverse path refresh a relevant problem?
 
 * Contra: It is probably rare that a server needs to send data for a long time without the application layer protocol requiring the client to ever answer back.
 * Pro: The client may happen to have an old-ish path. If we can't refresh, the client always needs to consider whether a path is valid "long enough", which might only be possible to guess.
