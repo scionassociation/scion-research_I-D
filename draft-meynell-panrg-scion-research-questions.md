@@ -43,80 +43,12 @@ normative:
   RFC9217: # Current Open Questions in PAN
   RFC9000: # QUIC
   I-D.ietf-quic-multipath:
-  I-D.scion-cp:
-    title: SCION Control Plane
-    date: 2023
-    target: https://datatracker.ietf.org/doc/draft-dekater-scion-controlplane/
-    author:
-      -
-        ins: C. de Kater
-        name: Corine de Kater
-        org: SCION Association
-      -
-        ins: N. Rustignoli
-        name: Nicola Rustignoli
-        org: SCION Association
-      -
-        ins: S. Hitz
-        name: Samuel Hitz
-        org: Anapaya Systems
-  I-D.scion-cppki:
-    title: SCION Control-Plane PKI
-    date: 2023
-    target: https://datatracker.ietf.org/doc/draft-dekater-scion-pki/
-    author:
-      -
-        ins: C. de Kater
-        name: Corine de Kater
-        org: SCION Association
-      -
-        ins: N. Rustignoli
-        name: Nicola Rustignoli
-        org: SCION Association
-      -
-        ins: S. Hitz
-        name: Samuel Hitz
-        org: Anapaya Systems
-  I-D.scion-dataplane:
-    title: SCION Data Plane
-    date: 2023
-    target: https://datatracker.ietf.org/doc/draft-dekater-scion-dataplane/
-    author:
-      -
-        ins: C. de Kater
-        name: Corine de Kater
-        org: SCION Association
-      -
-        ins: N. Rustignoli
-        name: Nicola Rustignoli
-        org: SCION Association
-      -
-        ins: S. Hitz
-        name: Samuel Hitz
-        org: Anapaya Systems
+  I-D.dekater-scion-controlplane:
+  I-D.dekater-scion-pki:
+  I-D.dekater-scion-dataplane:
 informative:
   RFC9460:
-  I-D.garciapardo-drkey:
-    title: Dynamically Recreatable Keys
-    date: 2022
-    target: https://datatracker.ietf.org/doc/draft-garciapardo-panrg-drkey/
-    author:
-      -
-        ins: J. Pardo
-        name: Juan A. García Pardo Giménez de los Galanes
-        org: ETH Zürich
-      -
-        ins: C. Krähenbühl
-        name: Cyrill Krähenbühl
-        org: ETH Zürich
-      -
-        ins: B. Rothenberger
-        name: Benjamin Rothenberger
-        org: ETH Zürich
-      -
-        ins: A. Perrig
-        name: Adrian Perrig
-        org: ETH Zürich
+  I-D.garciapardo-panrg-drkey:
 
   TABAEIAGHDAEI2023:
     title: "Inter-domain Routing with Extensible Criteria"
@@ -212,7 +144,7 @@ TODO Abstract here
 
 # Introduction
 
-SCION is an inter-domain network architecture. Its core components, as deployed by some of its early adopters, are specified in {{I-D.scion-dataplane}}, {{I-D.scion-cppki}}, {{I-D.scion-cp}} which are currently under ISE review.
+SCION is an inter-domain network architecture. Its core components, as deployed by some of its early adopters, are specified in {{I-D.dekater-scion-dataplane}}, {{I-D.dekater-scion-pki}}, {{I-D.dekater-scion-controlplane}} which are currently under ISE review.
 
 The goal of this draft is to explore how SCION and its early deployments try to address open research questions in {{RFC9217}}. Specifically, there are still many open areas of research around path-aware networking, where SCION with its early deployment experiences and research efforts can provide a contribution. This can also be a starting point for discussions around long-term protocol evolution.
 
@@ -308,7 +240,7 @@ SVCB is also planned to be supported by Happy Eyeballs v3 {{?I-D.draft-pauly-v6o
 
 
 ## Segment Dissemination
-A path look-up in SCION works analogous to a DNS query (section 4 of {{I-D.scion-cp}}):
+A path look-up in SCION works analogous to a DNS query (section 4 of {{I-D.dekater-scion-controlplane}}):
 
 * The source endpoint queries the control service in its own AS.
 * The local AS has already at least one segment to one core AS of its local ISD.
@@ -407,7 +339,7 @@ The questions related to DRKey are the following ones (not comprehensive):
   * What would be the attacker model?
   * Which use cases are relevant?
 
-For more info: {{I-D.garciapardo-drkey}}.
+For more info: {{I-D.garciapardo-panrg-drkey}}.
 
 ## SCMP Authentication
 In SCION, endpoints are responsible to select alternate paths in case of failure.
