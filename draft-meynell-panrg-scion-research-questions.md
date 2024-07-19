@@ -308,6 +308,14 @@ SVCB is also planned to be supported by Happy Eyeballs v3 {{?I-D.draft-pauly-v6o
 
 
 ## Segment Dissemination
+A path look-up in SCION works analogous to a DNS query (section 4 of {{I-D.scion-cp}}):
+
+* The source endpoint queries the control service in its own AS.
+* The local AS has already at least one segment to one core AS of its local ISD.
+  It uses it to query the core AS' control service for segments to core ASes of the remote ISD.
+* The local AS has now segments also from its local ISD core ASes to core ASes in the remote ISD.
+  The local AS queries the remote ISD's core ASes for segments to the destination AS.
+* The local AS returns all these segments to the endpoint, to be combined.
 
 Control services may return a large number of path segments for some queries.
 This can cost considerable bandwidth while at the same time
@@ -315,7 +323,7 @@ overloading clients with an unnecessarily large numbers of segments.
 
 * This problem may be more acute in ASes with many endpoints (e.g. IoT),
 or for resource-constrained endpoints.
-* Getting a full path to a remote endpoint may require three queries to the control service.
+* Getting a full path to a remote endpoint may require three queries to control services.
 
 There are multiple possible and independent solution steps here:
 
