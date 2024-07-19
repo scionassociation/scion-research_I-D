@@ -508,7 +508,7 @@ ASes can refuse to sign a segment but must comunicate such refusal.
 
 ### Phase 1 - Discovery
 
-* At a regular intervall "tLL" (eg. 10 seconds), every AS sends out a list of its links to all neighboring ASes.
+* At a regular intervall "tLL" (tLL=time-link-list; eg. 10 seconds), every AS sends out a list of its links to all neighboring ASes.
 * Every AS forwards all received link lists to all neighboring ASes unless it has seen the same link list recently (less 1/2 * tLL ago).
 * Every AS will thus receive link lists from all other ASes. It uses the information to build a complete graph of the
   internet topology.
