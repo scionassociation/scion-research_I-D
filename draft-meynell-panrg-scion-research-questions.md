@@ -246,7 +246,7 @@ The following questions arise: (not comprehensive)
   * Per capacity tier?
   * Per "type"? (meaning: any grouping that makes sense to their members)
   * Possible combinations of any previous "types"?
-* Note that ISDs require core links to other ISDs.
+* Note that, to achieve global connectivity, ISDs require core links to other ISDs.
   This reduces the number of ISDs to those that have core ASes that can directly
   connect to core ASes in other ISDs.
   The number of ISDs is still super-exponential asymptotically.
