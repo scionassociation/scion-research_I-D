@@ -532,6 +532,7 @@ path requirements.
 ### Advantages
 
 Conceptually:
+
 * More trust separation #1: Any AS can request any segments that it desires, it is not dependend on what its
   neighbors consider "best" PCBs
 * More trust separation #2: Every AS sees the complete segment when signing it. It doesn´t have to rely on
@@ -568,16 +569,13 @@ Concretely:
   If the measured latency is much higher than the advertised latency, then the segment is probably faulty and should
   not be used.
 
-* Mitigates 10-"wormhole attack":  This attack would be considerably mitigated: Creating a "wormhole" is already more
-  difficult. However, because every AS can request new segments any time, it can quickly react to faulty segments
-  (onced it learns) of them, and simply request new segments that go around suspicious ASes.
-
 * (Core-)Segment revocation is straight forward. One of the two link owners simply removes the revoked link from the
   link list before sending it out. Any AS that receives the link list should remove the link from its local graph and
   remove associated segments from the local segment store.
 
 
 ### Open questions
+
 * How to communicate the reason for path rejection? I.e. is a small change to the route sufficient to proceed with
   signing?
 * How to best best select a new core segment if a requested segment turns out to be faulty (signalled as faulty,
