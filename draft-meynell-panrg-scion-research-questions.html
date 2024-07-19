@@ -1238,7 +1238,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1">SCION is an inter-domain network architecture. Its core components, as deployed by some of its early adopters, are specified in <span>[<a href="#I-D.scion-dataplane" class="cite xref">I-D.scion-dataplane</a>]</span>, <span>[<a href="#I-D.scion-cppki" class="cite xref">I-D.scion-cppki</a>]</span>, <span>[<a href="#I-D.scion-cp" class="cite xref">I-D.scion-cp</a>]</span> which are currently under ISE review.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-1">SCION is an inter-domain network architecture. Its core components, as deployed by some of its early adopters, are specified in <span>[<a href="#I-D.dekater-scion-dataplane" class="cite xref">I-D.dekater-scion-dataplane</a>]</span>, <span>[<a href="#I-D.dekater-scion-pki" class="cite xref">I-D.dekater-scion-pki</a>]</span>, <span>[<a href="#I-D.dekater-scion-controlplane" class="cite xref">I-D.dekater-scion-controlplane</a>]</span> which are currently under ISE review.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">The goal of this draft is to explore how SCION and its early deployments try to address open research questions in <span>[<a href="#RFC9217" class="cite xref">RFC9217</a>]</span>. Specifically, there are still many open areas of research around path-aware networking, where SCION with its early deployment experiences and research efforts can provide a contribution. This can also be a starting point for discussions around long-term protocol evolution.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">This draft assumes the reader is familiar with some of the fundamental concepts defined in the components specification.<a href="#section-1-3" class="pilcrow">¶</a></p>
 <p id="section-1-4"><strong>Note:</strong> This is the very first version of the SCION research questions draft, and it merely contains a skeleton of potential topics to be further discussed in this draft. Any feedback is welcome and much appreciated. Thanks!<a href="#section-1-4" class="pilcrow">¶</a></p>
@@ -1355,7 +1355,7 @@ dig +short https ethz.ch
         <h3 id="name-segment-dissemination">
 <a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-segment-dissemination" class="section-name selfRef">Segment Dissemination</a>
         </h3>
-<p id="section-3.4-1">A path look-up in SCION works analogous to a DNS query (section 4 of <span>[<a href="#I-D.scion-cp" class="cite xref">I-D.scion-cp</a>]</span>):<a href="#section-3.4-1" class="pilcrow">¶</a></p>
+<p id="section-3.4-1">A path look-up in SCION works analogous to a DNS query (section 4 of <span>[<a href="#I-D.dekater-scion-controlplane" class="cite xref">I-D.dekater-scion-controlplane</a>]</span>):<a href="#section-3.4-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.4-2.1">
             <p id="section-3.4-2.1.1">The source endpoint queries the control service in its own AS.<a href="#section-3.4-2.1.1" class="pilcrow">¶</a></p>
@@ -1564,7 +1564,7 @@ are communicated to each keystore at each grouping (e.g., a keystore per AS).<a 
             </ul>
 </li>
         </ul>
-<p id="section-3.8-5">For more info: <span>[<a href="#I-D.garciapardo-drkey" class="cite xref">I-D.garciapardo-drkey</a>]</span>.<a href="#section-3.8-5" class="pilcrow">¶</a></p>
+<p id="section-3.8-5">For more info: <span>[<a href="#I-D.garciapardo-panrg-drkey" class="cite xref">I-D.garciapardo-panrg-drkey</a>]</span>.<a href="#section-3.8-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="scmp-authentication">
@@ -1792,21 +1792,21 @@ are required anyway.<a href="#section-4.2.1-5.4.1" class="pilcrow">¶</a></p>
 <a href="#section-10.1" class="section-number selfRef">10.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
         </h3>
 <dl class="references">
+<dt id="I-D.dekater-scion-controlplane">[I-D.dekater-scion-controlplane]</dt>
+        <dd>
+<span class="refAuthor">de Kater, C.</span>, <span class="refAuthor">Rustignoli, N.</span>, and <span class="refAuthor">S. Hitz</span>, <span class="refTitle">"SCION Control Plane"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-dekater-scion-controlplane-04</span>, <time datetime="2024-07-08" class="refDate">8 July 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-dekater-scion-controlplane-04">https://datatracker.ietf.org/doc/html/draft-dekater-scion-controlplane-04</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.dekater-scion-dataplane">[I-D.dekater-scion-dataplane]</dt>
+        <dd>
+<span class="refAuthor">de Kater, C.</span>, <span class="refAuthor">Rustignoli, N.</span>, and <span class="refAuthor">S. Hitz</span>, <span class="refTitle">"SCION Data Plane"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-dekater-scion-dataplane-02</span>, <time datetime="2024-07-08" class="refDate">8 July 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-dekater-scion-dataplane-02">https://datatracker.ietf.org/doc/html/draft-dekater-scion-dataplane-02</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.dekater-scion-pki">[I-D.dekater-scion-pki]</dt>
+        <dd>
+<span class="refAuthor">de Kater, C.</span>, <span class="refAuthor">Rustignoli, N.</span>, and <span class="refAuthor">S. Hitz</span>, <span class="refTitle">"SCION Control-Plane PKI"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-dekater-scion-pki-06</span>, <time datetime="2024-07-08" class="refDate">8 July 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-dekater-scion-pki-06">https://datatracker.ietf.org/doc/html/draft-dekater-scion-pki-06</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="I-D.ietf-quic-multipath">[I-D.ietf-quic-multipath]</dt>
         <dd>
 <span class="refAuthor">Liu, Y.</span>, <span class="refAuthor">Ma, Y.</span>, <span class="refAuthor">De Coninck, Q.</span>, <span class="refAuthor">Bonaventure, O.</span>, <span class="refAuthor">Huitema, C.</span>, and <span class="refAuthor">M. Kühlewind</span>, <span class="refTitle">"Multipath Extension for QUIC"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-quic-multipath-10</span>, <time datetime="2024-07-08" class="refDate">8 July 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-quic-multipath-10">https://datatracker.ietf.org/doc/html/draft-ietf-quic-multipath-10</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="I-D.scion-cp">[I-D.scion-cp]</dt>
-        <dd>
-<span class="refAuthor">de Kater, C.</span>, <span class="refAuthor">Rustignoli, N.</span>, and <span class="refAuthor">S. Hitz</span>, <span class="refTitle">"SCION Control Plane"</span>, <time datetime="2023" class="refDate">2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/draft-dekater-scion-controlplane/">https://datatracker.ietf.org/doc/draft-dekater-scion-controlplane/</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="I-D.scion-cppki">[I-D.scion-cppki]</dt>
-        <dd>
-<span class="refAuthor">de Kater, C.</span>, <span class="refAuthor">Rustignoli, N.</span>, and <span class="refAuthor">S. Hitz</span>, <span class="refTitle">"SCION Control-Plane PKI"</span>, <time datetime="2023" class="refDate">2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/draft-dekater-scion-pki/">https://datatracker.ietf.org/doc/draft-dekater-scion-pki/</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="I-D.scion-dataplane">[I-D.scion-dataplane]</dt>
-        <dd>
-<span class="refAuthor">de Kater, C.</span>, <span class="refAuthor">Rustignoli, N.</span>, and <span class="refAuthor">S. Hitz</span>, <span class="refTitle">"SCION Data Plane"</span>, <time datetime="2023" class="refDate">2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/draft-dekater-scion-dataplane/">https://datatracker.ietf.org/doc/draft-dekater-scion-dataplane/</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
         <dd>
@@ -1837,9 +1837,9 @@ are required anyway.<a href="#section-4.2.1-5.4.1" class="pilcrow">¶</a></p>
         <dd>
 <span class="refAuthor">Pauly, T.</span>, <span class="refAuthor">Schinazi, D.</span>, <span class="refAuthor">Jaju, N.</span>, and <span class="refAuthor">K. Ishibashi</span>, <span class="refTitle">"Happy Eyeballs Version 3: Better Connectivity Using Concurrency"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-pauly-v6ops-happy-eyeballs-v3-01</span>, <time datetime="2024-03-04" class="refDate">4 March 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-pauly-v6ops-happy-eyeballs-v3-01">https://datatracker.ietf.org/doc/html/draft-pauly-v6ops-happy-eyeballs-v3-01</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="I-D.garciapardo-drkey">[I-D.garciapardo-drkey]</dt>
+<dt id="I-D.garciapardo-panrg-drkey">[I-D.garciapardo-panrg-drkey]</dt>
         <dd>
-<span class="refAuthor">Pardo, J.</span>, <span class="refAuthor">Krähenbühl, C.</span>, <span class="refAuthor">Rothenberger, B.</span>, and <span class="refAuthor">A. Perrig</span>, <span class="refTitle">"Dynamically Recreatable Keys"</span>, <time datetime="2022" class="refDate">2022</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/draft-garciapardo-panrg-drkey/">https://datatracker.ietf.org/doc/draft-garciapardo-panrg-drkey/</a>&gt;</span>. </dd>
+<span class="refAuthor">de los Galanes, J. A.</span>, <span class="refAuthor">Krähenbühl, C.</span>, <span class="refAuthor">Rothenberger, B.</span>, and <span class="refAuthor">A. Perrig</span>, <span class="refTitle">"Dynamically Recreatable Keys"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-garciapardo-panrg-drkey-03</span>, <time datetime="2022-07-24" class="refDate">24 July 2022</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-garciapardo-panrg-drkey-03">https://datatracker.ietf.org/doc/html/draft-garciapardo-panrg-drkey-03</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="KRAHENBUHL2023">[KRAHENBUHL2023]</dt>
         <dd>

@@ -101,8 +101,9 @@ Table of Contents
 
    SCION is an inter-domain network architecture.  Its core components,
    as deployed by some of its early adopters, are specified in
-   [I-D.scion-dataplane], [I-D.scion-cppki], [I-D.scion-cp] which are
-   currently under ISE review.
+   [I-D.dekater-scion-dataplane], [I-D.dekater-scion-pki],
+   [I-D.dekater-scion-controlplane] which are currently under ISE
+   review.
 
    The goal of this draft is to explore how SCION and its early
    deployments try to address open research questions in [RFC9217].
@@ -219,7 +220,7 @@ Table of Contents
 3.4.  Segment Dissemination
 
    A path look-up in SCION works analogous to a DNS query (section 4 of
-   [I-D.scion-cp]):
+   [I-D.dekater-scion-controlplane]):
 
    *  The source endpoint queries the control service in its own AS.
 
@@ -391,7 +392,7 @@ Table of Contents
 
       -  Which use cases are relevant?
 
-   For more info: [I-D.garciapardo-drkey].
+   For more info: [I-D.garciapardo-panrg-drkey].
 
 3.9.  SCMP Authentication
 
@@ -573,27 +574,33 @@ Table of Contents
 
 10.1.  Normative References
 
+   [I-D.dekater-scion-controlplane]
+              de Kater, C., Rustignoli, N., and S. Hitz, "SCION Control
+              Plane", Work in Progress, Internet-Draft, draft-dekater-
+              scion-controlplane-04, 8 July 2024,
+              <https://datatracker.ietf.org/doc/html/draft-dekater-
+              scion-controlplane-04>.
+
+   [I-D.dekater-scion-dataplane]
+              de Kater, C., Rustignoli, N., and S. Hitz, "SCION Data
+              Plane", Work in Progress, Internet-Draft, draft-dekater-
+              scion-dataplane-02, 8 July 2024,
+              <https://datatracker.ietf.org/doc/html/draft-dekater-
+              scion-dataplane-02>.
+
+   [I-D.dekater-scion-pki]
+              de Kater, C., Rustignoli, N., and S. Hitz, "SCION Control-
+              Plane PKI", Work in Progress, Internet-Draft, draft-
+              dekater-scion-pki-06, 8 July 2024,
+              <https://datatracker.ietf.org/doc/html/draft-dekater-
+              scion-pki-06>.
+
    [I-D.ietf-quic-multipath]
               Liu, Y., Ma, Y., De Coninck, Q., Bonaventure, O., Huitema,
               C., and M. Kühlewind, "Multipath Extension for QUIC", Work
               in Progress, Internet-Draft, draft-ietf-quic-multipath-10,
               8 July 2024, <https://datatracker.ietf.org/doc/html/draft-
               ietf-quic-multipath-10>.
-
-   [I-D.scion-cp]
-              de Kater, C., Rustignoli, N., and S. Hitz, "SCION Control
-              Plane", 2023, <https://datatracker.ietf.org/doc/draft-
-              dekater-scion-controlplane/>.
-
-   [I-D.scion-cppki]
-              de Kater, C., Rustignoli, N., and S. Hitz, "SCION Control-
-              Plane PKI", 2023, <https://datatracker.ietf.org/doc/draft-
-              dekater-scion-pki/>.
-
-   [I-D.scion-dataplane]
-              de Kater, C., Rustignoli, N., and S. Hitz, "SCION Data
-              Plane", 2023, <https://datatracker.ietf.org/doc/draft-
-              dekater-scion-dataplane/>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -623,11 +630,12 @@ Table of Contents
               <https://datatracker.ietf.org/doc/html/draft-pauly-v6ops-
               happy-eyeballs-v3-01>.
 
-   [I-D.garciapardo-drkey]
-              Pardo, J., Krähenbühl, C., Rothenberger, B., and A.
-              Perrig, "Dynamically Recreatable Keys", 2022,
-              <https://datatracker.ietf.org/doc/draft-garciapardo-panrg-
-              drkey/>.
+   [I-D.garciapardo-panrg-drkey]
+              de los Galanes, J. A., Krähenbühl, C., Rothenberger, B.,
+              and A. Perrig, "Dynamically Recreatable Keys", Work in
+              Progress, Internet-Draft, draft-garciapardo-panrg-drkey-
+              03, 24 July 2022, <https://datatracker.ietf.org/doc/html/
+              draft-garciapardo-panrg-drkey-03>.
 
    [KRAHENBUHL2023]
               Krähenbühl, C., Wyss, M., Basin, D., Lenders, V., Perrig,
