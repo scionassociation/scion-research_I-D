@@ -40,6 +40,13 @@ author:
      email: nic@scion.org
 
 normative:
+  TAPS: # Using syntax from https://github.com/cabo/kramdown-rfc
+    title: Transport Services Working Group
+    author:
+        name: IETF
+    date: 2024
+    target: https://datatracker.ietf.org/wg/taps
+
   RFC9217: # Current Open Questions in PAN
   RFC9000: # QUIC
   I-D.ietf-quic-multipath:
@@ -532,10 +539,14 @@ Is reverse path refresh a relevant problem?
 * IPv6 in the Data Plane
 * SCION-IP translation
 * How can we interface with QUIC Multipath {{I-D.ietf-quic-multipath}}?
+* What are the implications for, and relations to the TAPS WG {{TAPS}}?
+
 
 # Implications of Path Awareness for the Transport and Application Layers
+This question relates to 2.5 in {{RFC9217}}.
 
-To be discussed
+* How to express transport preferences and map them to SCION path properties?
+
 
 # Naming
 
