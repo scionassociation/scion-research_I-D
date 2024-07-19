@@ -5,11 +5,11 @@
 PANRG                                                         K. Meynell
 Internet-Draft                                         SCION Association
 Intended status: Informational                           J. García Pardo
-Expires: 19 January 2025                                      T. Zäschke
+Expires: 20 January 2025                                      T. Zäschke
                                                               ETH Zürich
                                                            N. Rustignoli
                                                        SCION Association
-                                                            18 July 2024
+                                                            19 July 2024
 
 
                         SCION Research Questions
@@ -52,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 19 January 2025.
+   This Internet-Draft will expire on 20 January 2025.
 
 Copyright Notice
 
@@ -167,10 +167,10 @@ Table of Contents
 
       -  Possible combinations of any previous "types"?
 
-   *  Note that ISDs require core links to other ISDs.  This reduces the
-      number of ISDs to those that have core ASes that can directly
-      connect to core ASes in other ISDs.  The number of ISDs is still
-      super-exponential asymptotically.
+   *  Note that, to achieve global connectivity, ISDs require core links
+      to other ISDs.  This reduces the number of ISDs to those that have
+      core ASes that can directly connect to core ASes in other ISDs.
+      The number of ISDs is still super-exponential asymptotically.
 
 3.2.  Beacon Selection Policies
 
