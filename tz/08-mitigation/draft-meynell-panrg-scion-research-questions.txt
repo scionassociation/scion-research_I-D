@@ -397,8 +397,8 @@ Table of Contents
 
 9.1.2.  Phase 1 - Discovery
 
-   *  At a regular intervall "tLL" (eg. 10 seconds), every AS sends out
-      a list of its links to all neighboring ASes.
+   *  At a regular intervall "tLL" (tLL=time-link-list; eg. 10 seconds),
+      every AS sends out a list of its links to all neighboring ASes.
 
    *  Every AS forwards all received link lists to all neighboring ASes
       unless it has seen the same link list recently (less 1/2 * tLL
