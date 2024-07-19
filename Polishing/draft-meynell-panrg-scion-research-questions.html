@@ -1355,31 +1355,48 @@ dig +short https ethz.ch
         <h3 id="name-segment-dissemination">
 <a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-segment-dissemination" class="section-name selfRef">Segment Dissemination</a>
         </h3>
-<p id="section-3.4-1">Control services may return a large number of path segments for some queries.
-This can cost considerable bandwidth while at the same time
-overloading clients with an unnecessarily large numbers of segments.<a href="#section-3.4-1" class="pilcrow">¶</a></p>
+<p id="section-3.4-1">A path look-up in SCION works analogous to a DNS query (section 4 of <span>[<a href="#I-D.scion-cp" class="cite xref">I-D.scion-cp</a>]</span>):<a href="#section-3.4-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.4-2.1">
-            <p id="section-3.4-2.1.1">This problem may be more acute in ASes with many endpoints (e.g. IoT),
-or for resource-constrained endpoints.<a href="#section-3.4-2.1.1" class="pilcrow">¶</a></p>
+            <p id="section-3.4-2.1.1">The source endpoint queries the control service in its own AS.<a href="#section-3.4-2.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.4-2.2">
-            <p id="section-3.4-2.2.1">Getting a full path to a remote endpoint may require three queries to the control service.<a href="#section-3.4-2.2.1" class="pilcrow">¶</a></p>
+            <p id="section-3.4-2.2.1">The local AS has already at least one segment to one core AS of its local ISD.
+It uses it to query the core AS' control service for segments to core ASes of the remote ISD.<a href="#section-3.4-2.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.4-2.3">
+            <p id="section-3.4-2.3.1">The local AS has now segments also from its local ISD core ASes to core ASes in the remote ISD.
+The local AS queries the remote ISD's core ASes for segments to the destination AS.<a href="#section-3.4-2.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.4-2.4">
+            <p id="section-3.4-2.4.1">The local AS returns all these segments to the endpoint, to be combined.<a href="#section-3.4-2.4.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-3.4-3">There are multiple possible and independent solution steps here:<a href="#section-3.4-3" class="pilcrow">¶</a></p>
+<p id="section-3.4-3">Control services may return a large number of path segments for some queries.
+This can cost considerable bandwidth while at the same time
+overloading clients with an unnecessarily large numbers of segments.<a href="#section-3.4-3" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.4-4.1">
-            <p id="section-3.4-4.1.1">Predefine some policies that can be resolved by the control plane, e.g. ANY, BEST_LATENCY, BEST_BANDWIDTH, BEST_PRICE,
-BEST_CO2. For these, the control plane could simply calculate 5-10 compliant paths and return these.
-Moreover these could be cached for commonly requested remote ASes.
-If a user requires a custom policy they can still resort to requesting actual segments.<a href="#section-3.4-4.1.1" class="pilcrow">¶</a></p>
+            <p id="section-3.4-4.1.1">This problem may be more acute in ASes with many endpoints (e.g. IoT),
+or for resource-constrained endpoints.<a href="#section-3.4-4.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.4-4.2">
-            <p id="section-3.4-4.2.1">Caching of paths. An open question concerns when a control service should return a chached path, versus performing a recursive path lookup.<a href="#section-3.4-4.2.1" class="pilcrow">¶</a></p>
+            <p id="section-3.4-4.2.1">Getting a full path to a remote endpoint may require three queries to control services.<a href="#section-3.4-4.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-3.4-5">An example including the number of core segments between different ISDs as of 2024-07-12 in the SCION production network is shown in <a href="#segment-count-example" class="auto internal xref">Table 1</a>.<a href="#section-3.4-5" class="pilcrow">¶</a></p>
+<p id="section-3.4-5">There are multiple possible and independent solution steps here:<a href="#section-3.4-5" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3.4-6.1">
+            <p id="section-3.4-6.1.1">Predefine some policies that can be resolved by the control plane, e.g. ANY, BEST_LATENCY, BEST_BANDWIDTH, BEST_PRICE,
+BEST_CO2. For these, the control plane could simply calculate 5-10 compliant paths and return these.
+Moreover these could be cached for commonly requested remote ASes.
+If a user requires a custom policy they can still resort to requesting actual segments.<a href="#section-3.4-6.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.4-6.2">
+            <p id="section-3.4-6.2.1">Caching of paths. An open question concerns when a control service should return a chached path, versus performing a recursive path lookup.<a href="#section-3.4-6.2.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-3.4-7">An example including the number of core segments between different ISDs as of 2024-07-12 in the SCION production network is shown in <a href="#segment-count-example" class="auto internal xref">Table 1</a>.<a href="#section-3.4-7" class="pilcrow">¶</a></p>
 <span id="name-core-segment-count-examples"></span><div id="segment-count-example">
 <table class="center" id="table-1">
           <caption>
