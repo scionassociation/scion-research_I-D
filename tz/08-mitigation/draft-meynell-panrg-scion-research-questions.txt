@@ -5,11 +5,11 @@
 PANRG                                                         K. Meynell
 Internet-Draft                                         SCION Association
 Intended status: Informational                           J. García Pardo
-Expires: 18 January 2025                                      T. Zäschke
+Expires: 20 January 2025                                      T. Zäschke
                                                               ETH Zürich
                                                            N. Rustignoli
                                                        SCION Association
-                                                            17 July 2024
+                                                            19 July 2024
 
 
                         SCION Research Questions
@@ -52,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 18 January 2025.
+   This Internet-Draft will expire on 20 January 2025.
 
 Copyright Notice
 
@@ -429,12 +429,15 @@ Table of Contents
 
 9.1.4.  Advantages
 
-   Conceptually: * More trust separation #1: Any AS can request any
-   segments that it desires, it is not dependend on what its neighbors
-   consider "best" PCBs * More trust separation #2: Every AS sees the
-   complete segment when signing it.  It doesn´t have to rely on
-   downstream ASes to extends the segment in a matter suits its own
-   policy.
+   Conceptually:
+
+   *  More trust separation #1: Any AS can request any segments that it
+      desires, it is not dependend on what its neighbors consider "best"
+      PCBs
+
+   *  More trust separation #2: Every AS sees the complete segment when
+      signing it.  It doesn´t have to rely on downstream ASes to extends
+      the segment in a matter suits its own policy.
 
    Concretely:
 
@@ -473,12 +476,6 @@ Table of Contents
       to the most remote AS.  If the measured latency is much higher
       than the advertised latency, then the segment is probably faulty
       and should not be used.
-
-   *  Mitigates 10-"wormhole attack": This attack would be considerably
-      mitigated: Creating a "wormhole" is already more difficult.
-      However, because every AS can request new segments any time, it
-      can quickly react to faulty segments (onced it learns) of them,
-      and simply request new segments that go around suspicious ASes.
 
    *  (Core-)Segment revocation is straight forward.  One of the two
       link owners simply removes the revoked link from the link list
