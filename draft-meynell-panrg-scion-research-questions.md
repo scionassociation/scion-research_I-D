@@ -188,6 +188,7 @@ Path discovery between SCION ASes relies on Path Construction Beacons (PCBs). In
 A core AS selects a small number of paths to/from other core ASes, based on its beacon selection policy. It then propagates valid and policy compliant paths to neighbor ASes. The number of propagated beacons is limited to the _best PCBs set size_, in order to avoid that the number of paths (and beacons) grows exponentially with core network size.
 
 Some potential questions are:
+
 * Limiting the number of beacons to a _best PCBs set size_ per AS results in a partial view of the network being available to endpoints. To what point this affects endpoint's path-selection possibilities?
 * what is a good, practical, general purpose policy, that can fulfill conflicting requirements of both operators and endpoints, as highlighted in section 2.7 of {{RFC9217}}?
 * What are the desirable path properties (e.g. diversity, PCB Expiration Time, how recently the same PCBs was forwarded before).
@@ -215,18 +216,20 @@ This can be problematic:
 
 
 
-## DNS Service Binding (SVCB)
+## Name Resolution and DNS Service Binding (SVCB)
 
-The DNS Service Binding {{?RFC9460, Section 14.3}} allows a dedicated SCION Service Parameter to be specified.
-
-Service Parameters allow the specification of alternative IP addresses or other parameters (such as ISD/AS numbers) for a given URL.
-This would be more elegant than using DNS TXT records.
+In current deployments, SCION addresses are added to TXT records.
 
 Example of current entry:
 
     $ dig +short ethz.ch TXT  | grep scion
     "x-sciondiscovery=8041"
     "scion=64-2:0:9,129.132.230.98"
+
+The DNS Service Binding {{?RFC9460, Section 14.3}} allows a dedicated SCION Service Parameter to be specified.
+
+Service Parameters allow the specification of alternative IP addresses or other parameters (such as ISD/AS numbers) for a given URL.
+This would be more elegant than using DNS TXT records.
 
 
 With SVCB this may look like this for https:
