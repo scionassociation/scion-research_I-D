@@ -159,7 +159,7 @@ This draft assumes the reader is familiar with some of the fundamental concepts 
 
 # Discovery, Distribution, and Trustworthiness of Path Properties
 
-## ISD, AS identity
+## ISD, AS Identity
 
 In the SCION specification, identifiers for ISDs and ASes are 16 bits and 48 bits long respectively.
 Whilst 48 bits for the AS will accommodate up to 2.81475e14 assignments which is likely to be more than sufficient for the future, using 16 bits for the ISD only offers 65,536 possible assignments. Further investigation on whether this is sufficient is required.
@@ -275,7 +275,7 @@ An example including the number of core segments between different ISDs as of 20
 | 64      | 67      | 60                |
 {: #segment-count-example title="core segment count examples"}
 
-## Periodic beacon propagation
+## Periodic Beacon Propagation
 The SCION control plane protocol specifies that beacons should be propagated periodically.
 Is this really necessary?
 
@@ -287,7 +287,7 @@ If no periodic propagation is necessary for path freshness or to respond to link
 the periodic propagation would only be used for the discovery of new paths at each interval,
 enhancing the scalability and path diversity.
 
-## Beacon optimization and extensibility
+## Beacon Optimization and Extensibility
 Communication requirements vary according to source, destination, and application.
 Satisfying all these requirements either requires discovering all paths in the network,
 or optimizing the creation of paths during the beaconing process.
@@ -368,7 +368,7 @@ However, we have identified a number of possible issues (not comprehensive):
   a possibly unintended recipient, e.g. when the packet is not source validated.
   In addition, validation may trigger additional requests for keys.
 
-## Proof of transit
+## Proof of Transit
 
 FABRID {{KRAHENBUHL2023}} and EPIC {{LEGNER2020}}.
 
@@ -379,12 +379,13 @@ Critically, the SCION header needs to contain the SRC address as seen by the bor
 
 Possible solutions:
 
-* With IPv6 underlay, this problem disappears. // TODO Clarify why it disappears? Is the idea that we can remove NATs if everyone would use IPv6?
+* With IPv6 as an intra-domain protocol, this problem disappears.
+
 * Introduce a mechanism so that the SCION border router can report the NATed address to an endpoint (similar to a STUN server).
 
-# Dataplane stability
+# Data Plane Stability
 
-## Link load balancing
+## Link Load Balancing
 
 Links may get overloaded because the SCION distributed path selection process fails to distribute load properly over different links, resulting in uneven utilization.
 
@@ -491,4 +492,4 @@ This document has no IANA actions.
 # Acknowledgments
 {:numbered="false"}
 
-TODO acknowledge.
+Many thanks go to Matthias Frei (SCION Association), Seyedali Tabaeiaghdaei (ETH Zurich) for reviewing and contributing to this document.
