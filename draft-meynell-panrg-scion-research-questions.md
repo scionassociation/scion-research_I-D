@@ -241,7 +241,7 @@ SVCB is also planned to be supported by Happy Eyeballs v3 {{?I-D.draft-pauly-v6o
 
 
 ## Segment Dissemination
-A path look-up in SCION works analogous to a DNS query (section 4 of {{I-D.dekater-scion-controlplane}}):
+A path look-up in SCION works similarly to a recursive DNS query (section 4 of {{I-D.dekater-scion-controlplane}}):
 
 * The source endpoint queries the control service in its own AS.
 * The local AS has already at least one segment to one core AS of its local ISD.
@@ -252,7 +252,7 @@ A path look-up in SCION works analogous to a DNS query (section 4 of {{I-D.dekat
 
 Control services may return a large number of path segments for some queries.
 This can cost considerable bandwidth while at the same time
-overloading clients with an unnecessarily large numbers of segments.
+overload clients with an unnecessarily large numbers of segments.
 
 * This problem may be more acute in ASes with many endpoints (e.g. IoT),
 or for resource-constrained endpoints.
@@ -297,7 +297,7 @@ The beacon selection process, the criteria and metrics that they carry, and the 
 of them all have a strong impact in the traffic engineering of the individual ASes,
 and of the inter-domain communication as a whole. See question 2.7 of {{RFC9217}}.
 
-* What optimization functions should be applied to beacons and what metrics should be considered when propagating them ?
+* What optimization functions should be applied to beacons and what metrics should be considered when propagating them?
   Is the set of properties composed of path length, peering ASes, path disjointness, PCB last reception,
   and path lifetime enough?
 * How do we extend the metrics with new dimensions, such as bandwidth, latency, geo-position, etc?
@@ -313,6 +313,7 @@ and of the inter-domain communication as a whole. See question 2.7 of {{RFC9217}
 * See also: IREC {{TABAEIAGHDAEI2023}}
 
 
+<!--
 ## Routing Policies and Traffic Engineering
 
 Reduced adoption due to limited routing policy possibilities, such as a (core-)AS does not want to accept transit traffic unless it starts/ends in ASes with special properties. For example a GEANT AS does not want to allow transit traffic unless it originates or ends in another research and education AS.
@@ -320,6 +321,7 @@ Reduced adoption due to limited routing policy possibilities, such as a (core-)A
 One solution could be to add a “confirm full path”-flag to certain segments. If this flag is set, the full path (all segments) needs to authorized by all ASes that insist on authorizing it. This is obviously less scalable but may be viable for ASes that insist on such policies. This also allows for “secret” policies.
 
 Collateral: this probably needs a data plane change. Conceptually, we have only a single resulting segment, and that segment needs to be used in full, e.g. no on-path trickery.
+-->
 
 ## DRKey
 DRKey is a key distribution system that scales well with the number of endpoints in the network.
