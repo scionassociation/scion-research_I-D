@@ -146,11 +146,11 @@ TODO Abstract here
 
 SCION is an inter-domain network architecture. Its core components, as deployed by some of its early adopters, are specified in {{I-D.dekater-scion-dataplane}}, {{I-D.dekater-scion-pki}}, {{I-D.dekater-scion-controlplane}} which are currently under ISE review.
 
-The goal of this draft is to explore how SCION and its early deployments try to address open research questions in {{RFC9217}}. Specifically, there are still many open areas of research around path-aware networking, where SCION with its early deployment experiences and research efforts can provide a contribution. This can also be a starting point for discussions around long-term protocol evolution.
+The goal of this draft is to explore how SCION and its early deployments experiences can help addressing open research questions in {{RFC9217}}. Specifically, there are still many open areas of research around path-aware networking, where SCION with its early deployment experiences and research efforts can provide a contribution. This can also be a starting point for discussions around long-term protocol evolution.
 
 This draft assumes the reader is familiar with some of the fundamental concepts defined in the components specification.
 
-**Note:** This is the very first version of the SCION research questions draft, and it merely contains a skeleton of potential topics to be further discussed in this draft. Any feedback is welcome and much appreciated. Thanks!
+**Note:** This is a very early version of the SCION research questions draft, and it merely contains a selection of potential topics to be further discussed in this draft. Any feedback is welcome and much appreciated. Thanks!
 
 
 # Conventions and Definitions
@@ -161,16 +161,14 @@ This draft assumes the reader is familiar with some of the fundamental concepts 
 
 ## ISD, AS identity
 
-The SCION protocol specifies 16 bits and 48 bits to identify the ISD and AS respectively.
-This identification is used at the data-plane level, in every packet to fully address the sender and receiver, and at the control-plane level, to identify the PCB sender and hops.
-
+In the SCION specification, identifiers for ISDs and ASes are 16 bits and 48 bits long respectively.
 Whilst 48 bits for the AS will accommodate up to 2.81475e14 assignments which is likely to be more than sufficient for the future, using 16 bits for the ISD only offers 65,536 possible assignments. Further investigation on whether this is sufficient is required.
 
 The following questions arise: (not comprehensive)
 
 * How many ASes do we expect in the SCION network model?
 * Can one AS belong to many ISDs?
-* Are AS numbers unique themselves, or only unique in combination with an ISD?
+* Are AS numbers globally unique, or only unique within each ISD?
 * How many ISDs do we expect?
 * What is the ontology of an ISD?
   * Per geographic area?
