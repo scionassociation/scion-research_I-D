@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-07-18T00:18:54.686568+00:00",
+  "timestamp": "2024-07-21T00:21:11.851354+00:00",
   "repo": "scionassociation/scion-research_I-D",
   "labels": [
     {
@@ -115,7 +115,7 @@
       "id": "I_kwDOMRYres6PNGxE",
       "title": "What do to about SCMP",
       "url": "https://github.com/scionassociation/scion-research_I-D/issues/5",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "nicorusti",
       "authorAssociation": "MEMBER",
       "assignees": [
@@ -126,8 +126,8 @@
       ],
       "body": "How do we position SCMP? Shall it be authenticated? \r\n\r\nContext: In the dataplane draft we had to adjust text to find a proper reference to the SCMP doc. Also the scionproto SCMP doc had to be updated. References: \r\n- https://github.com/scionassociation/scion-dp_I-D/issues/8\r\n- https://github.com/scionproto/scion/issues/4528 \r\n",
       "createdAt": "2024-07-11T08:25:53Z",
-      "updatedAt": "2024-07-17T16:06:49Z",
-      "closedAt": null,
+      "updatedAt": "2024-07-19T08:53:52Z",
+      "closedAt": "2024-07-19T08:53:52Z",
       "comments": [
         {
           "author": "juagargi",
@@ -142,6 +142,13 @@
           "body": "Thanks, I see you already did this in #20, sounds good, I'd just be a bit more careful about DoS phrasing. I think there we should highlight that the challenge is to find a treadeoff between authenticating network signals and (not) introducing new DoS vectors",
           "createdAt": "2024-07-17T16:06:47Z",
           "updatedAt": "2024-07-17T16:06:47Z"
+        },
+        {
+          "author": "juagargi",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Closed by #20 ",
+          "createdAt": "2024-07-19T08:53:52Z",
+          "updatedAt": "2024-07-19T08:53:52Z"
         }
       ]
     },
@@ -184,17 +191,18 @@
       "id": "I_kwDOMRYres6PNIDo",
       "title": "Expand transport layer",
       "url": "https://github.com/scionassociation/scion-research_I-D/issues/8",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "nicorusti",
       "authorAssociation": "MEMBER",
       "assignees": [
-        "tzaeschke"
+        "tzaeschke",
+        "juagargi"
       ],
       "labels": [],
-      "body": "- [x] Mentions implications of MP-QUIC and recent changes related to path-IDs #14 \r\n- [ ] TAPS/PANAPI\r\n\r\nAs guidance use rfc9217: ` 2.5.  Implications of Path Awareness for the Transport and Application Layers`",
+      "body": "- [x] Mentions implications of MP-QUIC and recent changes related to path-IDs #14 \r\n- [x] TAPS/PANAPI\r\n\r\nAs guidance use rfc9217: ` 2.5.  Implications of Path Awareness for the Transport and Application Layers`",
       "createdAt": "2024-07-11T08:28:30Z",
-      "updatedAt": "2024-07-17T09:28:45Z",
-      "closedAt": null,
+      "updatedAt": "2024-07-19T11:39:26Z",
+      "closedAt": "2024-07-19T11:39:26Z",
       "comments": [
         {
           "author": "tzaeschke",
@@ -220,6 +228,63 @@
       "updatedAt": "2024-07-16T08:38:18Z",
       "closedAt": null,
       "comments": []
+    },
+    {
+      "number": 24,
+      "id": "I_kwDOMRYres6QFzPo",
+      "title": "Wormhole attacks",
+      "url": "https://github.com/scionassociation/scion-research_I-D/issues/24",
+      "state": "OPEN",
+      "author": "nicorusti",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "I feel that the wormhole paragraph is not mature enough for this submission. Some issues: \r\n* several parts of the content is a duplicate of `5.2.4.  Manipulation of the Path-Selection Process`  in [draft-dekater-scion-controlplane-04\r\n](https://datatracker.ietf.org/doc/draft-dekater-scion-controlplane/04/)\r\n* some of the mitigations proposed are quite vague\r\n* it does not clearly mention proof of transit as a solution\r\n\r\nThis is the text I removed in #23 , to be reworked for a later submission \r\n```\r\n## Wormhole attack\r\n\r\n### Set up\r\n\r\nScenario: attackers create two core ASes that are geographically far apart. They then announce a link (effectively a shortcut) between these two ASes with\r\nvery appealing properties (low latency, few hops, ...).\r\n\r\n### Impact\r\nThe attacker can now perform blackhole attacks (DoS), greyhole attacks, delay traffic, or similarily impact traffic.\r\n\r\nCritically, there is currently no clear way to recover from this situation. In order to recover, ASes that are connected to the\r\nwormhole ASes would need to learn of the problem and stop forwarding the wormhole beacons.\r\n\r\nMitigations:\r\n\r\n- Introduce a way for ASes to verify path properties. This would make it harder to install wormholes.\r\n  This could include measuring latency or sense-checking of geolocation information.\r\n- Introduce a way for endpoints to discover path problems.\r\n- Introduce a way for endpoints to report path problems.\r\n- Introduce a way to recover from malicious segments, see {{signalling-faulty-segments}}.\r\n- Adapt the path discovery and dissemination algorithm to allow ASes to have many more than five paths to\r\n  a given remote destination. The attack would then require an (unreasonably) large number of compromised ASes.\r\n\r\nA related question is discussed in {{signalling-faulty-segments}}.\r\n```",
+      "createdAt": "2024-07-18T21:19:39Z",
+      "updatedAt": "2024-07-19T11:10:33Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "tzaeschke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Apologies, apparently I wasn't quite finished when I committed it. Just in case we decide to add this again, here is a slightly improved version of the text:\r\n```\r\n## Wormhole attack\r\n\r\nThe wormhole attack is described in {{I-D.scion-cp}}.\r\n\r\n### Set up\r\n\r\nScenario: attackers create two core ASes that are geographically far apart. They then announce a link (effectively a shortcut) between these two ASes with\r\nvery appealing properties (low latency, few hops, ...).\r\n\r\n### Impact\r\n\r\nThe attacker can now perform blackhole attacks (DoS), greyhole attacks, delay traffic, or similarly impact traffic.\r\n\r\nCritically, there is currently no clear way to recover from this situation. In order to recover, ASes that are connected to the\r\nwormhole ASes would need to learn of the problem and stop forwarding the wormhole beacons.\r\n\r\n### Mitigations\r\n\r\n- Prevention: Introduce a way for ASes to verify path properties. This would make it harder to install wormholes.\r\n  This could include measuring latency or sense-checking of geolocation information.\r\n- Recovery: Introduce a way to endpoints to detect, report and recover from path problems. This is discussed in {{signalling-faulty-segments}}.\r\n  - Endpoints need (a standardized? way) to detect path problems, such as high latency or packet loss.\r\n  - Endpoints need a way to report path problems to ASes.\r\n  - ASes need a way to report path problems to other ASes (leaf to core, core to core).\r\n  - ASes need a way to recover from reported or detected malicious segments.\r\n```\r\n\r\nI'm not sure how proof of transit would help. I think if the two malicious ASes are connected via VPN, it is impossible to proof that the packets had to go through other ASes...?",
+          "createdAt": "2024-07-19T09:11:03Z",
+          "updatedAt": "2024-07-19T09:11:03Z"
+        },
+        {
+          "author": "nicorusti",
+          "authorAssociation": "MEMBER",
+          "body": "Thank you!\r\n\r\n> I'm not sure how proof of transit would help. I think if the two malicious ASes are connected via VPN, it is impossible to proof that the packets had to go through other ASes...? \r\n\r\nIf traffic is \"swallowed\" via a wormhole shortcut, then packets will skip some of the ASes on path. If there is proof of transit, then the proof for the skipped ASes would be missing, revealing the attack. \r\nOn the other hand, it is impossible to prove that packets went though other ASes.. PoT can only prove that traffic did NOT go through the intended ASes. Does it make sense?\r\n",
+          "createdAt": "2024-07-19T11:10:31Z",
+          "updatedAt": "2024-07-19T11:10:31Z"
+        }
+      ]
+    },
+    {
+      "number": 25,
+      "id": "I_kwDOMRYres6QGQD0",
+      "title": "Path revocation",
+      "url": "https://github.com/scionassociation/scion-research_I-D/issues/25",
+      "state": "OPEN",
+      "author": "nicorusti",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [
+        "needs-discussion"
+      ],
+      "body": "Path revocation is a very complex topic, it was therefore removed from the implementation. It can trigger lots of discussion, and because of that this is also not mentioned in current drafts. I feel the text below needs some more discussion and work before  a submission. \r\n\r\n\r\nText removed in #23 \r\n```\r\n## Signalling faulty segments\r\n\r\nFaulty segments are segments that do not work as advertised, i.e. they are either physically faulty\r\n(broken link, high packet loss, jitter, ...) or have faulty metadata suggesting too few hops, too low latency,\r\ntoo much bandwith, or similar problems.\r\nThe fault may be caused by a technical problem (e.g. broken link) or by a malicious adversary.\r\n\r\nAn example for a malicious adversary is the \"wormhole\" attack, see {{I-D.scion-cp}} where an AS may be coaxed to\r\ndisseminate a faulty segment. How do we recover from faulty segments?\r\nCurrently only endpoints may realize that a segment does not work as advertised, either via SCMP errors or simply by traffic degradation.\r\nThis would be a possible sequence of events:\r\n\r\n* An endpoint realizes that a segment is faulty\r\n* An endpoint needs to signal to its local AS that a segment is faulty\r\n* A Local AS needs to signal to a core AS that a segment is faulty\r\n* A core AS needs to:\r\n  * change policy to exclude faulty segments AND/OR\r\n  * signal other cores and ISDs to stop delivering the segment (they only deliver 5 each, so any faulty segment shoud be avoided)\r\n\r\n### Implications\r\n\r\nBesides general service degradation, a lack of recovery can worsen the impact of a wormhole attack {{I-D.scion-cp}}.\r\n\r\n### Mitigation\r\n\r\n* An AS could monitor traffic for SCMP errors, although this only works if these errors are actually generated and forwarded.\r\n* Endpoints need a way to signal faulty segments to ASes. ASes need a way to signal faulty ASes to other ASes (e.g.\r\ncore ASes or ASes in other ISDs).\r\n* ASes need adaptive beacon analysis algorithms that allow excluding specific beacons, e.g. beacons that have\r\n  known malicious ASes on path.\r\n* For swift recovery, it would be useful if ASes could communicate the faultiness of faulty segments.\r\n```",
+      "createdAt": "2024-07-18T23:20:37Z",
+      "updatedAt": "2024-07-19T07:39:44Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "nicorusti",
+          "authorAssociation": "MEMBER",
+          "body": "We wish to have some path revocation. How should link revocations be transmitted in a trustworthy manner to endpoints, without introducing new attack vectors?\r\nThis ties to rfc9217 [2.2. ](https://www.rfc-editor.org/rfc/rfc9217.html#section-2.2)[Discovery, Distribution, and Trustworthiness of Path Properties](https://www.rfc-editor.org/rfc/rfc9217.html#name-discovery-distribution-and-) \r\n",
+          "createdAt": "2024-07-19T07:39:43Z",
+          "updatedAt": "2024-07-19T07:39:43Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -553,24 +618,26 @@
       "id": "PR_kwDOMRYres51OzwB",
       "title": "CORE beacon scalability",
       "url": "https://github.com/scionassociation/scion-research_I-D/pull/13",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "tzaeschke",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Discussion on core beacon scalability and Recovery\r\n\r\nContributes to #2 ",
       "createdAt": "2024-07-12T14:37:15Z",
-      "updatedAt": "2024-07-17T15:07:31Z",
+      "updatedAt": "2024-07-18T09:47:38Z",
       "baseRepository": "scionassociation/scion-research_I-D",
       "baseRefName": "main",
       "baseRefOid": "2faf7d9ad4db52cee49a5d7e655a77a61d3e9039",
       "headRepository": "scionassociation/scion-research_I-D",
       "headRefName": "tz/04-beacon-scalability",
-      "headRefOid": "d1c5c81402e24257197dc729ef1ab1c35e610f80",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "44a7f983b6aea509c7da8f8236718fb5d3da7427",
+      "closedAt": "2024-07-18T09:47:35Z",
+      "mergedAt": "2024-07-18T09:47:35Z",
+      "mergedBy": "juagargi",
+      "mergeCommit": {
+        "oid": "f9f96e6d7a56d762088f56c68a5238d4568da307"
+      },
       "comments": [],
       "reviews": [
         {
@@ -1024,6 +1091,26 @@
               "updatedAt": "2024-07-17T14:59:15Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CQHN4",
+          "commit": {
+            "abbreviatedOid": "44a7f98"
+          },
+          "author": "juagargi",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-07-18T09:40:23Z",
+          "updatedAt": "2024-07-18T09:47:19Z",
+          "comments": [
+            {
+              "originalPosition": 36,
+              "body": "AFAIK the endpoint requests once the path to the destination, and receives up to three segments, all in one round trip.\r\nThe CS of the local AS may have to do several trips to core ASes in its local ISD, and then core ASes in the remote ISD.\r\nBut I think the general idea is understood, approving.",
+              "createdAt": "2024-07-18T09:40:24Z",
+              "updatedAt": "2024-07-18T09:47:19Z"
+            }
+          ]
         }
       ]
     },
@@ -1074,24 +1161,26 @@
       "id": "PR_kwDOMRYres51Zxux",
       "title": "SVCB RFC 9460",
       "url": "https://github.com/scionassociation/scion-research_I-D/pull/15",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "tzaeschke",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Should we use SVCB RFC 9460 service binding?",
       "createdAt": "2024-07-15T15:31:07Z",
-      "updatedAt": "2024-07-17T16:31:46Z",
+      "updatedAt": "2024-07-18T12:23:12Z",
       "baseRepository": "scionassociation/scion-research_I-D",
       "baseRefName": "main",
-      "baseRefOid": "6da37acbe08f672dcb4092d02f3e21d82e8c61a1",
+      "baseRefOid": "f9f96e6d7a56d762088f56c68a5238d4568da307",
       "headRepository": "scionassociation/scion-research_I-D",
       "headRefName": "tz/06-SVCB",
-      "headRefOid": "b903ebebd5f831216532b18c2fe2e092d0c95b06",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "e8f99f33686797d21f208febc2ed7a860f5730d6",
+      "closedAt": "2024-07-18T12:23:09Z",
+      "mergedAt": "2024-07-18T12:23:09Z",
+      "mergedBy": "juagargi",
+      "mergeCommit": {
+        "oid": "93efa91d83807c8fb6bd81254d90840ec17390c9"
+      },
       "comments": [],
       "reviews": [
         {
@@ -1127,10 +1216,10 @@
           },
           "author": "knmeynell",
           "authorAssociation": "COLLABORATOR",
-          "state": "CHANGES_REQUESTED",
+          "state": "DISMISSED",
           "body": "",
           "createdAt": "2024-07-17T14:35:12Z",
-          "updatedAt": "2024-07-17T14:37:00Z",
+          "updatedAt": "2024-07-18T12:23:01Z",
           "comments": [
             {
               "originalPosition": 14,
@@ -1237,6 +1326,19 @@
               "updatedAt": "2024-07-17T16:31:46Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CRmpn",
+          "commit": {
+            "abbreviatedOid": "e8f99f3"
+          },
+          "author": "juagargi",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-07-18T12:20:35Z",
+          "updatedAt": "2024-07-18T12:20:35Z",
+          "comments": []
         }
       ]
     },
@@ -1245,24 +1347,26 @@
       "id": "PR_kwDOMRYres51f_Xd",
       "title": "ISD AS Identity",
       "url": "https://github.com/scionassociation/scion-research_I-D/pull/17",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "juagargi",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Expanded the section.",
       "createdAt": "2024-07-16T11:08:55Z",
-      "updatedAt": "2024-07-17T15:45:57Z",
+      "updatedAt": "2024-07-18T14:22:23Z",
       "baseRepository": "scionassociation/scion-research_I-D",
       "baseRefName": "main",
       "baseRefOid": "304d148357228c18980f75ce6a1afc4f84f900a5",
       "headRepository": "scionassociation/scion-research_I-D",
       "headRefName": "juagargi/isd_as_identity",
-      "headRefOid": "8bba8bb938559d5df464aa6d0b7b9d43e6af4680",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "a14c39306792f7b4dd7b4fcd3b8f41249be58f54",
+      "closedAt": "2024-07-18T14:22:20Z",
+      "mergedAt": "2024-07-18T14:22:20Z",
+      "mergedBy": "nicorusti",
+      "mergeCommit": {
+        "oid": "c9b62c0526afa82d0798f8e245a3746f8af45830"
+      },
       "comments": [],
       "reviews": [
         {
@@ -1597,6 +1701,145 @@
               "updatedAt": "2024-07-17T15:45:58Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CQgQn",
+          "commit": {
+            "abbreviatedOid": "f76a36f"
+          },
+          "author": "juagargi",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-18T10:20:59Z",
+          "updatedAt": "2024-07-18T10:20:59Z",
+          "comments": [
+            {
+              "originalPosition": 28,
+              "body": "I reworked the paragraphs.",
+              "createdAt": "2024-07-18T10:20:59Z",
+              "updatedAt": "2024-07-18T10:20:59Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CRB-x",
+          "commit": {
+            "abbreviatedOid": "8bba8bb"
+          },
+          "author": "juagargi",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-18T11:00:58Z",
+          "updatedAt": "2024-07-18T11:00:58Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "> What is the correct terminology here for the 16+48 bit identifier?\r\n\r\nWe call it `IA` as in ISD-AS. But it is an identifier, so maybe IA id ?",
+              "createdAt": "2024-07-18T11:00:58Z",
+              "updatedAt": "2024-07-18T11:00:58Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CREco",
+          "commit": {
+            "abbreviatedOid": "8bba8bb"
+          },
+          "author": "juagargi",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-18T11:06:32Z",
+          "updatedAt": "2024-07-18T11:06:32Z",
+          "comments": [
+            {
+              "originalPosition": 11,
+              "body": "Honestly I don't know why they were chosen as 16-48. In the book we also don't say.",
+              "createdAt": "2024-07-18T11:06:32Z",
+              "updatedAt": "2024-07-18T11:06:32Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CRLVI",
+          "commit": {
+            "abbreviatedOid": "426074b"
+          },
+          "author": "nicorusti",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-18T11:22:05Z",
+          "updatedAt": "2024-07-18T11:22:55Z",
+          "comments": [
+            {
+              "originalPosition": 11,
+              "body": ">  which is conceivably insufficient \r\n\r\nWether this is sufficient or not depends on how these would be assigned.. as you say we don't have concrete justifications on these figures, so we also have no justifications wether this is sufficient or not. I'd therefore change language a bit from: \r\n> using 16 bits for the ISD only offers 65,536 possible assignments which is conceivably insufficient.\r\nAdditionally, the justification of these figures is lacking at the moment.\r\n\r\nTo\r\n> using 16 bits for the ISD only offers 65,536 possible assignments. Further investigation on whether thisis sufficient is needed.",
+              "createdAt": "2024-07-18T11:22:05Z",
+              "updatedAt": "2024-07-18T11:22:55Z"
+            },
+            {
+              "originalPosition": 27,
+              "body": "We don't really mandate connectivity in the specification. Is there a reason why you say \"require\"?",
+              "createdAt": "2024-07-18T11:22:53Z",
+              "updatedAt": "2024-07-18T11:22:55Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CRODR",
+          "commit": {
+            "abbreviatedOid": "426074b"
+          },
+          "author": "juagargi",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-18T11:27:43Z",
+          "updatedAt": "2024-07-18T11:27:43Z",
+          "comments": [
+            {
+              "originalPosition": 27,
+              "body": "Core AS from ISD1 MUST send PCBs to core AS from ISD2.\r\nThat's where the connectivity requirement comes from.\r\nBut I don't know if I should change the wording, so that it is clear that both ISDs must be able to communicate via their core ASes, in principle without intermediaries.",
+              "createdAt": "2024-07-18T11:27:43Z",
+              "updatedAt": "2024-07-18T11:27:44Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CSz0O",
+          "commit": {
+            "abbreviatedOid": "8bba8bb"
+          },
+          "author": "nicorusti",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-18T14:16:50Z",
+          "updatedAt": "2024-07-18T14:16:50Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "We use `ISD-AS` in the drafts, let's keep it consistent",
+              "createdAt": "2024-07-18T14:16:50Z",
+              "updatedAt": "2024-07-18T14:16:50Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CS3pd",
+          "commit": {
+            "abbreviatedOid": "a14c393"
+          },
+          "author": "nicorusti",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-07-18T14:21:58Z",
+          "updatedAt": "2024-07-18T14:21:58Z",
+          "comments": []
         }
       ]
     },
@@ -1605,24 +1848,26 @@
       "id": "PR_kwDOMRYres51gAR-",
       "title": "Restructure Reverse Path Refreshment",
       "url": "https://github.com/scionassociation/scion-research_I-D/pull/18",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "juagargi",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Restructuring",
       "createdAt": "2024-07-16T11:11:12Z",
-      "updatedAt": "2024-07-17T14:31:01Z",
+      "updatedAt": "2024-07-18T14:15:35Z",
       "baseRepository": "scionassociation/scion-research_I-D",
       "baseRefName": "main",
-      "baseRefOid": "304d148357228c18980f75ce6a1afc4f84f900a5",
+      "baseRefOid": "4d28e84c0dd752ae28cce4c5f145eefbebe22be0",
       "headRepository": "scionassociation/scion-research_I-D",
       "headRefName": "juagargi/reverse-path-refreshment",
-      "headRefOid": "b76121b8d4aff4318f88e443ececad7b6e955883",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "bf0e44bb6ee0e90d0627b17bcf453066727b633c",
+      "closedAt": "2024-07-18T14:15:30Z",
+      "mergedAt": "2024-07-18T14:15:29Z",
+      "mergedBy": "nicorusti",
+      "mergeCommit": {
+        "oid": "dbeb4329e9d68ca59d2233c0e49f57881f5ba5d8"
+      },
       "comments": [],
       "reviews": [
         {
@@ -1780,6 +2025,65 @@
               "updatedAt": "2024-07-17T14:31:02Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CRIrx",
+          "commit": {
+            "abbreviatedOid": "b76121b"
+          },
+          "author": "juagargi",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-18T11:16:14Z",
+          "updatedAt": "2024-07-18T11:16:14Z",
+          "comments": [
+            {
+              "originalPosition": 44,
+              "body": "I've added some text, PTAL.",
+              "createdAt": "2024-07-18T11:16:14Z",
+              "updatedAt": "2024-07-18T11:16:14Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CIoZu",
+          "commit": {
+            "abbreviatedOid": "b53e4ad"
+          },
+          "author": "nicorusti",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "LGTM\r\n\r\n(Edit: I realized there were some small comments from yesterday that were now submitted with the review, maybe you could just wordsmith \"standardization\" before merging). \r\nBesides that, I think it looks good enough",
+          "createdAt": "2024-07-17T15:38:45Z",
+          "updatedAt": "2024-07-18T11:37:37Z",
+          "comments": [
+            {
+              "originalPosition": 33,
+              "body": "```suggestion\r\nHow should endpoints refresh paths?\r\n```\r\nA RG does not do standards track documents. I'd not use standardization\r\n",
+              "createdAt": "2024-07-17T15:38:45Z",
+              "updatedAt": "2024-07-18T11:34:46Z"
+            },
+            {
+              "originalPosition": 60,
+              "body": "Agree, maybe the first sentence could be something like: \r\n    `Should the path refresh problem be handled by the network or transport layer? `",
+              "createdAt": "2024-07-17T15:41:20Z",
+              "updatedAt": "2024-07-18T11:34:46Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CSt-Q",
+          "commit": {
+            "abbreviatedOid": "b53e4ad"
+          },
+          "author": "nicorusti",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-07-18T14:08:55Z",
+          "updatedAt": "2024-07-18T14:08:55Z",
+          "comments": []
         }
       ]
     },
@@ -1934,24 +2238,26 @@
       "id": "PR_kwDOMRYres51mgbj",
       "title": "St/beaconing extensibinility",
       "url": "https://github.com/scionassociation/scion-research_I-D/pull/22",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "SeyedaliTaba",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "This PR explains the research question of how to optimise routes based on various and ever-changing criteria.",
       "createdAt": "2024-07-17T07:16:38Z",
-      "updatedAt": "2024-07-17T15:36:58Z",
+      "updatedAt": "2024-07-18T14:08:10Z",
       "baseRepository": "scionassociation/scion-research_I-D",
       "baseRefName": "main",
-      "baseRefOid": "089041b638b14114386c9fdaabbef27fc341781f",
+      "baseRefOid": "f9f96e6d7a56d762088f56c68a5238d4568da307",
       "headRepository": "scionassociation/scion-research_I-D",
       "headRefName": "st/beaconing-extensibinility",
-      "headRefOid": "37349a19e710619229b25f72d0f0dbb8ae575982",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "fd61bbfe671dc59d692eff0de28bf32f6d32d3ab",
+      "closedAt": "2024-07-18T14:08:05Z",
+      "mergedAt": "2024-07-18T14:08:05Z",
+      "mergedBy": "nicorusti",
+      "mergeCommit": {
+        "oid": "4d28e84c0dd752ae28cce4c5f145eefbebe22be0"
+      },
       "comments": [
         {
           "author": "nicorusti",
@@ -2061,8 +2367,241 @@
               "updatedAt": "2024-07-17T15:36:58Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CRgYE",
+          "commit": {
+            "abbreviatedOid": "37349a1"
+          },
+          "author": "juagargi",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-18T12:07:49Z",
+          "updatedAt": "2024-07-18T12:07:49Z",
+          "comments": [
+            {
+              "originalPosition": 46,
+              "body": "1. A newly connected AS first sets its topology offline. Its neighbors have to do the same.\r\n2. The new AS learns about the other border router presence through BFD.\r\n3. The neighbor's border router will consider this interface as active.\r\n4. The neighbor's control plane will use this interface to propagate beacons.\r\n5. The new AS receives new PCBs and can propagate and build paths.",
+              "createdAt": "2024-07-18T12:07:49Z",
+              "updatedAt": "2024-07-18T12:07:49Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CStC6",
+          "commit": {
+            "abbreviatedOid": "fd61bbf"
+          },
+          "author": "nicorusti",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-07-18T14:07:29Z",
+          "updatedAt": "2024-07-18T14:07:29Z",
+          "comments": []
         }
       ]
+    },
+    {
+      "number": 23,
+      "id": "PR_kwDOMRYres51zp91",
+      "title": "Polish language and grammar and postpone immature sections to future iterations",
+      "url": "https://github.com/scionassociation/scion-research_I-D/pull/23",
+      "state": "MERGED",
+      "author": "knmeynell",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "There still seem to be inconsistencies in the usage of 'Control Services' and 'Control Servers'.\r\n\r\nSome points: \r\n\r\n- [x] Control server --> Control service/control plane (control service if referring to a specific instance of the control plane, control plane if referring to the overall component)\r\n- [x] CORE --> core\r\n- [x] Comment sentences out for things that need more work before a submission <!--     comment -->\r\n- [ ] Comment out `Note that ISDs require CORE links to other ISDs.` \r\n\r\nSections moved to issues: \r\n- #24\r\n- #25 ",
+      "createdAt": "2024-07-18T17:00:03Z",
+      "updatedAt": "2024-07-19T08:53:01Z",
+      "baseRepository": "scionassociation/scion-research_I-D",
+      "baseRefName": "main",
+      "baseRefOid": "c9b62c0526afa82d0798f8e245a3746f8af45830",
+      "headRepository": "scionassociation/scion-research_I-D",
+      "headRefName": "Polishing",
+      "headRefOid": "e1200f45a66d1099c5afa29c5ed1ba01fade49b9",
+      "closedAt": "2024-07-19T08:52:57Z",
+      "mergedAt": "2024-07-19T08:52:57Z",
+      "mergedBy": "juagargi",
+      "mergeCommit": {
+        "oid": "91cbe3076b50d4bdda83930864f1f972e640d7db"
+      },
+      "comments": [
+        {
+          "author": "nicorusti",
+          "authorAssociation": "MEMBER",
+          "body": "I'll take a look later this evening\r\n",
+          "createdAt": "2024-07-18T17:02:55Z",
+          "updatedAt": "2024-07-18T17:02:55Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMRYres6CWvZE",
+          "commit": {
+            "abbreviatedOid": "25394fc"
+          },
+          "author": "nicorusti",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-18T22:15:47Z",
+          "updatedAt": "2024-07-18T22:15:47Z",
+          "comments": [
+            {
+              "originalPosition": 173,
+              "body": "JFYI @juagargi This table is discussing segments between ISDs, it is confusing and unnecessary to use the wildcard AS.  ",
+              "createdAt": "2024-07-18T22:15:47Z",
+              "updatedAt": "2024-07-18T22:16:03Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CW5Jf",
+          "commit": {
+            "abbreviatedOid": "19ddd90"
+          },
+          "author": "nicorusti",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-18T23:01:52Z",
+          "updatedAt": "2024-07-18T23:01:52Z",
+          "comments": [
+            {
+              "originalPosition": 298,
+              "body": "This text has some issues. I'd therefore comment it and eventually leave ti for a future iteration..\r\n* I think the first 4 bullet points (squeeze/steer, etc.) can be summarized by my bullet points above\r\n* there are forward reference to Simon Scherer's work \r\n* what is `The current consensus`? Among who? Why?",
+              "createdAt": "2024-07-18T23:01:52Z",
+              "updatedAt": "2024-07-18T23:05:11Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CYwFB",
+          "commit": {
+            "abbreviatedOid": "7846d26"
+          },
+          "author": "nicorusti",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-19T07:26:26Z",
+          "updatedAt": "2024-07-19T07:26:26Z",
+          "comments": [
+            {
+              "originalPosition": 145,
+              "body": "Maybe we can rewrite this sentence roughly that the lookup works a bit like a recursive DNS query.\r\nThis means that in some cases you need various recursive queries, and you may need to wait for all the remote ASes to answer back before you get an overview of all paths.  ",
+              "createdAt": "2024-07-19T07:26:26Z",
+              "updatedAt": "2024-07-19T07:26:26Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CY50n",
+          "commit": {
+            "abbreviatedOid": "7846d26"
+          },
+          "author": "nicorusti",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-19T07:46:55Z",
+          "updatedAt": "2024-07-19T07:46:56Z",
+          "comments": [
+            {
+              "originalPosition": 39,
+              "body": "```suggestion\r\n* Note that, to achieve global connectivity, ISDs require core links to other ISDs.\r\n```",
+              "createdAt": "2024-07-19T07:46:55Z",
+              "updatedAt": "2024-07-19T07:46:56Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CZf4p",
+          "commit": {
+            "abbreviatedOid": "e1200f4"
+          },
+          "author": "juagargi",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-07-19T08:52:49Z",
+          "updatedAt": "2024-07-19T08:52:49Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 26,
+      "id": "PR_kwDOMRYres514Kyq",
+      "title": "Expand transport layer",
+      "url": "https://github.com/scionassociation/scion-research_I-D/pull/26",
+      "state": "MERGED",
+      "author": "juagargi",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Closes #8 ",
+      "createdAt": "2024-07-19T09:48:42Z",
+      "updatedAt": "2024-07-19T11:39:26Z",
+      "baseRepository": "scionassociation/scion-research_I-D",
+      "baseRefName": "main",
+      "baseRefOid": "91cbe3076b50d4bdda83930864f1f972e640d7db",
+      "headRepository": "scionassociation/scion-research_I-D",
+      "headRefName": "juagargi/transport_layer",
+      "headRefOid": "fbbbbf746fbbbbee3d4e8da432a4c08aa9e0dacb",
+      "closedAt": "2024-07-19T11:39:25Z",
+      "mergedAt": "2024-07-19T11:39:25Z",
+      "mergedBy": "nicorusti",
+      "mergeCommit": {
+        "oid": "448fb70d7711c47524748f198d4fa86727e3c655"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMRYres6CadYh",
+          "commit": {
+            "abbreviatedOid": "fbbbbf7"
+          },
+          "author": "nicorusti",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-07-19T11:15:03Z",
+          "updatedAt": "2024-07-19T11:15:03Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 27,
+      "id": "PR_kwDOMRYres514xT6",
+      "title": "references: use automatic references to IDs",
+      "url": "https://github.com/scionassociation/scion-research_I-D/pull/27",
+      "state": "MERGED",
+      "author": "nicorusti",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "Just some refs cleaning",
+      "createdAt": "2024-07-19T11:35:56Z",
+      "updatedAt": "2024-07-19T11:38:23Z",
+      "baseRepository": "scionassociation/scion-research_I-D",
+      "baseRefName": "main",
+      "baseRefOid": "91cbe3076b50d4bdda83930864f1f972e640d7db",
+      "headRepository": "scionassociation/scion-research_I-D",
+      "headRefName": "references",
+      "headRefOid": "db6d179e41ff5041fe62185719503bd174fe6b93",
+      "closedAt": "2024-07-19T11:38:20Z",
+      "mergedAt": "2024-07-19T11:38:20Z",
+      "mergedBy": "nicorusti",
+      "mergeCommit": {
+        "oid": "a25d12cace287328bb7ee5ce4eb25f0206cefc71"
+      },
+      "comments": [],
+      "reviews": []
     }
   ]
 }
