@@ -534,10 +534,16 @@ Table of Contents
    *  How can we interface with QUIC Multipath
       [I-D.ietf-quic-multipath]?
 
+   *  What are the implications for, and relations to the TAPS WG
+      [TAPS]?
+
 6.  Implications of Path Awareness for the Transport and Application
     Layers
 
-   To be discussed
+   This question relates to 2.5 in [RFC9217].
+
+   *  How to express transport preferences and map them to SCION path
+      properties?
 
 7.  Naming
 
@@ -600,6 +606,9 @@ Table of Contents
    [RFC9217]  Trammell, B., "Current Open Questions in Path-Aware
               Networking", RFC 9217, DOI 10.17487/RFC9217, March 2022,
               <https://www.rfc-editor.org/rfc/rfc9217>.
+
+   [TAPS]     IETF, "Transport Services Working Group", 2024,
+              <https://datatracker.ietf.org/wg/taps>.
 
 10.2.  Informative References
 
