@@ -153,7 +153,7 @@ TODO Abstract here
 
 SCION is an inter-domain network architecture. Its core components, as deployed by some of its early adopters, are specified in {{I-D.dekater-scion-dataplane}}, {{I-D.dekater-scion-pki}}, {{I-D.dekater-scion-controlplane}} which are currently under ISE review.
 
-The goal of this draft is to explore how SCION and its early deployments experiences can help addressing open research questions in {{RFC9217}}. Specifically, there are still many open areas of research around path-aware networking, where SCION with its early deployment experiences and research efforts can provide a contribution. This can also be a starting point for discussions around long-term protocol evolution.
+The goal of this draft is to explore how SCION and its early deployment experiences can help address open research questions in {{RFC9217}}. Specifically, there are still many open areas of research around path-aware networking, where SCION with its early deployment experiences and research efforts can provide a contribution. This can also be a starting point for discussions around long-term protocol evolution.
 
 This draft assumes the reader is familiar with some of the fundamental concepts defined in the components specification.
 
