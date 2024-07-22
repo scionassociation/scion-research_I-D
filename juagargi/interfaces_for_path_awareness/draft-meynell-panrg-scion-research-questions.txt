@@ -84,7 +84,7 @@ Table of Contents
      4.1.  Link Load Balancing
      4.2.  Reverse Path Refreshment
        4.2.1.  Proposed Solutions (not comprehensive)
-   5.  Interfacing SCION with existing technologies
+   5.  Interfacing SCION with Existing Technologies
    6.  Implications of Path Awareness for the Transport and
            Application Layers
    7.  Naming
@@ -525,29 +525,39 @@ Table of Contents
       type of exchange, or whether more frequent keep-alives are
       required anyway.
 
-5.  Interfacing SCION with existing technologies
+5.  Interfacing SCION with Existing Technologies
 
    The questions posed here are:
 
-   *  Are there any existing protocols/solutions that could be adapted
-      to carry SCION traffic?
+   *  What existing protocols/solutions should be compatible with SCION
+      simultanously?  Referring to the probable fact that ISPs want to
+      offer traditional IP services aside from SCION.
 
-   *  If there are not suitable out-of-the-box, what would be required
-      to make them work?
+   *  What existing technologies can replace part of the SCION
+      specification?  Referring to the possibility of slightly changing
+      an existing technology (e.g.  IPv6) to be used as part of SCION,
+      replacing part of the ad-hoc specification that we have for SCION.
 
-   There are several possibilities of existing protocols and solutions
-   that may work for this purpose:
+   *  What would be required effort to make them work?  Referring to the
+      ranking according to different types of parties involved: ISPs,
+      vendors, application developers, etc.
+
+   There are several possibilities of existing protocols/technologies/
+   solutions that may work for this purpose:
 
    *  IPv6 in the Data Plane.  Use an IPv6 routing header as specified
       in 4.4. of [RFC8200].
+
+   *  SCION IP Gateway, SBAS.  See section 3 of
+      [I-D.rustignoli-panrg-scion-components]
 
    *  SCION-IP translation [SCIONIPTRLN]
 
    *  How can we interface with QUIC Multipath
       [I-D.ietf-quic-multipath]?
 
-   And in general, with or without an existing solution, what are the
-   implications for, and relations to the TAPS WG [TAPS]?
+   *  How can we interface with, and what is the relationship to TAPS
+      [TAPS]?
 
 6.  Implications of Path Awareness for the Transport and Application
     Layers
@@ -600,6 +610,13 @@ Table of Contents
               in Progress, Internet-Draft, draft-ietf-quic-multipath-10,
               8 July 2024, <https://datatracker.ietf.org/doc/html/draft-
               ietf-quic-multipath-10>.
+
+   [I-D.rustignoli-panrg-scion-components]
+              Rustignoli, N. and C. de Kater, "SCION Components
+              Analysis", Work in Progress, Internet-Draft, draft-
+              rustignoli-panrg-scion-components-03, 10 September 2023,
+              <https://datatracker.ietf.org/doc/html/draft-rustignoli-
+              panrg-scion-components-03>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,

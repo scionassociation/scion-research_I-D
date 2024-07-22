@@ -1195,7 +1195,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
-            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-interfacing-scion-with-exis" class="internal xref">Interfacing SCION with existing technologies</a></p>
+            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-interfacing-scion-with-exis" class="internal xref">Interfacing SCION with Existing Technologies</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
             <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-implications-of-path-awaren" class="internal xref">Implications of Path Awareness for the Transport and Application Layers</a></p>
@@ -1729,30 +1729,44 @@ are required anyway.<a href="#section-4.2.1-5.4.1" class="pilcrow">¶</a></p>
 <div id="interfacing-scion-with-existing-technologies">
 <section id="section-5">
       <h2 id="name-interfacing-scion-with-exis">
-<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-interfacing-scion-with-exis" class="section-name selfRef">Interfacing SCION with existing technologies</a>
+<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-interfacing-scion-with-exis" class="section-name selfRef">Interfacing SCION with Existing Technologies</a>
       </h2>
 <p id="section-5-1">The questions posed here are:<a href="#section-5-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-5-2.1">
-          <p id="section-5-2.1.1">Are there any existing protocols/solutions that could be adapted to carry SCION traffic?<a href="#section-5-2.1.1" class="pilcrow">¶</a></p>
+          <p id="section-5-2.1.1">What existing protocols/solutions should be compatible with SCION simultanously?
+Referring to the probable fact that ISPs want to offer traditional IP services aside from SCION.<a href="#section-5-2.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-5-2.2">
-          <p id="section-5-2.2.1">If there are not suitable out-of-the-box, what would be required to make them work?<a href="#section-5-2.2.1" class="pilcrow">¶</a></p>
+          <p id="section-5-2.2.1">What existing technologies can replace part of the SCION specification?
+Referring to the possibility of slightly changing an existing technology (e.g. IPv6) to be used
+as part of SCION, replacing part of the ad-hoc specification that we have for SCION.<a href="#section-5-2.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-5-2.3">
+          <p id="section-5-2.3.1">What would be required effort to make them work?
+Referring to the ranking according to different types of parties involved: ISPs, vendors,
+application developers, etc.<a href="#section-5-2.3.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-5-3">There are several possibilities of existing protocols and solutions that may work for this purpose:<a href="#section-5-3" class="pilcrow">¶</a></p>
+<p id="section-5-3">There are several possibilities of existing protocols/technologies/solutions that
+may work for this purpose:<a href="#section-5-3" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-5-4.1">
           <p id="section-5-4.1.1">IPv6 in the Data Plane. Use an IPv6 routing header as specified in 4.4. of <span>[<a href="#RFC8200" class="cite xref">RFC8200</a>]</span>.<a href="#section-5-4.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-5-4.2">
-          <p id="section-5-4.2.1">SCION-IP translation <span>[<a href="#SCIONIPTRLN" class="cite xref">SCIONIPTRLN</a>]</span><a href="#section-5-4.2.1" class="pilcrow">¶</a></p>
+          <p id="section-5-4.2.1">SCION IP Gateway, SBAS. See section 3 of <span>[<a href="#I-D.rustignoli-panrg-scion-components" class="cite xref">I-D.rustignoli-panrg-scion-components</a>]</span><a href="#section-5-4.2.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-5-4.3">
-          <p id="section-5-4.3.1">How can we interface with QUIC Multipath <span>[<a href="#I-D.ietf-quic-multipath" class="cite xref">I-D.ietf-quic-multipath</a>]</span>?<a href="#section-5-4.3.1" class="pilcrow">¶</a></p>
+          <p id="section-5-4.3.1">SCION-IP translation <span>[<a href="#SCIONIPTRLN" class="cite xref">SCIONIPTRLN</a>]</span><a href="#section-5-4.3.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-5-4.4">
+          <p id="section-5-4.4.1">How can we interface with QUIC Multipath <span>[<a href="#I-D.ietf-quic-multipath" class="cite xref">I-D.ietf-quic-multipath</a>]</span>?<a href="#section-5-4.4.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-5-4.5">
+          <p id="section-5-4.5.1">How can we interface with, and what is the relationship to TAPS <span>[<a href="#TAPS" class="cite xref">TAPS</a>]</span>?<a href="#section-5-4.5.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-5-5">And in general, with or without an existing solution, what are the implications for, and relations to the TAPS WG <span>[<a href="#TAPS" class="cite xref">TAPS</a>]</span>?<a href="#section-5-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="implications-of-path-awareness-for-the-transport-and-application-layers">
@@ -1818,6 +1832,10 @@ are required anyway.<a href="#section-4.2.1-5.4.1" class="pilcrow">¶</a></p>
 <dt id="I-D.ietf-quic-multipath">[I-D.ietf-quic-multipath]</dt>
         <dd>
 <span class="refAuthor">Liu, Y.</span>, <span class="refAuthor">Ma, Y.</span>, <span class="refAuthor">De Coninck, Q.</span>, <span class="refAuthor">Bonaventure, O.</span>, <span class="refAuthor">Huitema, C.</span>, and <span class="refAuthor">M. Kühlewind</span>, <span class="refTitle">"Multipath Extension for QUIC"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-quic-multipath-10</span>, <time datetime="2024-07-08" class="refDate">8 July 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-quic-multipath-10">https://datatracker.ietf.org/doc/html/draft-ietf-quic-multipath-10</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.rustignoli-panrg-scion-components">[I-D.rustignoli-panrg-scion-components]</dt>
+        <dd>
+<span class="refAuthor">Rustignoli, N.</span> and <span class="refAuthor">C. de Kater</span>, <span class="refTitle">"SCION Components Analysis"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-rustignoli-panrg-scion-components-03</span>, <time datetime="2023-09-10" class="refDate">10 September 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-rustignoli-panrg-scion-components-03">https://datatracker.ietf.org/doc/html/draft-rustignoli-panrg-scion-components-03</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
         <dd>
