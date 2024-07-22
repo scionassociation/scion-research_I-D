@@ -84,7 +84,7 @@ Table of Contents
      4.1.  Link Load Balancing
      4.2.  Reverse Path Refreshment
        4.2.1.  Proposed Solutions (not comprehensive)
-   5.  Interfaces for Path Awareness
+   5.  Interfacing SCION with existing technologies
    6.  Implications of Path Awareness for the Transport and
            Application Layers
    7.  Naming
@@ -525,14 +525,15 @@ Table of Contents
       type of exchange, or whether more frequent keep-alives are
       required anyway.
 
-5.  Interfaces for Path Awareness
+5.  Interfacing SCION with existing technologies
 
    The questions posed here are:
 
-   *  Are there any existing protocols/solutions that can carry path
-      aware traffic?
+   *  Are there any existing protocols/solutions that could be adapted
+      to carry SCION traffic?
 
-   *  If there are not, what would it require?
+   *  If there are not suitable out-of-the-box, what would be required
+      to make them work?
 
    There are several possibilities of existing protocols and solutions
    that may work for this purpose:
