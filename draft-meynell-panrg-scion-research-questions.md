@@ -54,9 +54,12 @@ normative:
   I-D.dekater-scion-controlplane:
   I-D.dekater-scion-pki:
   I-D.dekater-scion-dataplane:
+  I-D.rustignoli-panrg-scion-components:
 informative:
   SCIONIPTRLN: DOI.10.1145/3672197.3673437  # SCION-IP translation (OVGU)
+
   RFC9460:
+
   I-D.garciapardo-panrg-drkey:
 
   TABAEIAGHDAEI2023:
@@ -462,7 +465,6 @@ Is reverse path refresh a relevant problem?
   are required anyway.
 
 
-
 <!--
 # Hummingbird / QoS
 
@@ -472,19 +474,27 @@ Is reverse path refresh a relevant problem?
 * What time synchronization precision should we expect at the border router level of every AS? How far can we go realistically?
 -->
 
-# Interfacing SCION with existing technologies
+
+# Interfacing SCION with Existing Technologies
 The questions posed here are:
 
-* Are there any existing protocols/solutions that could be adapted to carry SCION traffic?
-* If there are not suitable out-of-the-box, what would be required to make them work?
+* What existing protocols/solutions should be compatible with SCION simultanously?
+  Referring to the probable fact that ISPs want to offer traditional IP services aside from SCION.
+* What existing technologies can replace part of the SCION specification?
+  Referring to the possibility of slightly changing an existing technology (e.g. IPv6) to be used
+  as part of SCION, replacing part of the ad-hoc specification that we have for SCION.
+* What would be required effort to make them work?
+  Referring to the ranking according to different types of parties involved: ISPs, vendors,
+  application developers, etc.
 
-There are several possibilities of existing protocols and solutions that may work for this purpose:
+There are several possibilities of existing protocols/technologies/solutions that
+may work for this purpose:
 
 * IPv6 in the Data Plane. Use an IPv6 routing header as specified in 4.4. of {{RFC8200}}.
+* SCION IP Gateway, SBAS. See section 3 of {{I-D.rustignoli-panrg-scion-components}}
 * SCION-IP translation {{SCIONIPTRLN}}
 * How can we interface with QUIC Multipath {{I-D.ietf-quic-multipath}}?
-
-And in general, with or without an existing solution, what are the implications for, and relations to the TAPS WG {{TAPS}}?
+* How can we interface with, and what is the relationship to TAPS {{TAPS}}?
 
 
 # Implications of Path Awareness for the Transport and Application Layers
