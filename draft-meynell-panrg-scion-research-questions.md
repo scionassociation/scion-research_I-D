@@ -40,6 +40,7 @@ author:
      email: nic@scion.org
 
 normative:
+  RFC8200: # IPv6
   TAPS: # Using syntax from https://github.com/cabo/kramdown-rfc
     title: Transport Services Working Group
     author:
@@ -54,6 +55,7 @@ normative:
   I-D.dekater-scion-pki:
   I-D.dekater-scion-dataplane:
 informative:
+  SCIONIPTRLN: DOI.10.1145/3672197.3673437  # SCION-IP translation (OVGU)
   RFC9460:
   I-D.garciapardo-panrg-drkey:
 
@@ -471,11 +473,18 @@ Is reverse path refresh a relevant problem?
 -->
 
 # Interfaces for Path Awareness
+The questions posed here are:
 
-* IPv6 in the Data Plane
-* SCION-IP translation
+* Are there any existing protocols/solutions that can carry path aware traffic?
+* If there are not, what would it require?
+
+There are several possibilities of existing protocols and solutions that may work for this purpose:
+
+* IPv6 in the Data Plane. Use an IPv6 routing header as specified in 4.4. of {{RFC8200}}.
+* SCION-IP translation {{SCIONIPTRLN}}
 * How can we interface with QUIC Multipath {{I-D.ietf-quic-multipath}}?
-* What are the implications for, and relations to the TAPS WG {{TAPS}}?
+
+And in general, with or without an existing solution, what are the implications for, and relations to the TAPS WG {{TAPS}}?
 
 
 # Implications of Path Awareness for the Transport and Application Layers
