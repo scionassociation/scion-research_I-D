@@ -472,11 +472,11 @@ Is reverse path refresh a relevant problem?
 * What time synchronization precision should we expect at the border router level of every AS? How far can we go realistically?
 -->
 
-# Interfaces for Path Awareness
+# Interfacing SCION with existing technologies
 The questions posed here are:
 
-* Are there any existing protocols/solutions that can carry path aware traffic?
-* If there are not, what would it require?
+* Are there any existing protocols/solutions that could be adapted to carry SCION traffic?
+* If there are not suitable out-of-the-box, what would be required to make them work?
 
 There are several possibilities of existing protocols and solutions that may work for this purpose:
 
