@@ -5,11 +5,11 @@
 PANRG                                                         K. Meynell
 Internet-Draft                                         SCION Association
 Intended status: Informational                           J. García Pardo
-Expires: 20 January 2025                                      T. Zäschke
+Expires: 23 January 2025                                      T. Zäschke
                                                               ETH Zürich
                                                            N. Rustignoli
                                                        SCION Association
-                                                            19 July 2024
+                                                            22 July 2024
 
 
                         SCION Research Questions
@@ -52,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 20 January 2025.
+   This Internet-Draft will expire on 23 January 2025.
 
 Copyright Notice
 
@@ -70,19 +70,18 @@ Table of Contents
    1.  Introduction
    2.  Conventions and Definitions
    3.  Discovery, Distribution, and Trustworthiness of Path Properties
-     3.1.  ISD, AS identity
+     3.1.  ISD, AS Identity
      3.2.  Beacon Selection Policies
-     3.3.  DNS Service Binding (SVCB)
+     3.3.  Name Resolution and DNS Service Binding (SVCB)
      3.4.  Segment Dissemination
-     3.5.  Periodic beacon propagation
-     3.6.  Beacon optimization and extensibility
-     3.7.  Routing Policies and Traffic Engineering
-     3.8.  DRKey
-     3.9.  SCMP Authentication
-     3.10. Proof of transit
-     3.11. NAT
-   4.  Dataplane stability
-     4.1.  Link load balancing
+     3.5.  Periodic Beacon Propagation
+     3.6.  Beacon Optimization and Extensibility
+     3.7.  DRKey
+     3.8.  SCMP Authentication
+     3.9.  Proof of Transit
+     3.10. NAT
+   4.  Data Plane Stability
+     4.1.  Link Load Balancing
      4.2.  Reverse Path Refreshment
        4.2.1.  Proposed Solutions (not comprehensive)
    5.  Interfaces for Path Awareness
@@ -106,9 +105,9 @@ Table of Contents
    review.
 
    The goal of this draft is to explore how SCION and its early
-   deployments try to address open research questions in [RFC9217].
-   Specifically, there are still many open areas of research around
-   path-aware networking, where SCION with its early deployment
+   deployment experiences can help address open research questions in
+   [RFC9217].  Specifically, there are still many open areas of research
+   around path-aware networking, where SCION with its early deployment
    experiences and research efforts can provide a contribution.  This
    can also be a starting point for discussions around long-term
    protocol evolution.
@@ -116,10 +115,10 @@ Table of Contents
    This draft assumes the reader is familiar with some of the
    fundamental concepts defined in the components specification.
 
-   *Note:* This is the very first version of the SCION research
-   questions draft, and it merely contains a skeleton of potential
-   topics to be further discussed in this draft.  Any feedback is
-   welcome and much appreciated.  Thanks!
+   *Note:* This is a very early version of the SCION research questions
+   draft, and it merely contains a selection of potential topics to be
+   further discussed in this draft.  Any feedback is welcome and much
+   appreciated.  Thanks!
 
 2.  Conventions and Definitions
 
@@ -131,18 +130,14 @@ Table of Contents
 
 3.  Discovery, Distribution, and Trustworthiness of Path Properties
 
-3.1.  ISD, AS identity
+3.1.  ISD, AS Identity
 
-   The SCION protocol specifies 16 bits and 48 bits to identify the ISD
-   and AS respectively.  This identification is used at the data-plane
-   level, in every packet to fully address the sender and receiver, and
-   at the control-plane level, to identify the PCB sender and hops.
-
-   Whilst 48 bits for the AS will accommodate up to 2.81475e14
-   assignments which is likely to be more than sufficient for the
-   future, using 16 bits for the ISD only offers 65,536 possible
-   assignments.  Further investigation on whether this is sufficient is
-   required.
+   In the SCION specification, identifiers for ISDs and ASes are 16 bits
+   and 48 bits long respectively.  Whilst 48 bits for the AS will
+   accommodate up to 2.81475e14 assignments which is likely to be more
+   than sufficient for the future, using 16 bits for the ISD only offers
+   65,536 possible assignments.  Further investigation on whether this
+   is sufficient is required.
 
    The following questions arise: (not comprehensive)
 
@@ -150,8 +145,7 @@ Table of Contents
 
    *  Can one AS belong to many ISDs?
 
-   *  Are AS numbers unique themselves, or only unique in combination
-      with an ISD?
+   *  Are AS numbers globally unique, or only unique within each ISD?
 
    *  How many ISDs do we expect?
 
@@ -185,16 +179,29 @@ Table of Contents
    that the number of paths (and beacons) grows exponentially with core
    network size.
 
-   Some potential questions are: * Limiting the number of beacons to a
-   _best PCBs set size_ per AS results in a partial view of the network
-   being available to endpoints.  To what point this affects endpoint's
-   path-selection possibilities? * what is a good, practical, general
-   purpose policy, that can fulfill conflicting requirements of both
-   operators and endpoints, as highlighted in section 2.7 of [RFC9217]?
-   * What are the desirable path properties (e.g. diversity, PCB
-   Expiration Time, how recently the same PCBs was forwarded before).
+   Some potential questions are:
 
-3.3.  DNS Service Binding (SVCB)
+   *  Limiting the number of beacons to a _best PCBs set size_ per AS
+      results in a partial view of the network being available to
+      endpoints.  To what point this affects endpoint's path-selection
+      possibilities?
+
+   *  what is a good, practical, general purpose policy, that can
+      fulfill conflicting requirements of both operators and endpoints,
+      as highlighted in section 2.7 of [RFC9217]?
+
+   *  What are the desirable path properties (e.g. diversity, PCB
+      Expiration Time, how recently the same PCBs was forwarded before).
+
+3.3.  Name Resolution and DNS Service Binding (SVCB)
+
+   In current deployments, SCION addresses are added to TXT records.
+
+   Example of current entry:
+
+   $ dig +short ethz.ch TXT  | grep scion
+   "x-sciondiscovery=8041"
+   "scion=64-2:0:9,129.132.230.98"
 
    The DNS Service Binding [RFC9460], Section 14.3 allows a dedicated
    SCION Service Parameter to be specified.
@@ -202,12 +209,6 @@ Table of Contents
    Service Parameters allow the specification of alternative IP
    addresses or other parameters (such as ISD/AS numbers) for a given
    URL.  This would be more elegant than using DNS TXT records.
-
-   Example of current entry:
-
-   $ dig +short ethz.ch TXT  | grep scion
-   "x-sciondiscovery=8041"
-   "scion=64-2:0:9,129.132.230.98"
 
    With SVCB this may look like this for https:
 
@@ -219,8 +220,8 @@ Table of Contents
 
 3.4.  Segment Dissemination
 
-   A path look-up in SCION works analogous to a DNS query (section 4 of
-   [I-D.dekater-scion-controlplane]):
+   A path look-up in SCION works similarly to a recursive DNS query
+   (section 4 of [I-D.dekater-scion-controlplane]):
 
    *  The source endpoint queries the control service in its own AS.
 
@@ -237,7 +238,7 @@ Table of Contents
 
    Control services may return a large number of path segments for some
    queries.  This can cost considerable bandwidth while at the same time
-   overloading clients with an unnecessarily large numbers of segments.
+   overload clients with an unnecessarily large numbers of segments.
 
    *  This problem may be more acute in ASes with many endpoints (e.g.
       IoT), or for resource-constrained endpoints.
@@ -274,7 +275,7 @@ Table of Contents
 
                     Table 1: core segment count examples
 
-3.5.  Periodic beacon propagation
+3.5.  Periodic Beacon Propagation
 
    The SCION control plane protocol specifies that beacons should be
    propagated periodically.  Is this really necessary?
@@ -291,7 +292,7 @@ Table of Contents
    for the discovery of new paths at each interval, enhancing the
    scalability and path diversity.
 
-3.6.  Beacon optimization and extensibility
+3.6.  Beacon Optimization and Extensibility
 
    Communication requirements vary according to source, destination, and
    application.  Satisfying all these requirements either requires
@@ -306,7 +307,7 @@ Table of Contents
    2.7 of [RFC9217].
 
    *  What optimization functions should be applied to beacons and what
-      metrics should be considered when propagating them ? Is the set of
+      metrics should be considered when propagating them?  Is the set of
       properties composed of path length, peering ASes, path
       disjointness, PCB last reception, and path lifetime enough?
 
@@ -337,25 +338,7 @@ Table of Contents
 
    *  See also: IREC [TABAEIAGHDAEI2023]
 
-3.7.  Routing Policies and Traffic Engineering
-
-   Reduced adoption due to limited routing policy possibilities, such as
-   a (core-)AS does not want to accept transit traffic unless it starts/
-   ends in ASes with special properties.  For example a GEANT AS does
-   not want to allow transit traffic unless it originates or ends in
-   another research and education AS.
-
-   One solution could be to add a “confirm full path”-flag to certain
-   segments.  If this flag is set, the full path (all segments) needs to
-   authorized by all ASes that insist on authorizing it.  This is
-   obviously less scalable but may be viable for ASes that insist on
-   such policies.  This also allows for “secret” policies.
-
-   Collateral: this probably needs a data plane change.  Conceptually,
-   we have only a single resulting segment, and that segment needs to be
-   used in full, e.g. no on-path trickery.
-
-3.8.  DRKey
+3.7.  DRKey
 
    DRKey is a key distribution system that scales well with the number
    of endpoints in the network.  It relies on two things:
@@ -394,7 +377,7 @@ Table of Contents
 
    For more info: [I-D.garciapardo-panrg-drkey].
 
-3.9.  SCMP Authentication
+3.8.  SCMP Authentication
 
    In SCION, endpoints are responsible to select alternate paths in case
    of failure.  One approach to detect failures is to rely on signals
@@ -427,11 +410,11 @@ Table of Contents
       validated.  In addition, validation may trigger additional
       requests for keys.
 
-3.10.  Proof of transit
+3.9.  Proof of Transit
 
    FABRID [KRAHENBUHL2023] and EPIC [LEGNER2020].
 
-3.11.  NAT
+3.10.  NAT
 
    Currently, the SCION implementation is not compatible out-of-the-box
    with NAT'ed devices, regardless of whether these devices are end-
@@ -445,16 +428,14 @@ Table of Contents
 
    Possible solutions:
 
-   *  With IPv6 underlay, this problem disappears. // TODO Clarify why
-      it disappears?  Is the idea that we can remove NATs if everyone
-      would use IPv6?
+   *  With IPv6 as an intra-domain protocol, this problem disappears.
 
    *  Introduce a mechanism so that the SCION border router can report
       the NATed address to an endpoint (similar to a STUN server).
 
-4.  Dataplane stability
+4.  Data Plane Stability
 
-4.1.  Link load balancing
+4.1.  Link Load Balancing
 
    Links may get overloaded because the SCION distributed path selection
    process fails to distribute load properly over different links,
@@ -583,9 +564,9 @@ Table of Contents
    [I-D.dekater-scion-controlplane]
               de Kater, C., Rustignoli, N., and S. Hitz, "SCION Control
               Plane", Work in Progress, Internet-Draft, draft-dekater-
-              scion-controlplane-04, 8 July 2024,
+              scion-controlplane-05, 21 July 2024,
               <https://datatracker.ietf.org/doc/html/draft-dekater-
-              scion-controlplane-04>.
+              scion-controlplane-05>.
 
    [I-D.dekater-scion-dataplane]
               de Kater, C., Rustignoli, N., and S. Hitz, "SCION Data
@@ -674,7 +655,9 @@ Table of Contents
 
 Acknowledgments
 
-   TODO acknowledge.
+   Many thanks go to Matthias Frei (SCION Association), Seyedali
+   Tabaeiaghdaei (ETH Zurich) for reviewing and contributing to this
+   document.
 
 Authors' Addresses
 
