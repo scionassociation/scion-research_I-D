@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-07-21T00:21:11.851354+00:00",
+  "timestamp": "2024-07-23T00:19:13.015175+00:00",
   "repo": "scionassociation/scion-research_I-D",
   "labels": [
     {
@@ -216,16 +216,16 @@
     {
       "number": 16,
       "id": "I_kwDOMRYres6PriNh",
-      "title": "Follow questions in rfc9217 and don't go too deep",
+      "title": "Follow questions in rfc9217/rfc9049 and don't go too deep",
       "url": "https://github.com/scionassociation/scion-research_I-D/issues/16",
       "state": "OPEN",
       "author": "nicorusti",
       "authorAssociation": "MEMBER",
       "assignees": [],
       "labels": [],
-      "body": "Keep in mind that goals of the drafts are\r\n- Keep discussion alive to figure out what needs to be done if one day we want to have an IETF SCION --> Avoid going too deep in specific implementation issues, this might yield unproductive discussions\r\n- Answer some of the questions in rfc9217 and identify remaining gaps",
+      "body": "Keep in mind that goals of the drafts are\r\n- Keep discussion alive to figure out what needs to be done if one day we want to have an IETF SCION --> Avoid going too deep in specific implementation issues, this might yield unproductive discussions\r\n- Answer some of the questions in rfc9217 and identify remaining gaps\r\n- Is there something we can learn from [rfc9049](https://datatracker.ietf.org/doc/html/rfc9049) (and something we missed)? ",
       "createdAt": "2024-07-16T08:34:43Z",
-      "updatedAt": "2024-07-16T08:38:18Z",
+      "updatedAt": "2024-07-22T01:10:08Z",
       "closedAt": null,
       "comments": []
     },
@@ -239,17 +239,17 @@
       "authorAssociation": "MEMBER",
       "assignees": [],
       "labels": [],
-      "body": "I feel that the wormhole paragraph is not mature enough for this submission. Some issues: \r\n* several parts of the content is a duplicate of `5.2.4.  Manipulation of the Path-Selection Process`  in [draft-dekater-scion-controlplane-04\r\n](https://datatracker.ietf.org/doc/draft-dekater-scion-controlplane/04/)\r\n* some of the mitigations proposed are quite vague\r\n* it does not clearly mention proof of transit as a solution\r\n\r\nThis is the text I removed in #23 , to be reworked for a later submission \r\n```\r\n## Wormhole attack\r\n\r\n### Set up\r\n\r\nScenario: attackers create two core ASes that are geographically far apart. They then announce a link (effectively a shortcut) between these two ASes with\r\nvery appealing properties (low latency, few hops, ...).\r\n\r\n### Impact\r\nThe attacker can now perform blackhole attacks (DoS), greyhole attacks, delay traffic, or similarily impact traffic.\r\n\r\nCritically, there is currently no clear way to recover from this situation. In order to recover, ASes that are connected to the\r\nwormhole ASes would need to learn of the problem and stop forwarding the wormhole beacons.\r\n\r\nMitigations:\r\n\r\n- Introduce a way for ASes to verify path properties. This would make it harder to install wormholes.\r\n  This could include measuring latency or sense-checking of geolocation information.\r\n- Introduce a way for endpoints to discover path problems.\r\n- Introduce a way for endpoints to report path problems.\r\n- Introduce a way to recover from malicious segments, see {{signalling-faulty-segments}}.\r\n- Adapt the path discovery and dissemination algorithm to allow ASes to have many more than five paths to\r\n  a given remote destination. The attack would then require an (unreasonably) large number of compromised ASes.\r\n\r\nA related question is discussed in {{signalling-faulty-segments}}.\r\n```",
+      "body": "I feel that the wormhole paragraph is not mature enough for this submission. Some issues: \r\n* several parts of the content is a duplicate of `5.2.4.  Manipulation of the Path-Selection Process`  in [draft-dekater-scion-controlplane-04\r\n](https://datatracker.ietf.org/doc/draft-dekater-scion-controlplane/04/)\r\n* some of the mitigations proposed are quite vague\r\n* ~~it does not clearly mention proof of transit as a solution~~\r\n\r\nThis is the text I removed in #23 , to be reworked for a later submission \r\n```\r\n## Wormhole attack\r\n\r\n### Set up\r\n\r\nScenario: attackers create two core ASes that are geographically far apart. They then announce a link (effectively a shortcut) between these two ASes with\r\nvery appealing properties (low latency, few hops, ...).\r\n\r\n### Impact\r\nThe attacker can now perform blackhole attacks (DoS), greyhole attacks, delay traffic, or similarily impact traffic.\r\n\r\nCritically, there is currently no clear way to recover from this situation. In order to recover, ASes that are connected to the\r\nwormhole ASes would need to learn of the problem and stop forwarding the wormhole beacons.\r\n\r\nMitigations:\r\n\r\n- Introduce a way for ASes to verify path properties. This would make it harder to install wormholes.\r\n  This could include measuring latency or sense-checking of geolocation information.\r\n- Introduce a way for endpoints to discover path problems.\r\n- Introduce a way for endpoints to report path problems.\r\n- Introduce a way to recover from malicious segments, see {{signalling-faulty-segments}}.\r\n- Adapt the path discovery and dissemination algorithm to allow ASes to have many more than five paths to\r\n  a given remote destination. The attack would then require an (unreasonably) large number of compromised ASes.\r\n\r\nA related question is discussed in {{signalling-faulty-segments}}.\r\n```",
       "createdAt": "2024-07-18T21:19:39Z",
-      "updatedAt": "2024-07-19T11:10:33Z",
+      "updatedAt": "2024-07-22T17:40:35Z",
       "closedAt": null,
       "comments": [
         {
           "author": "tzaeschke",
           "authorAssociation": "COLLABORATOR",
-          "body": "Apologies, apparently I wasn't quite finished when I committed it. Just in case we decide to add this again, here is a slightly improved version of the text:\r\n```\r\n## Wormhole attack\r\n\r\nThe wormhole attack is described in {{I-D.scion-cp}}.\r\n\r\n### Set up\r\n\r\nScenario: attackers create two core ASes that are geographically far apart. They then announce a link (effectively a shortcut) between these two ASes with\r\nvery appealing properties (low latency, few hops, ...).\r\n\r\n### Impact\r\n\r\nThe attacker can now perform blackhole attacks (DoS), greyhole attacks, delay traffic, or similarly impact traffic.\r\n\r\nCritically, there is currently no clear way to recover from this situation. In order to recover, ASes that are connected to the\r\nwormhole ASes would need to learn of the problem and stop forwarding the wormhole beacons.\r\n\r\n### Mitigations\r\n\r\n- Prevention: Introduce a way for ASes to verify path properties. This would make it harder to install wormholes.\r\n  This could include measuring latency or sense-checking of geolocation information.\r\n- Recovery: Introduce a way to endpoints to detect, report and recover from path problems. This is discussed in {{signalling-faulty-segments}}.\r\n  - Endpoints need (a standardized? way) to detect path problems, such as high latency or packet loss.\r\n  - Endpoints need a way to report path problems to ASes.\r\n  - ASes need a way to report path problems to other ASes (leaf to core, core to core).\r\n  - ASes need a way to recover from reported or detected malicious segments.\r\n```\r\n\r\nI'm not sure how proof of transit would help. I think if the two malicious ASes are connected via VPN, it is impossible to proof that the packets had to go through other ASes...?",
+          "body": "Apologies, apparently I wasn't quite finished when I committed it. Just in case we decide to add this again, here is a slightly improved version of the text:\r\n```\r\n## Wormhole attack\r\n\r\nThe wormhole attack is described in {{I-D.scion-cp}}.\r\n\r\n### Set up\r\n\r\nScenario: attackers create two core ASes that are geographically far apart. They then announce a link (effectively a shortcut) between these two ASes with\r\nvery appealing properties (low latency, few hops, ...).\r\n\r\n### Impact\r\n\r\nThe attacker can now perform blackhole attacks (DoS), greyhole attacks, delay traffic, or similarly impact traffic.\r\n\r\nCritically, there is currently no clear way to recover from this situation. In order to recover, ASes that are connected to the\r\nwormhole ASes would need to learn of the problem and stop forwarding the wormhole beacons.\r\n\r\n### Mitigations\r\n\r\n- Prevention: Introduce a way for ASes to verify path properties. This would make it harder to install wormholes.\r\n  This could include measuring latency (per path or per link) or sense-checking of geolocation information.\r\n- Recovery: Introduce a way to endpoints to detect, report and recover from path problems. This is discussed in {{signalling-faulty-segments}}.\r\n  - Endpoints need (a standardized? way) to detect path problems, such as high latency or packet loss.\r\n  - Endpoints need a way to report path problems to ASes.\r\n  - ASes need a way to report path problems to other ASes (leaf to core, core to core).\r\n  - ASes need a way to recover from reported or detected malicious segments.\r\n```\r\n\r\nI'm not sure how proof of transit would help. I think if the two malicious ASes are connected via VPN, it is impossible to proof that the packets had to go through other ASes...?",
           "createdAt": "2024-07-19T09:11:03Z",
-          "updatedAt": "2024-07-19T09:11:03Z"
+          "updatedAt": "2024-07-22T09:08:57Z"
         },
         {
           "author": "nicorusti",
@@ -257,6 +257,20 @@
           "body": "Thank you!\r\n\r\n> I'm not sure how proof of transit would help. I think if the two malicious ASes are connected via VPN, it is impossible to proof that the packets had to go through other ASes...? \r\n\r\nIf traffic is \"swallowed\" via a wormhole shortcut, then packets will skip some of the ASes on path. If there is proof of transit, then the proof for the skipped ASes would be missing, revealing the attack. \r\nOn the other hand, it is impossible to prove that packets went though other ASes.. PoT can only prove that traffic did NOT go through the intended ASes. Does it make sense?\r\n",
           "createdAt": "2024-07-19T11:10:31Z",
           "updatedAt": "2024-07-19T11:10:31Z"
+        },
+        {
+          "author": "tzaeschke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> If traffic is \"swallowed\" via a wormhole shortcut, then packets will skip some of the ASes on path. \r\n\r\nI probably misunderstand how wormholes work, but why would there be ASes on the path that need to be skipped? I assumed the idea is that two colluding malicious ASes announce a route that is attractive simply because it _doesn't_  have other ASes on the path? I.e. it is attractive because it announces a direct connection or peering link to a remote AS?\r\n\r\nI am happy to take this offline and discuss some other time if you like :)",
+          "createdAt": "2024-07-22T08:45:51Z",
+          "updatedAt": "2024-07-22T08:45:51Z"
+        },
+        {
+          "author": "nicorusti",
+          "authorAssociation": "MEMBER",
+          "body": "You are right, we had some internal slides about proof of transit that mentioned it as a solution to a \"wormhole\" in the dataplane. This is something that we already mention in the DP draft (and that we are making clearer in https://github.com/scionassociation/scion-dp_I-D/pull/34 ).\r\n\r\nHere you are referring to a wormhole in the _control plane_, for this one I agree proof of transit cannot do anything. I also discussed this with JC in https://github.com/scionassociation/scion-cp_I-D/pull/53 \r\nSorry for the confusion here! I think wit the two PRs above it should be clear.",
+          "createdAt": "2024-07-22T17:40:34Z",
+          "updatedAt": "2024-07-22T17:40:34Z"
         }
       ]
     },
@@ -285,6 +299,22 @@
           "updatedAt": "2024-07-19T07:39:43Z"
         }
       ]
+    },
+    {
+      "number": 31,
+      "id": "I_kwDOMRYres6QZlzH",
+      "title": "Not forget about traffic engineering",
+      "url": "https://github.com/scionassociation/scion-research_I-D/issues/31",
+      "state": "OPEN",
+      "author": "juagargi",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "We had a couple of points in the draft talking about traffic engineering.\r\nThey have been commented out to reduce the possible discussion, as at the moment we don't have a clear vision of what the control plane is able to do or not.\r\n\r\nWe need to remember that ISPs still want to do some traffic engineering and find documents on what the ISPs want.\r\nOnce we have a better understood control plane, propose some solutions that cover the items in those docs.\r\n",
+      "createdAt": "2024-07-22T11:24:27Z",
+      "updatedAt": "2024-07-22T11:24:27Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
@@ -2545,7 +2575,7 @@
       "labels": [],
       "body": "Closes #8 ",
       "createdAt": "2024-07-19T09:48:42Z",
-      "updatedAt": "2024-07-19T11:39:26Z",
+      "updatedAt": "2024-07-22T04:56:34Z",
       "baseRepository": "scionassociation/scion-research_I-D",
       "baseRefName": "main",
       "baseRefOid": "91cbe3076b50d4bdda83930864f1f972e640d7db",
@@ -2602,6 +2632,392 @@
       },
       "comments": [],
       "reviews": []
+    },
+    {
+      "number": 28,
+      "id": "PR_kwDOMRYres52AGWh",
+      "title": "Polishing, references, remove traffic engineering section",
+      "url": "https://github.com/scionassociation/scion-research_I-D/pull/28",
+      "state": "MERGED",
+      "author": "nicorusti",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-07-21T01:45:15Z",
+      "updatedAt": "2024-07-22T06:25:28Z",
+      "baseRepository": "scionassociation/scion-research_I-D",
+      "baseRefName": "main",
+      "baseRefOid": "448fb70d7711c47524748f198d4fa86727e3c655",
+      "headRepository": "scionassociation/scion-research_I-D",
+      "headRefName": "references",
+      "headRefOid": "2f875a7bcd218d1b0100b897a5951ef6727819fb",
+      "closedAt": "2024-07-22T06:25:24Z",
+      "mergedAt": "2024-07-22T06:25:24Z",
+      "mergedBy": "juagargi",
+      "mergeCommit": {
+        "oid": "a0186cf604b2e995dfd4214af6f80dd05af51788"
+      },
+      "comments": [
+        {
+          "author": "nicorusti",
+          "authorAssociation": "MEMBER",
+          "body": "@juagargi if you like this, feel free to merge, and then we can submit the draft :) \r\n",
+          "createdAt": "2024-07-21T17:35:10Z",
+          "updatedAt": "2024-07-21T17:35:10Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMRYres6Cjk5Q",
+          "commit": {
+            "abbreviatedOid": "f1a0dc0"
+          },
+          "author": "knmeynell",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-07-21T16:14:14Z",
+          "updatedAt": "2024-07-21T16:15:53Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "```suggestion\r\nThe goal of this draft is to explore how SCION and its early deployment experiences can help address open research questions in {{RFC9217}}. Specifically, there are still many open areas of research around path-aware networking, where SCION with its early deployment experiences and research efforts can provide a contribution. This can also be a starting point for discussions around long-term protocol evolution.\r\n```",
+              "createdAt": "2024-07-21T16:14:14Z",
+              "updatedAt": "2024-07-21T16:15:53Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6Ck72w",
+          "commit": {
+            "abbreviatedOid": "2f875a7"
+          },
+          "author": "juagargi",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-07-22T06:25:19Z",
+          "updatedAt": "2024-07-22T06:25:19Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 29,
+      "id": "PR_kwDOMRYres52DDoj",
+      "title": "Initial version of the abstract.",
+      "url": "https://github.com/scionassociation/scion-research_I-D/pull/29",
+      "state": "OPEN",
+      "author": "juagargi",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Let's include an abstract.",
+      "createdAt": "2024-07-22T06:34:45Z",
+      "updatedAt": "2024-07-22T17:44:14Z",
+      "baseRepository": "scionassociation/scion-research_I-D",
+      "baseRefName": "main",
+      "baseRefOid": "a0186cf604b2e995dfd4214af6f80dd05af51788",
+      "headRepository": "scionassociation/scion-research_I-D",
+      "headRefName": "juagargi/abstract",
+      "headRefOid": "ef26c1dd81cbeccb4deb1a4ec938bded92796d3e",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMRYres6CmDGZ",
+          "commit": {
+            "abbreviatedOid": "9fca8ae"
+          },
+          "author": "tzaeschke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-22T08:54:32Z",
+          "updatedAt": "2024-07-22T08:54:32Z",
+          "comments": [
+            {
+              "originalPosition": 13,
+              "body": "```suggestion\r\nThis draft intends to summarize all SCION related questions which are deemed important to be answered\r\nfor SCION to properly work at Internet scale.\r\nThe set of questions is at the moment not comprehensive, but we intend them to initiate a discussion\r\nto determine which questions should remain here, and which ones are missing.\r\n\r\nWhen appropriate, some example solutions can be provided for the community to determine whether said\r\nsolutions are adequate or not.\r\n\r\nWhenever a topic spawns a non-trivial discussion, we plan to initiate a new Internet Draft on said topic.\r\n```",
+              "createdAt": "2024-07-22T08:54:32Z",
+              "updatedAt": "2024-07-22T08:54:32Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CnhEQ",
+          "commit": {
+            "abbreviatedOid": "ef26c1d"
+          },
+          "author": "tzaeschke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-07-22T12:07:54Z",
+          "updatedAt": "2024-07-22T12:07:54Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMRYres6Cqfqe",
+          "commit": {
+            "abbreviatedOid": "ef26c1d"
+          },
+          "author": "nicorusti",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "just a small recommendation, besides that LGTM ",
+          "createdAt": "2024-07-22T17:43:38Z",
+          "updatedAt": "2024-07-22T17:44:14Z",
+          "comments": [
+            {
+              "originalPosition": 13,
+              "body": "```suggestion\r\n```\r\n\r\nAs you see writing a draft is a lot of effort.. I'd not say anything specific about this in the abstract",
+              "createdAt": "2024-07-22T17:43:38Z",
+              "updatedAt": "2024-07-22T17:44:14Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 30,
+      "id": "PR_kwDOMRYres52DKxX",
+      "title": "Expand Interfaces for Path Awareness",
+      "url": "https://github.com/scionassociation/scion-research_I-D/pull/30",
+      "state": "OPEN",
+      "author": "juagargi",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "- Talk about IPv6\r\n- Talk about SCION-IP-Translation (work by OVGU)\r\nSolves #7 \r\n",
+      "createdAt": "2024-07-22T06:55:13Z",
+      "updatedAt": "2024-07-22T20:29:43Z",
+      "baseRepository": "scionassociation/scion-research_I-D",
+      "baseRefName": "main",
+      "baseRefOid": "a0186cf604b2e995dfd4214af6f80dd05af51788",
+      "headRepository": "scionassociation/scion-research_I-D",
+      "headRefName": "juagargi/interfaces_for_path_awareness",
+      "headRefOid": "b550b83b5560a24b5b696cf786b0dd329eacb2c5",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMRYres6CmGX_",
+          "commit": {
+            "abbreviatedOid": "ff41c8d"
+          },
+          "author": "tzaeschke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-22T09:00:31Z",
+          "updatedAt": "2024-07-22T09:07:20Z",
+          "comments": [
+            {
+              "originalPosition": 24,
+              "body": "Maybe we should be a bit more precise, I think there are a lot of solution for path aware traffic. How about:\r\n`- Are there any existing protocols/solution that can be adapted to carry SCION traffic?`\r\n?",
+              "createdAt": "2024-07-22T09:00:31Z",
+              "updatedAt": "2024-07-22T09:07:20Z"
+            },
+            {
+              "originalPosition": 25,
+              "body": "In the next section you show that there are existing protocols/solutions, so the question is already answered?\r\nRemove this? ",
+              "createdAt": "2024-07-22T09:01:37Z",
+              "updatedAt": "2024-07-22T09:07:20Z"
+            },
+            {
+              "originalPosition": 20,
+              "body": "If we refer to https://www.rfc-editor.org/rfc/rfc9217.html, I think `Interfaces for Path Awareness`  are something different than what is discussed here. I think they mean interfaces for applications/users to select paths.\r\n\r\nHowever, this chapter discusses more the interfacing of SCION with existing internet protocols/solution.\r\n\r\nMaybe rename this section to `Interfacing SCION with existing technologies`?",
+              "createdAt": "2024-07-22T09:06:59Z",
+              "updatedAt": "2024-07-22T09:07:20Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6Cnfew",
+          "commit": {
+            "abbreviatedOid": "ff41c8d"
+          },
+          "author": "juagargi",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-22T12:04:26Z",
+          "updatedAt": "2024-07-22T12:04:26Z",
+          "comments": [
+            {
+              "originalPosition": 25,
+              "body": "I think there aren't. The list is there because ISPs will mention IPv6, and vendors will say that it is not really a solution. Same for the scion-ip translation approach.\r\nI've modified the sentence to `If there are not suitable out-of-the-box, what would be required to make them work?`",
+              "createdAt": "2024-07-22T12:04:26Z",
+              "updatedAt": "2024-07-22T12:05:59Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CnpVY",
+          "commit": {
+            "abbreviatedOid": "ff41c8d"
+          },
+          "author": "tzaeschke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-22T12:25:06Z",
+          "updatedAt": "2024-07-22T12:25:07Z",
+          "comments": [
+            {
+              "originalPosition": 25,
+              "body": "Okay, so I think I misunderstood what this is about. Maybe we should be more clear what this question is about?\r\n\r\n> * Are there any existing protocols/solutions that could be adapted to carry SCION traffic?\r\n>  * If there are not suitable out-of-the-box, what would be required to make them work?\r\n\r\nI think the question isn't really whether something could be adapted, but whether it would be beneficial if something would be adapted.\r\n\r\nI think the question may be more like: \r\n```\r\n* What existing protocols/solutions do we need to be interoperable/compatible with SCION?\r\n* If they are not interoperable/compatible with SCION yet, how can this be achieved?\r\n```\r\nDoes that make sense?",
+              "createdAt": "2024-07-22T12:25:07Z",
+              "updatedAt": "2024-07-22T12:25:07Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CoNEJ",
+          "commit": {
+            "abbreviatedOid": "ff41c8d"
+          },
+          "author": "juagargi",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-22T13:26:28Z",
+          "updatedAt": "2024-07-22T13:26:28Z",
+          "comments": [
+            {
+              "originalPosition": 25,
+              "body": "The question is about how to make SCION interoperable with existing tech. such as IPv6. And, if not out-of-the-box, what is the effort required for that.\r\nIt's more about reusing something that exists to carry SCION traffic, that enabling SCION for existing things. Essentially: what is the least resistance path to allow ISPs to carry SCION traffic?\r\nI like your second sentence better than my original, I propose something like:\r\n```\r\n* Are there any existing protocols/solutions that could carry SCION traffic?\r\n* If they are not interoperable/compatible with SCION yet, how can this be achieved?\r\n```\r\nWhat do you think?",
+              "createdAt": "2024-07-22T13:26:28Z",
+              "updatedAt": "2024-07-22T13:26:28Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CpI0x",
+          "commit": {
+            "abbreviatedOid": "1c10473"
+          },
+          "author": "tzaeschke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-22T14:56:15Z",
+          "updatedAt": "2024-07-22T14:56:16Z",
+          "comments": [
+            {
+              "originalPosition": 27,
+              "body": "Sorry, Github refuses to do replacement suggestion because there is a deleted line in there...\r\n\r\n\r\n```\r\n# Interfacing SCION with existing technologies\r\nThe questions posed are about adapting SCION to be interoperable or compatible with existing technologies and protocols:\r\n* For which existing technologies/protocols do we want compatibility/interoperability?\r\n* How would we need to adapt SCION?\r\n* How much work is it?\r\n```",
+              "createdAt": "2024-07-22T14:56:15Z",
+              "updatedAt": "2024-07-22T14:56:16Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CpI93",
+          "commit": {
+            "abbreviatedOid": "1c10473"
+          },
+          "author": "tzaeschke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-07-22T14:56:26Z",
+          "updatedAt": "2024-07-22T14:56:26Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMRYres6CpMVT",
+          "commit": {
+            "abbreviatedOid": "1c10473"
+          },
+          "author": "juagargi",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-22T15:01:47Z",
+          "updatedAt": "2024-07-22T15:01:47Z",
+          "comments": [
+            {
+              "originalPosition": 27,
+              "body": "@knmeynell Can you PTAL at this section and write it in proper english?\r\nWe tried to be clear, but we both don't agree on the exact words to use here.\r\nThe idea is explained in the text of this section. Please feel free to ask us about what we really want to express here :smile: (maybe we don't exactly know what we want :wink: )",
+              "createdAt": "2024-07-22T15:01:47Z",
+              "updatedAt": "2024-07-22T15:01:47Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CqgWL",
+          "commit": {
+            "abbreviatedOid": "b550b83"
+          },
+          "author": "nicorusti",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-22T17:45:18Z",
+          "updatedAt": "2024-07-22T18:02:09Z",
+          "comments": [
+            {
+              "originalPosition": 12,
+              "body": "This one is not intended for publication (and even expired), I'd put it as informative ",
+              "createdAt": "2024-07-22T17:45:18Z",
+              "updatedAt": "2024-07-22T18:02:10Z"
+            },
+            {
+              "originalPosition": 27,
+              "body": "JFYI Kevin is off this week, he might not respond",
+              "createdAt": "2024-07-22T18:02:09Z",
+              "updatedAt": "2024-07-22T18:02:10Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6CqpE3",
+          "commit": {
+            "abbreviatedOid": "b550b83"
+          },
+          "author": "nicorusti",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "Great questions, I feel the core points are there but the form can be a bit improved, I added some comments in this direction.\r\nFeel free to address and merge",
+          "createdAt": "2024-07-22T18:05:13Z",
+          "updatedAt": "2024-07-22T20:29:43Z",
+          "comments": [
+            {
+              "originalPosition": 53,
+              "body": "HFYI, SBAS is covered by https://datatracker.ietf.org/ipr/6393/\r\nI'd not mention it in the draft so that we don't need to update the IPR disclosure.. If you want to mention it in the presentation, you'd have to remind of this IPR disclosure in the presentation",
+              "createdAt": "2024-07-22T18:05:13Z",
+              "updatedAt": "2024-07-22T20:29:43Z"
+            },
+            {
+              "originalPosition": 44,
+              "body": "```suggestion\r\n* Could a future evolution of the SCION specification better reuse existing technologies?\r\n  Referring to the possibility of slightly changing an existing technology (e.g. IPv6) to be used\r\n  as part of SCION, replacing part of the ad-hoc specification that we have for SCION.\r\n```\r\n",
+              "createdAt": "2024-07-22T20:23:43Z",
+              "updatedAt": "2024-07-22T20:29:43Z"
+            },
+            {
+              "originalPosition": 47,
+              "body": "Is this about deployment incentives? Or Implementation effort?",
+              "createdAt": "2024-07-22T20:25:57Z",
+              "updatedAt": "2024-07-22T20:29:43Z"
+            },
+            {
+              "originalPosition": 41,
+              "body": "```suggestion\r\n  How can ISPs offer traditional IP side by side with SCION.\r\n```",
+              "createdAt": "2024-07-22T20:27:57Z",
+              "updatedAt": "2024-07-22T20:29:43Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
