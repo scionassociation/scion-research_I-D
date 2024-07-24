@@ -1205,7 +1205,7 @@ solutions are adequate or not.<a href="#section-abstract-2" class="pilcrow">¶</
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
-            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-interfaces-for-path-awarene" class="internal xref">Interfaces for Path Awareness</a></p>
+            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-interfacing-scion-with-exis" class="internal xref">Interfacing SCION with Existing Technologies</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
             <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-implications-of-path-awaren" class="internal xref">Implications of Path Awareness for the Transport and Application Layers</a></p>
@@ -1736,23 +1736,45 @@ are required anyway.<a href="#section-4.2.1-5.4.1" class="pilcrow">¶</a></p>
 </div>
 </section>
 </div>
-<div id="interfaces-for-path-awareness">
+<div id="interfacing-scion-with-existing-technologies">
 <section id="section-5">
-      <h2 id="name-interfaces-for-path-awarene">
-<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-interfaces-for-path-awarene" class="section-name selfRef">Interfaces for Path Awareness</a>
+      <h2 id="name-interfacing-scion-with-exis">
+<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-interfacing-scion-with-exis" class="section-name selfRef">Interfacing SCION with Existing Technologies</a>
       </h2>
+<p id="section-5-1">The questions posed here are:<a href="#section-5-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5-1.1">
-          <p id="section-5-1.1.1">IPv6 in the Data Plane<a href="#section-5-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-5-2.1">
+          <p id="section-5-2.1.1">What existing protocols/solutions should be compatible with SCION simultanously?
+How can ISPs offer traditional IP side by side with SCION.<a href="#section-5-2.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-5-1.2">
-          <p id="section-5-1.2.1">SCION-IP translation<a href="#section-5-1.2.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="section-5-2.2">
+          <p id="section-5-2.2.1">Could a future evolution of the SCION specification better reuse existing technologies?
+Referring to the possibility of slightly changing an existing technology (e.g. IPv6) to be used
+as part of SCION, replacing part of the ad-hoc specification that we have for SCION.<a href="#section-5-2.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-5-1.3">
-          <p id="section-5-1.3.1">How can we interface with QUIC Multipath <span>[<a href="#I-D.ietf-quic-multipath" class="cite xref">I-D.ietf-quic-multipath</a>]</span>?<a href="#section-5-1.3.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="section-5-2.3">
+          <p id="section-5-2.3.1">What would be required effort to make them work?
+Referring to the ranking according to different types of parties involved: ISPs, vendors,
+application developers, etc.<a href="#section-5-2.3.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-5-1.4">
-          <p id="section-5-1.4.1">What are the implications for, and relations to the TAPS WG <span>[<a href="#TAPS" class="cite xref">TAPS</a>]</span>?<a href="#section-5-1.4.1" class="pilcrow">¶</a></p>
+      </ul>
+<p id="section-5-3">There are several possibilities of existing protocols/technologies/solutions that
+may work for this purpose:<a href="#section-5-3" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-5-4.1">
+          <p id="section-5-4.1.1">IPv6 in the Data Plane. Use an IPv6 routing header as specified in 4.4. of <span>[<a href="#RFC8200" class="cite xref">RFC8200</a>]</span>.<a href="#section-5-4.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-5-4.2">
+          <p id="section-5-4.2.1">SCION IP Gateway. See section 3 of <span>[<a href="#I-D.rustignoli-panrg-scion-components" class="cite xref">I-D.rustignoli-panrg-scion-components</a>]</span><a href="#section-5-4.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-5-4.3">
+          <p id="section-5-4.3.1">SCION-IP translation <span>[<a href="#SCIONIPTRLN" class="cite xref">SCIONIPTRLN</a>]</span><a href="#section-5-4.3.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-5-4.4">
+          <p id="section-5-4.4.1">How can we interface with QUIC Multipath <span>[<a href="#I-D.ietf-quic-multipath" class="cite xref">I-D.ietf-quic-multipath</a>]</span>?<a href="#section-5-4.4.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-5-4.5">
+          <p id="section-5-4.5.1">How can we interface with, and what is the relationship to TAPS <span>[<a href="#TAPS" class="cite xref">TAPS</a>]</span>?<a href="#section-5-4.5.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 </section>
@@ -1829,6 +1851,10 @@ are required anyway.<a href="#section-4.2.1-5.4.1" class="pilcrow">¶</a></p>
         <dd>
 <span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC8200">[RFC8200]</dt>
+        <dd>
+<span class="refAuthor">Deering, S.</span> and <span class="refAuthor">R. Hinden</span>, <span class="refTitle">"Internet Protocol, Version 6 (IPv6) Specification"</span>, <span class="seriesInfo">STD 86</span>, <span class="seriesInfo">RFC 8200</span>, <span class="seriesInfo">DOI 10.17487/RFC8200</span>, <time datetime="2017-07" class="refDate">July 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8200">https://www.rfc-editor.org/rfc/rfc8200</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC9000">[RFC9000]</dt>
         <dd>
 <span class="refAuthor">Iyengar, J., Ed.</span> and <span class="refAuthor">M. Thomson, Ed.</span>, <span class="refTitle">"QUIC: A UDP-Based Multiplexed and Secure Transport"</span>, <span class="seriesInfo">RFC 9000</span>, <span class="seriesInfo">DOI 10.17487/RFC9000</span>, <time datetime="2021-05" class="refDate">May 2021</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9000">https://www.rfc-editor.org/rfc/rfc9000</a>&gt;</span>. </dd>
@@ -1858,6 +1884,10 @@ are required anyway.<a href="#section-4.2.1-5.4.1" class="pilcrow">¶</a></p>
         <dd>
 <span class="refAuthor">de los Galanes, J. A.</span>, <span class="refAuthor">Krähenbühl, C.</span>, <span class="refAuthor">Rothenberger, B.</span>, and <span class="refAuthor">A. Perrig</span>, <span class="refTitle">"Dynamically Recreatable Keys"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-garciapardo-panrg-drkey-03</span>, <time datetime="2022-07-24" class="refDate">24 July 2022</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-garciapardo-panrg-drkey-03">https://datatracker.ietf.org/doc/html/draft-garciapardo-panrg-drkey-03</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="I-D.rustignoli-panrg-scion-components">[I-D.rustignoli-panrg-scion-components]</dt>
+        <dd>
+<span class="refAuthor">Rustignoli, N.</span> and <span class="refAuthor">C. de Kater</span>, <span class="refTitle">"SCION Components Analysis"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-rustignoli-panrg-scion-components-03</span>, <time datetime="2023-09-10" class="refDate">10 September 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-rustignoli-panrg-scion-components-03">https://datatracker.ietf.org/doc/html/draft-rustignoli-panrg-scion-components-03</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="KRAHENBUHL2023">[KRAHENBUHL2023]</dt>
         <dd>
 <span class="refAuthor">Krähenbühl, C.</span>, <span class="refAuthor">Wyss, M.</span>, <span class="refAuthor">Basin, D.</span>, <span class="refAuthor">Lenders, V.</span>, <span class="refAuthor">Perrig, A.</span>, and <span class="refAuthor">M. Strohmeier</span>, <span class="refTitle">"FABRID: Flexible Attestation-Based Routing for Inter-Domain Networks"</span>, <time datetime="2020" class="refDate">2020</time>, <span>&lt;<a href="https://www.usenix.org/conference/usenixsecurity23/presentation/krahenbuhl">https://www.usenix.org/conference/usenixsecurity23/presentation/krahenbuhl</a>&gt;</span>. </dd>
@@ -1869,6 +1899,10 @@ are required anyway.<a href="#section-4.2.1-5.4.1" class="pilcrow">¶</a></p>
 <dt id="RFC9460">[RFC9460]</dt>
         <dd>
 <span class="refAuthor">Schwartz, B.</span>, <span class="refAuthor">Bishop, M.</span>, and <span class="refAuthor">E. Nygren</span>, <span class="refTitle">"Service Binding and Parameter Specification via the DNS (SVCB and HTTPS Resource Records)"</span>, <span class="seriesInfo">RFC 9460</span>, <span class="seriesInfo">DOI 10.17487/RFC9460</span>, <time datetime="2023-11" class="refDate">November 2023</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9460">https://www.rfc-editor.org/rfc/rfc9460</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="SCIONIPTRLN">[SCIONIPTRLN]</dt>
+        <dd>
+<span class="refAuthor">Schulz, L.</span>, <span class="refAuthor">Gallrein, F.</span>, and <span class="refAuthor">D. Hausheer</span>, <span class="refTitle">"Unlocking Path Awareness for Legacy Applications through SCION-IP Translation in eBPF"</span>, <span class="refContent">ACM</span>, <span class="seriesInfo">Proceedings of the SIGCOMM Workshop on eBPF and Kernel Extensions</span>, <span class="seriesInfo">DOI 10.1145/3672197.3673437</span>, <time datetime="2024-08" class="refDate">August 2024</time>, <span>&lt;<a href="https://doi.org/10.1145/3672197.3673437">https://doi.org/10.1145/3672197.3673437</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="TABAEIAGHDAEI2023">[TABAEIAGHDAEI2023]</dt>
       <dd>

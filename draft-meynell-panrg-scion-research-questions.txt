@@ -92,7 +92,7 @@ Table of Contents
      4.1.  Link Load Balancing
      4.2.  Reverse Path Refreshment
        4.2.1.  Proposed Solutions (not comprehensive)
-   5.  Interfaces for Path Awareness
+   5.  Interfacing SCION with Existing Technologies
    6.  Implications of Path Awareness for the Transport and
            Application Layers
    7.  Naming
@@ -533,16 +533,39 @@ Table of Contents
       type of exchange, or whether more frequent keep-alives are
       required anyway.
 
-5.  Interfaces for Path Awareness
+5.  Interfacing SCION with Existing Technologies
 
-   *  IPv6 in the Data Plane
+   The questions posed here are:
 
-   *  SCION-IP translation
+   *  What existing protocols/solutions should be compatible with SCION
+      simultanously?  How can ISPs offer traditional IP side by side
+      with SCION.
+
+   *  Could a future evolution of the SCION specification better reuse
+      existing technologies?  Referring to the possibility of slightly
+      changing an existing technology (e.g.  IPv6) to be used as part of
+      SCION, replacing part of the ad-hoc specification that we have for
+      SCION.
+
+   *  What would be required effort to make them work?  Referring to the
+      ranking according to different types of parties involved: ISPs,
+      vendors, application developers, etc.
+
+   There are several possibilities of existing protocols/technologies/
+   solutions that may work for this purpose:
+
+   *  IPv6 in the Data Plane.  Use an IPv6 routing header as specified
+      in 4.4. of [RFC8200].
+
+   *  SCION IP Gateway.  See section 3 of
+      [I-D.rustignoli-panrg-scion-components]
+
+   *  SCION-IP translation [SCIONIPTRLN]
 
    *  How can we interface with QUIC Multipath
       [I-D.ietf-quic-multipath]?
 
-   *  What are the implications for, and relations to the TAPS WG
+   *  How can we interface with, and what is the relationship to TAPS
       [TAPS]?
 
 6.  Implications of Path Awareness for the Transport and Application
@@ -606,6 +629,11 @@ Table of Contents
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
 
+   [RFC8200]  Deering, S. and R. Hinden, "Internet Protocol, Version 6
+              (IPv6) Specification", STD 86, RFC 8200,
+              DOI 10.17487/RFC8200, July 2017,
+              <https://www.rfc-editor.org/rfc/rfc8200>.
+
    [RFC9000]  Iyengar, J., Ed. and M. Thomson, Ed., "QUIC: A UDP-Based
               Multiplexed and Secure Transport", RFC 9000,
               DOI 10.17487/RFC9000, May 2021,
@@ -635,6 +663,13 @@ Table of Contents
               03, 24 July 2022, <https://datatracker.ietf.org/doc/html/
               draft-garciapardo-panrg-drkey-03>.
 
+   [I-D.rustignoli-panrg-scion-components]
+              Rustignoli, N. and C. de Kater, "SCION Components
+              Analysis", Work in Progress, Internet-Draft, draft-
+              rustignoli-panrg-scion-components-03, 10 September 2023,
+              <https://datatracker.ietf.org/doc/html/draft-rustignoli-
+              panrg-scion-components-03>.
+
    [KRAHENBUHL2023]
               Krähenbühl, C., Wyss, M., Basin, D., Lenders, V., Perrig,
               A., and M. Strohmeier, "FABRID: Flexible Attestation-Based
@@ -653,6 +688,14 @@ Table of Contents
               and Parameter Specification via the DNS (SVCB and HTTPS
               Resource Records)", RFC 9460, DOI 10.17487/RFC9460,
               November 2023, <https://www.rfc-editor.org/rfc/rfc9460>.
+
+   [SCIONIPTRLN]
+              Schulz, L., Gallrein, F., and D. Hausheer, "Unlocking Path
+              Awareness for Legacy Applications through SCION-IP
+              Translation in eBPF", ACM, Proceedings of the SIGCOMM
+              Workshop on eBPF and Kernel Extensions,
+              DOI 10.1145/3672197.3673437, August 2024,
+              <https://doi.org/10.1145/3672197.3673437>.
 
    [TABAEIAGHDAEI2023]
               Tabaeiaghdaei, S., Wyss, M., Giuliari, G., van Bommel, J.,
