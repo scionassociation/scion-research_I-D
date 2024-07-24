@@ -144,7 +144,14 @@ informative:
         org: Armasuisse
 --- abstract
 
-TODO Abstract here
+This draft intends to summarize all SCION related questions which are deemed important to be answered
+for SCION to properly work at Internet scale.
+The set of questions is at the moment not comprehensive, but we intend them to initiate a discussion
+to determine which questions should remain here, and which ones are missing.
+
+When appropriate, some example solutions can be provided for the community to determine whether said
+solutions are adequate or not.
+
 
 
 --- middle
