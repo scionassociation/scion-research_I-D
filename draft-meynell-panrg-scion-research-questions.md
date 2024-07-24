@@ -54,8 +54,9 @@ normative:
   I-D.dekater-scion-controlplane:
   I-D.dekater-scion-pki:
   I-D.dekater-scion-dataplane:
-  I-D.rustignoli-panrg-scion-components:
 informative:
+  I-D.rustignoli-panrg-scion-components:
+
   SCIONIPTRLN: DOI.10.1145/3672197.3673437  # SCION-IP translation (OVGU)
 
   RFC9460:
@@ -491,7 +492,7 @@ There are several possibilities of existing protocols/technologies/solutions tha
 may work for this purpose:
 
 * IPv6 in the Data Plane. Use an IPv6 routing header as specified in 4.4. of {{RFC8200}}.
-* SCION IP Gateway, SBAS. See section 3 of {{I-D.rustignoli-panrg-scion-components}}
+* SCION IP Gateway. See section 3 of {{I-D.rustignoli-panrg-scion-components}}
 * SCION-IP translation {{SCIONIPTRLN}}
 * How can we interface with QUIC Multipath {{I-D.ietf-quic-multipath}}?
 * How can we interface with, and what is the relationship to TAPS {{TAPS}}?
