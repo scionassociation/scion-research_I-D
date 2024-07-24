@@ -5,11 +5,11 @@
 PANRG                                                         K. Meynell
 Internet-Draft                                         SCION Association
 Intended status: Informational                           J. García Pardo
-Expires: 23 January 2025                                      T. Zäschke
+Expires: 25 January 2025                                      T. Zäschke
                                                               ETH Zürich
                                                            N. Rustignoli
                                                        SCION Association
-                                                            22 July 2024
+                                                            24 July 2024
 
 
                         SCION Research Questions
@@ -52,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 23 January 2025.
+   This Internet-Draft will expire on 25 January 2025.
 
 Copyright Notice
 
@@ -533,10 +533,11 @@ Table of Contents
       simultanously?  Referring to the probable fact that ISPs want to
       offer traditional IP services aside from SCION.
 
-   *  What existing technologies can replace part of the SCION
-      specification?  Referring to the possibility of slightly changing
-      an existing technology (e.g.  IPv6) to be used as part of SCION,
-      replacing part of the ad-hoc specification that we have for SCION.
+   *  Could a future evolution of the SCION specification better reuse
+      existing technologies?  Referring to the possibility of slightly
+      changing an existing technology (e.g.  IPv6) to be used as part of
+      SCION, replacing part of the ad-hoc specification that we have for
+      SCION.
 
    *  What would be required effort to make them work?  Referring to the
       ranking according to different types of parties involved: ISPs,
