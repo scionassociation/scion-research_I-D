@@ -40,6 +40,7 @@ author:
      email: nic@scion.org
 
 normative:
+  RFC8200: # IPv6
   TAPS: # Using syntax from https://github.com/cabo/kramdown-rfc
     title: Transport Services Working Group
     author:
@@ -54,7 +55,12 @@ normative:
   I-D.dekater-scion-pki:
   I-D.dekater-scion-dataplane:
 informative:
+  I-D.rustignoli-panrg-scion-components:
+
+  SCIONIPTRLN: DOI.10.1145/3672197.3673437  # SCION-IP translation (OVGU)
+
   RFC9460:
+
   I-D.garciapardo-panrg-drkey:
 
   TABAEIAGHDAEI2023:
@@ -467,7 +473,6 @@ Is reverse path refresh a relevant problem?
   are required anyway.
 
 
-
 <!--
 # Hummingbird / QoS
 
@@ -477,12 +482,27 @@ Is reverse path refresh a relevant problem?
 * What time synchronization precision should we expect at the border router level of every AS? How far can we go realistically?
 -->
 
-# Interfaces for Path Awareness
 
-* IPv6 in the Data Plane
-* SCION-IP translation
+# Interfacing SCION with Existing Technologies
+The questions posed here are:
+
+* What existing protocols/solutions should be compatible with SCION simultanously?
+  How can ISPs offer traditional IP side by side with SCION.
+* Could a future evolution of the SCION specification better reuse existing technologies?
+  Referring to the possibility of slightly changing an existing technology (e.g. IPv6) to be used
+  as part of SCION, replacing part of the ad-hoc specification that we have for SCION.
+* What would be required effort to make them work?
+  Referring to the ranking according to different types of parties involved: ISPs, vendors,
+  application developers, etc.
+
+There are several possibilities of existing protocols/technologies/solutions that
+may work for this purpose:
+
+* IPv6 in the Data Plane. Use an IPv6 routing header as specified in 4.4. of {{RFC8200}}.
+* SCION IP Gateway. See section 3 of {{I-D.rustignoli-panrg-scion-components}}
+* SCION-IP translation {{SCIONIPTRLN}}
 * How can we interface with QUIC Multipath {{I-D.ietf-quic-multipath}}?
-* What are the implications for, and relations to the TAPS WG {{TAPS}}?
+* How can we interface with, and what is the relationship to TAPS {{TAPS}}?
 
 
 # Implications of Path Awareness for the Transport and Application Layers
