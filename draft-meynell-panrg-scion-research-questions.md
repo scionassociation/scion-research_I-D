@@ -152,7 +152,6 @@ to determine which questions should remain here, and which ones are missing.
 When appropriate, some example solutions can be provided for the community to determine whether said
 solutions are adequate or not.
 
-Whenever a topic spawns a non-trivial discussion, we plan to initiate a new Internet Draft on said topic.
 
 
 --- middle
