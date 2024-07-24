@@ -5,11 +5,11 @@
 PANRG                                                         K. Meynell
 Internet-Draft                                         SCION Association
 Intended status: Informational                           J. García Pardo
-Expires: 23 January 2025                                      T. Zäschke
+Expires: 25 January 2025                                      T. Zäschke
                                                               ETH Zürich
                                                            N. Rustignoli
                                                        SCION Association
-                                                            22 July 2024
+                                                            24 July 2024
 
 
                         SCION Research Questions
@@ -17,7 +17,15 @@ Expires: 23 January 2025                                      T. Zäschke
 
 Abstract
 
-   TODO Abstract here
+   This draft intends to summarize all SCION related questions which are
+   deemed important to be answered for SCION to properly work at
+   Internet scale.  The set of questions is at the moment not
+   comprehensive, but we intend them to initiate a discussion to
+   determine which questions should remain here, and which ones are
+   missing.
+
+   When appropriate, some example solutions can be provided for the
+   community to determine whether said solutions are adequate or not.
 
 About This Document
 
@@ -52,7 +60,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 23 January 2025.
+   This Internet-Draft will expire on 25 January 2025.
 
 Copyright Notice
 
