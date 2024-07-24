@@ -530,8 +530,8 @@ Table of Contents
    The questions posed here are:
 
    *  What existing protocols/solutions should be compatible with SCION
-      simultanously?  Referring to the probable fact that ISPs want to
-      offer traditional IP services aside from SCION.
+      simultanously?  How can ISPs offer traditional IP side by side
+      with SCION.
 
    *  Could a future evolution of the SCION specification better reuse
       existing technologies?  Referring to the possibility of slightly
