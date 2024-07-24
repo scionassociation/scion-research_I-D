@@ -549,7 +549,7 @@ Table of Contents
    *  IPv6 in the Data Plane.  Use an IPv6 routing header as specified
       in 4.4. of [RFC8200].
 
-   *  SCION IP Gateway, SBAS.  See section 3 of
+   *  SCION IP Gateway.  See section 3 of
       [I-D.rustignoli-panrg-scion-components]
 
    *  SCION-IP translation [SCIONIPTRLN]
@@ -612,13 +612,6 @@ Table of Contents
               8 July 2024, <https://datatracker.ietf.org/doc/html/draft-
               ietf-quic-multipath-10>.
 
-   [I-D.rustignoli-panrg-scion-components]
-              Rustignoli, N. and C. de Kater, "SCION Components
-              Analysis", Work in Progress, Internet-Draft, draft-
-              rustignoli-panrg-scion-components-03, 10 September 2023,
-              <https://datatracker.ietf.org/doc/html/draft-rustignoli-
-              panrg-scion-components-03>.
-
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
@@ -661,6 +654,13 @@ Table of Contents
               Progress, Internet-Draft, draft-garciapardo-panrg-drkey-
               03, 24 July 2022, <https://datatracker.ietf.org/doc/html/
               draft-garciapardo-panrg-drkey-03>.
+
+   [I-D.rustignoli-panrg-scion-components]
+              Rustignoli, N. and C. de Kater, "SCION Components
+              Analysis", Work in Progress, Internet-Draft, draft-
+              rustignoli-panrg-scion-components-03, 10 September 2023,
+              <https://datatracker.ietf.org/doc/html/draft-rustignoli-
+              panrg-scion-components-03>.
 
    [KRAHENBUHL2023]
               Krähenbühl, C., Wyss, M., Basin, D., Lenders, V., Perrig,
