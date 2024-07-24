@@ -480,7 +480,7 @@ The questions posed here are:
 
 * What existing protocols/solutions should be compatible with SCION simultanously?
   Referring to the probable fact that ISPs want to offer traditional IP services aside from SCION.
-* What existing technologies can replace part of the SCION specification?
+* Could a future evolution of the SCION specification better reuse existing technologies?
   Referring to the possibility of slightly changing an existing technology (e.g. IPv6) to be used
   as part of SCION, replacing part of the ad-hoc specification that we have for SCION.
 * What would be required effort to make them work?
