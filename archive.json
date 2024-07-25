@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-07-23T00:19:13.015175+00:00",
+  "timestamp": "2024-07-25T00:19:04.664552+00:00",
   "repo": "scionassociation/scion-research_I-D",
   "labels": [
     {
@@ -241,7 +241,7 @@
       "labels": [],
       "body": "I feel that the wormhole paragraph is not mature enough for this submission. Some issues: \r\n* several parts of the content is a duplicate of `5.2.4.  Manipulation of the Path-Selection Process`  in [draft-dekater-scion-controlplane-04\r\n](https://datatracker.ietf.org/doc/draft-dekater-scion-controlplane/04/)\r\n* some of the mitigations proposed are quite vague\r\n* ~~it does not clearly mention proof of transit as a solution~~\r\n\r\nThis is the text I removed in #23 , to be reworked for a later submission \r\n```\r\n## Wormhole attack\r\n\r\n### Set up\r\n\r\nScenario: attackers create two core ASes that are geographically far apart. They then announce a link (effectively a shortcut) between these two ASes with\r\nvery appealing properties (low latency, few hops, ...).\r\n\r\n### Impact\r\nThe attacker can now perform blackhole attacks (DoS), greyhole attacks, delay traffic, or similarily impact traffic.\r\n\r\nCritically, there is currently no clear way to recover from this situation. In order to recover, ASes that are connected to the\r\nwormhole ASes would need to learn of the problem and stop forwarding the wormhole beacons.\r\n\r\nMitigations:\r\n\r\n- Introduce a way for ASes to verify path properties. This would make it harder to install wormholes.\r\n  This could include measuring latency or sense-checking of geolocation information.\r\n- Introduce a way for endpoints to discover path problems.\r\n- Introduce a way for endpoints to report path problems.\r\n- Introduce a way to recover from malicious segments, see {{signalling-faulty-segments}}.\r\n- Adapt the path discovery and dissemination algorithm to allow ASes to have many more than five paths to\r\n  a given remote destination. The attack would then require an (unreasonably) large number of compromised ASes.\r\n\r\nA related question is discussed in {{signalling-faulty-segments}}.\r\n```",
       "createdAt": "2024-07-18T21:19:39Z",
-      "updatedAt": "2024-07-22T17:40:35Z",
+      "updatedAt": "2024-07-23T07:51:22Z",
       "closedAt": null,
       "comments": [
         {
@@ -271,6 +271,13 @@
           "body": "You are right, we had some internal slides about proof of transit that mentioned it as a solution to a \"wormhole\" in the dataplane. This is something that we already mention in the DP draft (and that we are making clearer in https://github.com/scionassociation/scion-dp_I-D/pull/34 ).\r\n\r\nHere you are referring to a wormhole in the _control plane_, for this one I agree proof of transit cannot do anything. I also discussed this with JC in https://github.com/scionassociation/scion-cp_I-D/pull/53 \r\nSorry for the confusion here! I think wit the two PRs above it should be clear.",
           "createdAt": "2024-07-22T17:40:34Z",
           "updatedAt": "2024-07-22T17:40:34Z"
+        },
+        {
+          "author": "tzaeschke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@nicorusti Ah, that makes it clearer, thanks for the explanation! :)",
+          "createdAt": "2024-07-23T07:51:21Z",
+          "updatedAt": "2024-07-23T07:51:21Z"
         }
       ]
     },
@@ -2708,24 +2715,26 @@
       "id": "PR_kwDOMRYres52DDoj",
       "title": "Initial version of the abstract.",
       "url": "https://github.com/scionassociation/scion-research_I-D/pull/29",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "juagargi",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Let's include an abstract.",
       "createdAt": "2024-07-22T06:34:45Z",
-      "updatedAt": "2024-07-22T17:44:14Z",
+      "updatedAt": "2024-07-24T13:50:38Z",
       "baseRepository": "scionassociation/scion-research_I-D",
       "baseRefName": "main",
       "baseRefOid": "a0186cf604b2e995dfd4214af6f80dd05af51788",
       "headRepository": "scionassociation/scion-research_I-D",
       "headRefName": "juagargi/abstract",
-      "headRefOid": "ef26c1dd81cbeccb4deb1a4ec938bded92796d3e",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "72f998b8a2a0287169d0854c606805ba228f6064",
+      "closedAt": "2024-07-24T13:50:34Z",
+      "mergedAt": "2024-07-24T13:50:34Z",
+      "mergedBy": "juagargi",
+      "mergeCommit": {
+        "oid": "5dd37f04b326e01443be599ed6a8d8ca7625d742"
+      },
       "comments": [],
       "reviews": [
         {
@@ -2788,24 +2797,26 @@
       "id": "PR_kwDOMRYres52DKxX",
       "title": "Expand Interfaces for Path Awareness",
       "url": "https://github.com/scionassociation/scion-research_I-D/pull/30",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "juagargi",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "- Talk about IPv6\r\n- Talk about SCION-IP-Translation (work by OVGU)\r\nSolves #7 \r\n",
       "createdAt": "2024-07-22T06:55:13Z",
-      "updatedAt": "2024-07-22T20:29:43Z",
+      "updatedAt": "2024-07-24T14:03:54Z",
       "baseRepository": "scionassociation/scion-research_I-D",
       "baseRefName": "main",
       "baseRefOid": "a0186cf604b2e995dfd4214af6f80dd05af51788",
       "headRepository": "scionassociation/scion-research_I-D",
       "headRefName": "juagargi/interfaces_for_path_awareness",
-      "headRefOid": "b550b83b5560a24b5b696cf786b0dd329eacb2c5",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "0eda473931861b4f319801c65568eb61494810a3",
+      "closedAt": "2024-07-24T14:03:50Z",
+      "mergedAt": "2024-07-24T14:03:50Z",
+      "mergedBy": "juagargi",
+      "mergeCommit": {
+        "oid": "6320dfdb7c28db80018c12f3efa91838632fe26f"
+      },
       "comments": [],
       "reviews": [
         {
@@ -3014,6 +3025,26 @@
               "body": "```suggestion\r\n  How can ISPs offer traditional IP side by side with SCION.\r\n```",
               "createdAt": "2024-07-22T20:27:57Z",
               "updatedAt": "2024-07-22T20:29:43Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMRYres6C8Smk",
+          "commit": {
+            "abbreviatedOid": "b550b83"
+          },
+          "author": "juagargi",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-24T14:01:53Z",
+          "updatedAt": "2024-07-24T14:01:53Z",
+          "comments": [
+            {
+              "originalPosition": 47,
+              "body": "Incentives vs. effort, for the different parties.",
+              "createdAt": "2024-07-24T14:01:53Z",
+              "updatedAt": "2024-07-24T14:01:53Z"
             }
           ]
         }
