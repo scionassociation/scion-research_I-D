@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-20T00:24:20.686802+00:00",
+  "timestamp": "2024-10-22T00:22:20.578601+00:00",
   "repo": "scionassociation/scion-research_I-D",
   "labels": [
     {
@@ -319,9 +319,17 @@
       "labels": [],
       "body": "We had a couple of points in the draft talking about traffic engineering.\r\nThey have been commented out to reduce the possible discussion, as at the moment we don't have a clear vision of what the control plane is able to do or not.\r\n\r\nWe need to remember that ISPs still want to do some traffic engineering and find documents on what the ISPs want.\r\nOnce we have a better understood control plane, propose some solutions that cover the items in those docs.\r\n",
       "createdAt": "2024-07-22T11:24:27Z",
-      "updatedAt": "2024-07-22T11:24:27Z",
+      "updatedAt": "2024-10-21T16:22:50Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "nicorusti",
+          "authorAssociation": "MEMBER",
+          "body": "Briefly discussed this in NetSec brainstorming today, Elham is the TE person here. \r\n\r\nThis is also a topic brought up by some of the ISE reviewers (see https://github.com/scionassociation/scion-cp_I-D/issues/16 )",
+          "createdAt": "2024-10-21T16:14:23Z",
+          "updatedAt": "2024-10-21T16:22:50Z"
+        }
+      ]
     }
   ],
   "pulls": [
