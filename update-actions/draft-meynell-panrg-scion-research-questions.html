@@ -10,24 +10,29 @@
 <meta content="Tilmann Zäschke" name="author">
 <meta content="Nicola Rustignoli" name="author">
 <meta content="
-       TODO Abstract here 
+       This draft intends to summarize all SCION related questions which are deemed important to be answered
+for SCION to properly work at Internet scale.
+The set of questions is at the moment not comprehensive, but we intend them to initiate a discussion
+to determine which questions should remain here, and which ones are missing. 
+       When appropriate, some example solutions can be provided for the community to determine whether said
+solutions are adequate or not. 
     " name="description">
-<meta content="xml2rfc 3.22.0" name="generator">
+<meta content="xml2rfc 3.26.0" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-meynell-panrg-scion-research-questions-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.22.0
-    Python 3.12.3
+  xml2rfc 3.26.0
+    Python 3.12.8
     ConfigArgParse 1.7
-    google-i18n-address 3.1.0
+    google-i18n-address 3.1.1
     intervaltree 3.1.0
-    Jinja2 3.1.4
-    lxml 4.9.4
-    platformdirs 4.2.2
-    pycountry 22.3.5
-    PyYAML 6.0.1
+    Jinja2 3.1.5
+    lxml 5.3.0
+    platformdirs 4.3.6
+    pycountry 24.6.1
+    PyYAML 6.0.2
     requests 2.32.3
-    setuptools 69.5.1
+    setuptools 70.3.0
     wcwidth 0.2.13
 -->
 <link href="draft-meynell-panrg-scion-research-questions.xml" rel="alternate" type="application/rfc+xml">
@@ -164,31 +169,6 @@
 }
 
 @font-face {
-  font-family: 'Cabin Condensed';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: local('Cabin Condensed SemiBold'), local('CabinCondensed-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/cabincondensed-semibold-vietnamese.woff2') format('woff2');
-  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
-}
-@font-face {
-  font-family: 'Cabin Condensed';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: local('Cabin Condensed SemiBold'), local('CabinCondensed-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/cabincondensed-semibold-latin-ext.woff2') format('woff2');
-  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-@font-face {
-  font-family: 'Cabin Condensed';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: local('Cabin Condensed SemiBold'), local('CabinCondensed-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/cabincondensed-semibold-latin.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
-@font-face {
   font-family: 'Oxygen Mono';
   font-style: normal;
   font-weight: 400;
@@ -205,6 +185,77 @@
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-cyrillic.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-greek.woff2') format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-cyrillic.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-greek.woff2') format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 :root {
   color-scheme: light dark;
   --background-color: #fff;
@@ -217,6 +268,7 @@
   --pilcrow-strong: #bbb;
   --small-font-size: 14.5px;
   --font-mono: 'Oxygen Mono', monospace;
+  --font-title: "Sofia Sans Semi Condensed", sans-serif;
   scrollbar-color: #bbb #eee;
 }
 body {
@@ -234,9 +286,15 @@ body {
 }
 
 /* headings */
+section {
+  clear: both;
+}
+.section-number {
+  padding-right: 0.5em;
+}
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Cabin Condensed", sans-serif;
-  font-weight: 600;
+  font-family: var(--font-title);
+  font-weight: 680;
   margin: 0.8em 0 0.3em;
   font-size-adjust: 0.5;
   color: var(--title-color);
@@ -265,6 +323,7 @@ h4, h5, h6 {
 /* general structure */
 .author {
   padding-bottom: 0.3em;
+  vertical-align: top;
 }
 #abstract+p {
   font-size: 18px;
@@ -342,25 +401,26 @@ svg[font-family~="monospace" i], svg [font-family~="monospace" i] {
 ol, ul {
   padding: 0;
   margin: 0 0 0.5em 2em;
-}
-:is(ol, ul) :is(ol, ul) {
-  margin-left: 1em;
+  & :is(ol, ul) {
+    margin-left: 1em;
+  }
 }
 li {
   margin: 0 0 0.25em 0;
 }
-.ulCompact li {
-  margin: 0;
-}
 ul.empty, .ulEmpty {
   list-style-type: none;
-}
-ul.empty li, .ulEmpty li {
-  margin-top: 0.5em;
+  & li {
+    margin-top: 0.5em;
+  }
 }
 :is(ul, ol).compact, .ulCompact, .olCompact {
-  line-height: 1;
   margin: 0 0 0 2em;
+  & li {
+    margin: 0;
+    & :first-child { margin-top: 0; }
+    & :last-child { margin-bottom: 0; }
+  }
 }
 
 /* definition lists */
@@ -368,38 +428,39 @@ dl {
   clear: left;
   --indent: 3ch;
   /* --indent: attr(indent ch); not supported in any browser, but we can dream */
-}
-dl.olPercent {
-  --indent: 5ch;
+  &.olPercent {
+    --indent: 5ch;
+    & > dt {
+      min-width: calc(var(--indent) - 2ch);
+    }
+  }
+  &.olPercent > dt {
+    float: none;
+  }
+
+  dl > dd > & {
+    margin-top: 0.5em;
+    margin-bottom: 0;
+  }
 }
 dl > dt {
   float: left;
   margin-right: 2ch;
   min-width: 8ch;
 }
-dl.dlNewline > dt {
-  float: none;
-}
 dl > dd {
   margin-bottom: .8em;
   margin-left: var(--indent) !important; /* stupid element overrides */
   min-height: 2ex;
 }
-dl.olPercent > dt {
-  min-width: calc(var(--indent) - 2ch);
-}
 :is(dl.compact, .dlCompact) > dd {
   margin-bottom: 0;
-}
-:is(dl.compact, .dlCompact) > dd > :is(:first-child, .break:first-child + *) {
-  margin-top: 0;
-}
-:is(dl.compact, .dlCompact) > dd > :is(:last-child) {
-  margin-bottom: 0;
-}
-dl > dd > dl {
-  margin-top: 0.5em;
-  margin-bottom: 0;
+  & > :is(:first-child, .break:first-child + *) {
+    margin-top: 0;
+  }
+  & > :is(:last-child) {
+    margin-bottom: 0;
+  }
 }
 :is(dd, span).break {
   display: none;
@@ -463,6 +524,7 @@ figcaption, caption {
   font-style: italic;
   margin: 0.5em 1.5em;
   text-align: left;
+  caption-side: bottom;
 }
 @media screen {
   /* Auto-collapse boilerplate. */
@@ -480,7 +542,11 @@ figcaption, caption {
   }
   pre, svg {
     display: inline-block;
-    overflow-x: auto;
+    /* In the horizontal direction, sometimes people make over-sized figures.
+       Scrollbars for those is therefore necessary: auto adds them as necessary..
+       In the vertical direction, the line-height can combine with the font
+       asender/descender height to produce scrollbars: hidden avoids that. */
+    overflow: auto hidden;
   }
   pre {
     max-width: 100%;
@@ -517,6 +583,7 @@ cite {
 
 /* tables */
 table {
+  width: auto;
   max-width: 100%;
   margin: 0 0 1em;
   border-collapse: collapse;
@@ -531,6 +598,16 @@ table.center {
 table.left {
   margin-right: auto;
 }
+table .text-left {
+  text-align: left;
+}
+table .text-center {
+  text-align: center;
+}
+table .text-right {
+  text-align: right;
+}
+
 thead, tbody {
   border: 1px solid var(--line-color);
 }
@@ -561,9 +638,11 @@ a.pilcrow {
   margin-left: 3px;
   opacity: 0.2;
   user-select: none;
+  &[href] {
+    color: var(--pilcrow-weak);
+    &:hover { text-decoration: none; }
+  }
 }
-a.pilcrow[href] { color: var(--pilcrow-weak); }
-a.pilcrow[href]:hover { text-decoration: none; }
 @media not print {
   :hover > a.pilcrow {
     opacity: 1;
@@ -603,26 +682,28 @@ sub, sup {
   font-size: var(--small-font-size);
   line-height: 18px;
   --identifier-width: 15ch;
-}
-#identifiers dt {
-  width: var(--identifier-width);
-  min-width: var(--identifier-width);
-  clear: left;
-  float: left;
-  text-align: right;
-  margin-right: 1ch;
-}
-#identifiers dd {
-  margin: 0;
-  margin-left: calc(1em + var(--identifier-width)) !important;
-  min-width: 5em;
-}
-#identifiers .authors .author {
-  display: inline-block;
-  margin-right: 1.5em;
-}
-#identifiers .authors .org {
-  font-style: italic;
+  & dt {
+    width: var(--identifier-width);
+    min-width: var(--identifier-width);
+    clear: left;
+    float: left;
+    text-align: right;
+    margin-right: 1ch;
+  }
+  & dd {
+    margin: 0;
+    margin-left: calc(1em + var(--identifier-width)) !important;
+    min-width: 5em;
+  }
+  & .authors {
+    & .author {
+      display: inline-block;
+      margin-right: 1.5em;
+    }
+    & .org {
+      font-style: italic;
+    }
+  }
 }
 
 /* The prepared/rendered info at the very bottom of the page */
@@ -633,9 +714,6 @@ sub, sup {
   margin-top: 2em;
 }
 .docInfo .prepared {
-  float: left;
-}
-.docInfo .prepared {
   float: right;
 }
 
@@ -643,47 +721,48 @@ sub, sup {
 #toc {
   padding: 0.75em 0 2em 0;
   margin-bottom: 1em;
-}
-#toc nav ul {
-  margin: 0 0.5em 0 0;
-  padding: 0;
-  list-style: none;
-}
-#toc nav li {
-  line-height: 1.3em;
-  margin: 2px 0;
-  padding-left: 1.2em;
-  text-indent: -1.2em;
-}
-#toc a.xref {
-  white-space: normal;
-}
-/* references */
-.references dt {
-  text-align: right;
-  font-weight: bold;
-  min-width: 10ch;
-  margin-right: 1.5ch;
-}
-.references dt:target::before {
-  content: "⇒";
-  width: 15px;
-  margin: 0 10px 0 -25px;
-}
-.references dd {
-  margin-left: 12ch !important;
-  overflow: auto;
+
+  & nav {
+    & ul {
+      margin: 0 0.5em 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    & li {
+      line-height: 1.3em;
+      margin: 2px 0;
+      padding-left: 1.2em;
+      text-indent: -1.2em;
+    }
+  }
+  & a.xref {
+    white-space: normal;
+  }
 }
 
-.refInstance {
-  margin-bottom: 1.25em;
+.references {
+  & > dt {
+    text-align: right;
+    font-weight: bold;
+    min-width: 10ch;
+    margin-right: 1.5ch;
+    &:target::before {
+      content: "⇒";
+      margin: 0 10px 0 -25px;
+    }
+  }
+  & > dd {
+    margin-left: 12ch !important;
+    overflow: visible;
+    & .refInstance {
+      margin-bottom: 0.8em;
+    }
+    & .ascii {
+      margin-bottom: 0.25em;
+    }
+  }
 }
 
-.references .ascii {
-  margin-bottom: 0.25em;
-}
-
-/* index */
 #rfc\.index\.index + ul {
   margin-left: 0;
 }
@@ -691,21 +770,33 @@ sub, sup {
 /* authors */
 address.vcard {
   font-style: normal;
-  margin: 1em 0;
+  max-width: 20em;
+  margin: 1em auto 1em 0;
+
+  & .nameRole {
+    font-weight: 700;
+    margin-left: 0;
+  }
+  & .label {
+    margin: 0.5em 0;
+  }
+  & .type {
+    display: none;
+  }
+  & .alternative-contact {
+    margin: 0.5em 0 0.25em 0;
+  }
+  & .non-ascii {
+    margin: 0 0 0 2em;
+  }
+  & div.left {
+    text-align: left;
+  }
+  & div.right {
+    text-align: right;
+  }
 }
-address.vcard .nameRole {
-  font-weight: 700;
-  margin-left: 0;
-}
-address.vcard .label {
-  margin: 0.5em 0;
-}
-address.vcard .type {
-  display: none;
-}
-.alternative-contact {
-  margin: 1.5em 0 1em;
-}
+
 hr.addr {
   border-top: 1px dashed;
   margin: 0;
@@ -727,6 +818,7 @@ hr.addr {
   }
 }
 
+/* Comments */
 .rfcEditorRemove p:first-of-type {
   font-style: italic;
 }
@@ -737,7 +829,31 @@ hr.addr {
 .crefSource {
   font-style: italic;
 }
-/* alternative layout for smaller screens */
+
+@media screen {
+  #toc nav {
+    font-family: var(--font-title);
+    font-weight: 360;
+    & > ul { margin-bottom: 2em; }
+    & ul {
+      margin: 0 0 0 4px;
+      & :is(p, li) {
+        margin: 2px 0;
+      }
+    }
+  }
+  #toc a.toplink {
+    float: right;
+  }
+}
+@media not screen {
+  #toc a.toplink {
+    display: none;
+  }
+}
+
+
+/* TOC layout for smaller screens */
 @media screen and (max-width: 929px) {
   #toc {
     position: fixed;
@@ -748,9 +864,6 @@ hr.addr {
     margin: 0;
     border-bottom: 1px solid #ccc;
     opacity: 0.6;
-  }
-  #toc.active {
-      opacity: 1;
   }
   #toc h2 {
     margin: 0;
@@ -763,17 +876,17 @@ hr.addr {
     background-color: #444;
     color: white;
     cursor: pointer;
-  }
-  #toc h2::before { /* css hamburger */
-    float: right;
-    position: relative;
-    width: 1em;
-    height: 1px;
-    left: -164px;
-    margin: 8px 0 0 0;
-    background: white none repeat scroll 0 0;
-    box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
-    content: "";
+    &::before { /* css hamburger */
+      float: right;
+      position: relative;
+      width: 1em;
+      height: 1px;
+      left: -164px;
+      margin: 8px 0 0 0;
+      background: white none repeat scroll 0 0;
+      box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
+      content: "";
+    }
   }
   #toc nav {
     display: none;
@@ -784,14 +897,13 @@ hr.addr {
     height: calc(100vh - 48px);
     border-left: 1px solid #ddd;
   }
-  #toc.active nav {
-    display: block;
+  #toc.active {
+    opacity: 1;
+    & nav { display: block; }
   }
   /* Make the collapsed ToC header render white on gray also when it's a link */
   #toc h2 a,
-  #toc h2 a:link,
-  #toc h2 a:focus,
-  #toc h2 a:hover,
+  #toc h2 a:is(:link, :focus, :hover),
   #toc a.toplink,
   #toc a.toplink:hover {
     color: white;
@@ -799,11 +911,11 @@ hr.addr {
     text-decoration: none;
   }
   #toc a.toplink {
-    margin-top: 2px;
+    margin: 2px 0.5em 0;
   }
 }
 
-/* alternative layout for wide screens */
+/* TOC layout for wide screens */
 @media screen and (min-width: 930px) {
   body {
     padding-right: 360px;
@@ -832,20 +944,12 @@ hr.addr {
     overscroll-behavior: contain;
     scrollbar-width: thin;
   }
-  #toc nav > ul  {
-    margin-bottom: 2em;
-  }
-  #toc ul {
-    margin: 0 0 0 4px;
-    font-size: var(--small-font-size);
-  }
-  #toc ul :is(p, li) {
-    margin: 2px 0;
-    line-height: 22px;
-  }
   img { /* future proofing */
     max-width: 100%;
     height: auto;
+  }
+  #toc a.toplink {
+    margin: 8px 0.5em 0;
   }
 }
 
@@ -888,9 +992,6 @@ hr.addr {
   td {
     border-top: 1px solid #ddd;
   }
-  .toplink {
-    display: none;
-  }
 }
 
 @page :first {
@@ -913,82 +1014,6 @@ hr.addr {
   size: A4;
   margin-bottom: 45mm;
   padding-top: 20px;
-}
-
-/* Changes introduced to fix issues found during implementation */
-
-/* Separate body from document info even without intervening H1 */
-section {
-  clear: both;
-}
-
-/* Top align author divs, to avoid names without organization dropping level with org names */
-.author {
-  vertical-align: top;
-}
-
-/* Style section numbers with more space between number and title */
-.section-number {
-  padding-right: 0.5em;
-}
-
-/* Add styling for a link in the ToC that points to the top of the document */
-a.toplink {
-  float: right;
-  margin: 8px 0.5em 0;
-}
-
-/* Provide styling for table cell text alignment */
-table .text-left {
-  text-align: left;
-}
-table .text-center {
-  text-align: center;
-}
-table .text-right {
-  text-align: right;
-}
-
-/* Make the alternative author contact information look less like just another
-   author, and group it closer with the primary author contact information */
-.alternative-contact {
-  margin: 0.5em 0 0.25em 0;
-}
-address .non-ascii {
-  margin: 0 0 0 2em;
-}
-
-/* With it being possible to set tables with alignment
-  left, center, and right, { width: 100%; } does not make sense */
-table {
-  width: auto;
-}
-
-/* Avoid reference text that sits in a block with very wide left margin,
-   because of a long floating dt label.*/
-.references dd {
-  overflow: visible;
-}
-
-/* Control caption placement */
-caption {
-  caption-side: bottom;
-}
-
-/* Limit the width of the author address vcard, so names in right-to-left
-   script don't end up on the other side of the page. */
-
-address.vcard {
-  max-width: 20em;
-  margin-right: auto;
-}
-
-/* For address alignment dependent on LTR or RTL scripts */
-address div.left {
-  text-align: left;
-}
-address div.right {
-  text-align: right;
 }
 
 /* Dark mode. */
@@ -1027,11 +1052,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">scion-research_I-D</td>
-<td class="right">July 2024</td>
+<td class="right">February 2025</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Meynell, et al.</td>
-<td class="center">Expires 20 January 2025</td>
+<td class="center">Expires 8 August 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1044,12 +1069,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-meynell-panrg-scion-research-questions-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-07-19" class="published">19 July 2024</time>
+<time datetime="2025-02-04" class="published">4 February 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-01-20">20 January 2025</time></dd>
+<dd class="expires"><time datetime="2025-08-08">8 August 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1074,7 +1099,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <h1 id="title">SCION Research Questions</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">TODO Abstract here<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-1">This draft intends to summarize all SCION related questions which are deemed important to be answered
+for SCION to properly work at Internet scale.
+The set of questions is at the moment not comprehensive, but we intend them to initiate a discussion
+to determine which questions should remain here, and which ones are missing.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-2">When appropriate, some example solutions can be provided for the community to determine whether said
+solutions are adequate or not.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-about-this-document">
@@ -1111,7 +1141,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 20 January 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 8 August 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1120,7 +1150,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
         </h2>
 <p id="section-boilerplate.2-1">
-            Copyright (c) 2024 IETF Trust and the persons identified as the
+            Copyright (c) 2025 IETF Trust and the persons identified as the
             document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.2-2">
             This document is subject to BCP 78 and the IETF Trust's Legal
@@ -1147,45 +1177,42 @@ svg :is([fill="white"], [fill^="#fff"]) {
             <p id="section-toc.1-1.3.1"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-discovery-distribution-and-" class="internal xref">Discovery, Distribution, and Trustworthiness of Path Properties</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1">
-                <p id="section-toc.1-1.3.2.1.1" class="keepWithNext"><a href="#section-3.1" class="auto internal xref">3.1</a>.  <a href="#name-isd-as-identity" class="internal xref">ISD, AS identity</a></p>
+                <p id="section-toc.1-1.3.2.1.1" class="keepWithNext"><a href="#section-3.1" class="auto internal xref">3.1</a>.  <a href="#name-isd-as-identity" class="internal xref">ISD, AS Identity</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2">
                 <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="auto internal xref">3.2</a>.  <a href="#name-beacon-selection-policies" class="internal xref">Beacon Selection Policies</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3">
-                <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="auto internal xref">3.3</a>.  <a href="#name-dns-service-binding-svcb" class="internal xref">DNS Service Binding (SVCB)</a></p>
+                <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="auto internal xref">3.3</a>.  <a href="#name-name-resolution-and-dns-ser" class="internal xref">Name Resolution and DNS Service Binding (SVCB)</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4">
                 <p id="section-toc.1-1.3.2.4.1"><a href="#section-3.4" class="auto internal xref">3.4</a>.  <a href="#name-segment-dissemination" class="internal xref">Segment Dissemination</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.5">
-                <p id="section-toc.1-1.3.2.5.1"><a href="#section-3.5" class="auto internal xref">3.5</a>.  <a href="#name-periodic-beacon-propagation" class="internal xref">Periodic beacon propagation</a></p>
+                <p id="section-toc.1-1.3.2.5.1"><a href="#section-3.5" class="auto internal xref">3.5</a>.  <a href="#name-periodic-beacon-propagation" class="internal xref">Periodic Beacon Propagation</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.6">
-                <p id="section-toc.1-1.3.2.6.1"><a href="#section-3.6" class="auto internal xref">3.6</a>.  <a href="#name-beacon-optimization-and-ext" class="internal xref">Beacon optimization and extensibility</a></p>
+                <p id="section-toc.1-1.3.2.6.1"><a href="#section-3.6" class="auto internal xref">3.6</a>.  <a href="#name-beacon-optimization-and-ext" class="internal xref">Beacon Optimization and Extensibility</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.7">
-                <p id="section-toc.1-1.3.2.7.1"><a href="#section-3.7" class="auto internal xref">3.7</a>.  <a href="#name-routing-policies-and-traffi" class="internal xref">Routing Policies and Traffic Engineering</a></p>
+                <p id="section-toc.1-1.3.2.7.1"><a href="#section-3.7" class="auto internal xref">3.7</a>.  <a href="#name-drkey" class="internal xref">DRKey</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.8">
-                <p id="section-toc.1-1.3.2.8.1"><a href="#section-3.8" class="auto internal xref">3.8</a>.  <a href="#name-drkey" class="internal xref">DRKey</a></p>
+                <p id="section-toc.1-1.3.2.8.1"><a href="#section-3.8" class="auto internal xref">3.8</a>.  <a href="#name-scmp-authentication" class="internal xref">SCMP Authentication</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.9">
-                <p id="section-toc.1-1.3.2.9.1"><a href="#section-3.9" class="auto internal xref">3.9</a>.  <a href="#name-scmp-authentication" class="internal xref">SCMP Authentication</a></p>
+                <p id="section-toc.1-1.3.2.9.1"><a href="#section-3.9" class="auto internal xref">3.9</a>.  <a href="#name-proof-of-transit" class="internal xref">Proof of Transit</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.10">
-                <p id="section-toc.1-1.3.2.10.1"><a href="#section-3.10" class="auto internal xref">3.10</a>. <a href="#name-proof-of-transit" class="internal xref">Proof of transit</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.11">
-                <p id="section-toc.1-1.3.2.11.1"><a href="#section-3.11" class="auto internal xref">3.11</a>. <a href="#name-nat" class="internal xref">NAT</a></p>
+                <p id="section-toc.1-1.3.2.10.1"><a href="#section-3.10" class="auto internal xref">3.10</a>. <a href="#name-nat" class="internal xref">NAT</a></p>
 </li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
-            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-dataplane-stability" class="internal xref">Dataplane stability</a></p>
+            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-data-plane-stability" class="internal xref">Data Plane Stability</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.1">
-                <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="auto internal xref">4.1</a>.  <a href="#name-link-load-balancing" class="internal xref">Link load balancing</a></p>
+                <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="auto internal xref">4.1</a>.  <a href="#name-link-load-balancing" class="internal xref">Link Load Balancing</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.2">
                 <p id="section-toc.1-1.4.2.2.1"><a href="#section-4.2" class="auto internal xref">4.2</a>.  <a href="#name-reverse-path-refreshment" class="internal xref">Reverse Path Refreshment</a></p>
@@ -1198,7 +1225,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
-            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-interfaces-for-path-awarene" class="internal xref">Interfaces for Path Awareness</a></p>
+            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-interfacing-scion-with-exis" class="internal xref">Interfacing SCION with Existing Technologies</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
             <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-implications-of-path-awaren" class="internal xref">Implications of Path Awareness for the Transport and Application Layers</a></p>
@@ -1238,10 +1265,10 @@ svg :is([fill="white"], [fill^="#fff"]) {
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1">SCION is an inter-domain network architecture. Its core components, as deployed by some of its early adopters, are specified in <span>[<a href="#I-D.scion-dataplane" class="cite xref">I-D.scion-dataplane</a>]</span>, <span>[<a href="#I-D.scion-cppki" class="cite xref">I-D.scion-cppki</a>]</span>, <span>[<a href="#I-D.scion-cp" class="cite xref">I-D.scion-cp</a>]</span> which are currently under ISE review.<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2">The goal of this draft is to explore how SCION and its early deployments try to address open research questions in <span>[<a href="#RFC9217" class="cite xref">RFC9217</a>]</span>. Specifically, there are still many open areas of research around path-aware networking, where SCION with its early deployment experiences and research efforts can provide a contribution. This can also be a starting point for discussions around long-term protocol evolution.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-1">SCION is an inter-domain network architecture. Its core components, as deployed by some of its early adopters, are specified in <span>[<a href="#I-D.dekater-scion-dataplane" class="cite xref">I-D.dekater-scion-dataplane</a>]</span>, <span>[<a href="#I-D.dekater-scion-pki" class="cite xref">I-D.dekater-scion-pki</a>]</span>, <span>[<a href="#I-D.dekater-scion-controlplane" class="cite xref">I-D.dekater-scion-controlplane</a>]</span> which are currently under ISE review.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-2">The goal of this draft is to explore how SCION and its early deployment experiences can help address open research questions in <span>[<a href="#RFC9217" class="cite xref">RFC9217</a>]</span>. Specifically, there are still many open areas of research around path-aware networking, where SCION with its early deployment experiences and research efforts can provide a contribution. This can also be a starting point for discussions around long-term protocol evolution.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">This draft assumes the reader is familiar with some of the fundamental concepts defined in the components specification.<a href="#section-1-3" class="pilcrow">¶</a></p>
-<p id="section-1-4"><strong>Note:</strong> This is the very first version of the SCION research questions draft, and it merely contains a skeleton of potential topics to be further discussed in this draft. Any feedback is welcome and much appreciated. Thanks!<a href="#section-1-4" class="pilcrow">¶</a></p>
+<p id="section-1-4"><strong>Note:</strong> This is a very early version of the SCION research questions draft, and it merely contains a selection of potential topics to be further discussed in this draft. Any feedback is welcome and much appreciated. Thanks!<a href="#section-1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="conventions-and-definitions">
@@ -1263,50 +1290,49 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <div id="isd-as-identity">
 <section id="section-3.1">
         <h3 id="name-isd-as-identity">
-<a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-isd-as-identity" class="section-name selfRef">ISD, AS identity</a>
+<a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-isd-as-identity" class="section-name selfRef">ISD, AS Identity</a>
         </h3>
-<p id="section-3.1-1">The SCION protocol specifies 16 bits and 48 bits to identify the ISD and AS respectively.
-This identification is used at the data-plane level, in every packet to fully address the sender and receiver, and at the control-plane level, to identify the PCB sender and hops.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
-<p id="section-3.1-2">Whilst 48 bits for the AS will accommodate up to 2.81475e14 assignments which is likely to be more than sufficient for the future, using 16 bits for the ISD only offers 65,536 possible assignments. Further investigation on whether this is sufficient is required.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
-<p id="section-3.1-3">The following questions arise: (not comprehensive)<a href="#section-3.1-3" class="pilcrow">¶</a></p>
+<p id="section-3.1-1">In the SCION specification, identifiers for ISDs and ASes are 16 bits and 48 bits long respectively.
+Whilst 48 bits for the AS will accommodate up to 2.81475e14 assignments which is likely to be more than sufficient for the future, using 16 bits for the ISD only offers 65,536 possible assignments. Further investigation on whether this is sufficient is required.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.1-2">The following questions arise: (not comprehensive)<a href="#section-3.1-2" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.1-4.1">
-            <p id="section-3.1-4.1.1">How many ASes do we expect in the SCION network model?<a href="#section-3.1-4.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-3.1-3.1">
+            <p id="section-3.1-3.1.1">How many ASes do we expect in the SCION network model?<a href="#section-3.1-3.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.1-4.2">
-            <p id="section-3.1-4.2.1">Can one AS belong to many ISDs?<a href="#section-3.1-4.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-3.1-3.2">
+            <p id="section-3.1-3.2.1">Can one AS belong to many ISDs?<a href="#section-3.1-3.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.1-4.3">
-            <p id="section-3.1-4.3.1">Are AS numbers unique themselves, or only unique in combination with an ISD?<a href="#section-3.1-4.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-3.1-3.3">
+            <p id="section-3.1-3.3.1">Are AS numbers globally unique, or only unique within each ISD?<a href="#section-3.1-3.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.1-4.4">
-            <p id="section-3.1-4.4.1">How many ISDs do we expect?<a href="#section-3.1-4.4.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-3.1-3.4">
+            <p id="section-3.1-3.4.1">How many ISDs do we expect?<a href="#section-3.1-3.4.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.1-4.5">
-            <p id="section-3.1-4.5.1">What is the ontology of an ISD?<a href="#section-3.1-4.5.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-3.1-3.5">
+            <p id="section-3.1-3.5.1">What is the ontology of an ISD?<a href="#section-3.1-3.5.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.1-4.5.2.1">
-                <p id="section-3.1-4.5.2.1.1">Per geographic area?<a href="#section-3.1-4.5.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-3.1-3.5.2.1">
+                <p id="section-3.1-3.5.2.1.1">Per geographic area?<a href="#section-3.1-3.5.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-3.1-4.5.2.2">
-                <p id="section-3.1-4.5.2.2.1">Per legal jurisdiction?<a href="#section-3.1-4.5.2.2.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-3.1-3.5.2.2">
+                <p id="section-3.1-3.5.2.2.1">Per legal jurisdiction?<a href="#section-3.1-3.5.2.2.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-3.1-4.5.2.3">
-                <p id="section-3.1-4.5.2.3.1">Per capacity tier?<a href="#section-3.1-4.5.2.3.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-3.1-3.5.2.3">
+                <p id="section-3.1-3.5.2.3.1">Per capacity tier?<a href="#section-3.1-3.5.2.3.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-3.1-4.5.2.4">
-                <p id="section-3.1-4.5.2.4.1">Per "type"? (meaning: any grouping that makes sense to their members)<a href="#section-3.1-4.5.2.4.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-3.1-3.5.2.4">
+                <p id="section-3.1-3.5.2.4.1">Per "type"? (meaning: any grouping that makes sense to their members)<a href="#section-3.1-3.5.2.4.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-3.1-4.5.2.5">
-                <p id="section-3.1-4.5.2.5.1">Possible combinations of any previous "types"?<a href="#section-3.1-4.5.2.5.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-3.1-3.5.2.5">
+                <p id="section-3.1-3.5.2.5.1">Possible combinations of any previous "types"?<a href="#section-3.1-3.5.2.5.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
-          <li class="normal" id="section-3.1-4.6">
-            <p id="section-3.1-4.6.1">Note that, to achieve global connectivity, ISDs require core links to other ISDs.
+          <li class="normal" id="section-3.1-3.6">
+            <p id="section-3.1-3.6.1">Note that, to achieve global connectivity, ISDs require core links to other ISDs.
 This reduces the number of ISDs to those that have core ASes that can directly
 connect to core ASes in other ISDs.
-The number of ISDs is still super-exponential asymptotically.<a href="#section-3.1-4.6.1" class="pilcrow">¶</a></p>
+The number of ISDs is still super-exponential asymptotically.<a href="#section-3.1-3.6.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -1318,36 +1344,45 @@ The number of ISDs is still super-exponential asymptotically.<a href="#section-3
         </h3>
 <p id="section-3.2-1">Path discovery between SCION ASes relies on Path Construction Beacons (PCBs). In core beaconing PCBs are propagated omnidirectionally, unless this would cause a loop or exceed the maximum <em>path length</em>.
 A core AS selects a small number of paths to/from other core ASes, based on its beacon selection policy. It then propagates valid and policy compliant paths to neighbor ASes. The number of propagated beacons is limited to the <em>best PCBs set size</em>, in order to avoid that the number of paths (and beacons) grows exponentially with core network size.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
-<p id="section-3.2-2">Some potential questions are:
-* Limiting the number of beacons to a <em>best PCBs set size</em> per AS results in a partial view of the network being available to endpoints. To what point this affects endpoint's path-selection possibilities?
-* what is a good, practical, general purpose policy, that can fulfill conflicting requirements of both operators and endpoints, as highlighted in section 2.7 of <span>[<a href="#RFC9217" class="cite xref">RFC9217</a>]</span>?
-* What are the desirable path properties (e.g. diversity, PCB Expiration Time, how recently the same PCBs was forwarded before).<a href="#section-3.2-2" class="pilcrow">¶</a></p>
+<p id="section-3.2-2">Some potential questions are:<a href="#section-3.2-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3.2-3.1">
+            <p id="section-3.2-3.1.1">Limiting the number of beacons to a <em>best PCBs set size</em> per AS results in a partial view of the network being available to endpoints. To what point this affects endpoint's path-selection possibilities?<a href="#section-3.2-3.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.2-3.2">
+            <p id="section-3.2-3.2.1">what is a good, practical, general purpose policy, that can fulfill conflicting requirements of both operators and endpoints, as highlighted in section 2.7 of <span>[<a href="#RFC9217" class="cite xref">RFC9217</a>]</span>?<a href="#section-3.2-3.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.2-3.3">
+            <p id="section-3.2-3.3.1">What are the desirable path properties (e.g. diversity, PCB Expiration Time, how recently the same PCBs was forwarded before).<a href="#section-3.2-3.3.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
 </section>
 </div>
-<div id="dns-service-binding-svcb">
+<div id="name-resolution-and-dns-service-binding-svcb">
 <section id="section-3.3">
-        <h3 id="name-dns-service-binding-svcb">
-<a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-dns-service-binding-svcb" class="section-name selfRef">DNS Service Binding (SVCB)</a>
+        <h3 id="name-name-resolution-and-dns-ser">
+<a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-name-resolution-and-dns-ser" class="section-name selfRef">Name Resolution and DNS Service Binding (SVCB)</a>
         </h3>
-<p id="section-3.3-1">The DNS Service Binding <span>[<a href="#RFC9460" class="cite xref">RFC9460</a>], <a href="https://rfc-editor.org/rfc/rfc9460#section-14.3" class="relref">Section 14.3</a></span> allows a dedicated SCION Service Parameter to be specified.<a href="#section-3.3-1" class="pilcrow">¶</a></p>
-<p id="section-3.3-2">Service Parameters allow the specification of alternative IP addresses or other parameters (such as ISD/AS numbers) for a given URL.
-This would be more elegant than using DNS TXT records.<a href="#section-3.3-2" class="pilcrow">¶</a></p>
-<p id="section-3.3-3">Example of current entry:<a href="#section-3.3-3" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.3-4">
+<p id="section-3.3-1">In current deployments, SCION addresses are added to TXT records.<a href="#section-3.3-1" class="pilcrow">¶</a></p>
+<p id="section-3.3-2">Example of current entry:<a href="#section-3.3-2" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-3.3-3">
 <pre>
 $ dig +short ethz.ch TXT  | grep scion
 "x-sciondiscovery=8041"
 "scion=64-2:0:9,129.132.230.98"
-</pre><a href="#section-3.3-4" class="pilcrow">¶</a>
+</pre><a href="#section-3.3-3" class="pilcrow">¶</a>
 </div>
-<p id="section-3.3-5">With SVCB this may look like this for https:<a href="#section-3.3-5" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.3-6">
+<p id="section-3.3-4">The DNS Service Binding <span>[<a href="#RFC9460" class="cite xref">RFC9460</a>], <a href="https://rfc-editor.org/rfc/rfc9460#section-14.3" class="relref">Section 14.3</a></span> allows a dedicated SCION Service Parameter to be specified.<a href="#section-3.3-4" class="pilcrow">¶</a></p>
+<p id="section-3.3-5">Service Parameters allow the specification of alternative IP addresses or other parameters (such as ISD/AS numbers) for a given URL.
+This would be more elegant than using DNS TXT records.<a href="#section-3.3-5" class="pilcrow">¶</a></p>
+<p id="section-3.3-6">With SVCB this may look like this for https:<a href="#section-3.3-6" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-3.3-7">
 <pre>
 dig +short https ethz.ch
 1 . alpn="h2" scion=64-2:0:9,129.132.230.98
-</pre><a href="#section-3.3-6" class="pilcrow">¶</a>
+</pre><a href="#section-3.3-7" class="pilcrow">¶</a>
 </div>
-<p id="section-3.3-7">SVCB is also planned to be supported by Happy Eyeballs v3 <span>[<a href="#I-D.draft-pauly-v6ops-happy-eyeballs-v3-01" class="cite xref">I-D.draft-pauly-v6ops-happy-eyeballs-v3-01</a>]</span>.<a href="#section-3.3-7" class="pilcrow">¶</a></p>
+<p id="section-3.3-8">SVCB is also planned to be supported by Happy Eyeballs v3 <span>[<a href="#I-D.draft-pauly-v6ops-happy-eyeballs-v3-01" class="cite xref">I-D.draft-pauly-v6ops-happy-eyeballs-v3-01</a>]</span>.<a href="#section-3.3-8" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="segment-dissemination">
@@ -1355,7 +1390,7 @@ dig +short https ethz.ch
         <h3 id="name-segment-dissemination">
 <a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-segment-dissemination" class="section-name selfRef">Segment Dissemination</a>
         </h3>
-<p id="section-3.4-1">A path look-up in SCION works analogous to a DNS query (section 4 of <span>[<a href="#I-D.scion-cp" class="cite xref">I-D.scion-cp</a>]</span>):<a href="#section-3.4-1" class="pilcrow">¶</a></p>
+<p id="section-3.4-1">A path look-up in SCION works similarly to a recursive DNS query (section 4 of <span>[<a href="#I-D.dekater-scion-controlplane" class="cite xref">I-D.dekater-scion-controlplane</a>]</span>):<a href="#section-3.4-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.4-2.1">
             <p id="section-3.4-2.1.1">The source endpoint queries the control service in its own AS.<a href="#section-3.4-2.1.1" class="pilcrow">¶</a></p>
@@ -1374,7 +1409,7 @@ The local AS queries the remote ISD's core ASes for segments to the destination 
         </ul>
 <p id="section-3.4-3">Control services may return a large number of path segments for some queries.
 This can cost considerable bandwidth while at the same time
-overloading clients with an unnecessarily large numbers of segments.<a href="#section-3.4-3" class="pilcrow">¶</a></p>
+overload clients with an unnecessarily large numbers of segments.<a href="#section-3.4-3" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.4-4.1">
             <p id="section-3.4-4.1.1">This problem may be more acute in ASes with many endpoints (e.g. IoT),
@@ -1434,7 +1469,7 @@ If a user requires a custom policy they can still resort to requesting actual se
 <div id="periodic-beacon-propagation">
 <section id="section-3.5">
         <h3 id="name-periodic-beacon-propagation">
-<a href="#section-3.5" class="section-number selfRef">3.5. </a><a href="#name-periodic-beacon-propagation" class="section-name selfRef">Periodic beacon propagation</a>
+<a href="#section-3.5" class="section-number selfRef">3.5. </a><a href="#name-periodic-beacon-propagation" class="section-name selfRef">Periodic Beacon Propagation</a>
         </h3>
 <p id="section-3.5-1">The SCION control plane protocol specifies that beacons should be propagated periodically.
 Is this really necessary?<a href="#section-3.5-1" class="pilcrow">¶</a></p>
@@ -1455,7 +1490,7 @@ enhancing the scalability and path diversity.<a href="#section-3.5-3" class="pil
 <div id="beacon-optimization-and-extensibility">
 <section id="section-3.6">
         <h3 id="name-beacon-optimization-and-ext">
-<a href="#section-3.6" class="section-number selfRef">3.6. </a><a href="#name-beacon-optimization-and-ext" class="section-name selfRef">Beacon optimization and extensibility</a>
+<a href="#section-3.6" class="section-number selfRef">3.6. </a><a href="#name-beacon-optimization-and-ext" class="section-name selfRef">Beacon Optimization and Extensibility</a>
         </h3>
 <p id="section-3.6-1">Communication requirements vary according to source, destination, and application.
 Satisfying all these requirements either requires discovering all paths in the network,
@@ -1467,7 +1502,7 @@ of them all have a strong impact in the traffic engineering of the individual AS
 and of the inter-domain communication as a whole. See question 2.7 of <span>[<a href="#RFC9217" class="cite xref">RFC9217</a>]</span>.<a href="#section-3.6-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.6-2.1">
-            <p id="section-3.6-2.1.1">What optimization functions should be applied to beacons and what metrics should be considered when propagating them ?
+            <p id="section-3.6-2.1.1">What optimization functions should be applied to beacons and what metrics should be considered when propagating them?
 Is the set of properties composed of path length, peering ASes, path disjointness, PCB last reception,
 and path lifetime enough?<a href="#section-3.6-2.1.1" class="pilcrow">¶</a></p>
 </li>
@@ -1509,131 +1544,121 @@ and path lifetime enough?<a href="#section-3.6-2.1.1" class="pilcrow">¶</a></p>
         </ul>
 </section>
 </div>
-<div id="routing-policies-and-traffic-engineering">
-<section id="section-3.7">
-        <h3 id="name-routing-policies-and-traffi">
-<a href="#section-3.7" class="section-number selfRef">3.7. </a><a href="#name-routing-policies-and-traffi" class="section-name selfRef">Routing Policies and Traffic Engineering</a>
-        </h3>
-<p id="section-3.7-1">Reduced adoption due to limited routing policy possibilities, such as a (core-)AS does not want to accept transit traffic unless it starts/ends in ASes with special properties. For example a GEANT AS does not want to allow transit traffic unless it originates or ends in another research and education AS.<a href="#section-3.7-1" class="pilcrow">¶</a></p>
-<p id="section-3.7-2">One solution could be to add a “confirm full path”-flag to certain segments. If this flag is set, the full path (all segments) needs to authorized by all ASes that insist on authorizing it. This is obviously less scalable but may be viable for ASes that insist on such policies. This also allows for “secret” policies.<a href="#section-3.7-2" class="pilcrow">¶</a></p>
-<p id="section-3.7-3">Collateral: this probably needs a data plane change. Conceptually, we have only a single resulting segment, and that segment needs to be used in full, e.g. no on-path trickery.<a href="#section-3.7-3" class="pilcrow">¶</a></p>
-</section>
-</div>
 <div id="drkey">
-<section id="section-3.8">
+<section id="section-3.7">
         <h3 id="name-drkey">
-<a href="#section-3.8" class="section-number selfRef">3.8. </a><a href="#name-drkey" class="section-name selfRef">DRKey</a>
+<a href="#section-3.7" class="section-number selfRef">3.7. </a><a href="#name-drkey" class="section-name selfRef">DRKey</a>
         </h3>
-<p id="section-3.8-1">DRKey is a key distribution system that scales well with the number of endpoints in the network.
-It relies on two things:<a href="#section-3.8-1" class="pilcrow">¶</a></p>
+<p id="section-3.7-1">DRKey is a key distribution system that scales well with the number of endpoints in the network.
+It relies on two things:<a href="#section-3.7-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.8-2.1">
-            <p id="section-3.8-2.1.1">Two sides of a key: a fast side, and a slow side. Sometimes called fast and slow side of the derivation.
-The ability of deriving a key very quickly on the fast side is necessary for most of its use cases.<a href="#section-3.8-2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-3.7-2.1">
+            <p id="section-3.7-2.1.1">Two sides of a key: a fast side, and a slow side. Sometimes called fast and slow side of the derivation.
+The ability of deriving a key very quickly on the fast side is necessary for most of its use cases.<a href="#section-3.7-2.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.8-2.2">
-            <p id="section-3.8-2.2.1">A grouping of endpoints (such as ASes): The pieces necessary to derive a key, namely the L1 keys,
-are communicated to each keystore at each grouping (e.g., a keystore per AS).<a href="#section-3.8-2.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-3.7-2.2">
+            <p id="section-3.7-2.2.1">A grouping of endpoints (such as ASes): The pieces necessary to derive a key, namely the L1 keys,
+are communicated to each keystore at each grouping (e.g., a keystore per AS).<a href="#section-3.7-2.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-3.8-3">The questions related to DRKey are the following ones (not comprehensive):<a href="#section-3.8-3" class="pilcrow">¶</a></p>
+<p id="section-3.7-3">The questions related to DRKey are the following ones (not comprehensive):<a href="#section-3.7-3" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.8-4.1">
-            <p id="section-3.8-4.1.1">Do we want to have any possible authorization that is at the moment carried out at the data-plane to be moved to the control-plane? This could include e.g. authorization to deliver traffic depending on the source, but also information like port numbers/ranges per source, etc.<a href="#section-3.8-4.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-3.7-4.1">
+            <p id="section-3.7-4.1.1">Do we want to have any possible authorization that is at the moment carried out at the data-plane to be moved to the control-plane? This could include e.g. authorization to deliver traffic depending on the source, but also information like port numbers/ranges per source, etc.<a href="#section-3.7-4.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.8-4.1.2.1">
-                <p id="section-3.8-4.1.2.1.1">Could this obsolete firewalls? What else would be necessary?<a href="#section-3.8-4.1.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-3.7-4.1.2.1">
+                <p id="section-3.7-4.1.2.1.1">Could this obsolete firewalls? What else would be necessary?<a href="#section-3.7-4.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-3.8-4.1.2.2">
-                <p id="section-3.8-4.1.2.2.1">What do we mean when we say "authorize transit"?<a href="#section-3.8-4.1.2.2.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-3.7-4.1.2.2">
+                <p id="section-3.7-4.1.2.2.1">What do we mean when we say "authorize transit"?<a href="#section-3.7-4.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
-          <li class="normal" id="section-3.8-4.2">
-            <p id="section-3.8-4.2.1">Could perfect forward secrecy DRKey be useful, and should we research it?<a href="#section-3.8-4.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-3.7-4.2">
+            <p id="section-3.7-4.2.1">Could perfect forward secrecy DRKey be useful, and should we research it?<a href="#section-3.7-4.2.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.8-4.2.2.1">
-                <p id="section-3.8-4.2.2.1.1">What would be the trust model? Do end-users trust their ASes to ephemerally create personal keys?<a href="#section-3.8-4.2.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-3.7-4.2.2.1">
+                <p id="section-3.7-4.2.2.1.1">What would be the trust model? Do end-users trust their ASes to ephemerally create personal keys?<a href="#section-3.7-4.2.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-3.8-4.2.2.2">
-                <p id="section-3.8-4.2.2.2.1">What would be the attacker model?<a href="#section-3.8-4.2.2.2.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-3.7-4.2.2.2">
+                <p id="section-3.7-4.2.2.2.1">What would be the attacker model?<a href="#section-3.7-4.2.2.2.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-3.8-4.2.2.3">
-                <p id="section-3.8-4.2.2.3.1">Which use cases are relevant?<a href="#section-3.8-4.2.2.3.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-3.7-4.2.2.3">
+                <p id="section-3.7-4.2.2.3.1">Which use cases are relevant?<a href="#section-3.7-4.2.2.3.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
         </ul>
-<p id="section-3.8-5">For more info: <span>[<a href="#I-D.garciapardo-drkey" class="cite xref">I-D.garciapardo-drkey</a>]</span>.<a href="#section-3.8-5" class="pilcrow">¶</a></p>
+<p id="section-3.7-5">For more info: <span>[<a href="#I-D.garciapardo-panrg-drkey" class="cite xref">I-D.garciapardo-panrg-drkey</a>]</span>.<a href="#section-3.7-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="scmp-authentication">
-<section id="section-3.9">
+<section id="section-3.8">
         <h3 id="name-scmp-authentication">
-<a href="#section-3.9" class="section-number selfRef">3.9. </a><a href="#name-scmp-authentication" class="section-name selfRef">SCMP Authentication</a>
+<a href="#section-3.8" class="section-number selfRef">3.8. </a><a href="#name-scmp-authentication" class="section-name selfRef">SCMP Authentication</a>
         </h3>
-<p id="section-3.9-1">In SCION, endpoints are responsible to select alternate paths in case of failure.
+<p id="section-3.8-1">In SCION, endpoints are responsible to select alternate paths in case of failure.
 One approach to detect failures is to rely on signals from the network, such as SCMP (SCION Control Message Protocol) messages.
-These signals must be authenticated in order to be trusted by endpoints. This reflects a question raised in section 2.7 of <span>[<a href="#RFC9217" class="cite xref">RFC9217</a>]</span>.<a href="#section-3.9-1" class="pilcrow">¶</a></p>
-<p id="section-3.9-2">One option is to use DRKey as the mechanism to use to derive the authentication key,
+These signals must be authenticated in order to be trusted by endpoints. This reflects a question raised in section 2.7 of <span>[<a href="#RFC9217" class="cite xref">RFC9217</a>]</span>.<a href="#section-3.8-1" class="pilcrow">¶</a></p>
+<p id="section-3.8-2">One option is to use DRKey as the mechanism to use to derive the authentication key,
 where the fast path would be on the infrastructure side (e.g. the border router in the case of an
 interface down type of message), and the slow side being on the intended endpoint destination
 for that SCMP message (e.g. the endpoint receiving the SCMP interface down message).
-Another option is to leverage the control-plane PKI.<a href="#section-3.9-2" class="pilcrow">¶</a></p>
-<p id="section-3.9-3">However, we have identified a number of possible issues (not comprehensive):<a href="#section-3.9-3" class="pilcrow">¶</a></p>
+Another option is to leverage the control-plane PKI.<a href="#section-3.8-2" class="pilcrow">¶</a></p>
+<p id="section-3.8-3">However, we have identified a number of possible issues (not comprehensive):<a href="#section-3.8-3" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.9-4.1">
-            <p id="section-3.9-4.1.1">Denial of Service/Capability Attacks: If an endpoint receives (too) many SCMP messages,
+<li class="normal" id="section-3.8-4.1">
+            <p id="section-3.8-4.1.1">Denial of Service/Capability Attacks: If an endpoint receives (too) many SCMP messages,
 it will need (too) many resources just to authenticate their origin.
-Most of these messages could just be sent to the endpoint to exhaust its processing capacity.<a href="#section-3.9-4.1.1" class="pilcrow">¶</a></p>
+Most of these messages could just be sent to the endpoint to exhaust its processing capacity.<a href="#section-3.8-4.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.9-4.2">
-            <p id="section-3.9-4.2.1">Sending an SCMP message in certain cases might be an amplification factor:
+          <li class="normal" id="section-3.8-4.2">
+            <p id="section-3.8-4.2.1">Sending an SCMP message in certain cases might be an amplification factor:
 If a border router sends an SCMP message (e.g. interface down) on all cases, even with small packets,
 there is the risk of having that border router sending a lot of traffic to
 a possibly unintended recipient, e.g. when the packet is not source validated.
-In addition, validation may trigger additional requests for keys.<a href="#section-3.9-4.2.1" class="pilcrow">¶</a></p>
+In addition, validation may trigger additional requests for keys.<a href="#section-3.8-4.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
 </div>
 <div id="proof-of-transit">
-<section id="section-3.10">
+<section id="section-3.9">
         <h3 id="name-proof-of-transit">
-<a href="#section-3.10" class="section-number selfRef">3.10. </a><a href="#name-proof-of-transit" class="section-name selfRef">Proof of transit</a>
+<a href="#section-3.9" class="section-number selfRef">3.9. </a><a href="#name-proof-of-transit" class="section-name selfRef">Proof of Transit</a>
         </h3>
-<p id="section-3.10-1">FABRID <span>[<a href="#KRAHENBUHL2023" class="cite xref">KRAHENBUHL2023</a>]</span> and EPIC <span>[<a href="#LEGNER2020" class="cite xref">LEGNER2020</a>]</span>.<a href="#section-3.10-1" class="pilcrow">¶</a></p>
+<p id="section-3.9-1">FABRID <span>[<a href="#KRAHENBUHL2023" class="cite xref">KRAHENBUHL2023</a>]</span> and EPIC <span>[<a href="#LEGNER2020" class="cite xref">LEGNER2020</a>]</span>.<a href="#section-3.9-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="nat">
-<section id="section-3.11">
+<section id="section-3.10">
         <h3 id="name-nat">
-<a href="#section-3.11" class="section-number selfRef">3.11. </a><a href="#name-nat" class="section-name selfRef">NAT</a>
+<a href="#section-3.10" class="section-number selfRef">3.10. </a><a href="#name-nat" class="section-name selfRef">NAT</a>
         </h3>
-<p id="section-3.11-1">Currently, the SCION implementation is not compatible out-of-the-box with NAT'ed devices, regardless of whether these devices are end-hosts, or even running SCION services. This is due to the (UDP-IP) underlay being modified by the NAT mechanism, but not the internal destination SCION address. Although this does not concern the SCION protocols themselves, we want to check that this will not be a problem.
-Critically, the SCION header needs to contain the SRC address as seen by the border router so that the border router can forward incoming response packets to the correct NAT device and port.<a href="#section-3.11-1" class="pilcrow">¶</a></p>
-<p id="section-3.11-2">Possible solutions:<a href="#section-3.11-2" class="pilcrow">¶</a></p>
+<p id="section-3.10-1">Currently, the SCION implementation is not compatible out-of-the-box with NAT'ed devices, regardless of whether these devices are end-hosts, or even running SCION services. This is due to the (UDP-IP) underlay being modified by the NAT mechanism, but not the internal destination SCION address. Although this does not concern the SCION protocols themselves, we want to check that this will not be a problem.
+Critically, the SCION header needs to contain the SRC address as seen by the border router so that the border router can forward incoming response packets to the correct NAT device and port.<a href="#section-3.10-1" class="pilcrow">¶</a></p>
+<p id="section-3.10-2">Possible solutions:<a href="#section-3.10-2" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.11-3.1">
-            <p id="section-3.11-3.1.1">With IPv6 underlay, this problem disappears. // TODO Clarify why it disappears? Is the idea that we can remove NATs if everyone would use IPv6?<a href="#section-3.11-3.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-3.10-3.1">
+            <p id="section-3.10-3.1.1">With IPv6 as an intra-domain protocol, this problem disappears.<a href="#section-3.10-3.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.11-3.2">
-            <p id="section-3.11-3.2.1">Introduce a mechanism so that the SCION border router can report the NATed address to an endpoint (similar to a STUN server).<a href="#section-3.11-3.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-3.10-3.2">
+            <p id="section-3.10-3.2.1">Introduce a mechanism so that the SCION border router can report the NATed address to an endpoint (similar to a STUN server).<a href="#section-3.10-3.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
 </div>
 </section>
 </div>
-<div id="dataplane-stability">
+<div id="data-plane-stability">
 <section id="section-4">
-      <h2 id="name-dataplane-stability">
-<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-dataplane-stability" class="section-name selfRef">Dataplane stability</a>
+      <h2 id="name-data-plane-stability">
+<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-data-plane-stability" class="section-name selfRef">Data Plane Stability</a>
       </h2>
 <div id="link-load-balancing">
 <section id="section-4.1">
         <h3 id="name-link-load-balancing">
-<a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-link-load-balancing" class="section-name selfRef">Link load balancing</a>
+<a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-link-load-balancing" class="section-name selfRef">Link Load Balancing</a>
         </h3>
 <p id="section-4.1-1">Links may get overloaded because the SCION distributed path selection process fails to distribute load properly over different links, resulting in uneven utilization.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
 <p id="section-4.1-2">There are several potential approaches to relieve an overloaded link:<a href="#section-4.1-2" class="pilcrow">¶</a></p>
@@ -1731,20 +1756,45 @@ are required anyway.<a href="#section-4.2.1-5.4.1" class="pilcrow">¶</a></p>
 </div>
 </section>
 </div>
-<div id="interfaces-for-path-awareness">
+<div id="interfacing-scion-with-existing-technologies">
 <section id="section-5">
-      <h2 id="name-interfaces-for-path-awarene">
-<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-interfaces-for-path-awarene" class="section-name selfRef">Interfaces for Path Awareness</a>
+      <h2 id="name-interfacing-scion-with-exis">
+<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-interfacing-scion-with-exis" class="section-name selfRef">Interfacing SCION with Existing Technologies</a>
       </h2>
+<p id="section-5-1">The questions posed here are:<a href="#section-5-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5-1.1">
-          <p id="section-5-1.1.1">IPv6 in the Data Plane<a href="#section-5-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-5-2.1">
+          <p id="section-5-2.1.1">What existing protocols/solutions should be compatible with SCION simultanously?
+How can ISPs offer traditional IP side by side with SCION.<a href="#section-5-2.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-5-1.2">
-          <p id="section-5-1.2.1">SCION-IP translation<a href="#section-5-1.2.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="section-5-2.2">
+          <p id="section-5-2.2.1">Could a future evolution of the SCION specification better reuse existing technologies?
+Referring to the possibility of slightly changing an existing technology (e.g. IPv6) to be used
+as part of SCION, replacing part of the ad-hoc specification that we have for SCION.<a href="#section-5-2.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-5-1.3">
-          <p id="section-5-1.3.1">How can we interface with QUIC Multipath <span>[<a href="#I-D.ietf-quic-multipath" class="cite xref">I-D.ietf-quic-multipath</a>]</span>?<a href="#section-5-1.3.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="section-5-2.3">
+          <p id="section-5-2.3.1">What would be required effort to make them work?
+Referring to the ranking according to different types of parties involved: ISPs, vendors,
+application developers, etc.<a href="#section-5-2.3.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<p id="section-5-3">There are several possibilities of existing protocols/technologies/solutions that
+may work for this purpose:<a href="#section-5-3" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-5-4.1">
+          <p id="section-5-4.1.1">IPv6 in the Data Plane. Use an IPv6 routing header as specified in 4.4. of <span>[<a href="#RFC8200" class="cite xref">RFC8200</a>]</span>.<a href="#section-5-4.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-5-4.2">
+          <p id="section-5-4.2.1">SCION IP Gateway. See section 3 of <span>[<a href="#I-D.rustignoli-panrg-scion-components" class="cite xref">I-D.rustignoli-panrg-scion-components</a>]</span><a href="#section-5-4.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-5-4.3">
+          <p id="section-5-4.3.1">SCION-IP translation <span>[<a href="#SCIONIPTRLN" class="cite xref">SCIONIPTRLN</a>]</span><a href="#section-5-4.3.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-5-4.4">
+          <p id="section-5-4.4.1">How can we interface with QUIC Multipath <span>[<a href="#I-D.ietf-quic-multipath" class="cite xref">I-D.ietf-quic-multipath</a>]</span>?<a href="#section-5-4.4.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-5-4.5">
+          <p id="section-5-4.5.1">How can we interface with, and what is the relationship to TAPS <span>[<a href="#TAPS" class="cite xref">TAPS</a>]</span>?<a href="#section-5-4.5.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 </section>
@@ -1754,7 +1804,12 @@ are required anyway.<a href="#section-4.2.1-5.4.1" class="pilcrow">¶</a></p>
       <h2 id="name-implications-of-path-awaren">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-implications-of-path-awaren" class="section-name selfRef">Implications of Path Awareness for the Transport and Application Layers</a>
       </h2>
-<p id="section-6-1">To be discussed<a href="#section-6-1" class="pilcrow">¶</a></p>
+<p id="section-6-1">This question relates to 2.5 in <span>[<a href="#RFC9217" class="cite xref">RFC9217</a>]</span>.<a href="#section-6-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-6-2.1">
+          <p id="section-6-2.1.1">How to express transport preferences and map them to SCION path properties?<a href="#section-6-2.1.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
 </section>
 </div>
 <div id="naming">
@@ -1792,21 +1847,21 @@ are required anyway.<a href="#section-4.2.1-5.4.1" class="pilcrow">¶</a></p>
 <a href="#section-10.1" class="section-number selfRef">10.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
         </h3>
 <dl class="references">
+<dt id="I-D.dekater-scion-controlplane">[I-D.dekater-scion-controlplane]</dt>
+        <dd>
+<span class="refAuthor">de Kater, C.</span>, <span class="refAuthor">Rustignoli, N.</span>, and <span class="refAuthor">S. Hitz</span>, <span class="refTitle">"SCION Control Plane"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-dekater-scion-controlplane-07</span>, <time datetime="2024-12-24" class="refDate">24 December 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-dekater-scion-controlplane-07">https://datatracker.ietf.org/doc/html/draft-dekater-scion-controlplane-07</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.dekater-scion-dataplane">[I-D.dekater-scion-dataplane]</dt>
+        <dd>
+<span class="refAuthor">de Kater, C.</span>, <span class="refAuthor">Rustignoli, N.</span>, <span class="refAuthor">Hugly, J.</span>, and <span class="refAuthor">S. Hitz</span>, <span class="refTitle">"SCION Data Plane"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-dekater-scion-dataplane-04</span>, <time datetime="2024-12-24" class="refDate">24 December 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-dekater-scion-dataplane-04">https://datatracker.ietf.org/doc/html/draft-dekater-scion-dataplane-04</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.dekater-scion-pki">[I-D.dekater-scion-pki]</dt>
+        <dd>
+<span class="refAuthor">de Kater, C.</span>, <span class="refAuthor">Rustignoli, N.</span>, and <span class="refAuthor">S. Hitz</span>, <span class="refTitle">"SCION Control Plane PKI"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-dekater-scion-pki-08</span>, <time datetime="2024-12-30" class="refDate">30 December 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-dekater-scion-pki-08">https://datatracker.ietf.org/doc/html/draft-dekater-scion-pki-08</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="I-D.ietf-quic-multipath">[I-D.ietf-quic-multipath]</dt>
         <dd>
-<span class="refAuthor">Liu, Y.</span>, <span class="refAuthor">Ma, Y.</span>, <span class="refAuthor">De Coninck, Q.</span>, <span class="refAuthor">Bonaventure, O.</span>, <span class="refAuthor">Huitema, C.</span>, and <span class="refAuthor">M. Kühlewind</span>, <span class="refTitle">"Multipath Extension for QUIC"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-quic-multipath-10</span>, <time datetime="2024-07-08" class="refDate">8 July 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-quic-multipath-10">https://datatracker.ietf.org/doc/html/draft-ietf-quic-multipath-10</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="I-D.scion-cp">[I-D.scion-cp]</dt>
-        <dd>
-<span class="refAuthor">de Kater, C.</span>, <span class="refAuthor">Rustignoli, N.</span>, and <span class="refAuthor">S. Hitz</span>, <span class="refTitle">"SCION Control Plane"</span>, <time datetime="2023" class="refDate">2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/draft-dekater-scion-controlplane/">https://datatracker.ietf.org/doc/draft-dekater-scion-controlplane/</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="I-D.scion-cppki">[I-D.scion-cppki]</dt>
-        <dd>
-<span class="refAuthor">de Kater, C.</span>, <span class="refAuthor">Rustignoli, N.</span>, and <span class="refAuthor">S. Hitz</span>, <span class="refTitle">"SCION Control-Plane PKI"</span>, <time datetime="2023" class="refDate">2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/draft-dekater-scion-pki/">https://datatracker.ietf.org/doc/draft-dekater-scion-pki/</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="I-D.scion-dataplane">[I-D.scion-dataplane]</dt>
-        <dd>
-<span class="refAuthor">de Kater, C.</span>, <span class="refAuthor">Rustignoli, N.</span>, and <span class="refAuthor">S. Hitz</span>, <span class="refTitle">"SCION Data Plane"</span>, <time datetime="2023" class="refDate">2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/draft-dekater-scion-dataplane/">https://datatracker.ietf.org/doc/draft-dekater-scion-dataplane/</a>&gt;</span>. </dd>
+<span class="refAuthor">Liu, Y.</span>, <span class="refAuthor">Ma, Y.</span>, <span class="refAuthor">De Coninck, Q.</span>, <span class="refAuthor">Bonaventure, O.</span>, <span class="refAuthor">Huitema, C.</span>, and <span class="refAuthor">M. Kühlewind</span>, <span class="refTitle">"Multipath Extension for QUIC"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-quic-multipath-12</span>, <time datetime="2025-01-22" class="refDate">22 January 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-quic-multipath-12">https://datatracker.ietf.org/doc/html/draft-ietf-quic-multipath-12</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
         <dd>
@@ -1816,13 +1871,21 @@ are required anyway.<a href="#section-4.2.1-5.4.1" class="pilcrow">¶</a></p>
         <dd>
 <span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC8200">[RFC8200]</dt>
+        <dd>
+<span class="refAuthor">Deering, S.</span> and <span class="refAuthor">R. Hinden</span>, <span class="refTitle">"Internet Protocol, Version 6 (IPv6) Specification"</span>, <span class="seriesInfo">STD 86</span>, <span class="seriesInfo">RFC 8200</span>, <span class="seriesInfo">DOI 10.17487/RFC8200</span>, <time datetime="2017-07" class="refDate">July 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8200">https://www.rfc-editor.org/rfc/rfc8200</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC9000">[RFC9000]</dt>
         <dd>
 <span class="refAuthor">Iyengar, J., Ed.</span> and <span class="refAuthor">M. Thomson, Ed.</span>, <span class="refTitle">"QUIC: A UDP-Based Multiplexed and Secure Transport"</span>, <span class="seriesInfo">RFC 9000</span>, <span class="seriesInfo">DOI 10.17487/RFC9000</span>, <time datetime="2021-05" class="refDate">May 2021</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9000">https://www.rfc-editor.org/rfc/rfc9000</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9217">[RFC9217]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Trammell, B.</span>, <span class="refTitle">"Current Open Questions in Path-Aware Networking"</span>, <span class="seriesInfo">RFC 9217</span>, <span class="seriesInfo">DOI 10.17487/RFC9217</span>, <time datetime="2022-03" class="refDate">March 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9217">https://www.rfc-editor.org/rfc/rfc9217</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="TAPS">[TAPS]</dt>
+      <dd>
+<span class="refAuthor">IETF</span>, <span class="refTitle">"Transport Services Working Group"</span>, <time datetime="2024" class="refDate">2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/wg/taps">https://datatracker.ietf.org/wg/taps</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
@@ -1837,9 +1900,13 @@ are required anyway.<a href="#section-4.2.1-5.4.1" class="pilcrow">¶</a></p>
         <dd>
 <span class="refAuthor">Pauly, T.</span>, <span class="refAuthor">Schinazi, D.</span>, <span class="refAuthor">Jaju, N.</span>, and <span class="refAuthor">K. Ishibashi</span>, <span class="refTitle">"Happy Eyeballs Version 3: Better Connectivity Using Concurrency"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-pauly-v6ops-happy-eyeballs-v3-01</span>, <time datetime="2024-03-04" class="refDate">4 March 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-pauly-v6ops-happy-eyeballs-v3-01">https://datatracker.ietf.org/doc/html/draft-pauly-v6ops-happy-eyeballs-v3-01</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="I-D.garciapardo-drkey">[I-D.garciapardo-drkey]</dt>
+<dt id="I-D.garciapardo-panrg-drkey">[I-D.garciapardo-panrg-drkey]</dt>
         <dd>
-<span class="refAuthor">Pardo, J.</span>, <span class="refAuthor">Krähenbühl, C.</span>, <span class="refAuthor">Rothenberger, B.</span>, and <span class="refAuthor">A. Perrig</span>, <span class="refTitle">"Dynamically Recreatable Keys"</span>, <time datetime="2022" class="refDate">2022</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/draft-garciapardo-panrg-drkey/">https://datatracker.ietf.org/doc/draft-garciapardo-panrg-drkey/</a>&gt;</span>. </dd>
+<span class="refAuthor">de los Galanes, J. A.</span>, <span class="refAuthor">Krähenbühl, C.</span>, <span class="refAuthor">Rothenberger, B.</span>, and <span class="refAuthor">A. Perrig</span>, <span class="refTitle">"Dynamically Recreatable Keys"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-garciapardo-panrg-drkey-03</span>, <time datetime="2022-07-24" class="refDate">24 July 2022</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-garciapardo-panrg-drkey-03">https://datatracker.ietf.org/doc/html/draft-garciapardo-panrg-drkey-03</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.rustignoli-panrg-scion-components">[I-D.rustignoli-panrg-scion-components]</dt>
+        <dd>
+<span class="refAuthor">Rustignoli, N.</span> and <span class="refAuthor">C. de Kater</span>, <span class="refTitle">"SCION Components Analysis"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-rustignoli-panrg-scion-components-03</span>, <time datetime="2023-09-10" class="refDate">10 September 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-rustignoli-panrg-scion-components-03">https://datatracker.ietf.org/doc/html/draft-rustignoli-panrg-scion-components-03</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="KRAHENBUHL2023">[KRAHENBUHL2023]</dt>
         <dd>
@@ -1852,6 +1919,10 @@ are required anyway.<a href="#section-4.2.1-5.4.1" class="pilcrow">¶</a></p>
 <dt id="RFC9460">[RFC9460]</dt>
         <dd>
 <span class="refAuthor">Schwartz, B.</span>, <span class="refAuthor">Bishop, M.</span>, and <span class="refAuthor">E. Nygren</span>, <span class="refTitle">"Service Binding and Parameter Specification via the DNS (SVCB and HTTPS Resource Records)"</span>, <span class="seriesInfo">RFC 9460</span>, <span class="seriesInfo">DOI 10.17487/RFC9460</span>, <time datetime="2023-11" class="refDate">November 2023</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9460">https://www.rfc-editor.org/rfc/rfc9460</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="SCIONIPTRLN">[SCIONIPTRLN]</dt>
+        <dd>
+<span class="refAuthor">Schulz, L.</span>, <span class="refAuthor">Gallrein, F.</span>, and <span class="refAuthor">D. Hausheer</span>, <span class="refTitle">"Unlocking Path Awareness for Legacy Applications through SCION-IP Translation in eBPF"</span>, <span class="refContent">ACM</span>, <span class="seriesInfo">Proceedings of the SIGCOMM Workshop on eBPF and Kernel Extensions pp. 68-70</span>, <span class="seriesInfo">DOI 10.1145/3672197.3673437</span>, <time datetime="2024-08" class="refDate">August 2024</time>, <span>&lt;<a href="https://doi.org/10.1145/3672197.3673437">https://doi.org/10.1145/3672197.3673437</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="TABAEIAGHDAEI2023">[TABAEIAGHDAEI2023]</dt>
       <dd>
@@ -1867,7 +1938,7 @@ are required anyway.<a href="#section-4.2.1-5.4.1" class="pilcrow">¶</a></p>
       <h2 id="name-acknowledgments">
 <a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
       </h2>
-<p id="appendix-A-1">TODO acknowledge.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+<p id="appendix-A-1">Many thanks go to Matthias Frei (SCION Association), Seyedali Tabaeiaghdaei (ETH Zurich) for reviewing and contributing to this document.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authors-addresses">
