@@ -5,11 +5,11 @@
 PANRG                                                         K. Meynell
 Internet-Draft                                         SCION Association
 Intended status: Informational                           J. García Pardo
-Expires: 25 January 2025                                      T. Zäschke
+Expires: 8 August 2025                                        T. Zäschke
                                                               ETH Zürich
                                                            N. Rustignoli
                                                        SCION Association
-                                                            24 July 2024
+                                                         4 February 2025
 
 
                         SCION Research Questions
@@ -60,11 +60,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 25 January 2025.
+   This Internet-Draft will expire on 8 August 2025.
 
 Copyright Notice
 
-   Copyright (c) 2024 IETF Trust and the persons identified as the
+   Copyright (c) 2025 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -257,8 +257,8 @@ Table of Contents
    There are multiple possible and independent solution steps here:
 
    *  Predefine some policies that can be resolved by the control plane,
-      e.g.  ANY, BEST_LATENCY, BEST_BANDWIDTH, BEST_PRICE, BEST_CO2.
-      For these, the control plane could simply calculate 5-10 compliant
+      e.g. ANY, BEST_LATENCY, BEST_BANDWIDTH, BEST_PRICE, BEST_CO2.  For
+      these, the control plane could simply calculate 5-10 compliant
       paths and return these.  Moreover these could be cached for
       commonly requested remote ASes.  If a user requires a custom
       policy they can still resort to requesting actual segments.
@@ -543,7 +543,7 @@ Table of Contents
 
    *  Could a future evolution of the SCION specification better reuse
       existing technologies?  Referring to the possibility of slightly
-      changing an existing technology (e.g.  IPv6) to be used as part of
+      changing an existing technology (e.g. IPv6) to be used as part of
       SCION, replacing part of the ad-hoc specification that we have for
       SCION.
 
@@ -595,30 +595,30 @@ Table of Contents
    [I-D.dekater-scion-controlplane]
               de Kater, C., Rustignoli, N., and S. Hitz, "SCION Control
               Plane", Work in Progress, Internet-Draft, draft-dekater-
-              scion-controlplane-05, 21 July 2024,
+              scion-controlplane-07, 24 December 2024,
               <https://datatracker.ietf.org/doc/html/draft-dekater-
-              scion-controlplane-05>.
+              scion-controlplane-07>.
 
    [I-D.dekater-scion-dataplane]
-              de Kater, C., Rustignoli, N., and S. Hitz, "SCION Data
-              Plane", Work in Progress, Internet-Draft, draft-dekater-
-              scion-dataplane-02, 8 July 2024,
+              de Kater, C., Rustignoli, N., Hugly, J., and S. Hitz,
+              "SCION Data Plane", Work in Progress, Internet-Draft,
+              draft-dekater-scion-dataplane-04, 24 December 2024,
               <https://datatracker.ietf.org/doc/html/draft-dekater-
-              scion-dataplane-02>.
+              scion-dataplane-04>.
 
    [I-D.dekater-scion-pki]
-              de Kater, C., Rustignoli, N., and S. Hitz, "SCION Control-
+              de Kater, C., Rustignoli, N., and S. Hitz, "SCION Control
               Plane PKI", Work in Progress, Internet-Draft, draft-
-              dekater-scion-pki-06, 8 July 2024,
+              dekater-scion-pki-08, 30 December 2024,
               <https://datatracker.ietf.org/doc/html/draft-dekater-
-              scion-pki-06>.
+              scion-pki-08>.
 
    [I-D.ietf-quic-multipath]
               Liu, Y., Ma, Y., De Coninck, Q., Bonaventure, O., Huitema,
               C., and M. Kühlewind, "Multipath Extension for QUIC", Work
-              in Progress, Internet-Draft, draft-ietf-quic-multipath-10,
-              8 July 2024, <https://datatracker.ietf.org/doc/html/draft-
-              ietf-quic-multipath-10>.
+              in Progress, Internet-Draft, draft-ietf-quic-multipath-12,
+              22 January 2025, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-quic-multipath-12>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -693,7 +693,7 @@ Table of Contents
               Schulz, L., Gallrein, F., and D. Hausheer, "Unlocking Path
               Awareness for Legacy Applications through SCION-IP
               Translation in eBPF", ACM, Proceedings of the SIGCOMM
-              Workshop on eBPF and Kernel Extensions,
+              Workshop on eBPF and Kernel Extensions pp. 68-70,
               DOI 10.1145/3672197.3673437, August 2024,
               <https://doi.org/10.1145/3672197.3673437>.
 
