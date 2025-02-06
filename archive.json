@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-01-30T00:21:27.702860+00:00",
+  "timestamp": "2025-02-06T00:22:22.271303+00:00",
   "repo": "scionassociation/scion-research_I-D",
   "labels": [
     {
@@ -3057,6 +3057,34 @@
           ]
         }
       ]
+    },
+    {
+      "number": 32,
+      "id": "PR_kwDOMRYres6J9Jsw",
+      "title": "Update actions",
+      "url": "https://github.com/scionassociation/scion-research_I-D/pull/32",
+      "state": "MERGED",
+      "author": "nicorusti",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-02-04T08:40:19Z",
+      "updatedAt": "2025-02-04T08:40:30Z",
+      "baseRepository": "scionassociation/scion-research_I-D",
+      "baseRefName": "main",
+      "baseRefOid": "6320dfdb7c28db80018c12f3efa91838632fe26f",
+      "headRepository": "scionassociation/scion-research_I-D",
+      "headRefName": "update-actions",
+      "headRefOid": "32e438d476a7d9b410ea6e2ba7eec3f10330cdce",
+      "closedAt": "2025-02-04T08:40:27Z",
+      "mergedAt": "2025-02-04T08:40:27Z",
+      "mergedBy": "nicorusti",
+      "mergeCommit": {
+        "oid": "e546732a09c02a699af3dc75fd3f8478f422ea90"
+      },
+      "comments": [],
+      "reviews": []
     }
   ]
 }
